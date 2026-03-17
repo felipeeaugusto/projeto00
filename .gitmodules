@@ -1,0 +1,3 @@
+[submodule "packages/landing-page-dr-julia"]
+	path = packages/landing-page-dr-julia
+	url = https://github.com/felipeeaugusto/Projeto-O-Poder-Da-Rotina.git
