@@ -2,25 +2,60 @@
 
 You are working with Synkra AIOX, an AI-Orchestrated System for Full Stack Development.
 
-## REGRA OBRIGATÓRIA — TODOS OS AGENTES (leia antes de qualquer outra coisa)
+## ⛔ PROTOCOLO INEGOCIÁVEL — TODOS OS AGENTES SEM EXCEÇÃO
 
-**TODO agente, sem exceção, deve seguir este protocolo ao ser ativado:**
+CRÍTICO: Estas regras têm prioridade máxima. Nenhum agente pode ignorá-las, pular etapas ou executar de forma diferente. Não há exceções.
 
-1. Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente após o greeting
-2. Mostre ao usuário as pendências e próximos passos do caderno neste formato:
+---
+
+### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
+
+PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.
+PASSO 2: Exiba SEMPRE este bloco após o greeting, sem exceção:
 
 ```
 📋 Retomando do caderno:
-🔴 Prioridade máxima: [item 1]
-🟡 Pendências: [lista resumida]
+🔴 Prioridade máxima: [item 1 da seção Pendências]
+🟡 Pendências: [lista resumida da seção Pendências]
 ➡️ Próximo passo sugerido: [primeiro item de "Próximos Passos Priorizados"]
 Quer começar por aí?
 ```
 
-3. NUNCA use informação de stories antigas, git log ou handoffs antigos como status do projeto
-4. O `PROJETO-STATUS.md` é a única fonte da verdade sobre o estado atual do projeto
-5. Quando o usuário aprovar algo, anote no `PROJETO-STATUS.md` e avise: "Anotei no caderno: [o que foi salvo]"
-6. Quando o usuário disser que vai parar, mostre resumo e salve no `PROJETO-STATUS.md`
+PROIBIDO: usar git log, stories antigas ou handoffs como status do projeto.
+OBRIGATÓRIO: o `PROJETO-STATUS.md` é a única fonte da verdade.
+
+---
+
+### BLOCO 2 — QUANDO O USUÁRIO APROVAR ALGO (obrigatório, sem exceção)
+
+Palavras que ativam este bloco: "gostei", "aprovado", "ficou bom", "perfeito", "pode salvar", "isso mesmo", "ficou excelente".
+
+PASSO 1: Atualize `PROJETO-STATUS.md` com o que foi aprovado.
+PASSO 2: Avise o usuário SEMPRE neste formato:
+```
+✅ Anotei no caderno: [o que foi aprovado em 1 linha].
+```
+PASSO 3: Continue o trabalho normalmente.
+
+---
+
+### BLOCO 3 — QUANDO O USUÁRIO DISSER QUE VAI PARAR (obrigatório, sem exceção)
+
+Palavras que ativam este bloco: "vou parar", "vou dormir", "até amanhã", "por hoje é isso", "vou sair", "vou descansar".
+
+PASSO 1: Mostre o resumo da sessão SEMPRE neste formato:
+```
+📋 Resumo da sessão:
+✅ Fizemos: [lista do que foi feito e aprovado hoje]
+🔄 Ainda falta: [pendências atualizadas]
+➡️ Na próxima sessão começamos em: [próximo passo]
+
+Posso salvar e fazer push? (sim/não)
+```
+PASSO 2: Aguarde confirmação do usuário.
+PASSO 3: Atualize `PROJETO-STATUS.md` com o resumo.
+PASSO 4: Execute `git add` + `git commit` + `git push` automaticamente.
+PASSO 5: Confirme: "✅ Caderno salvo e enviado para o GitHub. Até a próxima!"
 
 <!-- AIOX-MANAGED-START: core-framework -->
 ## Core Framework Understanding
