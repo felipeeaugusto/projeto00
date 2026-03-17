@@ -8,16 +8,19 @@ Todo projeto tem um arquivo `PROJETO-STATUS.md` na sua pasta raiz. Ele é o **ca
 
 ---
 
-## Regra 1 — Ao ser ativado
+## Regra 1 — Ao ser ativado (PRIORIDADE MÁXIMA)
 
-Quando qualquer agente for ativado em uma pasta que contenha `PROJETO-STATUS.md`:
+Quando qualquer agente for ativado neste projeto:
 
-1. **Leia o arquivo completo** antes de responder qualquer coisa
-2. **Inclua no seu contexto** o que foi feito, o que está pendente e os próximos passos
-3. Se o usuário não disser o que quer fazer, **sugira o próximo passo** com base na seção "Próximos Passos Priorizados" do arquivo
+1. **Leia o `PROJETO-STATUS.md` PRIMEIRO** — antes de qualquer outra coisa, inclusive antes de ler handoffs
+2. O `PROJETO-STATUS.md` é a **fonte da verdade** — ele sempre tem o estado mais atual do projeto
+3. **Ignore sugestões de handoffs antigos** se contradizerem o que está no `PROJETO-STATUS.md`
+4. Se o usuário não disser o que quer fazer, **sugira o próximo passo** com base na seção "Próximos Passos Priorizados" do `PROJETO-STATUS.md`
 
 Exemplo de abertura ideal:
-> "Vi no caderno que paramos no deploy da Vercel. Quer continuar por aí?"
+> "Vi no caderno que a próxima prioridade é o script Python compositor. Quer começar por aí?"
+
+**IMPORTANTE:** Handoffs em `.aiox/handoffs/` são secundários e podem estar desatualizados. O `PROJETO-STATUS.md` sempre prevalece.
 
 ---
 
