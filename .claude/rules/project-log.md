@@ -36,31 +36,53 @@ Quer começar por aí?
 
 Quando o usuário usar palavras como: *"gostei", "ficou bom", "ficou excelente", "aprovado", "pode salvar", "perfeito", "isso mesmo"* — ou qualquer indicação clara de aprovação:
 
-1. **Notifique imediatamente** o que vai ser salvo:
-   > "Anotei no caderno: [descreva em 1 linha o que foi aprovado]. Posso continuar?"
+1. **ANTES de salvar qualquer coisa**, pergunte obrigatoriamente:
+   > "Posso salvar no caderno: [descreva em 1 linha o que foi aprovado]?"
 
-2. **Atualize o `PROJETO-STATUS.md`:**
+2. **AGUARDE a confirmação do usuário** — PROIBIDO salvar sem resposta afirmativa.
+
+3. **Somente após confirmação**, atualize o `PROJETO-STATUS.md`:
    - Adicione o item em "✅ O que Já Foi Feito"
    - Remova de "🔄 Pendências" se aplicável
    - Atualize "➡️ Próximos Passos" se necessário
    - Registre a decisão em "💡 Decisões Importantes" se for relevante
 
-3. **Não salve sem avisar** o usuário — ele sempre deve saber o que foi anotado
+4. Confirme ao usuário: "✅ Anotei no caderno: [o que foi salvo]."
+
+**NUNCA salve no caderno sem antes perguntar e receber confirmação.**
 
 ---
 
 ## Regra 3 — Quando o usuário disser que vai parar
 
-Quando o usuário disser: *"vou parar", "vou dormir", "por hoje é isso", "até amanhã", "vou sair"* — ou similar:
+Quando o usuário disser: *"vou parar", "vou dormir", "por hoje é isso", "até amanhã", "vou sair", "vou descansar"* — ou similar:
 
-1. **Mostre o resumo da sessão:**
-   > "Hoje fizemos: [lista do que foi feito]. Ainda falta: [pendências]. Posso salvar assim no caderno?"
+1. **Mostre o resumo da sessão** neste formato:
+   ```
+   📋 Resumo da sessão:
+   ✅ Fizemos: [lista do que foi feito e aprovado hoje]
+   🔄 Ainda falta: [pendências atualizadas]
+   ➡️ Na próxima sessão começamos em: [próximo passo]
 
-2. **Aguarde confirmação** do usuário
+   Posso salvar e fazer push? (sim/não)
+   ```
 
-3. **Atualize o `PROJETO-STATUS.md`:**
+2. **AGUARDE confirmação** do usuário — não salve nem faça push sem resposta.
+
+3. **Somente após confirmação**, atualize o `PROJETO-STATUS.md`:
    - Adicione nova entrada em "🗓️ Histórico de Sessões" com data, o que foi feito e onde parou
    - Atualize todas as seções relevantes
+
+4. **Execute obrigatoriamente:**
+   ```
+   git add packages/landing-page-dr-julia/PROJETO-STATUS.md
+   git commit -m "chore: atualizar caderno do projeto - sessão YYYY-MM-DD"
+   git push
+   ```
+
+5. Confirme ao usuário: "✅ Caderno salvo e enviado para o GitHub. Até a próxima!"
+
+**Por que o git push é obrigatório:** Felipe trabalha em 2 PCs. Sem o push, o caderno não sincroniza e o outro PC fica desatualizado — causando perda de informação e retrabalho.
 
 ---
 

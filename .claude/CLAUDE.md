@@ -30,12 +30,14 @@ OBRIGATÓRIO: o `PROJETO-STATUS.md` é a única fonte da verdade.
 
 Palavras que ativam este bloco: "gostei", "aprovado", "ficou bom", "perfeito", "pode salvar", "isso mesmo", "ficou excelente".
 
-PASSO 1: Atualize `PROJETO-STATUS.md` com o que foi aprovado.
-PASSO 2: Avise o usuário SEMPRE neste formato:
+PASSO 1: ANTES de salvar, pergunte obrigatoriamente:
 ```
-✅ Anotei no caderno: [o que foi aprovado em 1 linha].
+Posso salvar no caderno: [o que foi aprovado em 1 linha]?
 ```
-PASSO 3: Continue o trabalho normalmente.
+PASSO 2: AGUARDE confirmação do usuário. PROIBIDO salvar sem resposta afirmativa.
+PASSO 3: Somente após confirmação, atualize `PROJETO-STATUS.md`.
+PASSO 4: Confirme: "✅ Anotei no caderno: [o que foi salvo]."
+PASSO 5: Continue o trabalho normalmente.
 
 ---
 
