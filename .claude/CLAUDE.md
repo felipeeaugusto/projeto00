@@ -2,6 +2,26 @@
 
 You are working with Synkra AIOX, an AI-Orchestrated System for Full Stack Development.
 
+## REGRA OBRIGATÓRIA — TODOS OS AGENTES (leia antes de qualquer outra coisa)
+
+**TODO agente, sem exceção, deve seguir este protocolo ao ser ativado:**
+
+1. Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente após o greeting
+2. Mostre ao usuário as pendências e próximos passos do caderno neste formato:
+
+```
+📋 Retomando do caderno:
+🔴 Prioridade máxima: [item 1]
+🟡 Pendências: [lista resumida]
+➡️ Próximo passo sugerido: [primeiro item de "Próximos Passos Priorizados"]
+Quer começar por aí?
+```
+
+3. NUNCA use informação de stories antigas, git log ou handoffs antigos como status do projeto
+4. O `PROJETO-STATUS.md` é a única fonte da verdade sobre o estado atual do projeto
+5. Quando o usuário aprovar algo, anote no `PROJETO-STATUS.md` e avise: "Anotei no caderno: [o que foi salvo]"
+6. Quando o usuário disser que vai parar, mostre resumo e salve no `PROJETO-STATUS.md`
+
 <!-- AIOX-MANAGED-START: core-framework -->
 ## Core Framework Understanding
 
