@@ -1,0 +1,126 @@
+consumed: false
+from_agent: dev
+to_agent: dev
+timestamp: "2026-03-16"
+session_summary: "Landing Page Dra. Julia Resende — sessão de implementação e ajustes"
+
+# ============================================================
+# PROJETO
+# ============================================================
+project:
+  name: "Landing Page O Poder da Rotina — Dra. Julia Resende"
+  path: "packages/landing-page-dr-julia"
+  stack: "HTML + CSS + JS puro, GSAP 3.12.2 + ScrollTrigger via CDN"
+  pagamento: "Eduzz"
+
+# ============================================================
+# ARQUIVOS DO PROJETO (todos salvos em disco)
+# ============================================================
+files:
+  - path: "packages/landing-page-dr-julia/index.html"
+    status: criado_e_revisado
+  - path: "packages/landing-page-dr-julia/css/style.css"
+    status: criado_e_revisado
+  - path: "packages/landing-page-dr-julia/js/main.js"
+    status: criado_e_revisado
+  - path: "packages/landing-page-dr-julia/js/config.js"
+    status: criado
+  - path: "packages/landing-page-dr-julia/assets/images/dr-julia-oficial.jpeg"
+    status: copiado
+  - path: "packages/landing-page-dr-julia/assets/images/05.png"
+    status: copiado_ebook_mockup
+  - path: "packages/landing-page-dr-julia/assets/fonts/Poppins-Bold.ttf"
+    status: copiado
+  - path: "packages/landing-page-dr-julia/assets/fonts/Poppins-SemiBold.ttf"
+    status: copiado
+  - path: "packages/landing-page-dr-julia/assets/fonts/Poppins-Regular.ttf"
+    status: copiado
+  - path: "assets/content/copy-lp.md"
+    status: criado_aprovado_por_felipe
+
+# ============================================================
+# BUGS CONFIRMADOS PELO FELIPE (NÃO APARECERAM NO BROWSER)
+# ============================================================
+bugs_pendentes:
+  - id: BUG-01
+    secao: "Seção 'Você se reconhece' (dor)"
+    problema: "Felipe diz que itens com linha separadora simples não aparecem — possível cache de browser ou seletor CSS errado"
+    acao_necessaria: "Verificar seletores CSS .dor__item no style.css; Hard refresh no browser (Ctrl+Shift+R); Inspecionar elemento no DevTools"
+
+  - id: BUG-02
+    secao: "Seção Garantia"
+    problema: "Ícone do selo não aparece — Felipe vê só texto, sem o selo visual"
+    acao_necessaria: "Verificar HTML da .garantia__selo; Verificar CSS clip-path e conic-gradient; Testar no Chrome DevTools"
+
+  - id: BUG-03
+    secao: "Hero"
+    problema: "Felipe diz que nada mudou no hero — possível cache"
+    acao_necessaria: "Hard refresh (Ctrl+Shift+R) ou abrir em aba anônima; Verificar se as mudanças de CSS foram salvas corretamente"
+
+# ============================================================
+# DECISÃO PENDENTE DE APROVAÇÃO DO FELIPE
+# ============================================================
+decisao_pendente:
+  - id: DEC-01
+    assunto: "Hero section — foto da Dra. Julia"
+    contexto: "Felipe quer Julia 'segurando' o ebook com fundo branco, mas só existe a foto com background do consultório"
+    proposta_dev: "Sobrepor a imagem 05.png (mockup ebook) por cima da foto dela usando CSS position:absolute, simulando que ela segura o livro"
+    status: "aguardando_confirmacao_do_felipe"
+    acao_amanha: "Perguntar a Felipe: confirma que quer a sobreposição CSS? Ou prefere outra abordagem?"
+
+# ============================================================
+# O QUE JÁ ESTÁ FUNCIONANDO (aprovado pelo Felipe)
+# ============================================================
+funcionando_ok:
+  - "Animação do e-book (rotação 720° + flutua)"
+  - "FAQ accordion com GSAP"
+  - "Countdown timer com sessionStorage"
+  - "Botão WhatsApp flutuante após 300px scroll"
+  - "Contagem animada de números (0 → valor)"
+  - "Seção depoimentos com ★ (sem emoji)"
+  - "Cards produtos: combo maior + badge MAIS ESCOLHIDO"
+  - "Hover verde nos botões CTA"
+  - "Hover verde nos links do footer"
+  - "Botão QUERO O EBOOK POR R$10 fica verde no hover"
+
+# ============================================================
+# FEEDBACKS DO FELIPE (para não repetir erros)
+# ============================================================
+feedbacks_registrados:
+  - "NUNCA usar emoji em LP — substituir sempre por CSS (números, estrelas de texto ★, dots)"
+  - "Nomes verificados em imagens e checkboxes verdes no CSS = proibido"
+  - "O nome do usuário é FELIPE — nunca chamar de João Paulo (João Paulo é o patrão dele)"
+  - "Hero: imagem da Dra. Julia não pode ficar grudada em texto"
+  - "Qualidade exigida: nível profissional. Sem layouts quebrados, sem desalinhamentos"
+  - "Não usar emojis em NENHUMA seção da LP"
+
+# ============================================================
+# PRÓXIMOS PASSOS (amanhã)
+# ============================================================
+proximos_passos:
+  1: "Hard refresh no browser ou abrir em aba anônima para eliminar cache"
+  2: "Debugar BUG-01 (dor section CSS) — verificar seletores"
+  3: "Debugar BUG-02 (garantia selo) — verificar clip-path / conic-gradient no Chrome"
+  4: "Confirmar com Felipe a decisão DEC-01 (hero — sobreposição ebook)"
+  5: "Implementar hero redesign após aprovação"
+  6: "Story 1.4: integração Eduzz + deploy Vercel (última story)"
+
+# ============================================================
+# CONTEXTO DAS STORIES
+# ============================================================
+stories:
+  - id: "1.0"
+    status: "Ready for Review"
+    descricao: "Conteúdo & Copy — COMPLETO"
+  - id: "1.1"
+    status: "In Progress (browser test pendente)"
+    descricao: "HTML estrutura — COMPLETO exceto teste de breakpoints"
+  - id: "1.2"
+    status: "In Progress (browser test pendente)"
+    descricao: "CSS design system — COMPLETO exceto teste de breakpoints e WebP"
+  - id: "1.3"
+    status: "In Progress (console test pendente)"
+    descricao: "JavaScript + GSAP — COMPLETO exceto teste zero erros console"
+  - id: "1.4"
+    status: "Não iniciada"
+    descricao: "Integração Eduzz + Deploy Vercel"

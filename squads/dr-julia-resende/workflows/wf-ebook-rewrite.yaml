@@ -1,0 +1,73 @@
+# ============================================================
+# WORKFLOW — Ebook Rewrite (Minimal)
+# Dr. Julia Resende Squad
+# ============================================================
+
+workflow:
+  name: "wf-ebook-rewrite"
+  description: "Reescrita mínima do ebook — prefácio + 7 aplicações de parentalidade"
+  phases: 3
+  trigger: "Executar uma vez antes de iniciar o ciclo de conteúdo"
+  one_time: true
+
+# ──────────────────────────────────────────────────────────────
+# PHASE 1 — GENERATE (ebook-agent)
+# ──────────────────────────────────────────────────────────────
+
+phase_1_generate:
+  agent: "ebook-agent"
+  description: "Gerar prefácio e aplicações"
+  inputs:
+    - "Ebook original: C:\\Users\\felip\\Documents\\ebook em texto.txt"
+    - "DS.yaml → copy_system (voice DNA, niche_vocabulary, validation_formula)"
+    - "DS.yaml → ebook_to_content_mapping"
+    - "DS.yaml → bridge_phrase"
+  outputs:
+    - "prefacio: texto de 1 página (máx 300 palavras)"
+    - "aplicacoes: 7 blocos de 1-3 frases (caps 1, 3, 5, 6, 9, 10, 12)"
+  checkpoint:
+    verify:
+      - "Prefácio usa bridge phrase?"
+      - "Prefácio fala diretamente com a mãe?"
+      - "Aplicações usam vocabulário do nicho?"
+      - "Tom segue validation_formula?"
+      - "Conteúdo original NÃO foi modificado?"
+    veto: "Qualquer modificação ao texto original → VETO"
+
+# ──────────────────────────────────────────────────────────────
+# PHASE 2 — APPROVAL (approval-agent)
+# ──────────────────────────────────────────────────────────────
+
+phase_2_approval:
+  agent: "approval-agent"
+  description: "Apresentar reescrita ao usuário"
+  inputs:
+    - "Prefácio gerado"
+    - "7 aplicações geradas"
+    - "Contexto: onde cada bloco será inserido"
+  outputs:
+    - "decision: APROVAR | REJEITAR | REVISAR"
+  actions:
+    APROVAR: "Prosseguir para Phase 3"
+    REJEITAR: "Voltar para Phase 1 com novo briefing"
+    REVISAR: "Coletar feedback e voltar para Phase 1 com ajustes"
+
+# ──────────────────────────────────────────────────────────────
+# PHASE 3 — ASSEMBLE (ebook-agent)
+# ──────────────────────────────────────────────────────────────
+
+phase_3_assemble:
+  agent: "ebook-agent"
+  description: "Montar ebook final com adições aprovadas"
+  inputs:
+    - "Ebook original"
+    - "Prefácio aprovado"
+    - "Aplicações aprovadas"
+  outputs:
+    - "ebook_v2.txt — arquivo final com todas as adições"
+  checkpoint:
+    verify:
+      - "Prefácio antes da Introdução?"
+      - "Aplicações no final dos capítulos corretos?"
+      - "Texto original 100% intacto?"
+    completion: "Ebook pronto para uso no funil de vendas"

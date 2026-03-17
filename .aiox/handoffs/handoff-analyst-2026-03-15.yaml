@@ -1,0 +1,172 @@
+handoff:
+  from_agent: "analyst (Atlas)"
+  to_agent: "{next}"
+  timestamp: "2026-03-15T23:59:00Z"
+  consumed: false
+  project: "dr-julia-resende"
+
+  session_summary: |
+    Sessão de continuação do projeto Dra. Julia Resende.
+    Foram concluídas 3 pendências do handoff v6:
+    (1) DS.yaml atualizado para v2.0 com 10 novos formatos + sistema compositor Python
+    (2) Logo Facebook 800×800px criado e aprovado
+    (3) Capa Facebook 1702×630px criada e aprovada
+    Na parte final da sessão, foram explicados:
+    - Conceito de wave (execução paralela de stories independentes)
+    - Análise dos sites de referência para a Landing Page
+    - Processo completo da LP (PRD → Stories → Wave Development → Deploy Vercel)
+
+  # =========================================================
+  # ESTADO ATUAL DO PROJETO
+  # =========================================================
+  current_state:
+    ds_yaml:
+      path: "C:/Users/felip/Documents/DR-JULIA-RESENDE-DS.yaml"
+      version: "2.0"
+      what_was_added:
+        - "python_compositor — sistema de geração de imagens com fundo por código + DALL-E apenas para elementos artísticos"
+        - "formats_extended — formato_06 ao formato_15 (10 novos formatos)"
+        - "formats_map — mapa de todos os 15 formatos"
+        - "facebook_profile — spec da foto de perfil (800x800, fundo verde, marca branca)"
+        - "facebook_cover — spec da capa Facebook (1702x630, verde + ebook + tagline)"
+        - "handoff_current: v6"
+
+    assets_finalizados:
+      logo_facebook:
+        path: "C:/Users/felip/Pictures/Camera Roll/logo-facebook-drjuliaresende.png"
+        spec: "800x800px, fundo #03bb85, marca branca 68% do canvas, bounding-box automático"
+        status: "APROVADO"
+      capa_facebook:
+        path: "C:/Users/felip/Pictures/Camera Roll/capa-facebook-drjuliaresende.png"
+        spec: "1702x630px (2x), verde, ebook05.png diagonal à direita (W*0.80), tagline + logo + @drjuliaresende"
+        status: "APROVADO"
+      logo_original:
+        path: "C:/Users/felip/Pictures/Camera Roll/01.png"
+        descricao: "Hug mark branca sobre fundo verde — logo master aprovada"
+      ebook_mockup:
+        path: "C:/Users/felip/Pictures/Camera Roll/05.png"
+        descricao: "Ebook 3D com fundo transparente"
+
+    fontes_instaladas:
+      - "C:/Users/felip/projeto00/assets/fonts/Poppins-Bold.ttf"
+      - "C:/Users/felip/projeto00/assets/fonts/Poppins-SemiBold.ttf"
+      - "C:/Users/felip/projeto00/assets/fonts/Poppins-Regular.ttf"
+      - "C:/Users/felip/AppData/Local/Microsoft/Windows/Fonts/Poppins-Bold.ttf (instalada no perfil Windows)"
+
+  # =========================================================
+  # PRÓXIMAS PENDÊNCIAS (EM ORDEM)
+  # =========================================================
+  pending_tasks:
+    - id: 1
+      title: "Landing Page — PRD"
+      agent: "@pm (Morgan)"
+      command: "*create-doc com template PRD"
+      details: |
+        Criar PRD completo da Landing Page do ebook "O Poder da Rotina".
+        Produto: ebook R$27, plataforma Eduzz (link pendente com o patrão de João Paulo).
+        Referências visuais já analisadas:
+          - aiox.academialendaria.ai/advanced: estrutura piramidal, depoimentos com fotos, timeline
+          - cdrgroup.com.br: números animados, metodologia 3 passos, FAQ antes do CTA
+        Adaptação: fundo branco/verde claro (NÃO dark mode — público mães prefere acolhedor)
+        Stack aprovada: HTML + CSS + JS puro, GSAP + ScrollTrigger, Vercel deploy
+        ATENÇÃO: Link Eduzz ainda não disponível. PRD pode ser criado sem ele.
+                 O botão CTA terá href="#" temporariamente, substituído quando patrão enviar link.
+      blocker: "Link Eduzz — João Paulo precisa pegar com o patrão"
+
+    - id: 2
+      title: "Landing Page — Stories (@sm)"
+      agent: "@sm (River)"
+      command: "*create-story para cada story da LP"
+      details: |
+        Stories sugeridas (wave plan):
+          Wave 1 (paralelo):
+            - Story 1.1: Estrutura HTML + Seções
+            - Story 1.2: CSS + Design System + Responsividade
+          Wave 2 (após wave 1):
+            - Story 1.3: JavaScript + GSAP Animations + ScrollTrigger
+          Wave 3 (após wave 2):
+            - Story 1.4: Integração Eduzz + Deploy Vercel
+        Ferramenta: wave-parallel-develop.md (já existe em .aios-core)
+      depends_on: "PRD aprovado (tarefa 1)"
+
+    - id: 3
+      title: "Landing Page — Desenvolvimento (@dev)"
+      agent: "@dev (Dex)"
+      command: "*develop story por story seguindo wave plan"
+      details: |
+        Wave 1: Stories 1.1 + 1.2 em paralelo (foreground, single message, dois Agent calls)
+        Wave 2: Story 1.3 em background (run_in_background=true)
+        Wave 3: Story 1.4 após aprovação das anteriores
+        Deploy final: Vercel via CLI ou drag-and-drop
+      depends_on: "Stories validadas pelo @po (tarefa 2)"
+
+    - id: 4
+      title: "Sistema Compositor Python"
+      agent: "@dev (Dex)"
+      details: |
+        Criar script Python que gera fundos de imagem por código
+        e sobrepõe elementos DALL-E para garantir fidelidade de cor (#03bb85).
+        Especificações no DS.yaml → python_compositor.
+        Usar squad-creator-pro quando precisar criar agente compositor.
+      priority: "baixa — pode aguardar após LP"
+
+  # =========================================================
+  # DECISÕES TOMADAS NESSA SESSÃO
+  # =========================================================
+  decisions:
+    - "DS.yaml é a fonte da verdade da marca — sem necessidade de brandbook separado"
+    - "Logo Facebook: 800x800px com apenas a hug mark (sem texto) — texto cortava no círculo do FB"
+    - "Capa Facebook: escala 2x (1702x630) para qualidade; ebook posicionado em W*0.80"
+    - "LP: HTML+CSS+JS puro sem frameworks complexos (performance + controle de animações GSAP)"
+    - "LP: fundo claro (não dark mode) — mais acolhedor para o público de mães"
+    - "Animações LP: NÃO começam automaticamente ao entrar — ativadas por scroll (ScrollTrigger)"
+    - "squad-creator-pro: usar quando @dev precisar criar o agente compositor Python"
+    - "Link Eduzz: CTA com href temporário '#' até João Paulo receber do patrão"
+
+  # =========================================================
+  # ARQUIVOS CRIADOS/MODIFICADOS NESSA SESSÃO
+  # =========================================================
+  files_created:
+    - "C:/Users/felip/Pictures/Camera Roll/logo-facebook-drjuliaresende.png"
+    - "C:/Users/felip/Pictures/Camera Roll/capa-facebook-drjuliaresende.png"
+    - "C:/Users/felip/projeto00/assets/fonts/Poppins-Bold.ttf"
+    - "C:/Users/felip/projeto00/assets/fonts/Poppins-SemiBold.ttf"
+    - "C:/Users/felip/projeto00/assets/fonts/Poppins-Regular.ttf"
+    - "C:/Users/felip/.claude/projects/C--Users-felip-projeto00/memory/feedback_playwright_browser.md"
+    - "C:/Users/felip/.claude/projects/C--Users-felip-projeto00/memory/MEMORY.md"
+
+  files_modified:
+    - "C:/Users/felip/Documents/DR-JULIA-RESENDE-DS.yaml — atualizado v1.0 → v2.0"
+
+  # =========================================================
+  # CONTEXTO DO PROJETO (PARA RETOMAR SEM PERGUNTAS)
+  # =========================================================
+  project_context:
+    cliente: "João Paulo R. Costa"
+    persona_ia: "Dra. Julia Resende — psicologia infantil + parentalidade"
+    produto: "Ebook 'O Poder da Rotina' — R$27"
+    plataforma_venda: "Eduzz (link pendente)"
+    canal_principal: "Instagram + Facebook (@drjuliaresende)"
+    cor_principal: "#03bb85 (verde)"
+    fonte: "Poppins"
+    squad_existente: "julia-chief (criado via squad-creator-premium na sessão anterior)"
+    estado_facebook: "Logo + Capa aprovados e prontos para upload"
+    proxima_entrega: "Landing Page do ebook"
+
+  # =========================================================
+  # LIÇÕES / FEEDBACK REGISTRADO
+  # =========================================================
+  lessons:
+    - "Playwright/browser: sempre fechar o browser ao final e confirmar no terminal. Feedback salvo em memory/feedback_playwright_browser.md"
+    - "Facebook profile picture: tamanho mínimo 180px (testado com 170px — rejeitado). Usar 800x800px"
+    - "Facebook cover: upload em 1702x630 (2x) para boa qualidade. 851x315 fica pixelado"
+    - "canvas registerFont Windows: instalar TTF em AppData/Local/Microsoft/Windows/Fonts via PowerShell antes de registrar"
+    - "Ajustes iterativos de posicionamento: calcular ponto médio matematicamente em vez de iterar com o usuário"
+
+  next_action: |
+    João Paulo vai retomar amanhã.
+    Primeira ação: acionar @pm (Morgan) para criar o PRD da Landing Page.
+    Comando sugerido: /AIOX:agents:pm
+    Depois: *create-doc (PRD da Landing Page ebook "O Poder da Rotina")
+
+    Enquanto isso, João Paulo deve verificar com o patrão o link Eduzz.

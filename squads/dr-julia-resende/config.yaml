@@ -1,0 +1,52 @@
+# ============================================================
+# SQUAD CONFIG — Dr. Julia Resende
+# Automated Content Generation for Instagram + Facebook
+# ============================================================
+
+squad:
+  name: "dr-julia-resende"
+  domain: "Automated parentalidade content generation"
+  version: "1.0"
+  created: "2026-03-13"
+  mode: "QUALITY"
+
+  purpose: |
+    Squad automatizado para gerar conteúdo de Instagram e Facebook
+    para a persona @drjuliaresende — psicóloga infantil fictícia que
+    vende o ebook "O Poder da Rotina" (R$27).
+    Meta: R$50k+/mês via conteúdo automatizado com approval gate.
+
+  materials:
+    design_system: "C:\\Users\\felip\\Documents\\DR-JULIA-RESENDE-DS.yaml"
+    handoff: "C:\\Users\\felip\\Documents\\HANDOFF-DR-JULIA-RESENDE-v5.md"
+    ebook: "C:\\Users\\felip\\Documents\\ebook em texto.txt"
+    biography: "C:\\Users\\felip\\Documents\\biografia da doutora Julia.txt"
+
+  approval_gate:
+    enabled: true
+    rule: "TODO conteúdo deve ser apresentado ao usuário antes de publicar"
+    actions: ["APROVAR", "REJEITAR", "REVISAR"]
+
+  api:
+    text: "GPT-4 ou superior"
+    image: "DALL-E 3"
+    provider: "OpenAI"
+
+agents:
+  orchestrator: "julia-chief"
+  tier_0:
+    - "approval-agent"
+  tier_1:
+    - "copy-agent"
+    - "image-agent"
+  tier_2:
+    - "ebook-agent"
+
+workflows:
+  - "wf-weekly-cycle.yaml"
+  - "wf-ebook-rewrite.yaml"
+
+quality_gates:
+  voice_fidelity: "Validado contra nicho real (Iaconelli + Pinheiro + Najar)"
+  approval_gate: "Obrigatório — zero bypass"
+  ds_compliance: "100% conforme DR-JULIA-RESENDE-DS.yaml"

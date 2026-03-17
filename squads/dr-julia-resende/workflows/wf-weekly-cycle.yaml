@@ -1,0 +1,124 @@
+# ============================================================
+# WORKFLOW — Weekly Content Cycle
+# Dr. Julia Resende Squad
+# ============================================================
+
+workflow:
+  name: "wf-weekly-cycle"
+  description: "Ciclo semanal completo de geração de conteúdo (4 feed + 3 stories)"
+  phases: 4
+  trigger: "julia-chief inicia ciclo semanal ou geração individual"
+
+# ──────────────────────────────────────────────────────────────
+# PHASE 1 — PLANNING (julia-chief)
+# ──────────────────────────────────────────────────────────────
+
+phase_1_planning:
+  agent: "julia-chief"
+  description: "Consultar calendário e determinar conteúdo do dia/semana"
+  inputs:
+    - "DS.yaml → alternation_logic"
+    - "state → contadores atuais"
+    - "Dia da semana"
+  outputs:
+    - "content_brief: { type, format, pillar, color, theme, ebook_chapter }"
+  checkpoint:
+    verify: "Brief tem todos os campos obrigatórios?"
+    veto: "Brief incompleto → não prosseguir"
+
+# ──────────────────────────────────────────────────────────────
+# PHASE 2 — COPY GENERATION (copy-agent)
+# ──────────────────────────────────────────────────────────────
+
+phase_2_copy:
+  agent: "copy-agent"
+  description: "Gerar copy seguindo brief + Voice DNA"
+  inputs:
+    - "content_brief da Phase 1"
+    - "DS.yaml → copy_system (voice, rules, niche_vocabulary, validation_formula)"
+    - "DS.yaml → formats (estrutura do formato)"
+    - "DS.yaml → ebook_to_content_mapping (se aplicável)"
+  outputs:
+    - "copy_package: { slides[], caption, variables (FRASE_REGULAR, FRASE_BOLD) }"
+  checkpoint:
+    verify:
+      - "Copy segue validation_formula?"
+      - "Vocabulário do nicho usado?"
+      - "Nenhum anti-pattern?"
+      - "Tamanho dentro do limite (15 palavras/linha)?"
+    veto: "Copy que culpa mãe / jargão frio / sem validação emocional → REJEITAR"
+
+# ──────────────────────────────────────────────────────────────
+# PHASE 3 — IMAGE GENERATION (image-agent)
+# ──────────────────────────────────────────────────────────────
+
+phase_3_image:
+  agent: "image-agent"
+  description: "Montar e executar prompts DALL-E por camada"
+  inputs:
+    - "copy_package da Phase 2 (variáveis FRASE_REGULAR, FRASE_BOLD)"
+    - "DS.yaml → image_prompts (layers por layout)"
+    - "DS.yaml → negative_prompts"
+    - "content_brief → color (verde/branco)"
+  outputs:
+    - "image_package: { images[], prompt_log }"
+  execution_flow:
+    feed_post:
+      - "Layer 1: Fundo (asset base)"
+      - "Layer 2: Texto principal (substituir variáveis)"
+      - "Layer 3: Reforço @drjuliaresende"
+      - "Layer 4: CTA (sobre fundo puro) — se carrossel"
+      - "Layer 5: Ícones (sobre layer 4) — se carrossel"
+    story:
+      - "Selecionar template correto (tipo_1 ou tipo_2)"
+      - "Substituir variáveis"
+      - "Gerar via DALL-E"
+  checkpoint:
+    verify:
+      - "CRITICAL presente em camadas 2+?"
+      - "Negative prompts incluídos?"
+      - "Dimensões corretas (1024x1024 ou 1024x1792)?"
+      - "Cor correta (verde OU branco, nunca misturado)?"
+    veto: "Imagem sem CRITICAL / sem negative prompts / cor errada → REGENERAR"
+
+# ──────────────────────────────────────────────────────────────
+# PHASE 4 — APPROVAL (approval-agent)
+# ──────────────────────────────────────────────────────────────
+
+phase_4_approval:
+  agent: "approval-agent"
+  description: "Apresentar conteúdo completo ao usuário"
+  inputs:
+    - "copy_package da Phase 2"
+    - "image_package da Phase 3"
+    - "content_brief da Phase 1"
+  outputs:
+    - "decision: APROVAR | REJEITAR | REVISAR"
+  actions:
+    APROVAR:
+      - "julia-chief atualiza contadores"
+      - "Conteúdo marcado como pronto para publicação"
+    REJEITAR:
+      - "Voltar para Phase 1 com novo tema"
+    REVISAR:
+      - "Coletar feedback"
+      - "Voltar para Phase 2 (copy) ou Phase 3 (image)"
+  checkpoint:
+    verify: "Usuário deu resposta explícita?"
+    veto: "Nenhum conteúdo prossegue sem decisão do usuário"
+
+# ──────────────────────────────────────────────────────────────
+# VOLUME MENSAL
+# ──────────────────────────────────────────────────────────────
+
+monthly_output:
+  feed_posts: 16
+  stories: 12
+  total: 28
+  breakdown:
+    carrossel_educativo: 4
+    post_unico_emocional: 4
+    carrossel_prova_social: 4
+    post_unico_cta: 4
+    story_frase_impacto: 8
+    story_sticker: 4
