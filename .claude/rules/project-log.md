@@ -10,17 +10,25 @@ Todo projeto tem um arquivo `PROJETO-STATUS.md` na sua pasta raiz. Ele é o **ca
 
 ## Regra 1 — Ao ser ativado (PRIORIDADE MÁXIMA)
 
-Quando qualquer agente for ativado neste projeto:
+Quando qualquer agente for ativado neste projeto, **imediatamente após o greeting**:
 
-1. **Leia o `PROJETO-STATUS.md` PRIMEIRO** — antes de qualquer outra coisa, inclusive antes de ler handoffs
-2. O `PROJETO-STATUS.md` é a **fonte da verdade** — ele sempre tem o estado mais atual do projeto
-3. **Ignore sugestões de handoffs antigos** se contradizerem o que está no `PROJETO-STATUS.md`
-4. Se o usuário não disser o que quer fazer, **sugira o próximo passo** com base na seção "Próximos Passos Priorizados" do `PROJETO-STATUS.md`
+1. **Leia o `packages/landing-page-dr-julia/PROJETO-STATUS.md`** — é a fonte da verdade
+2. **Mostre ao usuário** as pendências da seção "🔄 Pendências do Projeto Completo" e os próximos passos da seção "➡️ Próximos Passos Priorizados"
+3. **Ignore handoffs antigos** — eles estão desatualizados. Apenas o `PROJETO-STATUS.md` reflete o estado real
 
-Exemplo de abertura ideal:
-> "Vi no caderno que a próxima prioridade é o script Python compositor. Quer começar por aí?"
+**Formato obrigatório após o greeting:**
 
-**IMPORTANTE:** Handoffs em `.aiox/handoffs/` são secundários e podem estar desatualizados. O `PROJETO-STATUS.md` sempre prevalece.
+```
+📋 **Retomando do caderno:**
+
+🔴 Prioridade máxima: [item 1 do caderno]
+🟡 Pendências: [lista resumida]
+
+➡️ Próximo passo sugerido: [primeiro item de "Próximos Passos Priorizados"]
+Quer começar por aí?
+```
+
+**NUNCA** usar informação de stories antigas ou git log como status do projeto. Apenas o `PROJETO-STATUS.md`.
 
 ---
 

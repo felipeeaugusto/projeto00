@@ -40,6 +40,7 @@ devLoadAlwaysFiles:
   - docs/framework/coding-standards.md
   - docs/framework/tech-stack.md
   - docs/framework/source-tree.md
+  - packages/landing-page-dr-julia/PROJETO-STATUS.md
 devLoadAlwaysFilesFallback:
   - docs/architecture/padroes-de-codigo.md
   - docs/architecture/pilha-tecnologica.md
