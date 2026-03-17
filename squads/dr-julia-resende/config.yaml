@@ -17,10 +17,13 @@ squad:
     Meta: R$50k+/mês via conteúdo automatizado com approval gate.
 
   materials:
-    design_system: "C:\\Users\\felip\\Documents\\DR-JULIA-RESENDE-DS.yaml"
-    handoff: "C:\\Users\\felip\\Documents\\HANDOFF-DR-JULIA-RESENDE-v5.md"
-    ebook: "C:\\Users\\felip\\Documents\\ebook em texto.txt"
-    biography: "C:\\Users\\felip\\Documents\\biografia da doutora Julia.txt"
+    design_system: "squads/dr-julia-resende/data/DR-JULIA-RESENDE-DS.yaml"
+    ebook: "squads/dr-julia-resende/data/ebook_v2.txt"
+    ebook_original: "squads/dr-julia-resende/data/ebook-em-texto.txt"
+    biography: "squads/dr-julia-resende/data/biografia-julia.txt"
+    logo: "squads/dr-julia-resende/assets/logo-facebook-drjuliaresende.png"
+    capa: "squads/dr-julia-resende/assets/capa-facebook-drjuliaresende.png"
+    logo_master: "squads/dr-julia-resende/assets/01.png"
 
   approval_gate:
     enabled: true
