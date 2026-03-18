@@ -1644,6 +1644,210 @@ visual_styles_approved:
       - "Frase de fechamento é obrigatória — sem ela o slide não tem call-to-action implícito"
       - "Sempre 2 reações — não 1, não 3"
 
+  # ----------------------------------------------------------
+  # ESTILO P01 — MANIFESTO (Post único 1:1)
+  # Inspiração: visual de consultório — clean, respirável, confiança
+  # Use para: post único de frase de impacto ou reflexão no feed
+  # ----------------------------------------------------------
+  estilo_p01_manifesto:
+    nome: "Manifesto"
+    codigo: "P01"
+    formato: "post_unico"
+    dimensoes: "1080x1080px"
+    png_aprovado: "squads/dr-julia-resende/prototipo-carrosseis/estilo-p01-manifesto.png"
+    status: "APROVADO por Felipe — 2026-03-18"
+    comando_playwright: "npx playwright screenshot --viewport-size='1080,1080' {arquivo.html} {saida.png}"
+
+    identidade_visual:
+      descricao: "Fundo creme quente, tipografia serif clara. Oposto dos carrosséis escuros — parece consultório de psicóloga."
+      sentimento: "Confiável, humano, respirável. Para quem quer entender, não apenas ser impactada."
+      quando_usar: "Post único de feed — frase de impacto emocional, reflexão ou afirmação"
+      nao_usar: "Carrossel, story — este estilo é exclusivo para post único 1:1"
+
+    cores:
+      fundo: "#f7f3ee"
+      texto_principal: "#1a1a1a"
+      texto_destaque: "#03bb85"
+      texto_apoio: "rgba(26,26,26,0.6)"
+      divisor: "#03bb85"
+      handle: "rgba(26,26,26,0.35)"
+
+    tipografia:
+      fonte_headline: "DM Serif Display (weights: 400 normal + italic)"
+      fonte_corpo: "Poppins weight:300"
+      google_fonts_import: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;600&display=swap"
+      hierarquia:
+        nivel_1: "DM Serif Display 72px line-height:1.08 — headline principal (cor #1a1a1a)"
+        nivel_2: "DM Serif Display italic — palavra de destaque inline (cor #03bb85)"
+        nivel_3: "Poppins 14px weight:300 letter-spacing:6px uppercase — eyebrow (cor #03bb85)"
+        nivel_4: "Poppins 24px weight:300 line-height:1.6 — subtext (cor rgba(26,26,26,0.6))"
+        nivel_5: "Poppins 15px weight:300 letter-spacing:2px — assinatura (cor #03bb85)"
+
+    layout_zonas:
+      zona_handle:
+        posicao: "top:52px right:64px"
+        estilo: "Poppins 16px weight:300 letter-spacing:2px"
+        cor: "rgba(26,26,26,0.35)"
+        texto: "@drjuliaresende"
+
+      zona_central:
+        descricao: "Conteúdo 100% centralizado vertical e horizontal"
+        posicao: "top:50% left:64px right:64px transform:translateY(-52%)"
+        alinhamento: "text-align:center display:flex flex-direction:column align-items:center"
+        eyebrow:
+          estilo: "Poppins 14px weight:300 letter-spacing:6px text-transform:uppercase"
+          cor: "#03bb85"
+          margin_bottom: "36px"
+          exemplo: "PARENTALIDADE"
+        headline:
+          fonte: "DM Serif Display 72px line-height:1.08 letter-spacing:-0.5px"
+          cor: "#1a1a1a"
+          margin_bottom: "40px"
+          destaque_em_italic:
+            tag: "<em>"
+            estilo: "font-style:italic color:#03bb85"
+            uso: "Uma palavra-chave — geralmente a virada emocional"
+          exemplo_html: |
+            <h1>
+              seu filho não precisa<br>
+              de mãe <em>perfeita.</em>
+            </h1>
+        divisor:
+          dimensoes: "72px × 2px"
+          cor: "#03bb85"
+          margin_bottom: "36px"
+        subtext:
+          fonte: "Poppins 24px weight:300 line-height:1.6"
+          cor: "rgba(26,26,26,0.6)"
+          bold_inline: "font-weight:600 color:#1a1a1a para ênfase"
+          max_linhas: 2
+          exemplo_html: |
+            <p>Ele precisa de uma mãe<br>
+            <strong>que tenta de novo.</strong></p>
+
+      zona_assinatura:
+        posicao: "bottom:52px left:0 right:0 text-align:center"
+        estilo: "Poppins 15px weight:300 letter-spacing:2px"
+        cor: "#03bb85"
+        texto: "@drjuliaresende"
+
+    regras_especificas:
+      - "Fundo SEMPRE #f7f3ee — NUNCA preto ou verde como fundo neste estilo"
+      - "DM Serif Display é a fonte do headline — NUNCA Poppins ou Playfair neste estilo"
+      - "Zero elementos decorativos: sem estrela, sem tag box, sem dots, sem barra topo"
+      - "Máximo 2 linhas de subtext — este estilo é sobre respirar, não sobre encher"
+      - "Uma única palavra em itálico verde no headline — NUNCA duas"
+      - "Sem dots ou navegação — este é post único, nunca carrossel"
+
+  # ----------------------------------------------------------
+  # ESTILO ST01 — DIRETA (Story 9:16)
+  # Inspiração: inversão total — verde como palco, não como acento
+  # Use para: story de gancho, pergunta direta, chamada para ação
+  # ----------------------------------------------------------
+  estilo_st01_direta:
+    nome: "Direta"
+    codigo: "ST01"
+    formato: "story"
+    dimensoes: "1080x1920px"
+    png_aprovado: "squads/dr-julia-resende/prototipo-carrosseis/estilo-st01-direta.png"
+    status: "APROVADO por Felipe — 2026-03-18"
+    comando_playwright: "npx playwright screenshot --viewport-size='1080,1920' {arquivo.html} {saida.png}"
+
+    identidade_visual:
+      descricao: "Fundo verde sólido. O verde deixa de ser acento e vira o palco. Branco e preto sobre verde. Caloroso, direto, pessoal."
+      sentimento: "Energia, proximidade, chamada para ação. Como mensagem pessoal da Julia."
+      quando_usar: "Story de gancho, reflexão rápida, CTA direto para o ebook"
+      nao_usar: "Post de feed, carrossel — este estilo é exclusivo para story 9:16"
+
+    cores:
+      fundo: "#03bb85"
+      texto_headline: "#ffffff"
+      texto_corpo: "rgba(255,255,255,0.88)"
+      texto_corpo_bold: "#ffffff"
+      handle: "#0a0a0a"
+      eyebrow: "rgba(255,255,255,0.9)"
+      divisor: "rgba(0,0,0,0.2)"
+      cta_bloco_fundo: "#0a0a0a"
+      cta_label: "#ffffff"
+      cta_texto: "#03bb85"
+      cta_produto: "rgba(255,255,255,0.85)"
+
+    tipografia:
+      fonte_unica: "Poppins (weights: 300, 400, 800)"
+      google_fonts_import: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;800&display=swap"
+      hierarquia:
+        nivel_1: "Poppins 22px weight:400 letter-spacing:5px uppercase — eyebrow (cor rgba(255,255,255,0.9))"
+        nivel_2: "Poppins 96px weight:800 line-height:1.0 letter-spacing:-2px — headline (cor #ffffff)"
+        nivel_3: "Poppins 34px weight:300 line-height:1.65 — corpo (cor rgba(255,255,255,0.88))"
+        nivel_4: "Poppins 20px weight:400 letter-spacing:5px uppercase — cta label (cor #ffffff)"
+        nivel_5: "Poppins 42px weight:800 letter-spacing:4px uppercase — LINK NA BIO (cor #03bb85)"
+        nivel_6: "Poppins 20px weight:300 letter-spacing:2px — produto (cor rgba(255,255,255,0.85))"
+
+    layout_zonas:
+      zona_handle:
+        posicao: "top:64px right:64px"
+        estilo: "Poppins 20px weight:600 letter-spacing:2px"
+        cor: "#0a0a0a"
+        texto: "@drjuliaresende"
+        nota: "Preto sobre verde — contraste máximo"
+
+      zona_central:
+        descricao: "Conteúdo posicionado no centro vertical (top:50% translateY:-58%)"
+        posicao: "top:50% left:64px right:64px transform:translateY(-58%)"
+        eyebrow:
+          estilo: "Poppins 22px weight:400 letter-spacing:5px text-transform:uppercase"
+          cor: "rgba(255,255,255,0.9)"
+          margin_bottom: "48px"
+          exemplo: "PARENTALIDADE CONSCIENTE"
+        headline:
+          fonte: "Poppins 96px weight:800 line-height:1.0 letter-spacing:-2px"
+          cor: "#ffffff"
+          margin_bottom: "56px"
+          max_linhas: 4
+          exemplo_html: |
+            <h1>
+              Conexão<br>
+              antes de<br>
+              correção.<br>
+              Sempre.
+            </h1>
+        divisor:
+          dimensoes: "80px × 4px"
+          cor: "rgba(0,0,0,0.2)"
+          margin_bottom: "48px"
+        corpo:
+          fonte: "Poppins 34px weight:300 line-height:1.65"
+          cor: "rgba(255,255,255,0.88)"
+          bold_inline: "font-weight:800 color:#ffffff"
+          max_linhas: 3
+
+      zona_cta:
+        descricao: "Bloco preto fixo no rodapé — full width"
+        posicao: "bottom:0 left:0 right:0"
+        altura: "200px"
+        fundo: "#0a0a0a"
+        layout: "flex flex-direction:column align-items:center justify-content:center gap:10px"
+        label:
+          texto: "Acesse o Ebook"
+          estilo: "Poppins 20px weight:400 letter-spacing:5px text-transform:uppercase"
+          cor: "#ffffff"
+        cta_principal:
+          texto: "LINK NA BIO"
+          estilo: "Poppins 42px weight:800 letter-spacing:4px text-transform:uppercase"
+          cor: "#03bb85"
+        produto:
+          texto: "O Poder da Rotina"
+          estilo: "Poppins 20px weight:300 letter-spacing:2px"
+          cor: "rgba(255,255,255,0.85)"
+
+    regras_especificas:
+      - "Fundo SEMPRE #03bb85 — único formato que usa verde como fundo"
+      - "Handle SEMPRE preto #0a0a0a — nunca branco (contraste insuficiente sobre verde)"
+      - "Bloco CTA preto full-width obrigatório no rodapé — altura fixa 200px"
+      - "LINK NA BIO sempre em verde #03bb85 dentro do bloco preto — contraste máximo"
+      - "Zero dots, zero estrela, zero tag box, zero barra topo"
+      - "Headline máximo 4 linhas — story é lido em 2 segundos"
+
 # ============================================================
 # GUIA DE USO DOS ESTILOS — QUANDO USAR CADA UM
 # ============================================================
@@ -1651,9 +1855,11 @@ visual_styles_approved:
 visual_styles_guide:
 
   mapeamento_por_objetivo:
-    hook_abertura: "S01 (Bold) — impacto imediato, para o scroll"
-    educativo_reflexivo: "S03 (Collage) — profundidade, autoridade, método"
-    prova_social: "S04 (Depoimento) — resultado real, transformação, emoção"
+    hook_abertura: "S01 (Bold) — impacto imediato, para o scroll — carrossel"
+    educativo_reflexivo: "S03 (Collage) — profundidade, autoridade, método — carrossel"
+    prova_social: "S04 (Depoimento) — resultado real, transformação, emoção — carrossel"
+    post_unico_feed: "P01 (Manifesto) — reflexão, afirmação emocional — post único 1:1"
+    story: "ST01 (Direta) — gancho, pergunta, CTA — story 9:16"
 
   estrutura_carrossel_padrao:
     slide_1:
@@ -1685,12 +1891,42 @@ visual_styles_guide:
 
   adaptacao_por_formato:
     post_unico:
-      usar: "S01 (Bold) para hooks | S04 (Depoimento) para prova social isolada"
-      evitar: "S03 em post único — muito texto para uma peça só"
+      estilo: "P01 (Manifesto) — exclusivo para post único"
+      dimensoes: "1080x1080px"
+      evitar: "S01, S03, S04 — esses são para carrossel, não post único"
     carrossel_3_slides:
       estrutura: "S01 (hook) → S03 (contexto) → S04 (prova social + CTA)"
     carrossel_6_slides:
       estrutura: "S01 → S03 → S03 → S04 → S03 → S01 (CTA)"
     story:
-      nota: "Adaptar para 1080x1920px — mesmos estilos, layout vertical"
+      estilo: "ST01 (Direta) — exclusivo para story"
+      dimensoes: "1080x1920px"
+      evitar: "S01, S03, S04 — esses são para carrossel, não story"
+
+  tabela_estilos:
+    S01:
+      nome: "Bold"
+      formato: "carrossel"
+      fundo: "#0a0a0a (preto)"
+      fonte_destaque: "Bebas Neue"
+    S03:
+      nome: "Collage Editorial"
+      formato: "carrossel"
+      fundo: "#111111 (preto escuro)"
+      fonte_destaque: "Playfair Display"
+    S04:
+      nome: "Depoimento"
+      formato: "carrossel"
+      fundo: "#0a0a0a (preto)"
+      fonte_destaque: "Poppins"
+    P01:
+      nome: "Manifesto"
+      formato: "post_unico"
+      fundo: "#f7f3ee (creme)"
+      fonte_destaque: "DM Serif Display"
+    ST01:
+      nome: "Direta"
+      formato: "story"
+      fundo: "#03bb85 (verde)"
+      fonte_destaque: "Poppins ExtraBold"
 
