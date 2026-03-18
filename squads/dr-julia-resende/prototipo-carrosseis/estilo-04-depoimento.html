@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:1080px; height:1080px; overflow:hidden;
+    background:#0a0a0a; position:relative; font-family:'Poppins',sans-serif;
+  }
+
+  .handle {
+    position:absolute; top:48px; left:64px;
+    font-size:17px; font-weight:300; letter-spacing:2px;
+    color:rgba(255,255,255,0.3); z-index:10;
+  }
+  .handle-right {
+    position:absolute; top:48px; right:64px;
+    font-size:14px; font-weight:300; letter-spacing:1px;
+    color:rgba(255,255,255,0.2); z-index:10;
+  }
+
+  /* Título principal */
+  .title {
+    position:absolute; top:130px; left:64px; right:64px; z-index:10;
+  }
+  .title h1 {
+    font-size:72px; font-weight:700; line-height:1.1;
+    color:#fff;
+  }
+  .title h1 em {
+    font-style:normal; color:#03bb85;
+  }
+
+  /* Card de depoimento — screenshot de WhatsApp */
+  .chat-card {
+    position:absolute; top:330px; left:64px; right:64px;
+    background:#1e1e1e; border-radius:16px;
+    padding:36px 40px; z-index:10;
+    border:1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Header do chat */
+  .chat-header {
+    display:flex; align-items:center; gap:16px;
+    margin-bottom:28px; padding-bottom:20px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .chat-avatar {
+    width:52px; height:52px; border-radius:50%;
+    background:linear-gradient(135deg, #03bb85, #029970);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:700; color:#fff;
+    flex-shrink:0;
+  }
+  .chat-name { font-size:18px; font-weight:600; color:#fff; }
+  .chat-sub { font-size:14px; color:rgba(255,255,255,0.4); margin-top:2px; }
+
+  /* Balão de mensagem */
+  .msg-bubble {
+    background:#2a2a2a; border-radius:4px 16px 16px 16px;
+    padding:20px 24px; margin-bottom:16px;
+    max-width:780px;
+  }
+  .msg-bubble p {
+    font-size:22px; font-weight:300; color:#f0f0f0;
+    line-height:1.65;
+  }
+  .msg-bubble p strong { color:#03bb85; font-weight:600; }
+  .msg-time {
+    text-align:right; font-size:13px;
+    color:rgba(255,255,255,0.3); margin-top:10px;
+  }
+
+  /* Reações */
+  .reactions {
+    display:flex; gap:12px; margin-top:8px;
+  }
+  .reaction {
+    background:rgba(255,255,255,0.06); border-radius:20px;
+    padding:6px 16px; font-size:16px;
+    color:rgba(255,255,255,0.5);
+  }
+
+  /* Frase de fechamento */
+  .closing {
+    position:absolute; bottom:100px; left:64px; right:64px; z-index:10;
+  }
+  .closing p {
+    font-size:22px; font-weight:300;
+    color:rgba(255,255,255,0.45); line-height:1.5;
+  }
+  .closing strong { color:#fff; font-weight:600; }
+
+  /* Rodapé */
+  .footer {
+    position:absolute; bottom:48px; left:64px; right:64px;
+    display:flex; align-items:center; justify-content:space-between; z-index:10;
+  }
+  .footer-tag {
+    font-size:16px; font-weight:300; letter-spacing:1px;
+    color:rgba(255,255,255,0.25);
+  }
+  .footer-dots { display:flex; gap:10px; align-items:center; }
+  .dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.2); }
+  .dot.active { background:#03bb85; width:28px; border-radius:4px; }
+</style>
+</head>
+<body>
+  <span class="handle">@drjuliaresende</span>
+
+  <div class="title">
+    <h1>Quando o método<br><em>funciona de verdade.</em></h1>
+  </div>
+
+  <div class="chat-card">
+    <div class="chat-header">
+      <div class="chat-avatar">C</div>
+      <div>
+        <div class="chat-name">Camila R.</div>
+        <div class="chat-sub">Mãe de 3 filhos — São Paulo</div>
+      </div>
+    </div>
+
+    <div class="msg-bubble">
+      <p>Gente, eu precisava contar isso aqui. Meu filho de 6 anos estava
+      impossível toda noite — choro, birra, não queria dormir de jeito nenhum.
+      Comecei o <strong>método dos 7 minutos</strong> há 2 semanas e ontem ele
+      foi sozinho escovar os dentes e me disse "mãe, é hora da nossa rotina".
+      Eu chorei 😭 Muito obrigada Dra. Julia!</p>
+      <div class="msg-time">hoje às 21:47 ✓✓</div>
+    </div>
+
+    <div class="reactions">
+      <span class="reaction">❤️ 14</span>
+      <span class="reaction">🔥 8</span>
+    </div>
+  </div>
+
+  <div class="closing">
+    <p>Isso não é sorte. É <strong>método aplicado com consistência.</strong><br>
+    7 minutos por dia transformam qualquer rotina.</p>
+  </div>
+
+  <div class="footer">
+    <span class="footer-tag">O Poder da Rotina — Dra. Julia Resende</span>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot"></div>
+      <div class="dot active"></div><div class="dot"></div>
+    </div>
+  </div>
+</body>
+</html>
