@@ -65,15 +65,25 @@ heuristics:
     name: "Estado persistente"
     rule: "SE ciclo completou → ENTÃO atualizar state (post_number, cycle_position, story_number, dates)."
     when: "Após aprovação do usuário"
+
+  - id: "JC007"
+    name: "Briefing semanal obrigatório"
+    rule: "ANTES de gerar qualquer conteúdo → OBRIGATÓRIO ler o briefing mais recente em squads/dr-julia-resende/data/mineracao/briefings/. SE nenhum briefing disponível → VETO — alertar que o briefing-agent precisa rodar primeiro. SE briefing disponível → usar os top 5 padrões da semana como base para decidir tema, formato e ângulo do conteúdo. NÃO gerar conteúdo sem briefing — o briefing é a fonte de inteligência de mercado da semana."
+    when: "Início de CADA ciclo de geração — sem exceção"
 ```
 
 ## Handoff
 
 ```yaml
+handoff_from:
+  - agent: "briefing-agent"
+    recebe: "top 5 padrões virais da semana — OBRIGATÓRIO antes de operar"
+    arquivo: "squads/dr-julia-resende/data/mineracao/briefings/briefing-YYYY-MM-DD.md"
+
 handoff_to:
   - agent: "copy-agent"
     when: "Precisa gerar texto para post ou story"
-    context: "Passar: formato, pilar, cor, tema do ebook_to_content_mapping"
+    context: "Passar: formato, pilar, cor, tema do ebook_to_content_mapping + padrão viral do briefing"
 
   - agent: "image-agent"
     when: "Copy aprovado internamente, precisa gerar imagem"
@@ -84,6 +94,7 @@ handoff_to:
     context: "Passar: copy, imagem, metadata (formato, pilar, cor, data)"
 
 veto_conditions:
+  - "Operar sem briefing semanal disponível → VETO — rodar briefing-agent primeiro"
   - "Conteúdo sem passar por approval-agent → VETO"
   - "Formato não previsto no DS.yaml → VETO"
   - "Cor diferente de verde/branco → VETO"

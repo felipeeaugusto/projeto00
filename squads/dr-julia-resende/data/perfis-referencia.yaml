@@ -1,0 +1,139 @@
+# Perfis de Referência — Squad de Mineração de Conteúdo
+# Fonte: spec SQUAD-MINERACAO-SPEC.md (Atlas/@analyst — 2026-03-19)
+# Usado pelo scout-agent para coleta semanal via Apify
+# Total: 30 perfis em 3 camadas
+
+camada_1_nicho:
+  descricao: "Mesmo nicho — maternidade, rotina, pedagogia"
+  perfis:
+    - username: "maternidadereal"
+      seguidores_aprox: 377206
+      foco: "maternidade sem filtros — alto engajamento"
+
+    - username: "academialendaria"
+      seguidores_aprox: null
+      foco: "educacao comportamental e habitos"
+
+    - username: "maedemenino_oficial"
+      seguidores_aprox: null
+      foco: "maternidade real + humor"
+
+    - username: "institutoneurosaber"
+      seguidores_aprox: null
+      foco: "neurociencia aplicada a familia"
+
+    - username: "draanaluizasilveira"
+      seguidores_aprox: null
+      foco: "pediatria + desenvolvimento infantil"
+
+    - username: "pedagogajaquelineribeiro"
+      seguidores_aprox: null
+      foco: "dicas pedagogicas praticas"
+
+    - username: "camilaferreirapsico"
+      seguidores_aprox: null
+      foco: "psicologia do comportamento infantil"
+
+    - username: "drrenatadomingues"
+      seguidores_aprox: null
+      foco: "TDAH + comportamento infantil"
+
+    - username: "eusoumaedetea"
+      seguidores_aprox: null
+      foco: "maternidade atipica"
+
+    - username: "maternidadepratica"
+      seguidores_aprox: 38
+      foco: "CONTA ERRADA — 38 seguidores, conta pessoal — REMOVIDA da coleta"
+      status: "INATIVO — substituida por maternidadereal"
+
+camada_2_criadores:
+  descricao: "Criadores de conteudo de alto engajamento"
+  perfis:
+    - username: "pedrosobral"
+      seguidores_aprox: null
+      foco: "metodologia de conteudo organico"
+
+    - username: "finclass_grupoprimo"
+      seguidores_aprox: null
+      foco: "educacao financeira + producao premium"
+
+    - username: "bruno_perini"
+      seguidores_aprox: null
+      foco: "financas pessoais + engajamento alto"
+
+    - username: "kleberpayam"
+      seguidores_aprox: null
+      foco: "copywriting e persuasao"
+
+    - username: "lucasinutile"
+      seguidores_aprox: null
+      foco: "storytelling + roteiro de video"
+
+    - username: "camilaportella_"
+      seguidores_aprox: null
+      foco: "conteudo para infoprodutores"
+
+    - username: "rodrigocampos.mkt"
+      seguidores_aprox: null
+      foco: "marketing digital com resultados"
+
+    - username: "nataliabittencourt"
+      seguidores_aprox: null
+      foco: "producao de conteudo para Instagram"
+
+    - username: "rafaelfeio"
+      seguidores_aprox: null
+      foco: "organico + video curto"
+
+    - username: "vivianmelo.conteudo"
+      seguidores_aprox: null
+      foco: "estrategia de conteudo feminino"
+
+camada_3_referencias:
+  descricao: "Referencias visuais e narrativas"
+  perfis:
+    - username: "oalanicolas"
+      seguidores_aprox: 2100000
+      foco: "referencia visual/producao — ATENCAO: nicho IA/negocios, NAO maternidade. Usar apenas como referencia de formato e estetica"
+      nota: "Co-founder AIOX, CEO @academialendaria — conteudo de nicho diferente, mas producao premium"
+
+    - username: "drauziovarella"
+      seguidores_aprox: null
+      foco: "autoridade medica + comunicacao simples"
+
+    - username: "tuliofarias"
+      seguidores_aprox: null
+      foco: "comportamento humano + viralizacao"
+
+    - username: "leandrodesouza"
+      seguidores_aprox: null
+      foco: "habitos e desenvolvimento pessoal"
+
+    - username: "taispadilha"
+      seguidores_aprox: null
+      foco: "mulher, carreira e equilibrio"
+
+    - username: "camila_coutinho"
+      seguidores_aprox: null
+      foco: "lifestyle feminino + estetica premium"
+
+    - username: "brazilianteacher"
+      seguidores_aprox: null
+      foco: "comunicacao direta + humor leve"
+
+    - username: "viihmoraes"
+      seguidores_aprox: null
+      foco: "formato UGC + prova social"
+
+    - username: "juromanos"
+      seguidores_aprox: null
+      foco: "rotina, organizacao e produtividade"
+
+    - username: "dani_hyodo"
+      seguidores_aprox: null
+      foco: "maternidade + empreendedorismo"
+
+    - username: "kerolaynasciimento"
+      seguidores_aprox: null
+      foco: "rotina feminina + criacao de filhos"
