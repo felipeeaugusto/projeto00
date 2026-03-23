@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+  TEMPLATE: ST01 — Direta (Story 9:16)
+  Estilo: DS.yaml → visual_styles_approved → estilo_st01_direta
+  Dimensões: 1080x1920px
+  Comando: npx playwright screenshot --viewport-size="1080,1920" st01-direta.html output.png
+  Variáveis a substituir:
+    {EYEBROW}    → categoria/tema (ex: PARENTALIDADE CONSCIENTE)
+    {HEADLINE_1} → linha 1 do headline
+    {HEADLINE_2} → linha 2 do headline
+    {HEADLINE_3} → linha 3 do headline
+    {HEADLINE_4} → linha 4 do headline
+    {BODY_1}     → linha 1 do corpo
+    {BODY_2}     → linha 2 do corpo
+    {BODY_3}     → linha 3 do corpo (pode usar <strong>texto</strong>)
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:1080px; height:1920px; overflow:hidden;
+    background:#03bb85; position:relative;
+    font-family:'Poppins', sans-serif;
+  }
+  .handle {
+    position:absolute; top:64px; right:64px;
+    font-size:20px; font-weight:600; letter-spacing:2px;
+    color:#0a0a0a; z-index:10;
+  }
+  .content {
+    position:absolute;
+    top:50%; left:64px; right:64px;
+    transform:translateY(-58%);
+    z-index:10;
+  }
+  .eyebrow {
+    font-size:22px; font-weight:400;
+    letter-spacing:5px; text-transform:uppercase;
+    color:rgba(255,255,255,0.9);
+    margin-bottom:48px;
+  }
+  .headline {
+    font-size:96px; font-weight:800;
+    line-height:1.0; color:#ffffff;
+    letter-spacing:-2px;
+    margin-bottom:56px;
+  }
+  .divider {
+    width:80px; height:4px;
+    background:rgba(0,0,0,0.2);
+    margin-bottom:48px;
+  }
+  .body-text {
+    font-size:34px; font-weight:300;
+    color:rgba(255,255,255,0.88);
+    line-height:1.65;
+  }
+  .body-text strong {
+    font-weight:800; color:#ffffff;
+  }
+  .cta-block {
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:200px;
+    background:#0a0a0a;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:10px; z-index:10;
+  }
+  .cta-label {
+    font-size:20px; font-weight:400;
+    letter-spacing:5px; text-transform:uppercase;
+    color:#ffffff;
+  }
+  .cta-text {
+    font-size:42px; font-weight:800;
+    letter-spacing:4px; text-transform:uppercase;
+    color:#03bb85;
+  }
+  .cta-product {
+    font-size:20px; font-weight:300;
+    color:rgba(255,255,255,0.85);
+    letter-spacing:2px;
+  }
+</style>
+</head>
+<body>
+  <span class="handle">@drjuliaresende</span>
+  <div class="content">
+    <p class="eyebrow">{EYEBROW}</p>
+    <h1 class="headline">
+      {HEADLINE_1}<br>
+      {HEADLINE_2}<br>
+      {HEADLINE_3}<br>
+      {HEADLINE_4}
+    </h1>
+    <div class="divider"></div>
+    <p class="body-text">
+      {BODY_1}<br>
+      {BODY_2}<br>
+      {BODY_3}
+    </p>
+  </div>
+  <div class="cta-block">
+    <span class="cta-label">Acesse o Ebook</span>
+    <span class="cta-text">LINK NA BIO</span>
+    <span class="cta-product">O Poder da Rotina</span>
+  </div>
+</body>
+</html>

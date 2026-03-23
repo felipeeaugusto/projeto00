@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<!--
+  TEMPLATE: P02 — Social Proof (Post único 1:1)
+  Inspiração: Gemini_Generated_Image_wzl6ck — celular enorme, preenche todo o frame,
+               transborda pelos 4 lados, borda metálica esquerda visível como linha diagonal.
+  Dimensões: 1080x1080px
+  Variáveis:
+    {HOOK_1}     → primeira linha do headline (ex: Tem)
+    {HOOK_2}     → segunda linha em itálico (ex: mães)
+    {CHECK_1}    → item 1 do checklist
+    {CHECK_2}    → item 2 do checklist
+    {CTA_1}      → linha 1 do CTA
+    {CTA_2}      → linha 2 com palavra em destaque: use <em>palavra</em>
+    {MSG_NAME_x} → nome da autora da mensagem
+    {MSG_x}      → texto da mensagem
+    {MSG_SENT}   → mensagem enviada (lado direito, verde)
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,700;1,800&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    width:1080px; height:1080px; overflow:hidden;
+    background: radial-gradient(ellipse at 15% 20%, #0d1a2e 0%, #060a14 70%);
+    position:relative;
+    font-family:'Poppins', sans-serif;
+  }
+
+  /* Círculos concêntricos sutis — igual à referência */
+  .bg-circles {
+    position:absolute;
+    top:-180px; left:-180px;
+    width:800px; height:800px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.05);
+    pointer-events:none;
+    z-index:1;
+  }
+  .bg-circles::before {
+    content:'';
+    position:absolute;
+    top:-90px; left:-90px;
+    right:-90px; bottom:-90px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .bg-circles::after {
+    content:'';
+    position:absolute;
+    top:-180px; left:-180px;
+    right:-180px; bottom:-180px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.02);
+  }
+
+  /* ── PHONE MOCKUP — ENORME, PREENCHE TUDO ── */
+  /*
+    Posicionamento inspirado na referência Gemini:
+    - Celular começa no canto superior esquerdo da imagem
+    - Borda metálica esquerda visível como faixa diagonal
+    - Celular transborda para direita e para baixo
+    - rotateY(-20deg): inclina o topo para frente, mostrando a borda esquerda
+    - rotateZ(-6deg): leve inclinação diagonal (topo sobe à esquerda)
+  */
+  .phone-wrap {
+    position:absolute;
+    left:320px;
+    top:10px;
+    transform: perspective(2200px) rotateY(-24deg) rotateZ(-5deg);
+    transform-origin: top left;
+    z-index:5;
+  }
+
+  .phone {
+    width:920px;
+    height:1860px;
+    background:#0f0f0f;
+    border-radius:76px;
+    /* Borda lateral — frame de metal visível */
+    border:18px solid #1c1c1e;
+    border-left:28px solid #2c2c2e; /* borda esquerda mais espessa = frame lateral visível */
+    box-shadow:
+      -8px 12px 60px rgba(0,0,0,0.85),
+      8px 0 40px rgba(0,0,0,0.4),
+      inset 0 0 0 1px rgba(255,255,255,0.06);
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* Reflexo metálico na borda esquerda */
+  .phone::before {
+    content:'';
+    position:absolute;
+    top:0; left:0;
+    width:22px; height:100%;
+    background:linear-gradient(to right,
+      rgba(200,200,200,0.15) 0%,
+      rgba(255,255,255,0.08) 30%,
+      transparent 100%);
+    z-index:20;
+    pointer-events:none;
+  }
+
+  /* Dynamic island */
+  .phone-island {
+    position:absolute;
+    top:20px; left:50%;
+    transform:translateX(-50%);
+    width:128px; height:40px;
+    background:#000;
+    border-radius:26px;
+    z-index:10;
+  }
+
+  /* Câmera ao lado do Dynamic Island */
+  .phone-island::after {
+    content:'';
+    position:absolute;
+    top:50%; right:-52px;
+    transform:translateY(-50%);
+    width:16px; height:16px;
+    background:#0a0a0a;
+    border-radius:50%;
+    box-shadow:inset 0 0 0 3px #1a1a1a;
+  }
+
+  /* ── TELA WHATSAPP ── */
+  .phone-screen {
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+    background:#ece5dd;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* Header */
+  .wa-header {
+    background:#075e54;
+    padding:64px 22px 18px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-shrink:0;
+  }
+
+  .wa-avatar {
+    width:56px; height:56px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.2);
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; font-weight:700; color:white;
+    flex-shrink:0;
+  }
+
+  .wa-name {
+    font-size:20px; font-weight:600; color:#fff; line-height:1.2;
+  }
+
+  .wa-sub {
+    font-size:14px; color:rgba(255,255,255,0.7);
+  }
+
+  /* Mensagens */
+  .wa-messages {
+    flex:1;
+    padding:16px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    overflow:hidden;
+  }
+
+  .wa-date {
+    align-self:center;
+    font-size:13px;
+    background:rgba(255,255,255,0.6);
+    color:#555;
+    padding:4px 14px;
+    border-radius:6px;
+    margin-bottom:4px;
+  }
+
+  .msg-bubble {
+    max-width:86%;
+    padding:12px 16px 28px;
+    border-radius:12px;
+    font-size:18px;
+    line-height:1.5;
+    color:#303030;
+    position:relative;
+    word-break:break-word;
+  }
+
+  .msg-received {
+    background:#ffffff;
+    align-self:flex-start;
+    border-top-left-radius:3px;
+  }
+
+  .msg-sender {
+    font-size:14px; font-weight:700;
+    color:#075e54; margin-bottom:4px;
+    display:block;
+  }
+
+  .msg-time {
+    position:absolute;
+    bottom:6px; right:14px;
+    font-size:12px; color:#888;
+  }
+
+  .msg-sent {
+    background:#dcf8c6;
+    align-self:flex-end;
+    border-top-right-radius:3px;
+    color:#303030;
+  }
+
+  .msg-sent .msg-time { color:#666; }
+
+  /* Barra de input */
+  .wa-input {
+    padding:14px 16px;
+    background:#f0f0f0;
+    display:flex; align-items:center; gap:10px;
+    flex-shrink:0;
+  }
+
+  .wa-input-box {
+    flex:1; height:44px;
+    background:#fff; border-radius:22px;
+    font-size:15px; color:#aaa;
+    display:flex; align-items:center; padding:0 18px;
+  }
+
+  .wa-send {
+    width:44px; height:44px;
+    background:#075e54; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+
+  /* ── TEXTO OVERLAY — sobre o topo do celular ── */
+  .text-overlay {
+    position:absolute;
+    left:56px; top:56px;
+    width:340px;
+    z-index:20;
+  }
+
+  /* Gradiente escuro atrás do texto para legibilidade */
+  .text-overlay::before {
+    content:'';
+    position:absolute;
+    top:-24px; left:-24px; right:-24px; bottom:-24px;
+    background:radial-gradient(ellipse at 30% 40%, rgba(5,10,20,0.75) 0%, transparent 75%);
+    pointer-events:none;
+    z-index:-1;
+  }
+
+  .hook {
+    font-size:80px;
+    font-weight:800;
+    line-height:0.88;
+    color:#ffffff;
+    letter-spacing:-2px;
+    margin-bottom:6px;
+  }
+
+  .hook em {
+    font-style:italic; font-weight:800;
+    color:#ffffff; display:block;
+  }
+
+  .checklist {
+    margin-top:28px;
+    display:flex; flex-direction:column; gap:14px;
+    margin-bottom:32px;
+  }
+
+  .check-item {
+    display:flex; align-items:center; gap:12px;
+  }
+
+  .check-icon svg { width:22px; height:22px; }
+
+  .check-text {
+    font-size:22px; font-weight:600;
+    color:rgba(255,255,255,0.9);
+    line-height:1.2;
+  }
+
+  .cta {
+    font-size:32px; font-weight:800;
+    line-height:1.15; color:#ffffff;
+  }
+
+  .cta em { font-style:normal; color:#03bb85; }
+
+  /* Handle */
+  .handle {
+    position:absolute;
+    bottom:36px; left:56px;
+    font-size:16px; font-weight:300;
+    letter-spacing:2px;
+    color:rgba(255,255,255,0.35);
+    z-index:20;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Círculos decorativos de fundo -->
+  <div class="bg-circles"></div>
+
+  <!-- Phone mockup — enorme, preenche o frame -->
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="phone-island"></div>
+      <div class="phone-screen">
+
+        <div class="wa-header">
+          <div class="wa-avatar">R</div>
+          <div class="wa-title">
+            <div class="wa-name">Mães com Rotina</div>
+            <div class="wa-sub">1.247 participantes</div>
+          </div>
+        </div>
+
+        <div class="wa-messages">
+          <div class="wa-date">Hoje</div>
+
+          <div class="msg-bubble msg-received">
+            <span class="msg-sender">{MSG_NAME_1}</span>
+            {MSG_1}
+            <span class="msg-time">08:14</span>
+          </div>
+
+          <div class="msg-bubble msg-received">
+            <span class="msg-sender">{MSG_NAME_2}</span>
+            {MSG_2}
+            <span class="msg-time">08:31</span>
+          </div>
+
+          <div class="msg-bubble msg-received">
+            <span class="msg-sender">{MSG_NAME_3}</span>
+            {MSG_3}
+            <span class="msg-time">09:02</span>
+          </div>
+
+          <div class="msg-bubble msg-sent">
+            {MSG_SENT}
+            <span class="msg-time">09:15 ✓✓</span>
+          </div>
+
+          <div class="msg-bubble msg-received">
+            <span class="msg-sender">{MSG_NAME_1}</span>
+            {MSG_4}
+            <span class="msg-time">09:22</span>
+          </div>
+
+          <div class="msg-bubble msg-received">
+            <span class="msg-sender">{MSG_NAME_2}</span>
+            {MSG_5}
+            <span class="msg-time">09:38</span>
+          </div>
+
+        </div>
+
+        <div class="wa-input">
+          <div class="wa-input-box">Mensagem</div>
+          <div class="wa-send">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Texto overlay — canto superior esquerdo -->
+  <div class="text-overlay">
+    <div class="hook">
+      {HOOK_1}<br>
+      <em>{HOOK_2}</em>
+    </div>
+
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-icon">
+          <svg viewBox="0 0 22 22" fill="none">
+            <circle cx="11" cy="11" r="10" stroke="#03bb85" stroke-width="1.5"/>
+            <path d="M6 11.5l3.5 3.5 6-7" stroke="#03bb85" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="check-text">{CHECK_1}</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">
+          <svg viewBox="0 0 22 22" fill="none">
+            <circle cx="11" cy="11" r="10" stroke="#03bb85" stroke-width="1.5"/>
+            <path d="M6 11.5l3.5 3.5 6-7" stroke="#03bb85" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="check-text">{CHECK_2}</span>
+      </div>
+    </div>
+
+    <p class="cta">{CTA_1}<br>{CTA_2}</p>
+  </div>
+
+  <span class="handle">@drjuliaresende</span>
+
+</body>
+</html>

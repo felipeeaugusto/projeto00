@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!--
+  TEMPLATE: S05 — Diagrama (Post único 1:1)
+  Inspiração: diagrama conceitual com progressão visual (Caos → Rotina → Paz)
+  Dimensões: 1080x1080px
+  Comando: npx playwright screenshot --viewport-size="1080,1080" s05-diagrama.html output.png
+  Variáveis:
+    {LABEL_1} {LABEL_2} {LABEL_3}  → rótulos dos 3 estágios (ex: Caos / Rotina / Paz)
+    {SCALE_1} {SCALE_2} {SCALE_3} {SCALE_4} → escala inferior (ex: Esgotada / Sobrecarregada / Com método / Presente)
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:1080px; height:1080px; overflow:hidden;
+    background:#0a0a0a; position:relative;
+    font-family:'Poppins', sans-serif;
+  }
+  .handle {
+    position:absolute; top:48px; right:64px;
+    font-size:16px; font-weight:300; letter-spacing:2px;
+    color:rgba(255,255,255,0.3);
+  }
+  .diagrams {
+    position:absolute;
+    top:50%; left:64px; right:64px;
+    transform:translateY(-62%);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .diagram-item {
+    display:flex; flex-direction:column; align-items:center; gap:28px;
+    flex:1;
+  }
+  .diagram-label {
+    font-size:30px; font-weight:300;
+    color:#ffffff; letter-spacing:3px;
+    text-align:center; text-transform:uppercase;
+  }
+  .arrow {
+    font-size:40px; color:rgba(255,255,255,0.3);
+    flex-shrink:0; padding-bottom:68px;
+  }
+  .scale-section {
+    position:absolute;
+    top:760px; left:64px; right:64px;
+  }
+  .scale-labels {
+    display:flex; justify-content:space-between;
+    margin-top:12px;
+  }
+  .scale-label {
+    font-size:21px; font-weight:300;
+    color:rgba(255,255,255,0.4); letter-spacing:1px;
+  }
+  .scale-label.active {
+    font-weight:600; color:#03bb85;
+  }
+  .signature {
+    position:absolute; bottom:48px;
+    left:0; right:0; text-align:center;
+    font-size:15px; font-weight:300;
+    letter-spacing:2px; color:rgba(255,255,255,0.25);
+  }
+</style>
+</head>
+<body>
+
+  <span class="handle">@drjuliaresende</span>
+
+  <div class="diagrams">
+
+    <!-- Diagrama 1: Caos -->
+    <div class="diagram-item">
+      <svg width="260" height="260" viewBox="0 0 260 260">
+        <g stroke="white" stroke-width="1.5" fill="none" opacity="0.65">
+          <path d="M 50,85 Q 95,45 148,108"/>
+          <path d="M 148,108 Q 188,65 210,138"/>
+          <path d="M 50,85 Q 25,148 88,178"/>
+          <path d="M 88,178 Q 138,210 198,188"/>
+          <path d="M 148,108 Q 168,158 198,188"/>
+          <path d="M 50,85 Q 78,115 118,128"/>
+          <path d="M 118,128 Q 155,143 210,138"/>
+          <path d="M 88,178 Q 108,148 118,128"/>
+          <path d="M 210,138 Q 218,168 198,188"/>
+          <path d="M 50,85 Q 88,65 128,55"/>
+          <path d="M 128,55 Q 170,48 210,138"/>
+          <path d="M 30,140 Q 60,100 88,178"/>
+          <path d="M 128,55 Q 148,108 118,128"/>
+        </g>
+        <g fill="white">
+          <circle cx="50" cy="85" r="5.5"/>
+          <circle cx="148" cy="108" r="5.5"/>
+          <circle cx="210" cy="138" r="5.5"/>
+          <circle cx="88" cy="178" r="5.5"/>
+          <circle cx="198" cy="188" r="5.5"/>
+          <circle cx="118" cy="128" r="5.5"/>
+          <circle cx="128" cy="55" r="5.5"/>
+          <circle cx="65" cy="150" r="5.5"/>
+          <circle cx="178" cy="65" r="5.5"/>
+          <circle cx="162" cy="162" r="5.5"/>
+          <circle cx="30" cy="110" r="5.5"/>
+          <circle cx="220" cy="85" r="5.5"/>
+        </g>
+      </svg>
+      <span class="diagram-label">Caos</span>
+    </div>
+
+    <div class="arrow">→</div>
+
+    <!-- Diagrama 2: Rotina -->
+    <div class="diagram-item">
+      <svg width="260" height="260" viewBox="0 0 260 260">
+        <g stroke="white" stroke-width="1.5" fill="none" opacity="0.65">
+          <line x1="130" y1="25" x2="220" y2="95"/>
+          <line x1="220" y1="95" x2="210" y2="190"/>
+          <line x1="210" y1="190" x2="130" y2="228"/>
+          <line x1="130" y1="228" x2="50" y2="190"/>
+          <line x1="50" y1="190" x2="40" y2="95"/>
+          <line x1="40" y1="95" x2="130" y2="25"/>
+          <line x1="130" y1="25" x2="130" y2="130"/>
+          <line x1="220" y1="95" x2="130" y2="130"/>
+          <line x1="210" y1="190" x2="130" y2="130"/>
+          <line x1="130" y1="228" x2="130" y2="130"/>
+          <line x1="50" y1="190" x2="130" y2="130"/>
+          <line x1="40" y1="95" x2="130" y2="130"/>
+          <line x1="220" y1="95" x2="50" y2="190"/>
+          <line x1="40" y1="95" x2="210" y2="190"/>
+        </g>
+        <g fill="white">
+          <circle cx="130" cy="25" r="5.5"/>
+          <circle cx="220" cy="95" r="5.5"/>
+          <circle cx="210" cy="190" r="5.5"/>
+          <circle cx="130" cy="228" r="5.5"/>
+          <circle cx="50" cy="190" r="5.5"/>
+          <circle cx="40" cy="95" r="5.5"/>
+          <circle cx="130" cy="130" r="7"/>
+        </g>
+      </svg>
+      <span class="diagram-label">Rotina</span>
+    </div>
+
+    <div class="arrow">→</div>
+
+    <!-- Diagrama 3: Paz (verde) -->
+    <div class="diagram-item">
+      <svg width="260" height="260" viewBox="0 0 260 260">
+        <g stroke="#03bb85" stroke-width="1.5" fill="none" opacity="0.85">
+          <!-- Outer hexagon -->
+          <line x1="130" y1="18" x2="224" y2="70"/>
+          <line x1="224" y1="70" x2="224" y2="175"/>
+          <line x1="224" y1="175" x2="130" y2="228"/>
+          <line x1="130" y1="228" x2="36" y2="175"/>
+          <line x1="36" y1="175" x2="36" y2="70"/>
+          <line x1="36" y1="70" x2="130" y2="18"/>
+          <!-- Skip connections -->
+          <line x1="130" y1="18" x2="224" y2="175"/>
+          <line x1="130" y1="18" x2="130" y2="228"/>
+          <line x1="130" y1="18" x2="36" y2="175"/>
+          <line x1="224" y1="70" x2="36" y2="175"/>
+          <line x1="224" y1="70" x2="36" y2="70"/>
+          <line x1="224" y1="70" x2="130" y2="228"/>
+          <line x1="224" y1="175" x2="36" y2="70"/>
+          <line x1="130" y1="228" x2="36" y2="70"/>
+          <!-- Inner hexagon -->
+          <line x1="130" y1="68" x2="177" y2="95"/>
+          <line x1="177" y1="95" x2="177" y2="152"/>
+          <line x1="177" y1="152" x2="130" y2="178"/>
+          <line x1="130" y1="178" x2="83" y2="152"/>
+          <line x1="83" y1="152" x2="83" y2="95"/>
+          <line x1="83" y1="95" x2="130" y2="68"/>
+          <line x1="130" y1="68" x2="130" y2="178"/>
+          <line x1="177" y1="95" x2="83" y2="152"/>
+          <line x1="177" y1="152" x2="83" y2="95"/>
+        </g>
+        <g fill="#03bb85">
+          <circle cx="130" cy="18" r="5.5"/>
+          <circle cx="224" cy="70" r="5.5"/>
+          <circle cx="224" cy="175" r="5.5"/>
+          <circle cx="130" cy="228" r="5.5"/>
+          <circle cx="36" cy="175" r="5.5"/>
+          <circle cx="36" cy="70" r="5.5"/>
+          <circle cx="130" cy="68" r="4.5"/>
+          <circle cx="177" cy="95" r="4.5"/>
+          <circle cx="177" cy="152" r="4.5"/>
+          <circle cx="130" cy="178" r="4.5"/>
+          <circle cx="83" cy="152" r="4.5"/>
+          <circle cx="83" cy="95" r="4.5"/>
+        </g>
+      </svg>
+      <span class="diagram-label" style="color:#03bb85">Paz</span>
+    </div>
+
+  </div>
+
+  <!-- Escala inferior -->
+  <div class="scale-section">
+    <svg width="952" height="64" viewBox="0 0 952 64">
+      <path d="M 0,32 Q 238,12 476,32 Q 714,52 952,32"
+            stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+      <circle cx="0"   cy="32" r="5" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="317" cy="22" r="5" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="635" cy="42" r="5" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="952" cy="32" r="7" fill="#03bb85"/>
+    </svg>
+    <div class="scale-labels">
+      <span class="scale-label">Esgotada</span>
+      <span class="scale-label">Sobrecarregada</span>
+      <span class="scale-label">Com método</span>
+      <span class="scale-label active">Presente</span>
+    </div>
+  </div>
+
+  <p class="signature">@drjuliaresende</p>
+
+</body>
+</html>

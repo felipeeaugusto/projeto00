@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!--
+  TEMPLATE: S06 — Meme (Post único 1:1)
+  Inspiração: comparação antes/depois com bonequinhos e balões de fala (humor/ironia)
+  Dimensões: 1080x1080px
+  Comando: npx playwright screenshot --viewport-size="1080,1080" s06-meme.html output.png
+  Variáveis:
+    {LABEL_LEFT}  → rótulo da coluna esquerda (ex: ANTES DA ROTINA)
+    {LABEL_RIGHT} → rótulo da coluna direita (ex: DEPOIS DA ROTINA)
+    {BUBBLE_LEFT_1} {BUBBLE_LEFT_2} {BUBBLE_LEFT_3} → falas/pensamentos do personagem esquerdo
+    {BUBBLE_RIGHT_1} {BUBBLE_RIGHT_2} {BUBBLE_RIGHT_3} → falas/pensamentos do personagem direito
+    {CAPTION} → legenda/hook abaixo das colunas (ex: "A rotina não te prende. Ela te liberta.")
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:1080px; height:1080px; overflow:hidden;
+    background:#0a0a0a; position:relative;
+    font-family:'Poppins', sans-serif;
+  }
+  .handle {
+    position:absolute; top:48px; right:64px;
+    font-size:16px; font-weight:300; letter-spacing:2px;
+    color:rgba(255,255,255,0.3);
+  }
+  /* Divisor central */
+  .divider {
+    position:absolute;
+    left:50%; top:100px; bottom:120px;
+    width:1px; background:rgba(255,255,255,0.12);
+    transform:translateX(-50%);
+  }
+  /* Colunas */
+  .columns {
+    position:absolute;
+    top:100px; left:0; right:0; bottom:250px;
+    display:flex;
+  }
+  .column {
+    flex:1; display:flex; flex-direction:column;
+    align-items:center; padding:0 48px;
+    padding-top:40px;
+    justify-content:flex-start;
+  }
+  /* Label do topo */
+  .col-label {
+    font-size:18px; font-weight:600;
+    letter-spacing:4px; text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+    margin-bottom:36px;
+  }
+  .col-label.right {
+    color:#03bb85;
+  }
+  /* Personagem SVG */
+  .figure {
+    margin-bottom:28px;
+  }
+  /* Balões de fala */
+  .bubbles {
+    display:flex; flex-direction:column; gap:20px;
+    width:100%;
+  }
+  .bubble {
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px;
+    padding:18px 22px;
+    font-size:22px; font-weight:300;
+    color:rgba(255,255,255,0.6);
+    line-height:1.45;
+    position:relative;
+    min-height:64px;
+  }
+  .bubble::before {
+    content:'';
+    position:absolute; top:-8px; left:32px;
+    width:14px; height:8px;
+    background:rgba(255,255,255,0.06);
+    border-left:1px solid rgba(255,255,255,0.1);
+    border-top:1px solid rgba(255,255,255,0.1);
+    clip-path:polygon(0 100%, 50% 0, 100% 100%);
+  }
+  .column.right .bubble {
+    background:rgba(3,187,133,0.08);
+    border-color:rgba(3,187,133,0.2);
+    color:rgba(255,255,255,0.75);
+  }
+  .column.right .bubble::before {
+    background:rgba(3,187,133,0.08);
+    border-color:rgba(3,187,133,0.2);
+  }
+  /* Caption */
+  .caption-block {
+    position:absolute;
+    bottom:80px; left:64px; right:64px;
+    text-align:center;
+  }
+  .caption-line {
+    width:40px; height:2px;
+    background:#03bb85;
+    margin:0 auto 20px;
+  }
+  .caption {
+    font-size:26px; font-weight:600;
+    color:#ffffff; letter-spacing:0.5px;
+    line-height:1.35;
+  }
+  .signature {
+    position:absolute; bottom:36px;
+    left:0; right:0; text-align:center;
+    font-size:15px; font-weight:300;
+    letter-spacing:2px; color:rgba(255,255,255,0.2);
+  }
+</style>
+</head>
+<body>
+
+  <span class="handle">@drjuliaresende</span>
+  <div class="divider"></div>
+
+  <div class="columns">
+
+    <!-- Coluna esquerda: Antes -->
+    <div class="column left">
+      <span class="col-label">ANTES DA ROTINA</span>
+
+      <!-- Bonequinho caótico (SVG) -->
+      <svg class="figure" width="110" height="140" viewBox="0 0 90 120">
+        <!-- Cabeça -->
+        <circle cx="45" cy="22" r="18" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+        <!-- Rosto preocupado -->
+        <circle cx="38" cy="20" r="2.5" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="52" cy="20" r="2.5" fill="rgba(255,255,255,0.5)"/>
+        <path d="M 36,30 Q 45,26 54,30" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/>
+        <!-- Linhas de estresse -->
+        <line x1="20" y1="10" x2="28" y2="16" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+        <line x1="62" y1="10" x2="58" y2="16" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+        <line x1="14" y1="22" x2="24" y2="22" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+        <!-- Corpo -->
+        <line x1="45" y1="40" x2="45" y2="78" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+        <!-- Braços agitados -->
+        <path d="M 45,50 Q 20,38 12,48" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/>
+        <path d="M 45,50 Q 70,38 78,48" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/>
+        <!-- Pernas abertas -->
+        <line x1="45" y1="78" x2="28" y2="108" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+        <line x1="45" y1="78" x2="62" y2="108" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+      </svg>
+
+      <div class="bubbles">
+        <div class="bubble">ANTES DA ROTINA</div>
+        <div class="bubble">ANTES DA ROTINA</div>
+        <div class="bubble">ANTES DA ROTINA</div>
+      </div>
+    </div>
+
+    <!-- Coluna direita: Depois -->
+    <div class="column right">
+      <span class="col-label right">DEPOIS DA ROTINA</span>
+
+      <!-- Bonequinho tranquilo (SVG) -->
+      <svg class="figure" width="110" height="140" viewBox="0 0 90 120">
+        <!-- Cabeça -->
+        <circle cx="45" cy="22" r="18" fill="none" stroke="#03bb85" stroke-width="2"/>
+        <!-- Rosto feliz -->
+        <circle cx="38" cy="19" r="2.5" fill="#03bb85"/>
+        <circle cx="52" cy="19" r="2.5" fill="#03bb85"/>
+        <path d="M 36,27 Q 45,34 54,27" stroke="#03bb85" stroke-width="2" fill="none"/>
+        <!-- Brilho/estrela -->
+        <circle cx="66" cy="8" r="4" fill="none" stroke="#03bb85" stroke-width="1.5"/>
+        <line x1="66" y1="1" x2="66" y2="5" stroke="#03bb85" stroke-width="1"/>
+        <line x1="66" y1="11" x2="66" y2="15" stroke="#03bb85" stroke-width="1"/>
+        <line x1="59" y1="8" x2="63" y2="8" stroke="#03bb85" stroke-width="1"/>
+        <line x1="69" y1="8" x2="73" y2="8" stroke="#03bb85" stroke-width="1"/>
+        <!-- Corpo -->
+        <line x1="45" y1="40" x2="45" y2="78" stroke="#03bb85" stroke-width="2"/>
+        <!-- Braços relaxados -->
+        <line x1="45" y1="52" x2="22" y2="65" stroke="#03bb85" stroke-width="2"/>
+        <line x1="45" y1="52" x2="68" y2="65" stroke="#03bb85" stroke-width="2"/>
+        <!-- Pernas firmes -->
+        <line x1="45" y1="78" x2="32" y2="108" stroke="#03bb85" stroke-width="2"/>
+        <line x1="45" y1="78" x2="58" y2="108" stroke="#03bb85" stroke-width="2"/>
+      </svg>
+
+      <div class="bubbles">
+        <div class="bubble">DEPOIS DA ROTINA</div>
+        <div class="bubble">DEPOIS DA ROTINA</div>
+        <div class="bubble">DEPOIS DA ROTINA</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Caption -->
+  <div class="caption-block">
+    <div class="caption-line"></div>
+    <p class="caption">CAPTION</p>
+  </div>
+
+  <p class="signature">@drjuliaresende</p>
+
+</body>
+</html>

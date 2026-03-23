@@ -27,3 +27,6 @@ Thumbs.db
 .aiox-core/local/
 .claude/settings.local.json
 .aiox/install-log.txt
+
+# Secrets de publicação — Dr. Julia Resende
+squads/dr-julia-resende/config/publisher-secrets.yaml
