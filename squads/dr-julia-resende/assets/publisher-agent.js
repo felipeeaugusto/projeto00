@@ -42,6 +42,7 @@ const args         = process.argv.slice(2);
 const pastaIdx     = args.indexOf('--pasta');
 const legendaIdx   = args.indexOf('--legenda');
 const arquivoIdx   = args.indexOf('--arquivo-legenda');
+const soFacebook   = args.includes('--so-facebook');
 
 const pasta        = pastaIdx    !== -1 ? args[pastaIdx + 1]    : null;
 const legendaInline = legendaIdx  !== -1 ? args[legendaIdx + 1]  : null;
@@ -49,6 +50,7 @@ const legendaArq   = arquivoIdx  !== -1 ? args[arquivoIdx + 1]  : null;
 
 if (!pasta) {
   console.error('❌ Uso: node publisher-agent.js --pasta <nome> --legenda "texto"');
+  console.error('   Flag opcional: --so-facebook (publica só no Facebook, pula Instagram)');
   process.exit(1);
 }
 
@@ -217,7 +219,9 @@ function logar(entrada) {
   let igPostId = null;
   let fbPostId = null;
 
-  if (slides.length === 1) {
+  if (soFacebook) {
+    console.log('\n   ⏭️  --so-facebook ativo — pulando Instagram');
+  } else if (slides.length === 1) {
     // ─── Post único ─────────────────────────────────────────────────────────
     console.log('\n   📸 Publicando post único no Instagram...');
     const container = await httpPost(`${API}/${ig_user_id}/media`, {
@@ -277,16 +281,47 @@ function logar(entrada) {
 
   // ─── Facebook ──────────────────────────────────────────────────────────────
   console.log('\n   📘 Publicando no Facebook...');
-  const fb = await httpPost(`${API}/${page_id}/photos`, {
-    url: slideUrls[0],
-    message: legenda,
-    access_token: page_access_token
-  });
-  fbPostId = fb.post_id || fb.id;
+  if (slideUrls.length === 1) {
+    // Post único — endpoint direto
+    const fb = await httpPost(`${API}/${page_id}/photos`, {
+      url: slideUrls[0],
+      message: legenda,
+      access_token: page_access_token
+    });
+    fbPostId = fb.post_id || fb.id;
+  } else {
+    // Álbum (carrossel) — upload individual não publicado + feed com attached_media
+    console.log(`   📸 Fazendo upload de ${slideUrls.length} fotos não publicadas no Facebook...`);
+    const fbPhotoIds = [];
+    for (const url of slideUrls) {
+      const photo = await httpPost(`${API}/${page_id}/photos`, {
+        url,
+        published: 'false',
+        access_token: page_access_token
+      });
+      if (!photo.id) {
+        console.warn(`   ⚠️  Falha ao fazer upload de foto FB: ${JSON.stringify(photo)}`);
+      } else {
+        fbPhotoIds.push(photo.id);
+        console.log(`   ✅ Foto FB carregada: ${photo.id}`);
+      }
+    }
+    if (fbPhotoIds.length > 0) {
+      const feedParams = {
+        message: legenda,
+        access_token: page_access_token
+      };
+      fbPhotoIds.forEach((id, i) => {
+        feedParams[`attached_media[${i}]`] = JSON.stringify({ media_fbid: id });
+      });
+      const feed = await httpPost(`${API}/${page_id}/feed`, feedParams);
+      fbPostId = feed.id;
+    }
+  }
   if (fbPostId) {
     console.log(`   ✅ Facebook publicado — ID: ${fbPostId}`);
   } else {
-    console.warn(`   ⚠️  Facebook falhou: ${JSON.stringify(fb)}`);
+    console.warn(`   ⚠️  Facebook falhou`);
   }
 
   // ─── Limpar Cloudinary ──────────────────────────────────────────────────────
