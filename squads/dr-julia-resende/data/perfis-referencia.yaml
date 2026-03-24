@@ -2,6 +2,8 @@
 # Fonte: spec SQUAD-MINERACAO-SPEC.md (Atlas/@analyst — 2026-03-19)
 # Usado pelo scout-agent para coleta semanal via Apify
 # Total: 30 perfis em 3 camadas
+# Atualizado por: Atlas (@analyst) — 2026-03-23
+# Correções: 5 usernames errados corrigidos + 12 inexistentes substituídos
 
 camada_1_nicho:
   descricao: "Mesmo nicho — maternidade, rotina, pedagogia"
@@ -9,38 +11,47 @@ camada_1_nicho:
     - username: "maternidadereal"
       seguidores_aprox: 377206
       foco: "maternidade sem filtros — alto engajamento"
+      status: "ATIVO"
 
-    - username: "academialendaria"
-      seguidores_aprox: null
-      foco: "educacao comportamental e habitos"
+    - username: "neurosaberoficial"
+      seguidores_aprox: 1000000
+      foco: "neurociência aplicada à educação e família"
+      status: "ATIVO"
+      correcao: "substituiu @institutoneurosaber (152 seg — conta errada)"
 
     - username: "maedemenino_oficial"
       seguidores_aprox: null
       foco: "maternidade real + humor"
-
-    - username: "institutoneurosaber"
-      seguidores_aprox: null
-      foco: "neurociencia aplicada a familia"
-
-    - username: "draanaluizasilveira"
-      seguidores_aprox: null
-      foco: "pediatria + desenvolvimento infantil"
+      status: "ATIVO"
 
     - username: "pedagogajaquelineribeiro"
       seguidores_aprox: null
-      foco: "dicas pedagogicas praticas"
+      foco: "dicas pedagógicas práticas"
+      status: "ATIVO"
 
-    - username: "camilaferreirapsico"
+    - username: "pediatranasuacasa"
+      seguidores_aprox: 111000
+      foco: "pediatria + desenvolvimento infantil"
+      status: "ATIVO"
+      correcao: "substituiu @draanaluizasilveira (não existia)"
+
+    - username: "psicologacamilafer"
       seguidores_aprox: null
       foco: "psicologia do comportamento infantil"
+      status: "ATIVO"
+      correcao: "substituiu @camilaferreirapsico (não existia)"
 
-    - username: "drrenatadomingues"
-      seguidores_aprox: null
+    - username: "drarenata_domingues"
+      seguidores_aprox: 275000
       foco: "TDAH + comportamento infantil"
+      status: "ATIVO"
+      correcao: "substituiu @drrenatadomingues (@ errado — underline faltando)"
 
-    - username: "eusoumaedetea"
-      seguidores_aprox: null
-      foco: "maternidade atipica"
+    - username: "marianaferreira7916"
+      seguidores_aprox: 2000000
+      foco: "maternidade atípica — mãe de criança com TEA severo"
+      status: "ATIVO"
+      correcao: "substituiu @eusoumaedetea (não existia)"
 
     - username: "maternidadepratica"
       seguidores_aprox: 38
@@ -53,42 +64,58 @@ camada_2_criadores:
     - username: "pedrosobral"
       seguidores_aprox: null
       foco: "metodologia de conteudo organico"
+      status: "ATIVO"
 
     - username: "finclass_grupoprimo"
       seguidores_aprox: null
       foco: "educacao financeira + producao premium"
+      status: "ATIVO"
 
     - username: "bruno_perini"
       seguidores_aprox: null
       foco: "financas pessoais + engajamento alto"
+      status: "ATIVO"
 
-    - username: "kleberpayam"
+    - username: "andrecopia"
       seguidores_aprox: null
-      foco: "copywriting e persuasao"
+      foco: "copywriting e persuasao — um dos maiores copywriters do Brasil"
+      status: "ATIVO"
+      correcao: "substituiu @kleberpayam (não existia)"
 
-    - username: "lucasinutile"
-      seguidores_aprox: null
-      foco: "storytelling + roteiro de video"
+    - username: "lucasinutilismo"
+      seguidores_aprox: 3000000
+      foco: "storytelling + roteiro de video + humor autêntico"
+      status: "ATIVO"
+      correcao: "substituiu @lucasinutile (@ errado — faltava 'ismo')"
 
     - username: "camilaportella_"
       seguidores_aprox: null
       foco: "conteudo para infoprodutores"
+      status: "ATIVO"
 
-    - username: "rodrigocampos.mkt"
+    - username: "rafaelterra"
       seguidores_aprox: null
-      foco: "marketing digital com resultados"
+      foco: "marketing digital — algoritmo Instagram + conteúdo orgânico"
+      status: "ATIVO"
+      correcao: "substituiu @rodrigocampos.mkt (não existia)"
 
-    - username: "nataliabittencourt"
+    - username: "flaviazanon"
       seguidores_aprox: null
       foco: "producao de conteudo para Instagram"
+      status: "ATIVO"
+      correcao: "substituiu @nataliabittencourt (21 seg — conta errada)"
 
-    - username: "rafaelfeio"
+    - username: "rafaelkiso"
       seguidores_aprox: null
-      foco: "organico + video curto"
+      foco: "organico + video curto + algoritmo Instagram"
+      status: "ATIVO"
+      correcao: "substituiu @rafaelfeio (não existia)"
 
-    - username: "vivianmelo.conteudo"
+    - username: "gabiortega"
       seguidores_aprox: null
       foco: "estrategia de conteudo feminino"
+      status: "ATIVO"
+      correcao: "substituiu @vivianmelo.conteudo (não existia)"
 
 camada_3_referencias:
   descricao: "Referencias visuais e narrativas"
@@ -97,43 +124,60 @@ camada_3_referencias:
       seguidores_aprox: 2100000
       foco: "referencia visual/producao — ATENCAO: nicho IA/negocios, NAO maternidade. Usar apenas como referencia de formato e estetica"
       nota: "Co-founder AIOX, CEO @academialendaria — conteudo de nicho diferente, mas producao premium"
+      status: "ATIVO"
 
-    - username: "drauziovarella"
-      seguidores_aprox: null
-      foco: "autoridade medica + comunicacao simples"
+    - username: "sitedrauziovarella"
+      seguidores_aprox: 2000000
+      foco: "autoridade medica + comunicacao simples — Portal Drauzio"
+      status: "ATIVO"
+      correcao: "substituiu @drauziovarella (@ errado — prefixo 'site' faltando)"
 
     - username: "tuliofarias"
       seguidores_aprox: null
       foco: "comportamento humano + viralizacao"
+      status: "ATIVO"
 
     - username: "leandrodesouza"
       seguidores_aprox: null
       foco: "habitos e desenvolvimento pessoal"
+      status: "ATIVO"
 
-    - username: "taispadilha"
+    - username: "lidianecavalcante"
       seguidores_aprox: null
       foco: "mulher, carreira e equilibrio"
+      status: "ATIVO"
+      correcao: "substituiu @taispadilha (não existia)"
 
     - username: "camila_coutinho"
       seguidores_aprox: null
       foco: "lifestyle feminino + estetica premium"
+      status: "ATIVO"
 
-    - username: "brazilianteacher"
+    - username: "brazilian.teacher"
       seguidores_aprox: null
-      foco: "comunicacao direta + humor leve"
+      foco: "comunicacao direta + humor leve + ensino de inglês"
+      status: "ATIVO — aguarda verificação de seguidores"
+      correcao: "substituiu @brazilianteacher (8 seg — conta errada, faltava ponto no @)"
 
-    - username: "viihmoraes"
+    - username: "rafaelachagas"
       seguidores_aprox: null
       foco: "formato UGC + prova social"
+      status: "ATIVO"
+      correcao: "substituiu @viihmoraes (não existia)"
 
     - username: "juromanos"
       seguidores_aprox: null
       foco: "rotina, organizacao e produtividade"
+      status: "ATIVO"
 
-    - username: "dani_hyodo"
+    - username: "natcavanellas"
       seguidores_aprox: null
-      foco: "maternidade + empreendedorismo"
+      foco: "maternidade + empreendedorismo feminino"
+      status: "ATIVO"
+      correcao: "substituiu @dani_hyodo (não existia)"
 
-    - username: "kerolaynasciimento"
+    - username: "isabella_maternando"
       seguidores_aprox: null
-      foco: "rotina feminina + criacao de filhos"
+      foco: "maternidade + autocuidado + rotina feminina com filhos"
+      status: "ATIVO"
+      correcao: "substituiu @kerolaynasciimento (não existia) — @thaisgripp também não existia"
