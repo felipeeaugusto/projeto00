@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1080px;
+      height: 1080px;
+      overflow: hidden;
+      background: #0A0A0A;
+      position: relative;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Linhas de textura sutil */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 3px,
+          rgba(255,255,255,0.015) 3px,
+          rgba(255,255,255,0.015) 4px
+        );
+      z-index: 0;
+    }
+
+    /* Barra verde lateral esquerda */
+    .accent-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 8px;
+      height: 100%;
+      background: #03bb85;
+      z-index: 10;
+    }
+
+    .handle {
+      position: absolute;
+      top: 52px;
+      right: 72px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 1px;
+      z-index: 10;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 90px 0 110px;
+    }
+
+    .eyebrow {
+      font-family: 'Poppins', sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #03bb85;
+      margin-bottom: 40px;
+    }
+
+    .hook {
+      font-family: 'Poppins', sans-serif;
+      font-size: 62px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #FFFFFF;
+      margin-bottom: 48px;
+    }
+
+    .hook span {
+      color: #03bb85;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: #03bb85;
+      margin-bottom: 44px;
+    }
+
+    .sub {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      max-width: 700px;
+      margin-bottom: 56px;
+    }
+
+    .cta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(3,187,133,0.12);
+      border: 1px solid rgba(3,187,133,0.35);
+      color: #03bb85;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      padding: 14px 28px;
+      border-radius: 2px;
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 58px;
+      left: 110px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .dot {
+      height: 7px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.2);
+      width: 7px;
+    }
+
+    .dot.active {
+      background: #03bb85;
+      width: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="accent-bar"></div>
+  <div class="handle">@drjuliaresende</div>
+
+  <div class="content">
+    <p class="eyebrow">Dra. Julia Resende</p>
+    <h1 class="hook">
+      Enquanto muitas mães<br>
+      correm atrás da<br>
+      <span>perfeição,</span><br>
+      algumas buscam a<br>
+      <span>presença.</span>
+    </h1>
+    <div class="divider"></div>
+    <p class="sub">A diferença entre as duas não é o esforço.<br>É o que elas escolheram perseguir.</p>
+    <div class="cta-tag">
+      <span>deslize para entender</span>
+      <span>→</span>
+    </div>
+  </div>
+
+  <div class="dots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</body>
+</html>

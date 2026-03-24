@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1080px;
+      height: 1080px;
+      overflow: hidden;
+      background: #F5ECD7;
+      position: relative;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(180,150,100,0.04) 2px,
+          rgba(180,150,100,0.04) 4px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 3px,
+          rgba(180,150,100,0.03) 3px,
+          rgba(180,150,100,0.03) 6px
+        );
+      z-index: 0;
+    }
+
+    .accent-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 8px;
+      height: 100%;
+      background: #03bb85;
+      z-index: 10;
+    }
+
+    .handle {
+      position: absolute;
+      top: 52px;
+      right: 72px;
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(44,24,16,0.35);
+      letter-spacing: 1px;
+      z-index: 10;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 100px 0 110px;
+    }
+
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 120px;
+      font-weight: 700;
+      color: rgba(3,187,133,0.2);
+      line-height: 0.7;
+      margin-bottom: 24px;
+    }
+
+    .quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 66px;
+      font-weight: 700;
+      line-height: 1.18;
+      color: #2C1810;
+      margin-bottom: 52px;
+    }
+
+    .quote em {
+      font-style: italic;
+      color: #03bb85;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: #03bb85;
+      margin-bottom: 44px;
+    }
+
+    .sub {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 300;
+      color: rgba(44,24,16,0.6);
+      line-height: 1.65;
+      max-width: 780px;
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 58px;
+      left: 110px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .dot {
+      height: 7px;
+      border-radius: 10px;
+      background: rgba(44,24,16,0.2);
+      width: 7px;
+    }
+
+    .dot.active {
+      background: #03bb85;
+      width: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="accent-bar"></div>
+  <div class="handle">@drjuliaresende</div>
+
+  <div class="content">
+    <div class="quote-mark">"</div>
+    <h2 class="quote">
+      Rotina não é sobre<br>
+      ser a mãe <em>certa.</em><br>
+      É sobre estar lá —<br>
+      <em>todos os dias.</em>
+    </h2>
+    <div class="divider"></div>
+    <p class="sub">
+      Perfeição não cria vínculos.<br>
+      Presença sim.
+    </p>
+  </div>
+
+  <div class="dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot active"></div>
+    <div class="dot"></div>
+  </div>
+</body>
+</html>
