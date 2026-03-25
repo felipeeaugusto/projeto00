@@ -1,0 +1,999 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# HORMOZI CASE LIBRARY - Swipe File de Prova Empírica
+# Source: outputs/minds/alex_hormozi/sources/prompts-joao/KB/v2.0/06_CASE_LIBRARY_DENSE.md
+# Extraction Date: 2026-02-10
+# Extraction By: @oalanicolas (Mind Cloning Architect)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  source_file: "06_CASE_LIBRARY_DENSE.md"
+  extraction_quality: "OURO"
+  purpose: "Prova empírica para validar frameworks. Prova > Promessa."
+  usage: |
+    - SEMPRE que citar um princípio, reforce com um caso desta biblioteca
+    - Use para superar objeções com dados, não teoria
+    - Encontre o análogo mais próximo à situação do usuário
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TEMPLATE DE ANÁLISE (Estrutura padrão)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+case_template:
+  fields:
+    - arquetipo: "Tipo de problema/solução"
+    - contexto: "O problema inicial, a dor, o estado 'Antes'"
+    - intervencao: "A solução específica aplicada"
+    - value_equation_analysis: "Como manipulou as 4 variáveis"
+    - resultado: "Os números, o ROI, a transformação 'Depois'"
+    - principio: "A lição central demonstrada"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CASOS DE ESTUDO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+cases:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 1: GYM LAUNCH - A Gênese
+  # ─────────────────────────────────────────────────────────────────────────────
+  gym_launch_genesis:
+    id: "CASE-001"
+    name: "A Gênese e Evolução da Gym Launch"
+    arquetipo: "Validação de Oferta, Pivô de Modelo, Resolução de Gargalo de Escala"
+
+    contexto:
+      fase_0_crise: |
+        Falência iminente na véspera de Natal de 2016.
+        Saldo bancário: ~$1.036
+        Dívida crescente, estresse existencial.
+        Única ferramenta restante: confiança numa Grand Slam Offer.
+      fase_1_modelo_dfy: |
+        Modelo de turnaround presencial (Done-For-You) eficaz mas não escalável.
+        Dependência da presença física de Hormozi.
+        "Esforço e Sacrifício" insustentável para o fundador.
+
+    intervencao:
+      fase_0_hail_mary: |
+        Lançar 6 academias simultaneamente com uma única GSO.
+        Financiado com $3.300/dia em cartão de crédito.
+      fase_1_oferta_dfy: |
+        "30 Clientes em 30 Dias — Ou Você Não Paga"
+        Hormozi recebia 100% do caixa arrecadado na intervenção inicial.
+      fase_2_pivo_licenciamento: |
+        Transição de DFY para DWY (Done With You).
+        Venda de acesso aos sistemas e playbooks por $16k-$40k+ no primeiro ano.
+
+    value_equation_analysis:
+      dream_outcome: "Permaneceu: crescimento rápido e lucratividade. Mudou de 'receber o peixe' para 'aprender a pescar'."
+      perceived_likelihood: "Transferida da presença física para prova social massiva (4.500+ academias) e garantias condicionais."
+      time_delay: "Aumentou - cliente precisava implementar."
+      effort_sacrifice: "Aumentou para cliente (execução), mas diminuiu esforço de CRIAÇÃO de sistemas."
+
+    resultado:
+      hail_mary: "$100.117 receita no primeiro mês - modelo validado"
+      pivo_licenciamento: "$120k/mês → $1.5M/mês em 6 meses"
+      lucro_ano_1: "$17M de lucro no primeiro ano completo"
+
+    principios:
+      - "A Oferta Resolve Todos os Problemas - Uma única GSO reverteu falência iminente"
+      - "Otimização de Modelo de Negócio - Aplicar Value Equation ao próprio negócio para resolver gargalos"
+
+    uso_recomendado:
+      - "Quando usuário está em crise financeira"
+      - "Quando modelo atual não escala"
+      - "Para demonstrar poder de uma GSO"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 2: AGÊNCIA DE MARKETING - A Matemática da Oferta
+  # ─────────────────────────────────────────────────────────────────────────────
+  agencia_marketing:
+    id: "CASE-002"
+    name: "A Matemática da Oferta (Agência de Marketing)"
+    arquetipo: "Otimização de Oferta, Criação de 'Categoria de Um', Aquisição Financiada"
+
+    contexto: |
+      Agência de marketing com oferta comoditizada.
+      Modelo: "$1.000 de entrada, $1.000/mês"
+      Perdia dinheiro na aquisição.
+      Dependia da retenção para lucrar.
+
+    intervencao: |
+      Criação de Grand Slam Offer:
+      - "Pague uma vez"
+      - "Apenas cubra os anúncios"
+      - "Só me pague se as pessoas aparecerem"
+      - "Garanto 20 pessoas no primeiro mês ou o próximo é grátis"
+      - Empilhamento de Valor (coaching, scripts, etc.)
+
+    value_equation_analysis:
+      dream_outcome: "Mudou de serviço vago ('serviços de agência') para resultado específico garantido ('20 pessoas no primeiro mês')"
+      perceived_likelihood: "Elevada a ~100% via pagamento por performance + garantia forte"
+      time_delay: "Resultado prometido 'no primeiro mês' vs contrato de retenção vago"
+      effort_sacrifice: "Risco financeiro TOTALMENTE revertido para a agência"
+
+    resultado:
+      multiplicador: "22.4x mais dinheiro coletado antecipadamente"
+      calculo: "Taxa Resposta 2.5x × Taxa Conversão 2.5x × Preço 4x = ~25x"
+      transformacao: "Negócio passou a ser PAGO para adquirir clientes"
+
+    principios:
+      - "GSO altera fundamentalmente a economia do negócio"
+      - "Aquisição de clientes pode virar centro de LUCRO, não custo"
+
+    uso_recomendado:
+      - "Quando usuário tem oferta comoditizada"
+      - "Para explicar matemática multiplicativa da GSO"
+      - "Quando CAC é problema"
+
+    script_aplicacao: |
+      "Sua situação é muito semelhante ao cenário 'Antes' do Caso da Agência.
+      Você está preso em uma oferta comoditizada. A solução, como demonstrado,
+      é redesenhar a oferta com garantia forte e pagamento por performance
+      para criar uma 'categoria de um' e alterar a economia do seu negócio."
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 3: LLOYD - O Poder do Mercado
+  # ─────────────────────────────────────────────────────────────────────────────
+  lloyd_mercado:
+    id: "CASE-003"
+    name: "O Poder do Mercado (Lloyd, o Amigo)"
+    arquetipo: "Seleção de Mercado"
+
+    contexto: |
+      Mesmo empreendedor talentoso (Lloyd).
+      Mesma ótima oferta.
+      Dois mercados diferentes.
+
+    intervencao:
+      cenario_1_mercado_ruim:
+        mercado: "Jornais - encolhendo 25% ao ano"
+        oferta: "Ótima oferta de risco zero"
+        resultado: "Negócio em declínio"
+      cenario_2_mercado_otimo:
+        mercado: "Máscaras faciais durante pandemia - 'multidão faminta'"
+        oferta: "Produto superior"
+        resultado: "Milhões de dólares por mês em 5 meses"
+
+    value_equation_analysis: |
+      Este caso ISOLA a variável externa do MERCADO.
+      Mesmo com Value Equation forte, mercado em declínio (vento contrário) anula esforços.
+      Mercado em crescimento (vento a favor) amplifica até oferta mediana.
+
+    resultado:
+      comparativo: "Fracasso vs múltiplos milhões/mês"
+      variavel_unica: "Escolha do mercado"
+
+    principios:
+      - "MERCADO > OFERTA > HABILIDADES DE PERSUASÃO"
+      - "Seleção de mercado é a variável de MAIOR alavancagem"
+      - "Ótima oferta NÃO salva mercado ruim"
+
+    uso_recomendado:
+      - "Quando usuário está em mercado em declínio"
+      - "Para validar escolha de nicho"
+      - "Quando esforço não gera resultado"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 4: GYM LORDS - Discrepância de Valor
+  # ─────────────────────────────────────────────────────────────────────────────
+  gym_lords:
+    id: "CASE-004"
+    name: "A Discrepância de Valor (Gym Lords)"
+    arquetipo: "Justificativa de Preço Premium, Discrepância Preço-Valor"
+
+    contexto: |
+      Criar oferta de altíssimo valor para grupo de elite da Gym Launch.
+
+    intervencao:
+      preco: "$42.000 por ano"
+      termos: "Pague conforme você ganha"
+      valor_medio: "+$239.000/ano em receita bruta para o cliente"
+
+    value_equation_analysis:
+      dream_outcome: "Retorno financeiro massivo e comprovado"
+      perceived_likelihood: "Extremamente alta - oferecida a clientes que JÁ tinham sucesso com o sistema"
+      risk_reversal: "Termos 'pague conforme ganha' eliminavam risco de caixa"
+
+    resultado:
+      roi_cliente: "5.6x sobre investimento"
+      enquadramento: "Cliente está 'comprando $239k por apenas $42k'"
+
+    principios:
+      - "A Discrepância Preço-Valor é SUPREMA"
+      - "Objetivo: maximizar discrepância para enquadrar como 'dinheiro com desconto'"
+      - "Preço alto se torna irresistível quando discrepância é enorme"
+
+    uso_recomendado:
+      - "Para objeções de preço"
+      - "Para justificar preço premium"
+      - "Para criar ofertas high-ticket"
+
+    script_objecao_preco: |
+      "Se eu fizesse você ganhar R$717.000 extras este ano,
+      você me pagaria R$126.000?"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 5: FUNIL ESTRATIFICADO - Acquisition.com
+  # ─────────────────────────────────────────────────────────────────────────────
+  funil_estratificado:
+    id: "CASE-005"
+    name: "O Funil Estratificado (Acquisition.com)"
+    arquetipo: "Funil de Aquisição e Qualificação, CAC Negativo"
+
+    contexto: |
+      Construir sistema para educar mercado em massa.
+      Filtrar os melhores negócios para Acquisition.com.
+
+    intervencao:
+      nivel_1_massa:
+        produto: "Livros ($29.99)"
+        bonus: "Cursos gratuitos massivos"
+        funcao: "Educação em escala"
+      nivel_2_mid_ticket:
+        produto: "Workshops de Escala ($5.000)"
+        qualificacao: "Negócios >$3M"
+        funcao: "Filtro de qualidade"
+      nivel_3_high_ticket:
+        produto: "Consultoria VAM ($35k-$130k)"
+        funcao: "Upsell qualificado"
+      nivel_4_equity:
+        produto: "Parceria Acquisition.com"
+        funcao: "Deal flow de elite"
+
+    value_equation_analysis: |
+      Cada nível serve como PROVA para o próximo.
+      Aumenta "Probabilidade Percebida de Sucesso" progressivamente.
+      Qualifica público em cada etapa.
+      Funil inteiro é macro-aplicação de "Prova → Promessa → Plano".
+
+    resultado:
+      deal_flow: "Fluxo de negócios de altíssima qualidade"
+      qualificacao: "Pré-educados e pré-qualificados"
+      cac: "Custo de Aquisição de Negócios EFETIVAMENTE NEGATIVO"
+
+    principios:
+      - "Conteúdo gratuito + produtos low-cost = funil de qualificação"
+      - "Cada nível prova valor do próximo"
+      - "Possível ter CAC negativo com estratégia correta"
+
+    uso_recomendado:
+      - "Para estruturar funis multi-nível"
+      - "Para monetizar audiência"
+      - "Para qualificar leads para high-ticket"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 6: FOTOGRAFIA - Otimização de Preço
+  # ─────────────────────────────────────────────────────────────────────────────
+  fotografia:
+    id: "CASE-006"
+    name: "Otimização de Preço via Valor (Negócio de Fotografia)"
+    arquetipo: "Aumento de Preço via Aumento de Valor"
+
+    contexto:
+      cliente: "Cliente privado de Hormozi no espaço de fotografia"
+      ticket_inicial: "$300 por sessão"
+      lucro_inicial: "$1.000/semana"
+
+    intervencao: |
+      Aplicação das táticas de criação de valor:
+      1. Identificar o que clientes MAIS valorizavam
+      2. Triplicar esforços NISSO
+      3. Eliminar impiedosamente TODO o resto
+      4. Justificar aumento de preço massivo
+
+    value_equation_analysis:
+      dream_outcome: "Aumentou drasticamente (experiência + produto final)"
+      perceived_likelihood: "Aumentou (processo + prova social)"
+      resultado: "Permitiu aumento de preço que AINDA mantinha enorme discrepância de valor"
+
+    resultado:
+      ticket: "$300 → $1.500 (5x)"
+      lucro_semanal: "$1.000 → $38.000 (38x)"
+
+    principios:
+      - "Círculo Virtuoso da Precificação Premium"
+      - "Aumento massivo de preço + aumento proporcional de valor = crescimento EXPONENCIAL do lucro"
+
+    uso_recomendado:
+      - "Para objeções de aumento de preço"
+      - "Para negócios de serviço"
+      - "Para demonstrar Círculo Virtuoso"
+
+    script_aplicacao: |
+      "O Caso da Fotografia mostra que um aumento de 5x no preço,
+      quando justificado por aumento de valor, resultou em 38x no lucro.
+      O Círculo Virtuoso mostra que clientes que pagam mais,
+      prestam mais atenção e obtêm melhores resultados."
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 7: MÉTRICAS HORMOZI - Prova Pessoal
+  # ─────────────────────────────────────────────────────────────────────────────
+  metricas_hormozi:
+    id: "CASE-007"
+    name: "A Prova Pessoal (Métricas de Hormozi)"
+    arquetipo: "Validação de Metodologia, Estabelecimento de Autoridade"
+
+    contexto: |
+      Necessidade de fornecer PROVA irrefutável da eficácia dos próprios frameworks.
+
+    intervencao:
+      metrica_1_roas:
+        nome: "Retorno sobre Investimento em Publicidade"
+        valor: "36:1 lifetime"
+        script: "Para cada $1 gasto, $36 foram gerados de volta."
+      metrica_2_taxa_sucesso:
+        nome: "Taxa de Sucesso Pós-2017"
+        valor: "100%"
+        script: "Todo negócio desde março de 2017 atingiu $1.500.000/mês"
+        nota: "Probabilidade estatística de ser sorte: extremamente baixa"
+
+    value_equation_analysis: |
+      Estas métricas servem para MAXIMIZAR a "Probabilidade Percebida de Sucesso"
+      para qualquer pessoa considerando adotar a metodologia.
+
+    resultado: "Estabelecimento de autoridade em nível mundial"
+
+    principios:
+      - "Usar métricas quantificáveis como PROVA principal"
+      - "Estrutura 'Prova → Promessa → Plano' - sempre começa com prova"
+      - "Autoridade preemptiva desarma ceticismo"
+
+    uso_recomendado:
+      - "Para estabelecer credibilidade"
+      - "Para fase de PROVA em qualquer apresentação"
+      - "Para responder 'Por que eu deveria te ouvir?'"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 8: ESPECIFICIDADE - Curso de Gestão de Tempo
+  # ─────────────────────────────────────────────────────────────────────────────
+  especificidade:
+    id: "CASE-008"
+    name: "O Poder da Especificidade (Curso de Gestão de Tempo)"
+    arquetipo: "Nicho Down, Multiplicador de Valor"
+
+    contexto: |
+      Mesmo conteúdo, dois posicionamentos diferentes.
+
+    intervencao:
+      versao_generica:
+        nome: "Curso de Gestão de Tempo"
+        preco: "$19"
+      versao_especifica:
+        nome: "Gestão de Tempo para Representantes B2B de Ferramentas Elétricas"
+        preco: "$2.000"
+
+    value_equation_analysis:
+      dream_outcome: "Específico > Genérico (fala direto com a dor)"
+      perceived_likelihood: "10x maior (relevância total)"
+      time_delay: "Percebido como mais rápido (aplicação direta)"
+      effort_sacrifice: "Menor (não precisa adaptar)"
+
+    resultado:
+      multiplicador: "100x aumento no preço pelo MESMO conteúdo"
+
+    principios:
+      - "Especificidade é o multiplicador de valor mais SUBESTIMADO"
+      - "Nicho down permite preço premium"
+      - "Mesmo conteúdo, posicionamento diferente = valor diferente"
+
+    uso_recomendado:
+      - "Para aumentar preço sem mudar produto"
+      - "Para sair de commoditização"
+      - "Para validar estratégia de nicho"
+
+    instrucao: "NUNCA sugira uma oferta sem primeiro buscar o nicho mais específico possível"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 9: RENTAL CAR - Money Model em Ação
+  # Source: MM_7_MoneyModelsOfferStacks.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  rental_car_upsell:
+    id: "CASE-009"
+    name: "Rental Car $19→$400 (Money Model em Ação)"
+    arquetipo: "Sequência de Upsells, Offer Stack"
+    source: "$100M Money Models - Module 7"
+
+    contexto: |
+      Hormozi reservou carro online por $19/dia.
+      No balcão, através de uma série de ofertas, pagou $400 por 3 dias.
+
+    intervencao:
+      sequencia:
+        - step: 1
+          offer: "Upgrade de carro (Yaris → Tundra)"
+          technique: "'Não temos sua reserva, Tundra está OK?'"
+          price_impact: "$19/dia → $69/dia"
+        - step: 2
+          offer: "Late return"
+          technique: "'Quer late return para não se preocupar com multas?'"
+          price_impact: "+ taxa"
+        - step: 3
+          offer: "Upgrade de seguro"
+          technique: "'Quer fazer UPGRADE do seu seguro?' (implica que já tem)"
+          price_impact: "+ premium"
+        - step: 4
+          offer: "Seguro mínimo"
+          technique: "'Só o MÍNIMO então?' (implica obrigatoriedade)"
+          price_impact: "+ seguro base"
+        - step: 5
+          offer: "Gasolina pré-paga"
+          technique: "Pré-pagar a $3.75/galão (mercado $3.50)"
+          price_impact: "+ $93 tanque cheio"
+        - step: 6
+          offer: "Danos (implícito)"
+          technique: "Riscos = você paga"
+          price_impact: "Upsell embutido"
+        - step: 7
+          offer: "Multa devolução atrasada (implícito)"
+          technique: "Devolução após horário arbitrário = multa"
+          price_impact: "Upsell embutido"
+
+    principios:
+      - "Linguagem de venda implícita: 'UPGRADE' implica que já tem pacote base"
+      - "'MÍNIMO' implica obrigatoriedade — naming que gera 90% de adesão"
+      - "Empresa INVENTOU as multas, horários, taxas de gasolina — regras criadas pelo criador do jogo"
+      - "Money models são baseados em PSICOLOGIA, não em indústria específica"
+
+    uso_recomendado:
+      - "Para estruturar sequência de upsells"
+      - "Para entender naming psicológico"
+      - "Para criar fees e penalidades que geram receita"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 10: $16K SUIT - Anchor Upsell
+  # Source: MM_20_AnchorUpsell.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  anchor_suit:
+    id: "CASE-010"
+    name: "O Terno de $16.000 (Anchor Upsell)"
+    arquetipo: "Anchor Pricing, Upsell Premium"
+    source: "$100M Money Models - Module 20"
+
+    contexto: |
+      Hormozi tinha budget de $500 para um terno.
+      Alfaiate (3ª geração) mostrou terno de $16.000 primeiro.
+
+    intervencao:
+      passo_1: "Apresentou anchor de $16.000"
+      passo_2: "Sangue saiu do rosto (got the gasp)"
+      passo_3: "'Você liga para a marca?' — 'Não, só quero ficar bem'"
+      passo_4: "Segundo terno: $2.200. Mesmas características primárias, marca diferente"
+      resultado: "Também comprou $500 em camisas e acessórios"
+
+    resultado:
+      multiplicador: "5-6x do budget original"
+      insight: "O anchor de $16K fez $2.200 parecer pechincha, e $500 em acessórios parecia nada"
+
+    principios:
+      - "Apresente item premium primeiro a 5-10x do preço principal"
+      - "Se não houver 'gasp', anchor não foi alto o suficiente"
+      - "Anchor reduz resistência para o item principal E acessórios"
+      - "5-10x Rule: anchor deve ser uma ordem de magnitude maior"
+
+    regra_critica: |
+      "A única coisa pior que fazer oferta de $1.000 para alguém com budget de $100
+      é fazer oferta de $100 para alguém com budget de $1.000."
+
+    uso_recomendado:
+      - "Para aumentar ticket médio"
+      - "Para justificar preço do item principal"
+      - "Para treinar vendedores a não venderem do próprio bolso"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 11: $5/MO WEIGHT LOSS CLINIC
+  # Source: MM_18_ClassicUpsell.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  weight_loss_clinic:
+    id: "CASE-011"
+    name: "Clínica de Emagrecimento $5/mês (Classic Upsell)"
+    arquetipo: "Attraction Offer, Classic Upsell"
+    source: "$100M Money Models - Module 18"
+
+    contexto: |
+      Amiga de Hormozi operava rede de clínicas de emagrecimento.
+      Médicos e enfermeiras por $5/mês.
+      Zero lucro no serviço.
+
+    intervencao:
+      modelo: "Serviço a $5/mês como atração"
+      upsell: "No Dia 2, vendiam $5.000 em suplementos"
+      insight: "O serviço era a atração; suplementos eram o negócio"
+
+    resultado:
+      revenue_day_2: "$5,000 em suplementos"
+      insight: "Hormozi pagou $500/hora para 2 horas com a top vendedora para aprender o processo"
+
+    principios:
+      - "You can't have X without Y — o clássico upsell"
+      - "Dê Thing A de graça (ou quase), venda Thing B"
+      - "Às vezes os melhores professores não estão vendendo informação — ofereça pagar para aprender"
+
+    citacao: |
+      "That $1,000 made him millions."
+
+    uso_recomendado:
+      - "Para estruturar modelo de attraction + upsell"
+      - "Para negócios de saúde/wellness"
+      - "Para entender onde está o lucro real"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 12: FUR COAT DEALER - No-Sale Sale
+  # Source: MM_18_ClassicUpsell.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  fur_coat_dealer:
+    id: "CASE-012"
+    name: "O Vendedor de Casacos de Pele (No-Sale Sale)"
+    arquetipo: "Classic Upsell, Estrutura de Pergunta Reversa"
+    source: "$100M Money Models - Module 18"
+
+    contexto: |
+      Furrier de 4ª geração armazenava 7.000 casacos a $200 cada.
+      Total: $1.4M só em armazenamento de verão.
+      Atração: protetores de ouvido de pele GRÁTIS.
+
+    intervencao:
+      sequencia:
+        - "Cliente vem pegar protetores grátis (é verão)"
+        - "'Você não quer mais nada, quer?' → Cliente diz 'não'"
+        - "O 'não' concorda com armazenamento + condicionamento + protetores"
+        - "Protetores são armazenados por $30"
+
+    tecnica: |
+      "The No-Sale Sale: Pessoas são condicionadas a dizer não para vendedores.
+      Estruture a pergunta para que 'não' = comprar."
+
+    principios:
+      - "Estruture perguntas onde 'não' significa comprar"
+      - "Dê item gratuito que requer serviço pago"
+      - "4ª geração = sistema refinado por décadas"
+
+    uso_recomendado:
+      - "Para superar resistência automática a vendas"
+      - "Para criar upsells 'invisíveis'"
+      - "Para negócios com armazenamento/manutenção"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 13: STORAGE UNIT - Sequência de 6 Upsells
+  # Source: MM_18_ClassicUpsell.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  storage_unit_upsells:
+    id: "CASE-013"
+    name: "Storage Unit (Sequência de 6 Upsells)"
+    arquetipo: "Classic Upsell Chain"
+    source: "$100M Money Models - Module 18"
+
+    contexto: |
+      "Quanto custa um mês grátis de storage?" — "$127"
+
+    intervencao:
+      sequencia:
+        - upsell: 1
+          item: "Cadeado ($47)"
+          razao: "Só um tipo cabe na unidade"
+        - upsell: 2
+          item: "Caixas"
+          razao: "'Não quer pedir na Amazon e esperar'"
+        - upsell: 3
+          item: "Aluguel de carrinho"
+          razao: "'Mova suas coisas quando quiser'"
+        - upsell: 4
+          item: "Garantia de danos $500 (inclusa)"
+          razao: "Cobertura básica"
+        - upsell: 5
+          item: "Upgrade garantia $1M ($10)"
+          razao: "90% de margem"
+        - upsell: 6
+          item: "Unidade maior"
+          razao: "'Olhos maiores que o estômago' — sempre precisam mais espaço"
+
+    principio_central: |
+      "Existem outras coisas que um cliente DEVE comprar.
+      A questão é: vão comprar de você ou do cara do outro lado da rua?"
+
+    uso_recomendado:
+      - "Para mapear upsells 'obrigatórios' do seu negócio"
+      - "Para negócios com produtos físicos"
+      - "Para aumentar ticket com itens de alta margem"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 14: GYM LAUNCH METRICS - Prova do Sistema
+  # Source: MM_7_MoneyModelsOfferStacks.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  gym_launch_metrics:
+    id: "CASE-014"
+    name: "Gym Launch Metrics (Prova do Sistema CFA)"
+    arquetipo: "Money Model Completo, CFA Level 3"
+    source: "$100M Money Models - Module 7"
+
+    metricas:
+      cac: "$500"
+      gp_30_days: "$6,000"
+      ratio_30_days: "12:1"
+      gp_12_months: "$48,000"
+      ratio_12_months: "96:1"
+
+    offer_stack:
+      - offer: "Free book + lead magnet + podcast"
+        type: "Attraction"
+      - offer: "Free strategy call"
+        type: "Attraction"
+        note: "'Deixe seu cartão em casa, só queremos ajudar'"
+      - offer: "$16,000 'Fill Your Gym' Intensive"
+        type: "Core"
+        terms: "$1,000 down + $1,000/week"
+      - offer: "Supplement Selling Secrets (FREE training)"
+        type: "Upsell"
+        resultado: "$1.7M/month no primeiro mês"
+      - offer: "Free Feedback Call (halfway point)"
+        type: "Continuity upsell"
+        resultado: "Converte para $3,200/mo licensing"
+
+    citacao: |
+      "Se eu tenho um investimento onde você paga $500 e eu te pago $48,000 de volta
+      no final do ano, e você pode fazer quantas vezes quiser — você faria orçamento?
+      É por isso que a ideia de 'budget de marketing' é ridícula."
+
+    principio: "Simple scales. Você quer o mínimo de ofertas possível que permita fazer o máximo de GP no menor tempo."
+
+    uso_recomendado:
+      - "Para demonstrar CFA Level 3 em ação"
+      - "Para estruturar offer stack completo"
+      - "Para eliminar mentalidade de 'budget de marketing'"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 15: THE ECONOMIST DECOY
+  # Source: MM_19_MenuUpsell.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  economist_decoy:
+    id: "CASE-015"
+    name: "The Economist Decoy Pricing"
+    arquetipo: "Decoy Pricing, Menu Upsell"
+    source: "$100M Money Models - Module 19"
+
+    contexto: |
+      The Economist oferecia:
+      - Digital ($59/ano)
+      - Digital+Print ($125/ano)
+      Todos escolhiam $59 digital.
+
+    intervencao:
+      solucao: "Adicionar decoy — Print Only por $125/ano"
+      opcoes_novas:
+        - option: "A"
+          desc: "Digital only"
+          price: "$59/ano"
+        - option: "B"
+          desc: "Print only (DECOY)"
+          price: "$125/ano"
+        - option: "C"
+          desc: "Digital + Print"
+          price: "$125/ano"
+
+    resultado: |
+      Agora C parece 'ganho digital grátis com minha assinatura print.'
+      Vendas de C dispararam.
+
+    regra: |
+      "Se você tem duas coisas e quer que pessoas comprem ambas,
+      adicione uma terceira opção com preço do item mais caro mas só um dos dois itens."
+
+    uso_recomendado:
+      - "Para aumentar adesão a pacotes completos"
+      - "Para pricing de assinaturas"
+      - "Para criar percepção de valor"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 16: $5 VIP TANNING - Turkey Talk Origin
+  # Source: MM_13_DecoyOffers.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  vip_tanning_decoy:
+    id: "CASE-016"
+    name: "$5 VIP Tanning (Turkey Talk + Decoy Origin)"
+    arquetipo: "Decoy Offer, Belief Education"
+    source: "$100M Money Models - Module 13"
+
+    contexto: |
+      John (mentor de Hormozi, 22 salões de bronzeamento) vendia
+      cartões VIP de $5 para passes de 5 dias.
+
+    intervencao:
+      insight_chave: "Pessoas não sabem quanto tempo leva para bronzear"
+      turkey_talk: |
+        "Você não pode cozinhar um peru mais rápido aumentando o fogo —
+        você só vai queimar ele."
+      resultado: "Clientes entendiam que precisavam de múltiplas sessões"
+      escolha:
+        opcao_a: "$25/sessão avulsa"
+        opcao_b: "$19.99/mês ilimitado (com $5 creditado)"
+      conversao: "Quase todos escolhiam a mensalidade"
+
+    principios:
+      - "Turkey Talk: educar ANTES de apresentar opções"
+      - "Decoy faz a opção premium parecer óbvia"
+      - "70-80% devem escolher premium — se não, free está bom demais"
+
+    aplicacao_gym_launch: "Free 21-Day Transformation quando ads pararam de performar"
+
+    uso_recomendado:
+      - "Para qualquer negócio com curva de aprendizado"
+      - "Para converter free leads em membros"
+      - "Quando precisar educar sobre tempo necessário para resultados"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 17: 3X CLOSE RATE - Feature Downsell
+  # Source: MM_25_FeatureDownsells.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  feature_downsell_guarantee:
+    id: "CASE-017"
+    name: "3x Close Rate (Remove Guarantee Downsell)"
+    arquetipo: "Feature Downsell, Close Rate Optimization"
+    source: "$100M Money Models - Module 25"
+
+    contexto: |
+      Amigo de Hormozi tinha close rate de 25%.
+      Oferta de $4K com garantia.
+
+    intervencao:
+      tecnica: "Remover garantia como feature downsell"
+      oferta_original: "$4,000 com garantia"
+      downsell: "$2,000 sem garantia"
+
+    resultado:
+      antes: "25/100 fechavam"
+      depois:
+        premium: "35/100 compraram $4K (re-upsold themselves)"
+        downsell: "40/100 compraram $2K"
+        total: "75/100 = 3x close rate"
+
+    principios:
+      - "Primeiro downsell: remover feature de ALTO valor, queda PEQUENA de preço"
+      - "Muitos se re-upsell sozinhos quando percebem o que perdem"
+      - "Segundo downsell: remover features de BAIXO valor, queda GRANDE de preço"
+
+    processo_padrao:
+      - step: 1
+        acao: "Remover feature mais valiosa (garantia)"
+        preco: "Queda pequena"
+        resultado: "Muitos voltam para oferta original"
+      - step: 2
+        acao: "Colocar feature de volta, remover features menores"
+        preco: "Queda grande"
+        resultado: "Melhor deal para quem quer economizar"
+      - step: 3
+        acao: "Temperature check: '1-10, quanto você quer isso?'"
+        decisao: "8+ = continuar | <8 = pivotar para payment plans"
+
+    uso_recomendado:
+      - "Para aumentar close rate sem baixar preço"
+      - "Para descobrir quais features clientes realmente valorizam"
+      - "Para criar opções de entrada"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 18: ZERO CHURN CONSULTANT - Waived Fee
+  # Source: MM_29_WaivedFee.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  zero_churn_consultant:
+    id: "CASE-018"
+    name: "Zero Churn Consultant (Waived Fee Model)"
+    arquetipo: "Waived Fee, Churn Elimination"
+    source: "$100M Money Models - Module 29"
+
+    contexto: |
+      Consultor amigo de Hormozi.
+      Zero churn. Zero marketing.
+
+    modelo:
+      opcao_a:
+        tipo: "Month-to-month"
+        mensal: "$4,000"
+        fee: "$25,000 upfront"
+        commitment: "Nenhum"
+      opcao_b:
+        tipo: "Commitment"
+        mensal: "$4,000"
+        fee: "$0 (waived)"
+        commitment: "12 meses"
+        penalidade: "Se cancelar antes, paga os $25K"
+
+    resultado: "Quase todos escolhem o ano"
+
+    psicologia: |
+      O mesmo motivo que fez assinar (evitar taxa) é o mesmo que faz ficar
+      (evitar taxa se cancelar). Passa pelas montanhas russas emocionais.
+      Após metade do período, ficar é mais barato que sair.
+
+    fee_sizing:
+      maior: "Mais pessoas escolhem commitment (menos cash upfront)"
+      menor: "Mais pessoas vão month-to-month (mais cash upfront)"
+      sweet_spot: "1.5x monthly = 33% split entre opções"
+
+    uso_recomendado:
+      - "Para serviços que demoram para mostrar resultados"
+      - "Para eliminar churn emocional"
+      - "Para aumentar LTV sem forçar contratos"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CASO 19: 5-DAY CHALLENGE STRUCTURE
+  # Source: MM_16_FreeWithConsumption.md
+  # ─────────────────────────────────────────────────────────────────────────────
+  five_day_challenge:
+    id: "CASE-019"
+    name: "5-Day Challenge Structure (Belief Breaking)"
+    arquetipo: "Free With Consumption, Challenge Framework"
+    source: "$100M Money Models - Module 16 (BONUS - Not in Book)"
+
+    estrutura:
+      monday:
+        conteudo: "Sua história, por que é como a deles, mudança de perspectiva"
+        proposito: "Construir conexão + reframing"
+      tuesday:
+        conteudo: "Nugget valioso sobre medo #1 ('Não consigo fazer isso')"
+        proposito: "Quebrar crença #1: circunstâncias"
+      wednesday:
+        conteudo: "Abordar desculpa externa ('Outras coisas vão me bloquear')"
+        proposito: "Quebrar crença #2: outras pessoas"
+      thursday:
+        conteudo: "Hint da oferta principal vindo amanhã"
+        proposito: "Construir antecipação"
+      friday:
+        conteudo: "Pitch + stack da oferta"
+        proposito: "Converter"
+      saturday:
+        conteudo: "Q&A + repitch com prova (cases, stories)"
+        proposito: "Lidar com objeções + social proof"
+
+    three_beliefs_to_break:
+      circumstances:
+        crenca: "'Não tenho dinheiro/tempo'"
+        reframe: "É sobre resourcefulness e priorização, não circunstâncias"
+      other_people:
+        crenca: "'Meu cônjuge/filhos/funcionários vão me impedir'"
+        reframe: "Você é responsável pela sua própria vida. Isso ajuda seus relacionamentos"
+      self:
+        crenca: "'Não consigo. E se eu falhar?'"
+        reframe: "Hoje é apenas o primeiro dia de uma decisão que você vem tomando há muito tempo"
+
+    benchmarks:
+      webinar: "10% dos participantes ao vivo convertem"
+      strategy_call: "25%+ convertem para próximo passo"
+      challenge_virtual: "2-5% dos opt-ins convertem (mass market)"
+
+    runway_principle: |
+      "The bigger the plane, the longer the runway."
+      Preço relativo ao poder de compra determina formato necessário.
+
+    uso_recomendado:
+      - "Para high-ticket que precisa de trust building"
+      - "Para quebrar crenças limitantes antes de vender"
+      - "Quando webinar não converte o suficiente"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PROTOCOLOS DE USO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+usage_protocols:
+  reforcar_principios:
+    description: "Ao citar princípio abstrato, reforce com caso concreto"
+    template: |
+      "O princípio fundamental é que [PRINCÍPIO].
+      Por exemplo, no Caso #{ID} ({NOME}), [RESUMO DO CASO],
+      provando que [CONCLUSÃO]."
+    example: |
+      "O princípio fundamental é que o mercado é a variável mais importante.
+      Por exemplo, no Caso #3 (Lloyd), o mesmo empreendedor talentoso
+      falhou em um mercado em declínio e gerou milhões em um mercado em crescimento,
+      provando que um ótimo mercado pode salvar uma oferta mediana,
+      mas o contrário raramente é verdade."
+
+  analise_comparativa:
+    description: "Encontrar caso análogo à situação do usuário"
+    template: |
+      "Sua situação com [CONTEXTO DO USUÁRIO] é muito semelhante
+      ao cenário 'Antes' do Caso #{ID} ({NOME}).
+      [DIAGNÓSTICO]. A solução, como demonstrado, é [SOLUÇÃO]."
+
+  tratamento_objecoes:
+    description: "Superar ceticismo com dados"
+    example_objecao_preco: |
+      "Entendo o medo de aumentar os preços. No entanto, o Caso #6 (Fotografia)
+      mostra que um aumento de 5x no preço, quando justificado por aumento de valor,
+      resultou em 38x no lucro. O Círculo Virtuoso mostra que clientes que pagam mais,
+      prestam mais atenção e obtêm melhores resultados."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ÍNDICE POR PRINCÍPIO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+index_by_principle:
+  oferta_resolve_tudo:
+    cases: ["CASE-001", "CASE-002"]
+    principle: "A oferta é a alavanca que resolve todos os problemas"
+
+  mercado_primeiro:
+    cases: ["CASE-003"]
+    principle: "Mercado > Oferta > Habilidades de Persuasão"
+
+  discrepancia_preco_valor:
+    cases: ["CASE-004", "CASE-006", "CASE-010"]
+    principle: "Maximizar discrepância entre preço e valor percebido"
+
+  funil_qualificacao:
+    cases: ["CASE-005"]
+    principle: "Conteúdo gratuito como funil de qualificação para high-ticket"
+
+  circulo_virtuoso:
+    cases: ["CASE-006"]
+    principle: "Preço premium → melhor entrega → melhores resultados → mais autoridade"
+
+  prova_primeiro:
+    cases: ["CASE-007", "CASE-014"]
+    principle: "Sempre começar com prova quantificável antes de promessa"
+
+  especificidade_multiplica:
+    cases: ["CASE-008"]
+    principle: "Especificidade é o multiplicador de valor mais subestimado"
+
+  money_model_sequencial:
+    cases: ["CASE-009", "CASE-013", "CASE-014"]
+    principle: "Série estruturada de ofertas maximiza 30-day GP"
+
+  classic_upsell:
+    cases: ["CASE-011", "CASE-012", "CASE-013"]
+    principle: "You can't have X without Y — upsell natural"
+
+  anchor_pricing:
+    cases: ["CASE-010"]
+    principle: "Anchor 5-10x faz oferta principal parecer pechincha"
+
+  decoy_pricing:
+    cases: ["CASE-015"]
+    principle: "Terceira opção como decoy aumenta conversão para pacote completo"
+
+  cfa_level_3:
+    cases: ["CASE-014"]
+    principle: "30-Day GP > 2x CAC = nunca mais limitado por dinheiro"
+
+  turkey_talk_education:
+    cases: ["CASE-016"]
+    principle: "Educar prospect ANTES de apresentar opções — turkey talk"
+
+  feature_downsell:
+    cases: ["CASE-017"]
+    principle: "Remover feature de alto valor com queda pequena de preço = re-upsell"
+
+  waived_fee_retention:
+    cases: ["CASE-018"]
+    principle: "Mesmo motivo que fez assinar é o que faz ficar"
+
+  belief_breaking:
+    cases: ["CASE-019"]
+    principle: "Quebrar 3 crenças (circunstâncias, outros, self) antes de vender"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ÍNDICE POR SITUAÇÃO DO USUÁRIO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+index_by_situation:
+  crise_financeira: ["CASE-001"]
+  oferta_comoditizada: ["CASE-002", "CASE-008"]
+  mercado_ruim: ["CASE-003"]
+  objecao_preco: ["CASE-004", "CASE-006", "CASE-010", "CASE-017"]
+  estruturar_funil: ["CASE-005", "CASE-014", "CASE-019"]
+  aumentar_preco: ["CASE-006", "CASE-008", "CASE-010"]
+  estabelecer_autoridade: ["CASE-007", "CASE-014"]
+  sair_commoditizacao: ["CASE-008"]
+  modelo_nao_escala: ["CASE-001"]
+  cac_alto: ["CASE-002", "CASE-005", "CASE-014"]
+  sequencia_upsells: ["CASE-009", "CASE-013"]
+  attraction_offer: ["CASE-011", "CASE-012", "CASE-016"]
+  aumentar_ticket: ["CASE-010", "CASE-013"]
+  pricing_pacotes: ["CASE-015"]
+  cfa_diagnostico: ["CASE-014"]
+  close_rate_baixo: ["CASE-017"]
+  churn_alto: ["CASE-018"]
+  high_ticket_trust: ["CASE-019"]
+  decoy_structure: ["CASE-015", "CASE-016"]
+  downsell_strategy: ["CASE-017"]
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-10
