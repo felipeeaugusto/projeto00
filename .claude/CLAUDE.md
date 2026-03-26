@@ -146,6 +146,35 @@ Use agentes especializados APENAS quando quiser o output específico deles.
 
 ---
 
+### BLOCO 0-E — ATUALIZAÇÃO DO MANUAL DE CUSTOMIZAÇÕES (obrigatório)
+
+**Gatilho:** Qualquer implementação de nova regra, protocolo ou comportamento solicitada pelo usuário — mudanças em `CLAUDE.md`, `agent-authority.md`, hooks, `settings.json`, ou qualquer arquivo de configuração comportamental.
+
+```
+PASSO 1: Após implementar a mudança, perguntar:
+         "Quer que eu salve esta customização no Manual? (CUSTOMIZACOES-FELIPE/MANUAL.md)"
+PASSO 2: AGUARDAR confirmação do usuário
+PASSO 3: Se sim → adicionar entrada no MANUAL.md no formato padrão abaixo
+PASSO 4: Perguntar: "Volto para o [agente anterior] ou continuamos aqui?"
+PASSO 5: AGUARDAR resposta antes de qualquer transição de agente
+```
+
+**Formato padrão de entrada no Manual:**
+```
+## CUSTOMIZAÇÃO N — [Nome descritivo]
+**Data de aprovação:** YYYY-MM-DD
+**Problema resolvido:** [problema que gerou a customização]
+**O que faz:** [descrição do comportamento]
+**Onde implementar:** [arquivo(s)]
+**Regra:** [código ou texto exato para implementar]
+```
+
+**Manual localizado em:** `CUSTOMIZACOES-FELIPE/MANUAL.md`
+
+**Esta regra se aplica a TODOS os agentes — AIOX, Hormozi, Dr. Julia, Design, squad-creator, e todos os agentes/squads futuros.**
+
+---
+
 ---
 
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
