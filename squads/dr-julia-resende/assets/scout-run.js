@@ -18,7 +18,7 @@ const APIFY_TOKEN = secrets.apify.api_token;
 const ACTOR_ID    = 'apify~instagram-scraper';
 const TODAY       = new Date().toISOString().split('T')[0];
 const OUTPUT_PATH = path.join(__dirname, `../data/mineracao/posts_brutos/coleta-${TODAY}.json`);
-const POSTS_PER_PROFILE = 20;
+const POSTS_PER_PROFILE = 50;
 
 // ─── Perfis ativos (29 — maternidadepratica INATIVA) ──────────────────────
 const PERFIS = [

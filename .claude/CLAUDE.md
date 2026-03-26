@@ -35,6 +35,53 @@ PASSO 4: NÃO executar nenhuma parte da tarefa antes de delegar
 
 ---
 
+### BLOCO 0-A — REGISTRO DE AGENTE ATIVO (obrigatório, primeiro passo de qualquer ativação)
+
+CRÍTICO: Todo agente DEVE escrever seu ID em `.claude/.current-agent` ANTES do greeting.
+Isso alimenta o hook de enforcement técnico (`check-agent-scope.js`).
+
+| Agente ativado | Comando obrigatório |
+|----------------|---------------------|
+| @analyst | `echo analyst > .claude/.current-agent` |
+| @hormozi-audit | `echo hormozi-audit > .claude/.current-agent` |
+| @hormozi-copy | `echo hormozi-copy > .claude/.current-agent` |
+| @hormozi-offers | `echo hormozi-offers > .claude/.current-agent` |
+| @dev | `echo dev > .claude/.current-agent` |
+| @devops | `echo devops > .claude/.current-agent` |
+| @qa | `echo qa > .claude/.current-agent` |
+| @pm | `echo pm > .claude/.current-agent` |
+| @po | `echo po > .claude/.current-agent` |
+| @sm | `echo sm > .claude/.current-agent` |
+| @architect | `echo architect > .claude/.current-agent` |
+| @aiox-master | `echo aiox-master > .claude/.current-agent` |
+
+PROIBIDO: Fazer qualquer coisa antes de executar esse comando.
+
+---
+
+### BLOCO 0-B — QUANDO O HOOK BLOQUEAR (resposta obrigatória ao enforcement)
+
+Quando `.claude/hooks/check-agent-scope.js` bloquear uma tool call com mensagem de violação:
+
+```
+PASSO 1: Leia a mensagem de erro — ela indica o agente correto
+PASSO 2: Ative IMEDIATAMENTE o agente correto (sem pedir confirmação ao usuário)
+PASSO 3: Escreva o novo ID em .claude/.current-agent
+PASSO 4: Reexecute a tarefa bloqueada como o agente correto
+PASSO 5: Continue o trabalho normalmente
+```
+
+O usuário NÃO precisa fazer nada. O sistema corrige sozinho.
+
+**PROTOCOLO PADRÃO — início de toda sessão:**
+```
+/AIOX:agents:aiox-master
+```
+@aiox-master tem escopo universal — nunca será bloqueado pelo hook.
+Use agentes especializados APENAS quando quiser o output específico deles.
+
+---
+
 ---
 
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
