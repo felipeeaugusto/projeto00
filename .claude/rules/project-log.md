@@ -86,15 +86,37 @@ Quando o usuário disser: *"vou parar", "vou dormir", "por hoje é isso", "até 
 
 ---
 
-## Regra 4 — Formato de atualização do histórico
+## Regra 4 — Formato obrigatório do histórico de sessões
 
-Ao adicionar entrada no histórico de sessões, use sempre:
+Ao adicionar entrada no histórico, use SEMPRE este formato completo:
 
 ```
-### Sessão — YYYY-MM-DD
-**Feito:** [resumo do que foi feito e aprovado]
-**Parou em:** [último ponto da conversa — o que está em andamento]
+### SESSÃO — DD/MM/AAAA
+
+**O QUE FOI FEITO:**
+- [item concreto realizado e aprovado]
+- [item concreto realizado e aprovado]
+
+**O QUE O FELIPE PEDIU:**
+- [pedido ou decisão do Felipe nesta sessão]
+- [pedido ou decisão do Felipe nesta sessão]
+
+**PENDÊNCIAS:**
+🔴 Prioridade Máxima: [o que trava tudo — fazer primeiro]
+🟡 Prioridade Normal: [importante, mas não trava]
+  - [item]
+  - [item]
+🔵 Pode deixar pra depois: [baixa prioridade]
+  - [item]
+  - [item]
+
+**PAROU EM:** [tarefa exata que estava em andamento no momento que a sessão encerrou]
 ```
+
+**PROIBIDO:**
+- Resumir em uma linha o que levou horas de sessão
+- Usar seções genéricas sem detalhe concreto
+- Omitir o "PAROU EM" — sem ele o Felipe não sabe por onde recomeçar
 
 ---
 
@@ -102,6 +124,22 @@ Ao adicionar entrada no histórico de sessões, use sempre:
 
 Se o usuário mencionar algo que ainda precisa ser feito — mesmo sem aprovar nada — adicione em "🔄 Pendências" imediatamente e avise:
 > "Anotei nas pendências: [item]. Continuando..."
+
+---
+
+## Regra 6 — Após interrupção por melhoria/atualização
+
+Quando o fluxo principal for interrompido para corrigir ou implementar uma melhoria (regra, protocolo, hook, etc.), ao concluir a melhoria o agente DEVE:
+
+1. **Mostrar automaticamente** onde o projeto estava antes da interrupção, lido do caderno:
+   ```
+   📍 Antes de interromper, o projeto estava em:
+   [tarefa exata do campo PAROU EM do caderno — ou do contexto da sessão atual]
+   ```
+2. **Não usar frases vazias** como "vamos retomar", "voltando ao que estávamos fazendo", etc.
+3. **Mostrar o estado diretamente** — a informação, não o anúncio de que vai mostrá-la.
+
+**Esta regra se aplica a TODOS os agentes, incluindo @aiox-master.**
 
 ---
 

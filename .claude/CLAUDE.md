@@ -175,6 +175,36 @@ PASSO 5: AGUARDAR resposta antes de qualquer transição de agente
 
 ---
 
+### BLOCO 0-F — RETOMADA APÓS INTERRUPÇÃO (obrigatório)
+
+**Gatilho:** Qualquer agente que interrompeu o fluxo principal para implementar uma melhoria, regra, protocolo ou correção.
+
+```
+AO CONCLUIR A MELHORIA:
+
+PASSO 1: Ler o caderno (PROJETO-STATUS.md) — campo PAROU EM da última sessão
+         OU identificar no contexto da sessão atual qual era a tarefa em andamento
+PASSO 2: Exibir diretamente (sem anúncio, sem frase vazia):
+
+         📍 Antes de interromper, o projeto estava em:
+         [tarefa exata — específica, sem paráfrase]
+
+PASSO 3: Continuar aguardando instrução do usuário
+```
+
+**PROIBIDO:**
+- "Vamos retomar o que estávamos fazendo"
+- "Voltando ao projeto..."
+- "Agora que terminamos isso, podemos continuar com..."
+- Qualquer frase que anuncia a retomada em vez de mostrar o estado
+
+**CORRETO:**
+- Mostrar diretamente: "📍 Antes de interromper, o projeto estava em: criação do `product-content-agent` para escrever o Guia 7 Minutos e o Desafio 21 Dias."
+
+**Esta regra se aplica a TODOS os agentes, incluindo @aiox-master.**
+
+---
+
 ---
 
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
