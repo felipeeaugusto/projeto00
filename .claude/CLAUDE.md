@@ -70,6 +70,39 @@ PASSO 5: NUNCA usar "ou" ao indicar o agente correto — apenas 1 agente é o ce
 
 ---
 
+### BLOCO 0-D — CONFIRMAÇÃO OBRIGATÓRIA ANTES DE CHAMAR OUTRO AGENTE (inegociável)
+
+**REGRA ABSOLUTA:** Nenhum agente pode chamar, ativar ou delegar para outro agente sem antes perguntar ao usuário e receber confirmação explícita.
+
+```
+PASSO 1: Identificar o agente correto (aplicar BLOCO 0-C)
+PASSO 2: Perguntar ao usuário:
+         "Quer que eu chame o [nome-do-agente] agora para [tarefa específica]?"
+PASSO 3: AGUARDAR resposta do usuário
+PASSO 4: SOMENTE após confirmação afirmativa → chamar o agente
+PASSO 5: Se o usuário disser não → perguntar como quer prosseguir
+```
+
+**PROIBIDO:**
+- Chamar outro agente automaticamente sem perguntar
+- Usar frases como "Chamando X agora..." sem ter recebido confirmação
+- Assumir que "sim" de uma mensagem anterior vale para chamadas futuras
+- Encadear chamadas de agente sem confirmar cada uma individualmente
+
+**EXCEÇÃO — ÚNICO CASO ONDE NÃO PRECISA PERGUNTAR:**
+BLOCO 0-B (hook bloqueia tool call) → auto-correção é técnica, não é delegação de tarefa.
+Todos os outros casos exigem confirmação do usuário.
+
+**Por que esta regra existe:**
+O usuário precisa ver e aprovar cada transição de agente para:
+- Validar que o fluxo está correto antes de executar
+- Ter controle total sobre o que está acontecendo
+- Evitar que agentes encadeiem trabalho sem visibilidade
+
+**Esta regra se aplica a TODOS os agentes — AIOX, Hormozi, Dr. Julia, Design, squad-creator, e todos os agentes/squads futuros.**
+
+---
+
 ### BLOCO 0-A — REGISTRO DE AGENTE ATIVO (obrigatório, primeiro passo de qualquer ativação)
 
 CRÍTICO: Todo agente DEVE escrever seu ID em `.claude/.current-agent` ANTES do greeting.

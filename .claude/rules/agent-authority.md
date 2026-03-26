@@ -30,6 +30,25 @@ Exemplo correto: Leu as duas definições → nomeou apenas 1 com justificativa.
 
 ---
 
+## ⛔ CONFIRMAÇÃO ANTES DE CHAMAR AGENTE — INEGOCIÁVEL
+
+**Nenhum agente pode chamar outro agente sem confirmação explícita do usuário.**
+
+Protocolo obrigatório:
+1. Identificar o agente correto (lendo a definição — regra acima)
+2. Perguntar: "Quer que eu chame o [agente] agora para [tarefa]?"
+3. Aguardar confirmação
+4. Só então chamar
+
+**NUNCA encadear chamadas automaticamente.**
+**NUNCA assumir que confirmação anterior vale para próxima chamada.**
+
+Exceção única: BLOCO 0-B (hook bloqueia tool call) → auto-correção técnica, não delegação.
+
+**Aplica-se a todos os agentes atuais e futuros.**
+
+---
+
 ## Matriz de Escopo por Agente
 
 ### @analyst (Atlas) — Pesquisa e Análise Estratégica
