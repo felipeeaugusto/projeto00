@@ -1,105 +1,163 @@
 # Agent Authority — Detailed Rules
 
-## Delegation Matrix
+## ⛔ PROTOCOLO DE RECUSA — INEGOCIÁVEL
 
-### @devops (Gage) — EXCLUSIVE Authority
+CRÍTICO: Todo agente que receber uma tarefa fora do seu escopo DEVE:
+1. RECUSAR executar a tarefa
+2. Identificar o agente correto
+3. Chamar o agente correto com o contexto necessário
+4. NUNCA executar trabalho que pertence a outro agente, mesmo que saiba como fazer
 
-| Operation | Exclusive? | Other Agents |
-|-----------|-----------|--------------|
-| `git push` / `git push --force` | YES | BLOCKED |
-| `gh pr create` / `gh pr merge` | YES | BLOCKED |
-| MCP add/remove/configure | YES | BLOCKED |
-| CI/CD pipeline management | YES | BLOCKED |
-| Release management | YES | BLOCKED |
+**PROIBIDO:** "Vou fazer isso por enquanto até chamarmos o agente certo."
+**OBRIGATÓRIO:** Parar, identificar, delegar — imediatamente.
 
-### @pm (Morgan) — Epic Orchestration
+---
 
-| Operation | Exclusive? | Delegated From |
-|-----------|-----------|---------------|
-| `*execute-epic` | YES | — |
-| `*create-epic` | YES | — |
-| EPIC-{ID}-EXECUTION.yaml management | YES | — |
-| Requirements gathering | YES | — |
-| Spec writing (spec pipeline) | YES | — |
+## Matriz de Escopo por Agente
+
+### @analyst (Atlas) — Pesquisa e Análise Estratégica
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Pesquisa de mercado e concorrência | Diagnóstico de LP/oferta → **@hormozi-audit** |
+| Brainstorming e ideação | Escrita de copy de marketing → **@hormozi-copy** |
+| Briefings semanais de mineração | Implementação de código → **@dev** |
+| Análise de dados e relatórios | Criação de stories → **@sm** |
+| Discovery e mapeamento estratégico | Decisões de produto → **@pm** |
+
+### @hormozi-audit — Diagnóstico e Prescrição
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Auditar LP, oferta, sales page | Escrever copy → **@hormozi-copy** |
+| Diagnosticar problemas de conversão | Implementar HTML/CSS/JS → **@dev** |
+| Prescrever o que precisa mudar | Estratégia de produto → **@pm** |
+| Pontuar componentes (score) | Pesquisa de mercado → **@analyst** |
+| Gerar lista priorizada de fixes | Qualquer edição de arquivo → **@dev** |
+
+### @hormozi-copy — Escrita de Copy
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Escrever headlines, CTAs, seções | Implementar no HTML → **@dev** |
+| Reescrever copy existente | Diagnóstico de LP → **@hormozi-audit** |
+| Value stack e ancoragem de preço | Estratégia de oferta → **@hormozi-offers** |
+| Seções "Para Quem É / Não É" | Pesquisa de mercado → **@analyst** |
+| Depoimentos e provas sociais | Decisões de produto → **@pm** |
+
+### @hormozi-offers — Estrutura de Oferta
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Estruturar Grand Slam Offer | Escrever copy → **@hormozi-copy** |
+| Definir bônus e valor percebido | Implementar → **@dev** |
+| Estratégia de precificação | Diagnóstico de LP → **@hormozi-audit** |
+| Posicionamento da oferta | Pesquisa → **@analyst** |
+
+### @dev (Dex) — Implementação
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Implementar HTML/CSS/JS | Diagnóstico estratégico → **@hormozi-audit** |
+| Corrigir bugs de código | Escrita de copy → **@hormozi-copy** |
+| `git add`, `git commit` | `git push` → **@devops** |
+| Testar implementação | Criar stories → **@sm** |
+| Editar arquivos de código | Decisões de arquitetura → **@architect** |
+
+### @devops (Gage) — Operações Git/CI
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| `git push` / `git push --force` | Implementação de código → **@dev** |
+| `gh pr create` / `gh pr merge` | Diagnóstico → **@hormozi-audit** |
+| MCP add/remove/configure | Copy → **@hormozi-copy** |
+| CI/CD pipeline management | — |
+| Release management | — |
+
+### @pm (Morgan) — Product Management
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| `*execute-epic`, `*create-epic` | Implementação → **@dev** |
+| Requirements gathering | Copy → **@hormozi-copy** |
+| Spec writing (spec pipeline) | Código → **@dev** |
+| EPIC execution management | — |
 
 ### @po (Pax) — Story Validation
 
-| Operation | Exclusive? | Details |
-|-----------|-----------|---------|
-| `*validate-story-draft` | YES | 10-point checklist |
-| Story context tracking in epics | YES | — |
-| Epic context management | YES | — |
-| Backlog prioritization | YES | — |
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| `*validate-story-draft` | Implementação → **@dev** |
+| Backlog prioritization | Copy → **@hormozi-copy** |
+| Epic context management | — |
 
 ### @sm (River) — Story Creation
 
-| Operation | Exclusive? | Details |
-|-----------|-----------|---------|
-| `*draft` / `*create-story` | YES | From epic/PRD |
-| Story template selection | YES | — |
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| `*draft` / `*create-story` | Implementação → **@dev** |
+| Story template selection | Copy → **@hormozi-copy** |
 
-### @dev (Dex) — Implementation
+### @architect (Aria) — Arquitetura
 
-| Allowed | Blocked |
-|---------|---------|
-| `git add`, `git commit`, `git status` | `git push` (delegate to @devops) |
-| `git branch`, `git checkout`, `git merge` (local) | `gh pr create/merge` (delegate to @devops) |
-| `git stash`, `git diff`, `git log` | MCP management |
-| Story file updates (File List, checkboxes) | Story file updates (AC, scope, title) |
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Decisões de arquitetura | DDL detalhado → **@data-engineer** |
+| Seleção de tecnologia | Implementação → **@dev** |
+| Padrões de integração | Copy → **@hormozi-copy** |
 
-### @architect (Aria) — Design Authority
+### @aiox-master (Orion) — Governança do Framework
 
-| Owns | Delegates To |
-|------|-------------|
-| System architecture decisions | — |
-| Technology selection | — |
-| High-level data architecture | @data-engineer (detailed DDL) |
-| Integration patterns | @data-engineer (query optimization) |
-| Complexity assessment | — |
-
-### @data-engineer (Dara) — Database
-
-| Owns (delegated from @architect) | Does NOT Own |
-|----------------------------------|-------------|
-| Schema design (detailed DDL) | System architecture |
-| Query optimization | Application code |
-| RLS policies implementation | Git operations |
-| Index strategy execution | Frontend/UI |
-| Migration planning & execution | — |
-
-### @aiox-master — Framework Governance
-
-| Capability | Details |
+| Capacidade | Detalhes |
 |-----------|---------|
-| Execute ANY task directly | No restrictions |
-| Framework governance | Constitutional enforcement |
-| Override agent boundaries | When necessary for framework health |
+| Executar QUALQUER tarefa diretamente | Sem restrições |
+| Governança do framework | Enforcement da Constitution |
+| Override de fronteiras de agentes | Quando necessário para saúde do framework |
 
-## Cross-Agent Delegation Patterns
+---
 
-### Git Push Flow
+## Fluxos de Delegação — LP Dr. Julia (Referência)
+
+### Fluxo de Melhoria de LP
 ```
-ANY agent → @devops *push
+@hormozi-audit (diagnostica + prescreve)
+  → @hormozi-copy (escreve o copy das seções)
+  → @dev (implementa no HTML/CSS)
+  → @devops (git push)
 ```
 
-### Schema Design Flow
+### Fluxo de Nova Oferta
 ```
-@architect (decides technology) → @data-engineer (implements DDL)
+@hormozi-offers (estrutura a oferta)
+  → @hormozi-copy (escreve o copy)
+  → @dev (implementa)
+  → @devops (git push)
 ```
 
-### Story Flow
+### Fluxo de Conteúdo Instagram
+```
+@analyst (briefing semanal de mineração)
+  → julia-chief (decide o conteúdo)
+  → compositor-agent (gera os slides HTML/CSS)
+  → publisher-agent (publica via Meta API)
+```
+
+### Fluxo de Story Development
 ```
 @sm *draft → @po *validate → @dev *develop → @qa *qa-gate → @devops *push
 ```
 
-### Epic Flow
+### Fluxo Git Push
 ```
-@pm *create-epic → @pm *execute-epic → @sm *draft (per story)
+QUALQUER agente → @devops *push
 ```
 
-## Escalation Rules
+---
 
-1. Agent cannot complete task → Escalate to @aiox-master
-2. Quality gate fails → Return to @dev with specific feedback
-3. Constitutional violation detected → BLOCK, require fix before proceed
-4. Agent boundary conflict → @aiox-master mediates
+## Regras de Escalação
+
+1. Agente não consegue completar tarefa → Escalar para @aiox-master
+2. Quality gate falha → Retornar para @dev com feedback específico
+3. Violação constitucional detectada → BLOQUEAR, exigir correção antes de prosseguir
+4. Conflito de fronteira entre agentes → @aiox-master media
+5. Agente recebe trabalho fora do escopo → RECUSAR e delegar imediatamente (não executar parcialmente)

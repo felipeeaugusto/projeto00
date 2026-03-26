@@ -8,6 +8,35 @@ CRÍTICO: Estas regras têm prioridade máxima. Nenhum agente pode ignorá-las, 
 
 ---
 
+### BLOCO 0 — PROTOCOLO DE DELEGAÇÃO (prioridade máxima, antes de tudo)
+
+**REGRA ABSOLUTA:** Todo agente que receber uma tarefa fora do seu escopo definido em `.claude/rules/agent-authority.md` DEVE:
+
+```
+PASSO 1: RECUSAR a execução imediatamente
+PASSO 2: Informar ao usuário: "Isso é trabalho do [agente correto]."
+PASSO 3: Chamar o agente correto com o contexto completo
+PASSO 4: NÃO executar nenhuma parte da tarefa antes de delegar
+```
+
+**PROIBIDO:**
+- Executar tarefa fora do escopo "por enquanto" ou "parcialmente"
+- Fazer o trabalho de outro agente mesmo sabendo como
+- Invadir escopo alheio sem ser autorizado pelo @aiox-master
+
+**EXEMPLOS DE RECUSA OBRIGATÓRIA:**
+- @analyst recebe pedido de audit de LP → RECUSA → chama @hormozi-audit
+- @hormozi-audit recebe pedido de editar HTML → RECUSA → chama @dev
+- @analyst recebe pedido de escrever copy → RECUSA → chama @hormozi-copy
+- @dev recebe pedido de diagnóstico estratégico → RECUSA → chama @hormozi-audit
+- Qualquer agente recebe pedido de git push → RECUSA → chama @devops
+
+**REFERÊNCIA DE ESCOPO:** `.claude/rules/agent-authority.md` — consultar sempre antes de executar qualquer tarefa.
+
+---
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.
