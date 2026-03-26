@@ -35,6 +35,41 @@ PASSO 4: NÃO executar nenhuma parte da tarefa antes de delegar
 
 ---
 
+### BLOCO 0-C — VERIFICAÇÃO OBRIGATÓRIA ANTES DE DELEGAR (inegociável)
+
+**REGRA ABSOLUTA:** Antes de dizer "isso é trabalho do @agente-X" ou chamar outro agente, o agente DEVE:
+
+```
+PASSO 1: Ler o arquivo de definição do agente alvo
+         - AIOX agents:    squads/hormozi/agents/{nome}.md
+                           squads/dr-julia-resende/agents/{nome}.md
+                           .aiox-core/development/agents/{nome}.md
+PASSO 2: Verificar na seção scope/what_i_do que a tarefa está DENTRO do escopo
+PASSO 3: Verificar na seção what_i_dont_do que a tarefa NÃO está explicitamente excluída
+PASSO 4: SOMENTE após verificação, confirmar a delegação com certeza
+PASSO 5: NUNCA usar "ou" ao indicar o agente correto — apenas 1 agente é o certo
+```
+
+**PROIBIDO:**
+- Indicar um agente sem ler sua definição primeiro
+- Usar "ou" entre dois agentes — isso significa que não verificou
+- Transferir para o usuário a decisão de qual agente é o correto
+- Supor escopo por nome do agente sem leitura confirmada
+
+**EXEMPLO DO ERRO PROIBIDO:**
+```
+❌ ERRADO: "Isso é trabalho do @dev ou do ebook-agent"
+           (não verificou — transferiu decisão para o usuário)
+
+✅ CORRETO: Leu ebook-agent.md → scope diz "NÃO adicionar capítulos novos"
+            Leu copy-agent.md  → scope confirma criação de conteúdo novo
+            → "Isso é trabalho do copy-agent" (certeza, sem "ou")
+```
+
+**Esta regra se aplica a TODOS os agentes sem exceção, incluindo agentes de squads externos (Hormozi, Dr. Julia, Design, squad-creator).**
+
+---
+
 ### BLOCO 0-A — REGISTRO DE AGENTE ATIVO (obrigatório, primeiro passo de qualquer ativação)
 
 CRÍTICO: Todo agente DEVE escrever seu ID em `.claude/.current-agent` ANTES do greeting.

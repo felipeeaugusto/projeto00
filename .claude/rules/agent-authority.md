@@ -13,6 +13,23 @@ CRÍTICO: Todo agente que receber uma tarefa fora do seu escopo DEVE:
 
 ---
 
+## ⛔ VERIFICAÇÃO ANTES DE DELEGAR — INEGOCIÁVEL
+
+**Antes de nomear qualquer agente como responsável por uma tarefa, o agente DEVE:**
+
+1. **Ler a definição do agente alvo** — arquivo `.md` em `squads/` ou `.aiox-core/development/agents/`
+2. **Confirmar `what_i_do`** — a tarefa está listada ou claramente dentro do escopo?
+3. **Confirmar `what_i_dont_do`** — a tarefa não está explicitamente excluída?
+4. **Somente então nomear o agente** — com certeza, sem "ou"
+
+**NUNCA usar "ou" entre dois agentes como resposta** — isso indica que não verificou.
+Exemplo proibido: "Isso é trabalho do @dev ou do ebook-agent"
+Exemplo correto: Leu as duas definições → nomeou apenas 1 com justificativa.
+
+**Aplica-se a TODOS os agentes, incluindo squads externos.**
+
+---
+
 ## Matriz de Escopo por Agente
 
 ### @analyst (Atlas) — Pesquisa e Análise Estratégica
