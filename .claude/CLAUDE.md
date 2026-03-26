@@ -73,10 +73,6 @@ PASSO 5: Continue o trabalho normalmente
 
 O usuário NÃO precisa fazer nada. O sistema corrige sozinho.
 
-**PROTOCOLO PADRÃO — início de toda sessão:**
-```
-/AIOX:agents:aiox-master
-```
 @aiox-master tem escopo universal — nunca será bloqueado pelo hook.
 Use agentes especializados APENAS quando quiser o output específico deles.
 
