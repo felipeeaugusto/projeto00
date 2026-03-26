@@ -116,6 +116,28 @@ CRÍTICO: Todo agente que receber uma tarefa fora do seu escopo DEVE:
 
 ---
 
+### compositor-agent — Geração Visual (Squad Dr. Julia)
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Gerar slides HTML/CSS para carrosseis | Escrever copy → **@hormozi-copy** |
+| Gerar posts (P01 Manifesto, etc.) | Decidir conteúdo → **julia-chief** |
+| Gerar stories (ST01 Direta, etc.) | Publicar no Instagram → **publisher-agent** |
+| Renderizar PNG via Playwright | Estratégia de conteúdo → **@analyst** |
+| Gerar criativos de anúncios (PNG) | Implementar LP ou código de produto → **@dev** |
+
+> ⚠️ REGRA CRÍTICA: Qualquer tarefa de "gerar imagem", "criar slide", "produzir criativo visual" pertence ao **compositor-agent**, NÃO ao @dev. O @dev só entra se houver bug no script de renderização ou necessidade de criar um novo template do zero.
+
+### publisher-agent — Publicação Meta (Squad Dr. Julia)
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Publicar no Instagram via Meta Graph API | Gerar imagens → **compositor-agent** |
+| Publicar no Facebook | Escrever copy/legenda → **@hormozi-copy** |
+| Upload via Cloudinary | Decidir o que publicar → **julia-chief** |
+
+---
+
 ## Fluxos de Delegação — LP Dr. Julia (Referência)
 
 ### Fluxo de Melhoria de LP
@@ -138,8 +160,17 @@ CRÍTICO: Todo agente que receber uma tarefa fora do seu escopo DEVE:
 ```
 @analyst (briefing semanal de mineração)
   → julia-chief (decide o conteúdo)
-  → compositor-agent (gera os slides HTML/CSS)
+  → compositor-agent (gera os slides HTML/CSS → PNG)
   → publisher-agent (publica via Meta API)
+```
+
+### Fluxo de Criativos de Anúncio (Tráfego Pago)
+```
+@hormozi-hooks (gera hooks)
+  → @hormozi-ads (monta roteiro do criativo)
+    → @hormozi-copy (adapta copy para voz da Dra. Julia)
+      → compositor-agent (gera PNG do criativo HTML/CSS → Playwright)
+        → @devops (git push se necessário)
 ```
 
 ### Fluxo de Story Development
