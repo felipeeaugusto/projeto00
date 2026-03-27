@@ -387,6 +387,92 @@ PASSO 8: Somente após confirmação → aplicar atualização + aplicar Parte A
 
 ---
 
+### BLOCO 0-K — AUDITORIA OBRIGATÓRIA ANTES DE PASSAR PARA PRÓXIMO AGENTE (inegociável)
+
+**Gatilho:** QUALQUER agente que esteja prestes a dizer "Quer que eu chame o [agente X] agora?" ou qualquer variação de handoff para outro agente.
+
+**REGRA ABSOLUTA:** Nenhum agente pode encerrar seu trabalho e passar para outro agente SEM antes auditar tudo que ficou em aberto na conversa com ele.
+
+```
+ANTES DE PERGUNTAR "Posso chamar o [agente X]?":
+
+PASSO 1: Ler o arquivo .jsonl da sessão atual
+         → Arquivo mais recente em: C:\Users\felip\.claude\projects\C--Users-felip-projeto00\
+         → Buscar por: tarefas pedidas pelo usuário, itens com "mais tarde", perguntas não respondidas,
+           promessas feitas pelo agente que não foram cumpridas, itens interrompidos
+
+PASSO 2: Comparar com o que foi efetivamente feito nesta conversa
+         → O que foi discutido MAS não foi concluído?
+         → Pode haver 1 item, 20 ou 30 — verificar TODOS
+
+PASSO 3a: SE encontrou itens em aberto:
+          → Apresentar ao usuário: "🔍 Antes de passar para [agente X], encontrei [N] itens
+            que ficaram em aberto:
+            1. [item] — [status]
+            2. [item] — [status]
+            Vou resolver um por um antes de passar."
+          → Resolver cada item
+          → Atualizar caderno com o que foi resolvido
+          → Perguntar: "Posso salvar no caderno, commitar e fazer push?"
+          → Após confirmação → commit + push
+          → SOMENTE ENTÃO perguntar "Posso chamar o [agente X]?"
+
+PASSO 3b: SE não encontrou itens em aberto:
+          → Informar: "✅ Auditei toda a conversa — nada ficou em aberto."
+          → Perguntar: "Posso salvar no caderno, commitar e fazer push?"
+          → Após confirmação → commit + push
+          → SOMENTE ENTÃO perguntar "Posso chamar o [agente X]?"
+```
+
+**CASOS QUE ATIVAM ESTE BLOCO:**
+- "Quer que eu chame o @dev agora?"
+- "Posso acionar o compositor-agent?"
+- "Vou passar para o @hormozi-copy"
+- "Próximo passo: @analyst"
+- Qualquer frase que indica fim do trabalho deste agente e início de outro
+
+**PROIBIDO:**
+- Encadear handoff sem auditoria
+- Assumir que "nada ficou pra trás" sem verificar
+- Saltar múltiplas interrupções — cada uma foi um pedido do usuário e deve ser verificada
+
+**Esta regra se aplica a TODOS os agentes — atuais, squads existentes, futuros, vindos de atualizações do AIOX.**
+
+---
+
+### BLOCO 0-L — PROIBIDO INVENTAR PROBLEMAS OU PRESCRIÇÕES NÃO AUDITADAS (inegociável)
+
+**Gatilho:** Qualquer agente que for reportar um problema, pendência ou item que precisa ser corrigido no projeto.
+
+**REGRA ABSOLUTA:** Nenhum agente pode reportar como "problema" ou "pendência" algo que NÃO foi explicitamente identificado por um agente especializado com autoridade para fazer essa diagnose.
+
+```
+ANTES DE REPORTAR QUALQUER PROBLEMA:
+
+PASSO 1: Verificar — esse problema foi identificado por qual agente especializado?
+         → @hormozi-audit → problemas de LP, copy, oferta
+         → @dev → bugs, código, implementação
+         → @qa → qualidade, testes
+         → @analyst → análise estratégica
+         → etc.
+
+PASSO 2: Se foi identificado por agente com autoridade → pode reportar com a fonte:
+         ✅ "O @hormozi-audit prescreveu remover os números falsos da LP"
+
+PASSO 3: Se NÃO foi identificado por nenhum agente especializado → PROIBIDO reportar como problema:
+         ❌ "O countdown timer da LP precisa ser removido"
+            (Orion inventou — timer nunca foi auditado como problema por agente algum)
+
+PASSO 4: Se há dúvida se algo é problema ou não → dizer ao usuário e perguntar ao especialista
+```
+
+**O ERRO QUE GEROU ESTA REGRA:**
+Orion (27/03/2026) reportou: "LP ainda tem countdown timer que precisa ser removido" — nunca foi auditado. O timer é uma técnica de conversão padrão, não um problema. O @hormozi-audit prescreveu remover NÚMEROS FALSOS (Harvard, USP, 15.000 mães, 3.000 famílias, 20 anos), NÃO o timer.
+
+**Aplica-se a: @aiox-master e TODOS os agentes — atuais, squads, futuros.**
+
+---
+
 ### BLOCO 0-J — SILÊNCIO DO ORQUESTRADOR APÓS AGENTE ESPECIALIZADO (inegociável)
 
 **Gatilho:** @aiox-master invoca um agente especializado via Skill tool.
