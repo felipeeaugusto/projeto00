@@ -341,6 +341,95 @@ Ao instalar o AIOX em um novo projeto, peça ao `@aiox-master` implementar nesta
 - [ ] **9.** Criar `.claude/rules/project-log.md` com os BLOCOs 1, 2 e 3 (Customização 1)
 - [ ] **10.** Atualizar `.claude/rules/agent-authority.md` com matriz completa (Customização 6)
 - [ ] **11.** Criar pasta `CUSTOMIZACOES-FELIPE/` e copiar este manual
+- [ ] **12.** Adicionar BLOCO 0-F ao `.claude/CLAUDE.md` + Regra 6 ao `project-log.md` (Customização 10)
+- [ ] **13.** Atualizar Regra 4 do `project-log.md` com formato detalhado de sessão (Customização 11)
+
+---
+
+## CUSTOMIZAÇÃO 10 — Retomada Automática Após Interrupção (BLOCO 0-F)
+
+**Data de aprovação:** 2026-03-26
+**Problema resolvido:** Quando o fluxo principal era interrompido para implementar uma melhoria, o agente terminava sem mostrar onde o projeto estava — o Felipe perdia o fio e tinha que rolar a conversa para trás.
+
+**O que faz:** Ao concluir qualquer melhoria/atualização feita no meio de uma tarefa, o agente mostra automaticamente onde o projeto estava antes da interrupção — lido do caderno ou do contexto da sessão. Sem frases vazias como "vamos retomar".
+
+**Onde implementar:** `.claude/CLAUDE.md` + `.claude/rules/project-log.md` (Regra 6)
+
+**Regra:**
+```
+BLOCO 0-F — RETOMADA APÓS INTERRUPÇÃO:
+
+AO CONCLUIR A MELHORIA:
+PASSO 1: Ler PROJETO-STATUS.md — campo PAROU EM da última sessão
+         OU identificar no contexto da sessão atual qual era a tarefa em andamento
+PASSO 2: Exibir diretamente (sem anúncio):
+
+         📍 Antes de interromper, o projeto estava em:
+         [tarefa exata]
+
+PASSO 3: Aguardar instrução do usuário
+
+PROIBIDO:
+- "Vamos retomar o que estávamos fazendo"
+- "Voltando ao projeto..."
+- "Agora que terminamos isso, podemos continuar com..."
+
+CORRETO (exemplo):
+- "📍 Antes de interromper, o projeto estava em: criação do product-content-agent
+   para escrever o Guia 7 Minutos e o Desafio 21 Dias."
+
+Aplica-se a TODOS os agentes, incluindo @aiox-master.
+```
+
+---
+
+## CUSTOMIZAÇÃO 11 — Formato Eficiente e Detalhado do Caderno por Sessão
+
+**Data de aprovação:** 2026-03-26
+**Problema resolvido:** O caderno registrava sessões de forma tão resumida que o Felipe não conseguia se orientar em um novo dia/PC. E sem estrutura de rotação, o arquivo crescia sem limite.
+
+**O que faz:** Define estrutura rotativa para o PROJETO-STATUS.md (3 sessões + arquivo histórico separado) e formato obrigatório de sessão com relação de cada item ao projeto.
+
+**Onde implementar:** `.claude/rules/project-log.md` (Regra 4) + criar `HISTÓRICO-SESSOES.md` na pasta do projeto ativo
+
+**Estrutura do PROJETO-STATUS.md:**
+```
+## PENDÊNCIAS ATUAIS
+(1 bloco único — sobrescreve sempre, nunca acumula)
+🔴 Prioridade Máxima: ...
+🟡 Prioridade Normal: ...
+🔵 Pode deixar pra depois: ...
+
+## ÚLTIMAS 3 SESSÕES
+(rotativo — ao adicionar 4ª, mover mais antiga para HISTÓRICO-SESSOES.md)
+
+## DECISÕES IMPORTANTES
+(permanente — só o que nunca pode ser esquecido)
+```
+
+**Formato obrigatório de cada sessão:**
+```
+### SESSÃO — DD/MM/AAAA
+
+**O QUE FOI FEITO:**
+- [item concreto] — [como isso impacta/avança o projeto]
+
+**O QUE O FELIPE PEDIU:**
+- [pedido ou decisão exata]
+
+**PAROU EM:** [tarefa exata em andamento quando encerrou]
+```
+
+**Exemplo de "O QUE FOI FEITO" bem escrito:**
+```
+- BLOCO 0-C criado — impede delegações erradas entre agentes, evita retrabalho
+- Hook check-agent-scope.js ativado — enforcement técnico, não depende de instrução de texto
+```
+
+**PROIBIDO:**
+- Item sem "— como impacta o projeto"
+- Mais de 3 sessões no arquivo principal
+- Omitir "PAROU EM"
 
 ---
 
