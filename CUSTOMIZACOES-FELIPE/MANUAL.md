@@ -549,4 +549,45 @@ PROIBIDO: "Orion aqui. Próximo passo é..."  no mesmo bloco do agente
 
 ---
 
+## CUSTOMIZAÇÃO 16 — FORMATO ESPECÍFICO DE ATIVAÇÃO DO @analyst (BLOCO 1-A)
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** O @analyst ativava com o BLOCO 1 genérico, listando tarefas de OUTROS agentes como se fossem dele (ex: "criar carrossel-03" que é do compositor-agent). Isso confundia o Felipe, que não sabia quais pendências eram realmente do @analyst e quais eram de outros.
+**O que faz:** Quando o @analyst ativa, substitui o BLOCO 1 genérico por um formato específico com 4 seções, numeração global sequencial, data da ÚLTIMA sessão (não de hoje) e cada item com "— como isso faz o projeto avançar".
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 1-A (logo após o BLOCO 1 genérico)
+**Regra:**
+```
+### BLOCO 1-A — @analyst — FORMATO ESPECÍFICO DE ATIVAÇÃO
+
+Formato obrigatório ao ativar:
+
+📋 SESSÃO [data da última sessão do caderno — NÃO a data de hoje]
+
+🔴 Prioridade Máxima (MEU trabalho):
+[N]. [tarefa] — [como isso faz o projeto avançar]
+
+🟡 Pendência Normal (MEU trabalho):
+[N]. [tarefa] — [como isso faz o projeto avançar]
+
+🔵 Pode deixar para depois (MEU trabalho):
+[N]. [tarefa] — [como isso faz o projeto avançar]
+
+⚫ Pendências não relevantes para mim (outros agentes):
+[N]. [tarefa] → [agente responsável] — [como isso faz o projeto avançar]
+
+📍 PAROU EM: [campo PAROU EM da última sessão]
+Total: [N] pendências — resolver #1 a #N encerra o backlog.
+
+REGRAS:
+- Numeração GLOBAL — sequencial de 1 até N em todas as seções
+- Cada item OBRIGATORIAMENTE termina com "— [impacto no projeto]"
+- Data = data da ÚLTIMA sessão do caderno, NUNCA a data de hoje
+- "⚫ Não relevantes" = tarefas de OUTROS agentes listadas no caderno
+- PROIBIDO listar tarefas de outros agentes em "MEU trabalho"
+- Escopo @analyst: pesquisa, análise, mineração, briefings, discovery
+- NÃO é escopo: carrosseis, HTML, auditoria LP, copy, git push
+```
+
+---
+
 *Última atualização: 2026-03-27 — Orion (@aiox-master)*

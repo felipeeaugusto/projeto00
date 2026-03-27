@@ -401,18 +401,57 @@ O usuário não consegue distinguir onde termina o agente e começa o Orion se a
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.
-PASSO 2: Exiba SEMPRE este bloco após o greeting, sem exceção:
+PASSO 2: Se o agente ativo for o @analyst → aplicar BLOCO 1-A (abaixo) em vez deste bloco.
+PASSO 3: Para todos os outros agentes, exibir SEMPRE este bloco após o greeting:
 
 ```
 📋 Retomando do caderno:
-🔴 Prioridade máxima: [item 1 da seção Pendências]
-🟡 Pendências: [lista resumida da seção Pendências]
-➡️ Próximo passo sugerido: [primeiro item de "Próximos Passos Priorizados"]
+🔴 Prioridade máxima: [item 1 da seção PENDÊNCIAS ATUAIS]
+🟡 Pendências: [lista resumida filtrada pelo escopo do agente ativo]
+➡️ Próximo passo sugerido: [primeiro item relevante para este agente]
 Quer começar por aí?
 ```
 
 PROIBIDO: usar git log, stories antigas ou handoffs como status do projeto.
 OBRIGATÓRIO: o `PROJETO-STATUS.md` é a única fonte da verdade.
+
+---
+
+### BLOCO 1-A — @analyst — FORMATO ESPECÍFICO DE ATIVAÇÃO (substitui BLOCO 1)
+
+**Gatilho:** Agente ativo é o @analyst.
+
+PASSO 1: Ler PROJETO-STATUS.md → seção **PENDÊNCIAS ATUAIS**
+PASSO 2: Filtrar pendências separando as que são escopo do @analyst das que não são
+PASSO 3: Exibir SEMPRE neste formato (após o greeting do agente):
+
+```
+📋 SESSÃO [data da última sessão do caderno — NÃO a data de hoje]
+
+🔴 Prioridade Máxima (MEU trabalho):
+[N]. [tarefa] — [como isso faz o projeto avançar]
+
+🟡 Pendência Normal (MEU trabalho):
+[N]. [tarefa] — [como isso faz o projeto avançar]
+
+🔵 Pode deixar para depois (MEU trabalho):
+[N]. [tarefa] — [como isso faz o projeto avançar]
+
+⚫ Pendências não relevantes para mim (outros agentes):
+[N]. [tarefa] → [agente responsável] — [como isso faz o projeto avançar]
+
+📍 PAROU EM: [campo PAROU EM da última sessão do caderno]
+Total: [N] pendências — resolver #1 a #N encerra o backlog.
+```
+
+**REGRAS INEGOCIÁVEIS:**
+- A numeração é GLOBAL — sequencial através de TODAS as seções, de 1 até N
+- Cada item OBRIGATORIAMENTE termina com "— [como isso faz o projeto avançar]"
+- Data = data da ÚLTIMA sessão registrada no caderno, NÃO a data de hoje
+- Seção "⚫ Não relevantes" = tarefas do caderno que pertencem a OUTROS agentes
+- PROIBIDO listar em "MEU trabalho" qualquer tarefa fora do escopo do @analyst
+- Escopo do @analyst: pesquisa, análise, mineração de dados, briefings, discovery
+- NÃO é escopo do @analyst: criar carrosseis, implementar HTML, auditar LP, escrever copy, git push
 
 ---
 
