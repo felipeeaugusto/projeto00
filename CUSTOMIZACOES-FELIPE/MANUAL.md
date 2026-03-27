@@ -590,4 +590,30 @@ REGRAS:
 
 ---
 
+## CUSTOMIZAÇÃO 17 — RETOMADA COMPLETA APÓS INTERRUPÇÃO (extensão do BLOCO 0-F)
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** Após uma interrupção para melhoria/regra, o agente mostrava apenas onde o projeto havia parado ("📍 Antes de interromper estava em: X"), mas não indicava o próximo passo. O usuário ficava sem direção para retomar sem reler o caderno inteiro.
+**O que faz:** O BLOCO 0-F agora exige que, ao retomar após interrupção, o agente mostre obrigatoriamente o PAR completo: (1) onde estava antes + (2) próximo passo sugerido das PENDÊNCIAS ATUAIS.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-F
+**Regra:**
+```
+AO CONCLUIR A MELHORIA:
+
+PASSO 1: Ler o caderno (PROJETO-STATUS.md) — campo PAROU EM da última sessão
+PASSO 2: Ler a seção PENDÊNCIAS ATUAIS — identificar primeiro item relevante
+PASSO 3: Exibir:
+
+         📍 Antes de interromper, o projeto estava em:
+         [tarefa exata]
+
+         ➡️ Próximo passo sugerido: [primeiro item relevante de PENDÊNCIAS ATUAIS]
+
+PASSO 4: Aguardar instrução do usuário
+
+PROIBIDO: mostrar o "📍 Antes de interromper" sem o "➡️ Próximo passo" — os dois são obrigatórios
+```
+
+---
+
 *Última atualização: 2026-03-27 — Orion (@aiox-master)*

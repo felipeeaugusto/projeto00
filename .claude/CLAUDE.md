@@ -254,12 +254,16 @@ AO CONCLUIR A MELHORIA:
 
 PASSO 1: Ler o caderno (PROJETO-STATUS.md) — campo PAROU EM da última sessão
          OU identificar no contexto da sessão atual qual era a tarefa em andamento
-PASSO 2: Exibir diretamente (sem anúncio, sem frase vazia):
+PASSO 2: Ler a seção PENDÊNCIAS ATUAIS do caderno — identificar o primeiro item
+         relevante para o agente ativo (ou para o próximo agente no fluxo)
+PASSO 3: Exibir diretamente (sem anúncio, sem frase vazia):
 
          📍 Antes de interromper, o projeto estava em:
          [tarefa exata — específica, sem paráfrase]
 
-PASSO 3: Continuar aguardando instrução do usuário
+         ➡️ Próximo passo sugerido: [primeiro item relevante de PENDÊNCIAS ATUAIS]
+
+PASSO 4: Continuar aguardando instrução do usuário
 ```
 
 **PROIBIDO:**
@@ -267,9 +271,16 @@ PASSO 3: Continuar aguardando instrução do usuário
 - "Voltando ao projeto..."
 - "Agora que terminamos isso, podemos continuar com..."
 - Qualquer frase que anuncia a retomada em vez de mostrar o estado
+- Mostrar o "📍 Antes de interromper" sem o "➡️ Próximo passo" — os dois são obrigatórios
 
 **CORRETO:**
-- Mostrar diretamente: "📍 Antes de interromper, o projeto estava em: criação do `product-content-agent` para escrever o Guia 7 Minutos e o Desafio 21 Dias."
+```
+📍 Antes de interromper, o projeto estava em: rodar nova rodada de mineração com @analyst.
+➡️ Próximo passo sugerido: #1 — @analyst rodar nova mineração — briefing expira 2026-03-30, julia-chief trava sem ele.
+```
+
+**Por que os dois são obrigatórios:**
+Mostrar só onde parou sem indicar o próximo passo deixa o usuário sem direção para retomar o fluxo. O par (onde estava + próximo passo) dá contexto completo sem o usuário precisar reler o caderno.
 
 **Esta regra se aplica a TODOS os agentes, incluindo @aiox-master.**
 
