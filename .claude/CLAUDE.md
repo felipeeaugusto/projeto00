@@ -460,7 +460,15 @@ PASSO 3: Exibir SEMPRE neste formato (após o greeting do agente):
 [N]. [tarefa] — [como isso faz o projeto avançar]
 
 ⚫ Pendências não relevantes para mim (outros agentes):
-[N]. [tarefa] → [agente responsável] — [como isso faz o projeto avançar]
+
+  🔴 Alta prioridade — outros agentes:
+  [N]. [tarefa] → [agente responsável] — [como isso faz o projeto avançar]
+
+  🟡 Prioridade normal — outros agentes:
+  [N]. [tarefa] → [agente responsável] — [como isso faz o projeto avançar]
+
+  🔵 Pode esperar — outros agentes:
+  [N]. [tarefa] → [agente responsável] — [como isso faz o projeto avançar]
 
 📍 PAROU EM: [campo PAROU EM da última sessão do caderno]
 Total: [N] pendências — resolver #1 a #N encerra o backlog.
@@ -531,17 +539,6 @@ PASSO 4: Continuar a conversa normalmente
 Palavras que ativam este bloco: "vou parar", "vou dormir", "até amanhã", "por hoje é isso", "vou sair", "vou descansar", "tchau", "até logo".
 
 ```
-PASSO 0 — AUDITORIA DA SESSÃO (obrigatório antes do resumo):
-  0.1: Identificar TUDO que foi discutido nesta sessão:
-       - Leia o contexto atual da conversa (incluindo compactações visíveis)
-       - Leia o PROJETO-STATUS.md para comparar com o que existe
-  0.2: Perguntar ao Felipe:
-       "Antes de fechar: tem alguma tarefa que discutimos hoje que ainda não está
-        nas pendências? (pense em qualquer 'mais tarde' ou 'depois' que ficou pendente)"
-  0.3: AGUARDAR resposta
-  0.4: Registrar tudo que Felipe mencionar em PENDÊNCIAS ATUAIS
-  0.5: Somente após essa confirmação → continuar para PASSO 1
-
 PASSO 1: Mostre o resumo da sessão SEMPRE neste formato:
 ```
 📋 Resumo da sessão [DATA]:
@@ -551,7 +548,25 @@ PASSO 1: Mostre o resumo da sessão SEMPRE neste formato:
 ➡️ Na próxima sessão começamos em: [próximo passo concreto]
 ```
 
-PASSO 2: Atualize `PROJETO-STATUS.md`:
+PASSO 2 — AUDITORIA ATIVA DA SESSÃO (obrigatório — não é uma pergunta, é uma busca):
+  2.1: Identificar o arquivo .jsonl da sessão atual:
+       → Arquivo mais recente em: C:\Users\felip\.claude\projects\C--Users-felip-projeto00\
+       → Usar: ls -t *.jsonl | head -1 (ou equivalente)
+  2.2: Buscar no arquivo .jsonl por padrões de tarefas adiadas ou discutidas:
+       → Palavras-chave: "mais tarde", "depois", "não agora", "próxima sessão", "vou criar", "precisamos", "falta"
+       → Comparar com PROJETO-STATUS.md: o que foi discutido mas não está nas pendências?
+  2.3: Apresentar os achados ao Felipe:
+       "🔍 Auditei a sessão. Encontrei [N] itens discutidos que não estão formalizados:
+        - [item 1]: [descrição]
+        - [item 2]: [descrição]
+        Posso adicionar ao caderno, commitar e fazer push?"
+  2.4: AGUARDAR confirmação do Felipe
+  2.5: Após confirmação → adicionar itens em PENDÊNCIAS ATUAIS → continuar para PASSO 3
+
+  IMPORTANTE: Se a busca no .jsonl não encontrar nada além do que já está no caderno:
+  → Informar: "🔍 Auditei a sessão — nada ficou fora do caderno." → continuar para PASSO 3
+
+PASSO 3: Atualize `PROJETO-STATUS.md`:
   - Adicionar nova sessão em ULTIMAS 3 SESSOES (no formato obrigatório)
   - Campo PAROU EM DEVE incluir: "[tarefa] | Agente ativo: [nome-do-agente-atual]"
   - Mover sessão mais antiga para HISTORICO-SESSOES.md se já houver 3
