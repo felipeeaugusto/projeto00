@@ -294,11 +294,13 @@ Mostrar só onde parou sem indicar o próximo passo deixa o usuário sem direç�
 AO DETECTAR QUE A CONVERSA FOI COMPACTADA:
 
 PASSO 1: Identificar o último agente ativo — ORDEM DE PRIORIDADE:
-  1a. Ler `packages/landing-page-dr-julia/PROJETO-STATUS.md` → campo "PAROU EM"
+  1a. Ler `.claude/.current-agent`
+      → Prioridade máxima: foi escrito pelo BLOCO 0-A no início desta sessão
+      → Correto para compactações no meio da sessão atual
+  1b. Se `.current-agent` estiver vazio ou ilegível → ler caderno:
+      `packages/landing-page-dr-julia/PROJETO-STATUS.md` → campo "PAROU EM"
       Procurar o padrão: "| Agente ativo: {nome}" no final do campo
-      → Esta é a fonte mais confiável — sincroniza entre PCs via git
-  1b. Se não encontrar no caderno → ler `.claude/.current-agent`
-      → Funciona apenas no mesmo PC (não sincroniza)
+      → Fallback: reflète o agente do último "vou parar" (sessão anterior)
   1c. Se ambos estiverem vazios ou ilegíveis → usar aiox-master como padrão
 
 PASSO 2: Reative o agente chamando o slash command correspondente:

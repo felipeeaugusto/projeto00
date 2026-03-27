@@ -664,9 +664,12 @@ Confirmação final: "✅ Caderno salvo e no GitHub. Seguro fechar o terminal."
 **Regra:**
 ```
 PASSO 1 — ordem de prioridade para identificar o agente:
-  1a. Ler caderno PROJETO-STATUS.md → PAROU EM → "| Agente ativo: {nome}"  ← sincroniza entre PCs
-  1b. Ler .claude/.current-agent                                              ← só funciona no mesmo PC
+  1a. Ler .claude/.current-agent  ← escrito pelo BLOCO 0-A nesta sessão → correto para compactações
+  1b. Ler caderno PROJETO-STATUS.md → PAROU EM → "| Agente ativo: {nome}"  ← fallback cross-PC
   1c. Fallback: aiox-master
+
+NOTA: .current-agent vem primeiro porque BLOCO 0-G dispara NO MEIO de sessões (compactação),
+quando .current-agent foi escrito AGORA. Caderno tem o agente da sessão ANTERIOR.
 ```
 
 ---
