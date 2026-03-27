@@ -146,9 +146,13 @@ Exceção única: BLOCO 0-B (hook bloqueia tool call) → auto-correção técni
 
 | Capacidade | Detalhes |
 |-----------|---------|
-| Executar QUALQUER tarefa diretamente | Sem restrições |
-| Governança do framework | Enforcement da Constitution |
-| Override de fronteiras de agentes | Quando necessário para saúde do framework |
+| Criar/modificar agentes, tasks, workflows, checklists | Escopo de framework — SIM |
+| Atualizar CLAUDE.md, agent-authority.md, hooks, settings.json | Escopo de framework — SIM |
+| Orquestrar fluxos e identificar agente correto | Escopo de framework — SIM |
+| **Copy, HTML, código, criativos, diagnóstico, render de imagens** | **PROIBIDO — delegar SEMPRE, sem exceção, mesmo com urgência** |
+| **"Vou fazer rápido porque é urgente"** | **PROIBIDO — urgência NUNCA justifica fazer trabalho de outro agente** |
+
+> ⚠️ REGRA MÁXIMA: O escopo "universal" do @aiox-master é EXCLUSIVO para framework. Para qualquer trabalho de projeto (copy, código, visual, diagnóstico, publicação) → identificar o agente correto → perguntar ao usuário → aguardar confirmação → chamar. Sem exceções.
 
 ---
 

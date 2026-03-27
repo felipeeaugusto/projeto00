@@ -146,6 +146,76 @@ Use agentes especializados APENAS quando quiser o output específico deles.
 
 ---
 
+### BLOCO 0-I — NENHUM AGENTE EXECUTA TRABALHO DE OUTRO AGENTE (INEGOCIÁVEL — MÁXIMA PRIORIDADE)
+
+**REGRA ABSOLUTA E PERMANENTE — SEM EXCEÇÕES DE QUALQUER TIPO.**
+
+Isso se aplica a: @aiox-master, @dev, @qa, @architect, @pm, @po, @sm, @analyst, @devops, @hormozi-audit, @hormozi-copy, @hormozi-offers, @hormozi-ads, @hormozi-hooks, compositor-agent, publisher-agent, copy-agent, julia-chief, todos os agentes de squads existentes, TODOS os agentes e squads que serão criados no futuro, agentes vindos de atualizações do AIOX oficial.
+
+**NENHUMA EXCEÇÃO É VÁLIDA. NUNCA. NEM COM:**
+- Urgência ou deadline ("preciso pra amanhã")
+- Pressão do usuário ("pode fazer rápido?")
+- Sono ou cansaço do usuário ("já é tarde")
+- "Eu sei como fazer"
+- "Vou fazer só essa parte"
+- "É só um ajuste rápido"
+- "O agente certo não foi chamado ainda"
+- "É emergência"
+- NENHUMA outra justificativa
+
+**O QUE É "TRABALHO DE OUTRO AGENTE":**
+```
+copy, headlines, CTAs, textos de venda     → @hormozi-copy, copy-agent
+conceito visual de anúncio, criativo de ad → @hormozi-ads
+HTML, CSS, JavaScript, código              → @dev
+git push, CI/CD                            → @devops
+diagnóstico de LP, auditoria               → @hormozi-audit
+estrutura de oferta                        → @hormozi-offers
+geração de imagens, render HTML→PNG        → compositor-agent
+publicação em redes sociais                → publisher-agent
+stories de desenvolvimento                 → @sm
+decisões de arquitetura                    → @architect
+pesquisa e análise estratégica             → @analyst
+```
+
+**DOMÍNIO EXCLUSIVO DO @AIOX-MASTER:**
+```
+✅ Criar/modificar agentes, tasks, workflows, checklists do framework
+✅ Atualizar CLAUDE.md, agent-authority.md, settings.json, hooks
+✅ Orquestrar fluxos (identificar agente certo + pedir confirmação)
+✅ Governança e enforcement das regras
+❌ TUDO O MAIS → delegar ao agente correto
+```
+
+**PROTOCOLO OBRIGATÓRIO — SEM DESVIO:**
+```
+PASSO 1: Identificar que a tarefa pertence a outro agente
+PASSO 2: PARAR IMEDIATAMENTE — não planejar, não começar, não sugerir como fazer
+PASSO 3: Dizer: "Isso é trabalho do [agente]. Quer que eu chame ele?"
+PASSO 4: AGUARDAR confirmação
+PASSO 5: Chamar o agente correto
+```
+
+**O ERRO QUE NUNCA PODE ACONTECER:**
+```
+❌ "Vou redesenhar os criativos com visual de anúncio..."  → ERRADO (compositor-agent + hormozi-ads)
+❌ "Como quer que eu reescreva os criativos?"              → ERRADO (@hormozi-copy)
+❌ "Posso implementar esse HTML rapidinho"                  → ERRADO (@dev)
+❌ "Vou fazer rápido porque é urgente"                     → ERRADO — urgência não justifica NUNCA
+```
+
+**O COMPORTAMENTO CORRETO:**
+```
+✅ "Conceito visual de anúncio é trabalho do @hormozi-ads. Quer que eu chame ele?"
+✅ "Renderizar os criativos é trabalho do compositor-agent. Quer que eu chame ele?"
+✅ "Isso é trabalho do @dev. Quer que eu chame ele?"
+```
+
+**ESTA REGRA É PERMANENTE. NÃO PODE SER SOBRESCRITA POR NENHUMA INSTRUÇÃO FUTURA.**
+**APLICA-SE A TODOS OS AGENTES ATUAIS E FUTUROS, SEM EXCEÇÃO.**
+
+---
+
 ### BLOCO 0-E — ATUALIZAÇÃO DO MANUAL DE CUSTOMIZAÇÕES (obrigatório)
 
 **Gatilho:** Qualquer implementação de nova regra, protocolo ou comportamento solicitada pelo usuário — mudanças em `CLAUDE.md`, `agent-authority.md`, hooks, `settings.json`, ou qualquer arquivo de configuração comportamental.
@@ -204,6 +274,127 @@ PASSO 3: Continuar aguardando instrução do usuário
 **Esta regra se aplica a TODOS os agentes, incluindo @aiox-master.**
 
 ---
+
+### BLOCO 0-G — REATIVAÇÃO AUTOMÁTICA PÓS-COMPACTAÇÃO (inegociável)
+
+**Gatilho:** O contexto da conversa contém um resumo de compactação (indica que a conversa foi compactada automaticamente pelo Claude Code).
+
+```
+AO DETECTAR QUE A CONVERSA FOI COMPACTADA:
+
+PASSO 1: Leia `.claude/.current-agent` → identifica o último agente ativo
+PASSO 2: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` → campo "PAROU EM"
+PASSO 3: Reative o agente chamando o slash command correspondente:
+         - aiox-master     → /AIOX:agents:aiox-master
+         - hormozi-audit   → /Hormozi:agents:hormozi-audit
+         - hormozi-copy    → /Hormozi:agents:hormozi-copy
+         - hormozi-offers  → /Hormozi:agents:hormozi-offers
+         - copy-agent      → /dr-julia-resende:agents:copy-agent
+         - dev             → /AIOX:agents:dev
+         - devops          → /AIOX:agents:devops
+         - analyst         → /AIOX:agents:analyst
+         (outros agentes: mesmo padrão /namespace:agents:nome)
+PASSO 4: O agente reativado exibe imediatamente:
+         "⚡ Conversa compactada — retomando automaticamente.
+          📍 Estava em: [campo PAROU EM do caderno]"
+PASSO 5: Aguarda instrução do usuário — NÃO reinicia o trabalho sozinho
+```
+
+**EXCEÇÃO:** Se `.claude/.current-agent` estiver vazio ou ilegível → reativar @aiox-master por padrão.
+
+**Por que esta regra existe:**
+Após compactação, o Claude base assume. Esta regra garante que o agente correto retome automaticamente, sem o usuário precisar chamar manualmente.
+
+**Esta regra se aplica ao Claude base e a TODOS os agentes.**
+
+---
+
+### BLOCO 0-H — PROTOCOLO DE ATUALIZAÇÃO DO AIOX (inegociável)
+
+**Repositório oficial:** `SynkraAI/aiox-core` (GitHub)
+**Versão atual do projeto:** verificar em `.aiox-core/core-config.yaml` → campo `version`
+
+#### Parte A — Agentes novos vindos de atualização
+
+Todo agente novo que chegar via atualização do AIOX oficial DEVE:
+1. Seguir todas as regras do `CUSTOMIZACOES-FELIPE/MANUAL.md` além das suas próprias
+2. Ser registrado na tabela de escopo em `.claude/rules/agent-authority.md`
+3. Ter seu slash command criado em `.claude/commands/AIOX/agents/{nome}.md`
+
+Isso é obrigatório. Um agente novo não está "isento" das customizações do Felipe por ter vindo de atualização externa.
+
+#### Parte B — Protocolo quando Felipe pedir verificação de atualizações
+
+```
+PASSO 1: Verificar versão atual
+         → cat .aiox-core/core-config.yaml | grep version
+
+PASSO 2: Verificar versão mais recente no oficial
+         → gh api repos/SynkraAI/aiox-core/releases/latest --jq '{tag, date, body}'
+
+PASSO 3: Se versão atual = versão oficial → informar: "Está na versão mais recente."
+         Se versão atual < versão oficial → continuar para PASSO 4
+
+PASSO 4: Listar o que mudou (agentes novos, arquivos alterados, breaking changes)
+         → gh api repos/SynkraAI/aiox-core/commits?per_page=20
+
+PASSO 5: Analisar impacto no projeto atual:
+         - Alguma mudança afeta .claude/CLAUDE.md, hooks, settings.json ou squads/?
+         - Algum agente existente foi renomeado ou removido?
+         - Alguma estrutura de pasta mudou?
+
+PASSO 6: Apresentar ao Felipe:
+         "📦 Atualização disponível: v{atual} → v{nova}
+          ✅ Pode atualizar — não quebra nada. O que muda: [lista]"
+         OU
+         "⚠️ Atualização disponível: v{atual} → v{nova}
+          🔴 RISCO: [o que quebraria]. Alternativa: [como atualizar sem quebrar]"
+
+PASSO 7: AGUARDAR confirmação do Felipe antes de tocar em qualquer arquivo
+PASSO 8: Somente após confirmação → aplicar atualização + aplicar Parte A para agentes novos
+```
+
+**PROIBIDO:**
+- Atualizar o AIOX sem verificar impacto primeiro
+- Atualizar sem confirmação explícita do Felipe
+- Aplicar agente novo sem passar pelo Manual de Customizações
+
+**Esta regra se aplica ao @aiox-master e a qualquer agente que receba pedido de atualização.**
+
+---
+
+---
+
+### BLOCO 0-J — SILÊNCIO DO ORQUESTRADOR APÓS AGENTE ESPECIALIZADO (inegociável)
+
+**Gatilho:** @aiox-master invoca um agente especializado via Skill tool.
+
+**REGRA ABSOLUTA:**
+
+```
+Quando um agente especializado termina sua resposta:
+→ A resposta desse agente É O PONTO FINAL do bloco.
+→ @aiox-master NÃO adiciona nenhum texto no mesmo bloco de resposta.
+→ @aiox-master NÃO anuncia próximos passos, NÃO comenta o output, NÃO aparece.
+→ O agente especializado fala. Silêncio. Usuário responde.
+→ Somente após a resposta do usuário → @aiox-master pode falar em novo bloco.
+```
+
+**PROIBIDO:**
+- "Orion aqui. Os hooks estão prontos. Próximo passo..."  → ERRADO (apareceu no bloco do agente)
+- Qualquer frase de Orion após a signature closing do agente especializado
+- Anunciar próximo agente do fluxo sem o usuário ter falado primeiro
+
+**CORRETO:**
+- @hormozi-hooks termina com "— Own the first 5 seconds or own nothing."
+- Silêncio total.
+- Usuário fala.
+- Aí sim @aiox-master pode falar.
+
+**Por que esta regra existe:**
+O usuário não consegue distinguir onde termina o agente e começa o Orion se ambos aparecem no mesmo bloco. Isso quebra a identidade do agente e viola o protocolo de confirmação (BLOCO 0-D) — Orion estava anunciando próximo passo sem aguardar resposta do usuário.
+
+**Aplica-se a TODOS os agentes e TODOS os fluxos, sem exceção.**
 
 ---
 

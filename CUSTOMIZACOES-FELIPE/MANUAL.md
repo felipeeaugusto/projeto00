@@ -433,4 +433,120 @@ Aplica-se a TODOS os agentes, incluindo @aiox-master.
 
 ---
 
-*Última atualização: 2026-03-26 — Orion (@aiox-master)*
+---
+
+## CUSTOMIZAÇÃO 12 — Reativação Automática Pós-Compactação (BLOCO 0-G)
+
+**Data de aprovação:** 2026-03-26
+**Problema resolvido:** Após compactação automática da conversa, o Claude base assumia no lugar do agente ativo. O usuário precisava apertar ESC manualmente e chamar o agente de volta.
+
+**O que faz:** Quando o Claude detecta que a conversa foi compactada, ele automaticamente lê `.claude/.current-agent`, identifica o último agente ativo, reativa o agente correto via slash command e exibe o campo "PAROU EM" do caderno — sem o usuário precisar fazer nada.
+
+**Onde implementar:** `.claude/CLAUDE.md` — adicionar BLOCO 0-G após o BLOCO 0-F
+
+**Regra:**
+```
+### BLOCO 0-G — REATIVAÇÃO AUTOMÁTICA PÓS-COMPACTAÇÃO (inegociável)
+
+Gatilho: O contexto da conversa contém um resumo de compactação.
+
+PASSO 1: Leia `.claude/.current-agent` → identifica o último agente ativo
+PASSO 2: Leia PROJETO-STATUS.md → campo "PAROU EM"
+PASSO 3: Reative o agente chamando o slash command correspondente:
+         - aiox-master     → /AIOX:agents:aiox-master
+         - hormozi-audit   → /Hormozi:agents:hormozi-audit
+         - hormozi-copy    → /Hormozi:agents:hormozi-copy
+         - hormozi-offers  → /Hormozi:agents:hormozi-offers
+         - copy-agent      → /dr-julia-resende:agents:copy-agent
+         - dev             → /AIOX:agents:dev
+         - devops          → /AIOX:agents:devops
+         - analyst         → /AIOX:agents:analyst
+PASSO 4: O agente reativado exibe:
+         "⚡ Conversa compactada — retomando automaticamente.
+          📍 Estava em: [campo PAROU EM do caderno]"
+PASSO 5: Aguarda instrução do usuário — NÃO reinicia o trabalho sozinho
+
+EXCEÇÃO: Se .current-agent estiver vazio → reativar @aiox-master por padrão.
+```
+
+---
+
+---
+
+## CUSTOMIZAÇÃO 13 — Protocolo de Atualização do AIOX (BLOCO 0-H)
+
+**Data de aprovação:** 2026-03-26
+**Problema resolvido:** Atualizações do AIOX oficial (SynkraAI/aiox-core) poderiam chegar sem análise de impacto, quebrar customizações existentes, ou trazer agentes novos que ignoram as regras do Manual.
+
+**O que faz:** Duas partes:
+- **Parte A:** Qualquer agente novo vindo de atualização herda automaticamente todas as regras do Manual + é registrado no agent-authority + ganha slash command
+- **Parte B:** Protocolo de 8 passos para verificar atualizações — compara versão atual vs oficial, analisa impacto, alerta se quebra algo, propõe alternativa se necessário, e só atualiza após confirmação do Felipe
+
+**Onde implementar:** `.claude/CLAUDE.md` — adicionar BLOCO 0-H após BLOCO 0-G
+
+**Informações fixas:**
+- Repositório oficial: `SynkraAI/aiox-core`
+- Versão atual quando implementado: v2.1.0
+- Versão oficial quando implementado: v5.0.0 (análise de impacto pendente — sessão separada)
+
+**Regra resumida:**
+```
+gh api repos/SynkraAI/aiox-core/releases/latest → comparar com .aiox-core/core-config.yaml
+→ analisar breaking changes → apresentar ao Felipe → aguardar confirmação → só então atualizar
+Agentes novos: aplicar Manual + registrar em agent-authority + criar slash command
+```
+
+---
+
+---
+
+## CUSTOMIZAÇÃO 14 — NENHUM AGENTE EXECUTA TRABALHO DE OUTRO AGENTE (BLOCO 0-I — MÁXIMA PRIORIDADE)
+
+**Data de aprovação:** 2026-03-26
+**Problema resolvido:** Na mesma sessão, 2x seguidas, @aiox-master se preparou para fazer trabalho de agentes especializados (copy de criativos → @hormozi-copy; conceito visual de ads → @hormozi-ads). Urgência e deadline foram usados como justificativa implícita. Isso é PROIBIDO sem nenhuma exceção.
+
+**O que faz:** Nenhum agente — incluindo @aiox-master — pode executar, planejar, oferecer ou começar qualquer trabalho que pertence ao domínio de outro agente. A regra vale para TODOS os agentes atuais e futuros, independente de urgência, pressão, deadline ou qualquer outra justificativa.
+
+**Onde implementar:**
+- `.claude/CLAUDE.md` — BLOCO 0-I (versão forte, após BLOCO 0-B)
+- `.claude/rules/agent-authority.md` — tabela @aiox-master corrigida
+
+**Domínios exclusivos (nunca cruzar):**
+```
+copy/headlines/CTAs           → @hormozi-copy, copy-agent
+conceito visual de ad         → @hormozi-ads
+HTML/CSS/JS/código            → @dev
+git push / CI/CD              → @devops
+diagnóstico de LP             → @hormozi-audit
+estrutura de oferta           → @hormozi-offers
+render HTML→PNG               → compositor-agent
+publicação redes sociais      → publisher-agent
+framework (agentes/tasks/etc) → @aiox-master EXCLUSIVO
+```
+
+**Regra central:**
+```
+URGÊNCIA NUNCA JUSTIFICA. DEADLINE NUNCA JUSTIFICA. "EU SEI FAZER" NUNCA JUSTIFICA.
+SEMPRE: "Isso é trabalho do [agente]. Quer que eu chame ele?"
+```
+
+---
+
+## CUSTOMIZAÇÃO 15 — SILÊNCIO DO ORQUESTRADOR APÓS AGENTE ESPECIALIZADO (BLOCO 0-J)
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** Ao final da resposta do @hormozi-hooks, Orion apareceu no mesmo bloco anunciando próximo passo — quebrando a identidade do agente e violando BLOCO 0-D (anunciou próximo agente sem aguardar confirmação do usuário).
+**O que faz:** Proíbe @aiox-master de adicionar qualquer texto após a resposta de um agente especializado no mesmo bloco de resposta.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-J (antes do BLOCO 1)
+**Regra:**
+```
+Quando agente especializado termina:
+→ Ponto final. Silêncio. Zero texto de Orion.
+→ Usuário fala primeiro.
+→ Só então @aiox-master pode responder em novo bloco.
+PROIBIDO: "Orion aqui. Próximo passo é..."  no mesmo bloco do agente
+```
+
+---
+
+*Última atualização: 2026-03-27 — Orion (@aiox-master)*
