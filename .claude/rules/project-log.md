@@ -88,35 +88,75 @@ Quando o usuário disser: *"vou parar", "vou dormir", "por hoje é isso", "até 
 
 ## Regra 4 — Formato obrigatório do histórico de sessões
 
-Ao adicionar entrada no histórico, use SEMPRE este formato completo:
+### Estrutura do PROJETO-STATUS.md (eficiente — não acumula)
+
+O arquivo tem **3 blocos fixos** que se atualizam, não acumulam:
+
+```
+## PENDÊNCIAS ATUAIS
+(1 bloco único — sempre sobrescreve o anterior, nunca duplica)
+
+🔴 Prioridade Máxima: [o que trava tudo — fazer primeiro]
+🟡 Prioridade Normal:
+  - [item]
+🔵 Pode deixar pra depois:
+  - [item]
+
+---
+
+## ÚLTIMAS 3 SESSÕES
+(rotativo — ao adicionar nova sessão, mover a mais antiga para HISTÓRICO-SESSOES.md)
+
+### SESSÃO — DD/MM/AAAA
+[formato abaixo]
+
+### SESSÃO — DD/MM/AAAA
+[formato abaixo]
+
+### SESSÃO — DD/MM/AAAA
+[formato abaixo]
+
+---
+
+## DECISÕES IMPORTANTES
+(permanente — apenas o que nunca pode ser esquecido)
+- [decisão estratégica permanente]
+```
+
+### Formato obrigatório de cada sessão
 
 ```
 ### SESSÃO — DD/MM/AAAA
 
 **O QUE FOI FEITO:**
-- [item concreto realizado e aprovado]
-- [item concreto realizado e aprovado]
+- [item concreto] — [como isso impacta/avança o projeto]
+- [item concreto] — [como isso impacta/avança o projeto]
 
 **O QUE O FELIPE PEDIU:**
-- [pedido ou decisão do Felipe nesta sessão]
-- [pedido ou decisão do Felipe nesta sessão]
+- [pedido ou decisão exata do Felipe]
+- [pedido ou decisão exata do Felipe]
 
-**PENDÊNCIAS:**
-🔴 Prioridade Máxima: [o que trava tudo — fazer primeiro]
-🟡 Prioridade Normal: [importante, mas não trava]
-  - [item]
-  - [item]
-🔵 Pode deixar pra depois: [baixa prioridade]
-  - [item]
-  - [item]
+**PAROU EM:** [tarefa exata em andamento quando a sessão encerrou]
+```
 
-**PAROU EM:** [tarefa exata que estava em andamento no momento que a sessão encerrou]
+**Exemplo real de "O QUE FOI FEITO" bem escrito:**
+```
+- BLOCO 0-C criado — impede delegações erradas entre agentes, evita retrabalho
+- Hook check-agent-scope.js ativado — enforcement técnico, não depende de instrução de texto
+- Slash commands criados para 26 agentes — qualquer agente pode ser chamado com /nome agora
 ```
 
 **PROIBIDO:**
-- Resumir em uma linha o que levou horas de sessão
-- Usar seções genéricas sem detalhe concreto
-- Omitir o "PAROU EM" — sem ele o Felipe não sabe por onde recomeçar
+- Item sem "— como impacta o projeto" (ex: apenas "criou o BLOCO 0-C" sem contexto)
+- Resumir em uma linha o que levou horas
+- Omitir "PAROU EM"
+- Manter mais de 3 sessões no arquivo principal (mover excesso para HISTÓRICO-SESSOES.md)
+
+### Arquivo de arquivo histórico
+
+Localização: mesma pasta do PROJETO-STATUS.md, nome: `HISTÓRICO-SESSOES.md`
+Formato: mesmo formato de sessão, sem limite de entradas
+Quando usar: ao adicionar 4ª sessão no PROJETO-STATUS.md, mover a mais antiga para cá
 
 ---
 
