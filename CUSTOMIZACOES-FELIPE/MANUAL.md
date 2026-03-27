@@ -674,4 +674,88 @@ quando .current-agent foi escrito AGORA. Caderno tem o agente da sessão ANTERIO
 
 ---
 
+## CUSTOMIZAÇÃO 21 — BLOCO 0-K — AUDITORIA OBRIGATÓRIA ANTES DE DELEGAR
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** Agentes transferiam controle para outro agente sem verificar se havia contexto importante não salvo. Trabalho da sessão corrente se perdia na transição.
+**O que faz:** Antes de qualquer handoff para outro agente, o agente ativo deve auditar a sessão: verificar se há pendências discutidas mas não registradas no caderno, e confirmar com Felipe antes de prosseguir.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-K (após BLOCO 0-J)
+**Regra:**
+```
+Gatilho: qualquer chamada a outro agente (via BLOCO 0-D)
+
+PASSO 1: Antes de pedir confirmação para chamar o agente, perguntar:
+         "Antes de chamar o [agente], tem algo desta conversa que eu devo registrar
+          no caderno primeiro? (pendências, decisões, aprovações)"
+PASSO 2: AGUARDAR resposta de Felipe
+PASSO 3: Se houver algo → registrar no caderno primeiro, confirmar com Felipe
+PASSO 4: Somente após auditoria → prosseguir com BLOCO 0-D (confirmação de chamada)
+
+PROIBIDO: chamar outro agente sem antes fazer esta pergunta
+EXCEÇÃO: BLOCO 0-B (hook auto-corrige) → não passa por BLOCO 0-K
+```
+
+---
+
+## CUSTOMIZAÇÃO 22 — BLOCO 0-L — PROIBIDO INVENTAR PROBLEMAS
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** Orion estava levantando "problemas" na LP (como o countdown timer) que nunca foram identificados por nenhum agente especializado. Isso gera trabalho desnecessário e confunde o projeto.
+**O que faz:** Nenhum agente pode declarar que algo na LP, ebook ou criativos "é um problema" ou "precisa ser corrigido" sem que essa conclusão venha de um agente especializado (@hormozi-audit, @hormozi-copy, @hormozi-offers, etc). Apenas agentes de diagnóstico podem identificar problemas no projeto.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-L (após BLOCO 0-K)
+**Regra:**
+```
+REGRA ABSOLUTA: Nenhum agente pode:
+- Declarar que um elemento do projeto "é um problema"
+- Sugerir que algo "precisa ser removido" ou "corrigido"
+- Adicionar tarefas ao caderno baseado em opinião própria
+...sem que essa conclusão tenha sido gerada por agente especializado.
+
+Agentes autorizados a identificar problemas:
+- LP/conversão → @hormozi-audit
+- Copy/textos → @hormozi-copy
+- Oferta/preço → @hormozi-offers
+- Código/bugs → @dev (apenas bugs técnicos, não decisões de negócio)
+- Qualidade → @qa
+
+PROIBIDO: "@aiox-master decidiu que o countdown timer é problema"
+CORRETO: "@hormozi-audit auditou e marcou o countdown timer como problema (não marcou)"
+```
+
+---
+
+## CUSTOMIZAÇÃO 23 — BLOCO 1-A ATUALIZADO — TODOS OS BLOCOS COM FORMATO COMPLETO + SEÇÃO DE IMPLEMENTAÇÕES
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** BLOCO 1-A v1 (Customização 16) mostrava o @analyst como executor mas sem indicar o agente em cada item individual, e a seção ⚫ de outros agentes não tinha as sub-cores organizadas. Além disso, o @analyst não sabia o que mudou no sistema na última sessão, perdendo contexto importante.
+**O que faz:** BLOCO 1-A agora mostra: (1) TODOS os blocos (🔴🟡🔵⚫) com numeração global + @agente + tarefa + impacto; (2) seção ⚫ subdividida por prioridade com cores; (3) nova seção "🔧 Implementações da última sessão" lida do caderno.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 1-A (substituição completa do formato)
+**Formato:**
+```
+📋 SESSÃO [data da última sessão — NÃO hoje]
+
+🔴 Prioridade Máxima — MEU trabalho:
+[N]. @analyst — [tarefa] — [impacto]
+
+🟡 Prioridade Normal — MEU trabalho:
+[N]. @analyst — [tarefa] — [impacto]
+
+🔵 Pode deixar para depois — MEU trabalho:
+[N]. @analyst — [tarefa] — [impacto]
+
+⚫ Pendências de outros agentes:
+  🔴 Alta prioridade: [N]. @[agente] — [tarefa] — [impacto]
+  🟡 Prioridade normal: [N]. @[agente] — [tarefa] — [impacto]
+  🔵 Pode esperar: [N]. @[agente] — [tarefa] — [impacto]
+
+🔧 Implementações da última sessão:
+- [item do O QUE FOI FEITO da última sessão] — [impacto]
+
+📍 PAROU EM: [campo PAROU EM]
+➡️ Próximo passo sugerido: [primeiro item do MEU trabalho]
+Total: [N] pendências
+```
+
+---
+
 *Última atualização: 2026-03-27 — Orion (@aiox-master)*

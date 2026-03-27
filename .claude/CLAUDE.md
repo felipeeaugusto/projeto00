@@ -529,45 +529,53 @@ OBRIGATÓRIO: o `PROJETO-STATUS.md` é a única fonte da verdade.
 
 **Gatilho:** Agente ativo é o @analyst.
 
-PASSO 1: Ler PROJETO-STATUS.md → seção **PENDÊNCIAS ATUAIS**
+PASSO 1: Ler PROJETO-STATUS.md → seção **PENDÊNCIAS ATUAIS** + seção **ULTIMAS 3 SESSOES**
 PASSO 2: Filtrar pendências separando as que são escopo do @analyst das que não são
 PASSO 3: Exibir SEMPRE neste formato (após o greeting do agente):
 
 ```
 📋 SESSÃO [data da última sessão do caderno — NÃO a data de hoje]
 
-🔴 Prioridade Máxima (MEU trabalho):
-[N]. [tarefa] — [como isso faz o projeto avançar]
+🔴 Prioridade Máxima — MEU trabalho:
+[N]. @analyst — [tarefa] — [como isso faz o projeto avançar]
 
-🟡 Pendência Normal (MEU trabalho):
-[N]. [tarefa] — [como isso faz o projeto avançar]
+🟡 Prioridade Normal — MEU trabalho:
+[N]. @analyst — [tarefa] — [como isso faz o projeto avançar]
 
-🔵 Pode deixar para depois (MEU trabalho):
-[N]. [tarefa] — [como isso faz o projeto avançar]
+🔵 Pode deixar para depois — MEU trabalho:
+[N]. @analyst — [tarefa] — [como isso faz o projeto avançar]
 
-⚫ Pendências não relevantes para mim (outros agentes):
+⚫ Pendências de outros agentes:
 
-  🔴 Alta prioridade — outros agentes:
-  [N]. [tarefa] → [agente responsável] — [como isso faz o projeto avançar]
+  🔴 Alta prioridade:
+  [N]. @[agente] — [tarefa] — [como isso faz o projeto avançar]
 
-  🟡 Prioridade normal — outros agentes:
-  [N]. [tarefa] → [agente responsável] — [como isso faz o projeto avançar]
+  🟡 Prioridade normal:
+  [N]. @[agente] — [tarefa] — [como isso faz o projeto avançar]
 
-  🔵 Pode esperar — outros agentes:
-  [N]. [tarefa] → [agente responsável] — [como isso faz o projeto avançar]
+  🔵 Pode esperar:
+  [N]. @[agente] — [tarefa] — [como isso faz o projeto avançar]
+
+🔧 Implementações da última sessão:
+- [item do "O QUE FOI FEITO" da sessão mais recente do caderno] — [impacto no projeto]
+(listar todos os itens da sessão mais recente — dá ao @analyst contexto de o que mudou)
 
 📍 PAROU EM: [campo PAROU EM da última sessão do caderno]
+➡️ Próximo passo sugerido: [primeiro item do MEU trabalho que @analyst deve executar agora]
 Total: [N] pendências — resolver #1 a #N encerra o backlog.
 ```
 
 **REGRAS INEGOCIÁVEIS:**
-- A numeração é GLOBAL — sequencial através de TODAS as seções, de 1 até N
-- Cada item OBRIGATORIAMENTE termina com "— [como isso faz o projeto avançar]"
+- A numeração é GLOBAL — sequencial através de TODAS as seções, de 1 até N (sem reiniciar por bloco)
+- Cada item OBRIGATORIAMENTE tem: número global + @agente responsável + tarefa + "— [impacto no projeto]"
 - Data = data da ÚLTIMA sessão registrada no caderno, NÃO a data de hoje
-- Seção "⚫ Não relevantes" = tarefas do caderno que pertencem a OUTROS agentes
+- Seção "⚫ Outros agentes" = TODAS as tarefas do caderno fora do escopo do @analyst, organizadas por prioridade
 - PROIBIDO listar em "MEU trabalho" qualquer tarefa fora do escopo do @analyst
+- PROIBIDO omitir qualquer pendência do caderno — todas aparecem, na seção correta
 - Escopo do @analyst: pesquisa, análise, mineração de dados, briefings, discovery
 - NÃO é escopo do @analyst: criar carrosseis, implementar HTML, auditar LP, escrever copy, git push
+- Seção "🔧 Implementações da última sessão" lida do campo "O QUE FOI FEITO" da sessão mais recente
+- Seção "🔧 Implementações" NÃO é editável pelo @analyst — é leitura do caderno, sem reinterpretação
 
 ---
 
