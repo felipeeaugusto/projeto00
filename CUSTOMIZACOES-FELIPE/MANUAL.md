@@ -616,4 +616,59 @@ PROIBIDO: mostrar o "📍 Antes de interromper" sem o "➡️ Próximo passo" �
 
 ---
 
+## CUSTOMIZAÇÃO 18 — PENDÊNCIA ADIADA = REGISTRO IMEDIATO (BLOCO 2-B)
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** Felipe dizia "mais tarde" ou "não agora" e a tarefa nunca era registrada como pendência. Na próxima sessão, Orion não sabia que ela existia. Foi assim que o product-content-agent e o Guia 7 Minutos desapareceram por sessões inteiras.
+**O que faz:** Toda vez que Felipe adiar uma tarefa com qualquer variação de "mais tarde", o agente registra IMEDIATAMENTE nas PENDÊNCIAS ATUAIS antes de continuar a conversa.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 2-B (após BLOCO 2)
+**Regra:**
+```
+Gatilho: "mais tarde", "depois", "agora não", "não agora", "deixa pra depois",
+         "próxima sessão", "pode esperar", "não precisa agora", "vou ver depois"
+
+PASSO 1: Identificar a tarefa adiada (ser específico)
+PASSO 2: Adicionar IMEDIATAMENTE em PENDÊNCIAS ATUAIS (agente + tarefa + impacto)
+PASSO 3: Confirmar: "✅ Anotei nas pendências: [tarefa] → [agente]"
+PASSO 4: Continuar a conversa
+
+PROIBIDO: continuar sem registrar primeiro
+PROIBIDO: registrar "mais tarde" ou no final da sessão
+PROIBIDO: forma genérica ("verificar ebook" em vez de descrição específica)
+```
+
+---
+
+## CUSTOMIZAÇÃO 19 — BLOCO 3 OBRIGATÓRIO COM AUDITORIA + AGENT NO CADERNO
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** (1) BLOCO 3 pedia "sim/não" para o push — com o "não" a sessão fechava sem salvar no GitHub e o outro PC ficava desatualizado. (2) Não havia auditoria da sessão antes de salvar — itens discutidos mas não formalizados se perdiam. (3) O agente ativo não era salvo no caderno, então o BLOCO 0-G não sabia qual reativar no outro PC.
+**O que faz:** BLOCO 3 agora é totalmente obrigatório: (a) audita a sessão antes de salvar, (b) salva o nome do agente ativo no campo PAROU EM do caderno, (c) executa commit+push sem pedir permissão.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 3 (reescrever completamente)
+**Regra chave:**
+```
+PASSO 0: Auditoria — perguntar se há tarefas discutidas não registradas → aguardar resposta
+PASSO 2: PAROU EM deve incluir: "[tarefa] | Agente ativo: [nome-do-agente]"
+PASSO 3: git push OBRIGATÓRIO — sem pedir permissão, sem opção de recusar
+Confirmação final: "✅ Caderno salvo e no GitHub. Seguro fechar o terminal."
+```
+
+---
+
+## CUSTOMIZAÇÃO 20 — BLOCO 0-G PRIORIZA CADERNO SOBRE .current-agent
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** O `.current-agent` é um arquivo local (gitignored) e não sincroniza entre PCs. Quando Felipe abria o outro PC, o BLOCO 0-G lia um agente errado (o último usado naquele PC, não o da sessão anterior no outro).
+**O que faz:** BLOCO 0-G agora procura o agente no campo PAROU EM do caderno (formato: "| Agente ativo: nome") — que SIM está no GitHub. O `.current-agent` vira fallback apenas para uso no mesmo PC.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-G (PASSO 1)
+**Regra:**
+```
+PASSO 1 — ordem de prioridade para identificar o agente:
+  1a. Ler caderno PROJETO-STATUS.md → PAROU EM → "| Agente ativo: {nome}"  ← sincroniza entre PCs
+  1b. Ler .claude/.current-agent                                              ← só funciona no mesmo PC
+  1c. Fallback: aiox-master
+```
+
+---
+
 *Última atualização: 2026-03-27 — Orion (@aiox-master)*

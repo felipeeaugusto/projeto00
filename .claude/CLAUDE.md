@@ -293,9 +293,15 @@ Mostrar só onde parou sem indicar o próximo passo deixa o usuário sem direç�
 ```
 AO DETECTAR QUE A CONVERSA FOI COMPACTADA:
 
-PASSO 1: Leia `.claude/.current-agent` → identifica o último agente ativo
-PASSO 2: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` → campo "PAROU EM"
-PASSO 3: Reative o agente chamando o slash command correspondente:
+PASSO 1: Identificar o último agente ativo — ORDEM DE PRIORIDADE:
+  1a. Ler `packages/landing-page-dr-julia/PROJETO-STATUS.md` → campo "PAROU EM"
+      Procurar o padrão: "| Agente ativo: {nome}" no final do campo
+      → Esta é a fonte mais confiável — sincroniza entre PCs via git
+  1b. Se não encontrar no caderno → ler `.claude/.current-agent`
+      → Funciona apenas no mesmo PC (não sincroniza)
+  1c. Se ambos estiverem vazios ou ilegíveis → usar aiox-master como padrão
+
+PASSO 2: Reative o agente chamando o slash command correspondente:
          - aiox-master     → /AIOX:agents:aiox-master
          - hormozi-audit   → /Hormozi:agents:hormozi-audit
          - hormozi-copy    → /Hormozi:agents:hormozi-copy
@@ -305,13 +311,16 @@ PASSO 3: Reative o agente chamando o slash command correspondente:
          - devops          → /AIOX:agents:devops
          - analyst         → /AIOX:agents:analyst
          (outros agentes: mesmo padrão /namespace:agents:nome)
-PASSO 4: O agente reativado exibe imediatamente:
+PASSO 3: O agente reativado exibe imediatamente:
          "⚡ Conversa compactada — retomando automaticamente.
           📍 Estava em: [campo PAROU EM do caderno]"
-PASSO 5: Aguarda instrução do usuário — NÃO reinicia o trabalho sozinho
+PASSO 4: Aguarda instrução do usuário — NÃO reinicia o trabalho sozinho
 ```
 
-**EXCEÇÃO:** Se `.claude/.current-agent` estiver vazio ou ilegível → reativar @aiox-master por padrão.
+**EXCEÇÃO:** Se nenhuma fonte indicar o agente → reativar @aiox-master por padrão.
+
+**Por que o caderno é prioridade sobre `.current-agent`:**
+O `.current-agent` é um arquivo local (gitignored) — não sincroniza entre PCs. O caderno é commitado e está no GitHub. Quando Felipe abre o outro PC e faz `git pull`, o caderno tem o agente correto. O `.current-agent` não.
 
 **Por que esta regra existe:**
 Após compactação, o Claude base assume. Esta regra garante que o agente correto retome automaticamente, sem o usuário precisar chamar manualmente.
@@ -481,23 +490,87 @@ PASSO 5: Continue o trabalho normalmente.
 
 ---
 
-### BLOCO 3 — QUANDO O USUÁRIO DISSER QUE VAI PARAR (obrigatório, sem exceção)
+### BLOCO 2-B — QUANDO O USUÁRIO ADIAR UMA TAREFA (obrigatório, sem exceção)
 
-Palavras que ativam este bloco: "vou parar", "vou dormir", "até amanhã", "por hoje é isso", "vou sair", "vou descansar".
+**Gatilho:** Felipe diz que vai fazer algo "mais tarde" ou adia uma tarefa discutida.
+
+Palavras que ativam este bloco: "mais tarde", "depois", "agora não", "não agora", "deixa pra depois", "próxima sessão", "pode esperar", "não precisa agora", "vou ver depois".
+
+**REGRA ABSOLUTA:** Toda tarefa adiada é uma pendência — e DEVE ser registrada IMEDIATAMENTE, sem esperar o "vou parar".
+
+```
+PASSO 1: Identificar a tarefa que foi adiada — ser específico (não genérico)
+PASSO 2: Adicionar IMEDIATAMENTE em PENDÊNCIAS ATUAIS do caderno:
+         - Identificar a prioridade correta (Máxima / Normal / Pode deixar pra depois)
+         - Identificar o agente responsável
+         - Escrever no formato: [agente] — [tarefa] — [como avança o projeto]
+PASSO 3: Confirmar ao usuário:
+         "✅ Anotei nas pendências: [tarefa em 1 linha] → [agente]"
+PASSO 4: Continuar a conversa normalmente
+```
+
+**PROIBIDO:**
+- Continuar a conversa sem registrar primeiro
+- Registrar "quando der" ou "no final da sessão"
+- Registrar de forma genérica ("verificar ebook" em vez de "product-content-agent — escrever Guia 7 Minutos")
+- Esperar o "vou parar" para adicionar — cada adiamento é registrado NA HORA
+
+**Por que esta regra existe:**
+"Não agora" dito pelo Felipe nunca foi registrado como pendência formal. Na próxima sessão, o Orion não sabe que aquela tarefa existe e ela desaparece para sempre.
+
+**Esta regra se aplica a TODOS os agentes — o agente ativo no momento do adiamento é responsável pelo registro.**
+
+---
+
+### BLOCO 3 — QUANDO O USUÁRIO DISSER QUE VAI PARAR (OBRIGATÓRIO — PROIBIDO FECHAR O TERMINAL SEM COMPLETAR)
+
+**⛔ INEGOCIÁVEL: O terminal NÃO pode ser fechado sem completar este bloco inteiro.**
+
+Palavras que ativam este bloco: "vou parar", "vou dormir", "até amanhã", "por hoje é isso", "vou sair", "vou descansar", "tchau", "até logo".
+
+```
+PASSO 0 — AUDITORIA DA SESSÃO (obrigatório antes do resumo):
+  0.1: Identificar TUDO que foi discutido nesta sessão:
+       - Leia o contexto atual da conversa (incluindo compactações visíveis)
+       - Leia o PROJETO-STATUS.md para comparar com o que existe
+  0.2: Perguntar ao Felipe:
+       "Antes de fechar: tem alguma tarefa que discutimos hoje que ainda não está
+        nas pendências? (pense em qualquer 'mais tarde' ou 'depois' que ficou pendente)"
+  0.3: AGUARDAR resposta
+  0.4: Registrar tudo que Felipe mencionar em PENDÊNCIAS ATUAIS
+  0.5: Somente após essa confirmação → continuar para PASSO 1
 
 PASSO 1: Mostre o resumo da sessão SEMPRE neste formato:
 ```
-📋 Resumo da sessão:
-✅ Fizemos: [lista do que foi feito e aprovado hoje]
-🔄 Ainda falta: [pendências atualizadas]
-➡️ Na próxima sessão começamos em: [próximo passo]
-
-Posso salvar e fazer push? (sim/não)
+📋 Resumo da sessão [DATA]:
+✅ Fizemos: [lista completa do que foi feito e aprovado hoje]
+📋 Pendências adicionadas: [novas pendências registradas nesta sessão]
+🔄 Ainda falta: [total de pendências atualizadas no caderno]
+➡️ Na próxima sessão começamos em: [próximo passo concreto]
 ```
-PASSO 2: Aguarde confirmação do usuário.
-PASSO 3: Atualize `PROJETO-STATUS.md` com o resumo.
-PASSO 4: Execute `git add` + `git commit` + `git push` automaticamente.
-PASSO 5: Confirme: "✅ Caderno salvo e enviado para o GitHub. Até a próxima!"
+
+PASSO 2: Atualize `PROJETO-STATUS.md`:
+  - Adicionar nova sessão em ULTIMAS 3 SESSOES (no formato obrigatório)
+  - Campo PAROU EM DEVE incluir: "[tarefa] | Agente ativo: [nome-do-agente-atual]"
+  - Mover sessão mais antiga para HISTORICO-SESSOES.md se já houver 3
+
+PASSO 3: Execute OBRIGATORIAMENTE (sem pedir permissão — é mandatório):
+```
+git -C packages/landing-page-dr-julia add PROJETO-STATUS.md HISTORICO-SESSOES.md
+git -C packages/landing-page-dr-julia commit -m "chore: caderno atualizado — sessão YYYY-MM-DD"
+git -C packages/landing-page-dr-julia push origin master
+git add packages/landing-page-dr-julia
+git commit -m "chore: ponteiro submodule atualizado — sessão YYYY-MM-DD"
+git push origin master
+```
+
+PASSO 4: Confirme: "✅ Caderno salvo e no GitHub. Seguro fechar o terminal."
+```
+
+**POR QUE O PUSH É MANDATÓRIO (sem opção de recusar):**
+Felipe trabalha em 2 PCs. Sem o push, o outro PC abre desatualizado e o Orion retoma com informação errada — exatamente o problema que causou a perda do product-content-agent e do Guia 7 Minutos. Não há situação em que o push não deve acontecer. Nenhuma.
+
+**Esta regra se aplica a TODOS os agentes — quem receber o "vou parar" executa o BLOCO 3 inteiro.**
 
 <!-- AIOX-MANAGED-START: core-framework -->
 ## Core Framework Understanding
