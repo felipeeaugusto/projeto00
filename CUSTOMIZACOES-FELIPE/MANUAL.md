@@ -888,4 +888,31 @@ PROIBIÇÃO ABSOLUTA DE RESUMIR — VÁLIDA PARA TODAS AS SEÇÕES:
 
 ---
 
+## CUSTOMIZAÇÃO 29 — BLOCO 0-M — TODO ARQUIVO GERADO DEVE SER COMMITADO IMEDIATAMENTE
+
+**Data de aprovação:** 2026-03-28
+**Problema resolvido:** Agentes geravam arquivos de output (PNGs, briefings, JSONs de coleta, carrosseis HTML) e terminavam o trabalho sem commitar. Os arquivos ficavam apenas no PC local — o outro PC recebia só o que estava no GitHub. Após `git pull`, o segundo PC ficava sem os arquivos gerados.
+**O que faz:** Qualquer agente que gerar arquivos como resultado do seu trabalho DEVE imediatamente fazer `git add` + `git commit`. Não no final da sessão — imediatamente após gerar. O push pode esperar o BLOCO 3 ou ser feito pelo @devops.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-M (novo, após BLOCO 0-L)
+**Agentes afetados:** compositor-agent, scout-agent, analyst-mineracao, briefing-agent, publisher-agent, @dev, @analyst, @aiox-master, TODOS os agentes atuais e futuros.
+**Regra:**
+```
+AO GERAR QUALQUER ARQUIVO DE OUTPUT:
+
+PASSO 1: Identificar todos os arquivos gerados nesta execução
+         (PNGs, JSONs, briefings, scripts, templates, configs — qualquer arquivo novo)
+
+PASSO 2: Imediatamente após gerar:
+         git add [arquivos gerados]
+         git commit -m "[tipo]: [descrição] — [data]"
+
+PASSO 3: @devops para push OU incluir no BLOCO 3
+         → Sessão continua: push no BLOCO 3
+         → Agente encerrou trabalho: chamar @devops agora
+
+PASSO 4: Confirmar: "✅ [N] arquivos gerados e commitados: [lista]"
+```
+
+---
+
 *Última atualização: 2026-03-28 — Orion (@aiox-master)*

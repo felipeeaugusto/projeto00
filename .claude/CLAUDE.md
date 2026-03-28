@@ -523,6 +523,53 @@ Orion (27/03/2026) reportou: "LP ainda tem countdown timer que precisa ser remov
 
 ---
 
+### BLOCO 0-M — TODO ARQUIVO GERADO DEVE SER COMMITADO IMEDIATAMENTE (inegociável)
+
+**Gatilho:** Qualquer agente que criar, gerar ou salvar arquivos de output como resultado do seu trabalho.
+
+**REGRA ABSOLUTA:** Todo arquivo gerado como output de trabalho de um agente DEVE ser commitado imediatamente após a criação — não no final da sessão, não "mais tarde", não "quando der": IMEDIATAMENTE.
+
+```
+PASSO 1: Identificar TODOS os arquivos gerados nesta execução
+         Exemplos de output que ativam este bloco:
+         - compositor-agent → PNGs (carrosseis, posts, stories, criativos de ads)
+         - scout/analyst-mineracao → JSONs de coleta (coleta-YYYY-MM-DD.json, posts_analisados-*.json)
+         - briefing-agent → briefings (briefing-semanal-YYYY-MM-DD.md)
+         - @dev → arquivos de código novos (scripts, templates, configs)
+         - @analyst → qualquer relatório ou análise salva em arquivo
+         - QUALQUER agente → qualquer arquivo novo ou modificado como resultado do trabalho
+
+PASSO 2: Executar imediatamente após gerar os arquivos:
+         git add [arquivos gerados]
+         git commit -m "[tipo]: [descrição do que foi gerado] — [data]"
+
+         Exemplos de mensagens de commit:
+         - "feat: criativos-ads 15 PNGs gerados — 2026-03-27"
+         - "feat: briefing semanal 2026-03-28 gerado"
+         - "feat: coleta mineração 2026-03-28 — 69 posts, 23/29 perfis"
+         - "feat: carrossel-03 slides HTML gerados"
+
+PASSO 3: Chamar @devops para git push OU incluir no BLOCO 3 ("vou parar")
+         → Se a sessão continua: o push pode esperar o BLOCO 3
+         → Se o agente encerrou o trabalho: chamar @devops imediatamente
+
+PASSO 4: Confirmar ao usuário:
+         "✅ [N] arquivos gerados e commitados: [lista resumida]"
+```
+
+**PROIBIDO:**
+- Terminar qualquer tarefa geradora de arquivos sem commitar
+- Usar "vou commitar depois" ou "vou salvar no final da sessão"
+- Gerar múltiplos outputs e commitar só parte deles
+- Assumir que outro agente vai commitar o output gerado por você
+
+**O ERRO QUE GEROU ESTA REGRA:**
+Arquivos gerados em sessões ficaram localmente no PC onde foram criados, nunca foram ao GitHub, e o outro PC ficou sem eles. `git pull` traz só o que foi commitado — arquivos não commitados são invisíveis para outros PCs e se perdem quando o terminal fecha.
+
+**Aplica-se a: compositor-agent, scout-agent, analyst-mineracao, briefing-agent, publisher-agent, @dev, @analyst, @aiox-master e TODOS os agentes atuais e futuros — sem exceção.**
+
+---
+
 ### BLOCO 0-J — SILÊNCIO DO ORQUESTRADOR APÓS AGENTE ESPECIALIZADO (inegociável)
 
 **Gatilho:** @aiox-master invoca um agente especializado via Skill tool.
