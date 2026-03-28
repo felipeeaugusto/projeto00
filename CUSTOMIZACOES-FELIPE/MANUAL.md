@@ -779,4 +779,29 @@ PASSO 2 — AUDITORIA ATIVA DA SESSÃO (leitura integral — não busca por pala
 
 ---
 
+## CUSTOMIZAÇÃO 25 — BLOCO 0-G v2 — LER RESUMO DA COMPACTAÇÃO
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** Após compactação, o agente reativava e mostrava o "PAROU EM" do caderno — mas itens que estavam sendo discutidos no momento da compactação e que nunca foram ao caderno se perdiam para sempre. Era o ciclo de falha recorrente do projeto.
+**O que faz:** Após reativar o agente pós-compactação, o BLOCO 0-G agora lê o resumo que o Claude salvou automaticamente ("This session is being continued...") e compara com o caderno. Tudo que está no resumo mas não está no caderno é apresentado ao Felipe para registro imediato.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-G (após PASSO 3)
+**Regra:**
+```
+PASSO 4: Ler o resumo da compactação (bloco "This session is being continued...")
+         Comparar com PROJETO-STATUS.md — o que está no resumo mas NÃO está no caderno?
+
+PASSO 5: Apresentar:
+         🗜️ A compactação capturou estes pontos em aberto que não estão no caderno:
+         1) — [item]
+         2) — [item]
+         Posso registrar esses itens no caderno agora?
+
+PASSO 6: Aguardar confirmação → registrar → commitar → prosseguir
+         Se nada ausente → "Resumo alinhado com o caderno — nada perdido."
+
+PASSO 7: Aguardar instrução do usuário
+```
+
+---
+
 *Última atualização: 2026-03-27 — Orion (@aiox-master)*
