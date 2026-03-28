@@ -719,7 +719,9 @@ PASSO 2 — AUDITORIA ATIVA DA SESSÃO (obrigatório — leitura integral, não 
   → Informar: "🔍 Auditei a sessão inteira — nada ficou fora do caderno." → continuar para PASSO 3
 
 PASSO 3: Atualize `PROJETO-STATUS.md`:
-  - Adicionar nova sessão em ULTIMAS 3 SESSOES (no formato obrigatório)
+  - Verificar se já existe entrada do mesmo dia em ULTIMAS 3 SESSOES:
+    → SE existe entrada do mesmo dia → NÃO criar nova entrada → adicionar itens novos à entrada existente
+    → SE não existe → criar nova entrada no formato obrigatório
   - Campo PAROU EM DEVE incluir: "[tarefa] | Agente ativo: [nome-do-agente-atual]"
   - Mover sessão mais antiga para HISTORICO-SESSOES.md se já houver 3
 
