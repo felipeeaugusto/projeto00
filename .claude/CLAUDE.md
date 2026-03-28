@@ -664,23 +664,25 @@ PASSO 1: Mostre o resumo da sessão SEMPRE neste formato:
 ➡️ Na próxima sessão começamos em: [próximo passo concreto]
 ```
 
-PASSO 2 — AUDITORIA ATIVA DA SESSÃO (obrigatório — não é uma pergunta, é uma busca):
+PASSO 2 — AUDITORIA ATIVA DA SESSÃO (obrigatório — leitura integral, não busca por palavras):
   2.1: Identificar o arquivo .jsonl da sessão atual:
        → Arquivo mais recente em: C:\Users\felip\.claude\projects\C--Users-felip-projeto00\
        → Usar: ls -t *.jsonl | head -1 (ou equivalente)
-  2.2: Buscar no arquivo .jsonl por padrões de tarefas adiadas ou discutidas:
-       → Palavras-chave: "mais tarde", "depois", "não agora", "próxima sessão", "vou criar", "precisamos", "falta"
-       → Comparar com PROJETO-STATUS.md: o que foi discutido mas não está nas pendências?
+  2.2: LER A SESSÃO INTEIRA — do início ao "vou parar":
+       → Não é busca por palavras-chave — é leitura completa da conversa
+       → Identificar: pedidos feitos, tarefas discutidas, decisões tomadas, itens deixados de lado
+       → Comparar com PROJETO-STATUS.md: o que foi discutido mas não está formalizado?
+       → Incluir o resumo de compactação se houver — ele faz parte da sessão
   2.3: Apresentar os achados ao Felipe:
-       "🔍 Auditei a sessão. Encontrei [N] itens discutidos que não estão formalizados:
+       "🔍 Auditei a sessão inteira. Encontrei [N] itens que não estão formalizados:
         - [item 1]: [descrição]
         - [item 2]: [descrição]
         Posso adicionar ao caderno, commitar e fazer push?"
   2.4: AGUARDAR confirmação do Felipe
   2.5: Após confirmação → adicionar itens em PENDÊNCIAS ATUAIS → continuar para PASSO 3
 
-  IMPORTANTE: Se a busca no .jsonl não encontrar nada além do que já está no caderno:
-  → Informar: "🔍 Auditei a sessão — nada ficou fora do caderno." → continuar para PASSO 3
+  IMPORTANTE: Se a leitura completa não encontrar nada além do que já está no caderno:
+  → Informar: "🔍 Auditei a sessão inteira — nada ficou fora do caderno." → continuar para PASSO 3
 
 PASSO 3: Atualize `PROJETO-STATUS.md`:
   - Adicionar nova sessão em ULTIMAS 3 SESSOES (no formato obrigatório)
