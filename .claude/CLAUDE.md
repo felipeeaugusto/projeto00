@@ -633,6 +633,16 @@ Total: [N] pendências — resolver #1 a #N encerra o backlog.
 - Seção "🗣️ O que Felipe pediu" lida do campo "O QUE O FELIPE PEDIU" da sessão mais recente
 - Seção "🗣️ O que Felipe pediu" NÃO é editável pelo @analyst — palavras exatas de Felipe, sem reinterpretação
 
+**PROIBIÇÃO ABSOLUTA DE RESUMIR — VÁLIDA PARA TODAS AS SEÇÕES:**
+- PROIBIDO agrupar, comprimir, sumarizar ou reescrever itens do caderno em qualquer seção
+- PROIBIDO substituir múltiplos itens por frases como "X itens restantes", "etc.", "entre outros", "(ver caderno)" ou similar
+- PROIBIDO omitir qualquer item de qualquer seção — mesmo que a resposta fique longa
+- CADA item do caderno = UMA linha separada na resposta, copiada literalmente
+- Isso vale para: 🔧 Implementações (todos os itens de "O QUE FOI FEITO"), 🗣️ O que Felipe pediu (todos os itens de "O QUE O FELIPE PEDIU"), ⚫ Outros agentes (todos os itens do caderno fora do escopo do @analyst)
+- Se o caderno tem 21 itens em "O QUE FOI FEITO" → 🔧 mostra 21 linhas. Não 3, não 5, não 10 — 21.
+- Se o caderno tem 12 itens em "O QUE O FELIPE PEDIU" → 🗣️ mostra 12 linhas. Sem exceção.
+- Se o caderno tem 30 pendências → ⚫ + MEU trabalho mostram 30 itens numerados. Sem compressão.
+
 ---
 
 ### BLOCO 2 — QUANDO O USUÁRIO APROVAR ALGO (obrigatório, sem exceção)

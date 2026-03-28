@@ -867,4 +867,25 @@ Regra de merge para o caderno:
 
 ---
 
-*Última atualização: 2026-03-27 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 28 — BLOCO 1-A — PROIBIÇÃO ABSOLUTA DE RESUMIR
+
+**Data de aprovação:** 2026-03-28
+**Problema resolvido:** O @analyst estava truncando as seções 🔧 Implementações, 🗣️ O que Felipe pediu e ⚫ Outros agentes — agrupando múltiplos itens em uma linha ou omitindo itens com "(X itens restantes)". O BLOCO 1-A já dizia "listar todos os itens" mas o agente priorizou brevidade sobre completude.
+**O que faz:** Adiciona bloco de PROIBIÇÃO ABSOLUTA ao final das REGRAS INEGOCIÁVEIS do BLOCO 1-A, tornando explícito que cada item do caderno = uma linha separada na resposta, sem exceção. Nenhuma seção pode ser comprimida, mesmo que a resposta fique longa.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 1-A, seção REGRAS INEGOCIÁVEIS (ao final)
+**Regra:**
+```
+PROIBIÇÃO ABSOLUTA DE RESUMIR — VÁLIDA PARA TODAS AS SEÇÕES:
+- PROIBIDO agrupar, comprimir, sumarizar ou reescrever itens do caderno em qualquer seção
+- PROIBIDO substituir múltiplos itens por frases como "X itens restantes", "etc.", "entre outros", "(ver caderno)" ou similar
+- PROIBIDO omitir qualquer item de qualquer seção — mesmo que a resposta fique longa
+- CADA item do caderno = UMA linha separada na resposta, copiada literalmente
+- Isso vale para: 🔧 Implementações (todos os "O QUE FOI FEITO"), 🗣️ O que Felipe pediu (todos os "O QUE O FELIPE PEDIU"), ⚫ Outros agentes (todos os itens fora do escopo do @analyst)
+- Se o caderno tem 21 itens em "O QUE FOI FEITO" → 🔧 mostra 21 linhas. Não 3, não 5 — 21.
+- Se o caderno tem 12 itens em "O QUE O FELIPE PEDIU" → 🗣️ mostra 12 linhas. Sem exceção.
+- Se o caderno tem 30 pendências → mostrar 30 itens numerados. Sem compressão.
+```
+
+---
+
+*Última atualização: 2026-03-28 — Orion (@aiox-master)*
