@@ -335,16 +335,21 @@ PASSO 2: Reative o agente chamando o slash command correspondente:
          - devops          → /AIOX:agents:devops
          - analyst         → /AIOX:agents:analyst
          (outros agentes: mesmo padrão /namespace:agents:nome)
-PASSO 3: O agente reativado exibe imediatamente:
-         "⚡ Conversa compactada — retomando automaticamente.
-          📍 Estava em: [campo PAROU EM do caderno]"
+PASSO 3: LER O RESUMO DA COMPACTAÇÃO (bloco "This session is being continued..."):
+         → Ler o resumo integralmente — é a única fonte que sabe o que estava acontecendo
+           NO MOMENTO EXATO em que o contexto encheu
+         → Extrair: qual tarefa estava ativa quando a compactação ocorreu?
+           → Seção "Current Work" do resumo é a fonte primária
+           → Se não houver tarefa ativa descrita (ex: sessão já estava encerrada):
+             → Usar o campo "PAROU EM" do caderno como fallback
 
-PASSO 4: LER O RESUMO DA COMPACTAÇÃO e comparar com o caderno:
-         → O resumo da compactação está no contexto — é o bloco "This session is being
-           continued from a previous conversation..." que aparece logo após a compactação
-         → Ler esse resumo integralmente
-         → Comparar com PROJETO-STATUS.md: o que está no resumo mas NÃO está no caderno?
-         → Esses itens são o que foi perdido pela compactação e precisa ser recuperado
+         Após extrair, exibir:
+         "⚡ Conversa compactada — retomando automaticamente.
+          📍 Estava em: [tarefa ativa no momento da compactação — DO RESUMO, não do caderno]"
+
+PASSO 4: Com o resumo já lido no PASSO 3, comparar com o caderno:
+         → O que está no resumo da compactação mas NÃO está no PROJETO-STATUS.md?
+         → Esses itens são o que foi discutido/feito mas não foi formalizado no caderno
 
 PASSO 5: Apresentar os itens encontrados:
 

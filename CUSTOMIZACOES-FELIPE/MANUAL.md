@@ -805,16 +805,28 @@ PASSO 2 — AUDITORIA ATIVA DA SESSÃO (leitura integral — não busca por pala
 
 ---
 
-## CUSTOMIZAÇÃO 25 — BLOCO 0-G v2 — LER RESUMO DA COMPACTAÇÃO
+## CUSTOMIZAÇÃO 25 — BLOCO 0-G v2 — LER RESUMO DA COMPACTAÇÃO (corrigido em 27/03)
 
-**Data de aprovação:** 2026-03-27
+**Data de aprovação:** 2026-03-27 | **Corrigido em:** 2026-03-27
 **Problema resolvido:** Após compactação, o agente reativava e mostrava o "PAROU EM" do caderno — mas itens que estavam sendo discutidos no momento da compactação e que nunca foram ao caderno se perdiam para sempre. Era o ciclo de falha recorrente do projeto.
-**O que faz:** Após reativar o agente pós-compactação, o BLOCO 0-G agora lê o resumo que o Claude salvou automaticamente ("This session is being continued...") e compara com o caderno. Tudo que está no resumo mas não está no caderno é apresentado ao Felipe para registro imediato.
-**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-G (após PASSO 3)
+**O que faz:** Após reativar o agente pós-compactação, o BLOCO 0-G lê o resumo da compactação ("This session is being continued...") PRIMEIRO para extrair onde estava no momento da compactação (→ "ESTAVA EM"), e DEPOIS compara com o caderno para encontrar itens não formalizados.
+**Correção aplicada:** O PASSO 3 original usava o "PAROU EM" do caderno como fonte do "ESTAVA EM" — erro para compactações mid-session. A fonte correta é sempre o resumo da compactação.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-G, PASSO 3 e PASSO 4
 **Regra:**
 ```
-PASSO 4: Ler o resumo da compactação (bloco "This session is being continued...")
-         Comparar com PROJETO-STATUS.md — o que está no resumo mas NÃO está no caderno?
+PASSO 3: LER O RESUMO DA COMPACTAÇÃO (bloco "This session is being continued..."):
+         → Ler o resumo integralmente
+         → Extrair: qual tarefa estava ativa quando a compactação ocorreu?
+           → Seção "Current Work" do resumo é a fonte primária
+           → Se sessão já estava encerrada: usar "PAROU EM" do caderno como fallback
+
+         Exibir:
+         "⚡ Conversa compactada — retomando automaticamente.
+          📍 Estava em: [tarefa ativa NO MOMENTO DA COMPACTAÇÃO — do resumo, não do caderno]"
+
+PASSO 4: Com o resumo já lido no PASSO 3, comparar com o caderno:
+         → O que está no resumo mas NÃO está no PROJETO-STATUS.md?
+         → Esses itens são o que foi discutido/feito mas não foi formalizado
 
 PASSO 5: Apresentar:
          🗜️ A compactação capturou estes pontos em aberto que não estão no caderno:
