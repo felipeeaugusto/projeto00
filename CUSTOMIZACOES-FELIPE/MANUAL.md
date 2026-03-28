@@ -758,6 +758,32 @@ Total: [N] pendências
 
 ---
 
+## CUSTOMIZAÇÃO 26 — BLOCO 0-F v2 — RETOMADA COM LISTA COMPLETA DA INTERRUPÇÃO
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** O BLOCO 0-F original (Customização 17) mostrava apenas onde o projeto estava antes da interrupção + próximo passo. Mas quando Felipe pedia múltiplas coisas durante uma interrupção, só o último item aparecia — os outros se perdiam. Além disso, ao retomar, o agente pulava para #1 do caderno mesmo que Felipe estivesse no meio de outro fluxo.
+**O que faz:** Ao concluir uma interrupção, o agente lista TODOS os itens pedidos durante aquela interrupção, numerados, com status ✅/❌. Se há itens incompletos, lista o que falta. Se tudo concluído, retorna ao fluxo que estava ativo ANTES da interrupção — não ao #1 do caderno.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-F (substituição completa)
+**Regra:**
+```
+PASSO 1: Identificar o fluxo ativo ANTES da interrupção (contexto da sessão, não o caderno)
+
+PASSO 2: Listar TUDO pedido durante a interrupção:
+
+         Antes de interromper para [MOTIVO], você me pediu:
+
+         1) — [tarefa] — ✅ concluída
+         2) — [tarefa] — ❌ não concluída
+
+PASSO 3A: SE há incompletos → listar por ordem para resolver primeiro
+PASSO 3B: SE tudo concluído + havia fluxo ativo → retornar ao fluxo (NÃO pular para #1 caderno)
+PASSO 3C: SE tudo concluído + sem fluxo → sugerir próximo item relevante das pendências
+
+PASSO 4: Aguardar instrução do usuário — NUNCA avançar sozinho
+```
+
+---
+
 ## CUSTOMIZAÇÃO 24 — BLOCO 3 PASSO 2 — AUDITORIA INTEGRAL DA SESSÃO
 
 **Data de aprovação:** 2026-03-27
