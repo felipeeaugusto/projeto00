@@ -252,35 +252,57 @@ PASSO 5: AGUARDAR resposta antes de qualquer transição de agente
 ```
 AO CONCLUIR A MELHORIA:
 
-PASSO 1: Ler o caderno (PROJETO-STATUS.md) — campo PAROU EM da última sessão
-         OU identificar no contexto da sessão atual qual era a tarefa em andamento
-PASSO 2: Ler a seção PENDÊNCIAS ATUAIS do caderno — identificar o primeiro item
-         relevante para o agente ativo (ou para o próximo agente no fluxo)
-PASSO 3: Exibir diretamente (sem anúncio, sem frase vazia):
+PASSO 1: Identificar o fluxo que estava ativo ANTES da interrupção
+         → Qual tarefa específica estava sendo executada?
+         → Havia um fluxo com sequência definida em andamento?
+         → Fonte: contexto da sessão atual (NÃO apenas o caderno)
 
-         📍 Antes de interromper, o projeto estava em:
-         [tarefa exata — específica, sem paráfrase]
+PASSO 2: Listar TUDO que foi pedido durante a interrupção, numerado, com status:
 
-         ➡️ Próximo passo sugerido: [primeiro item relevante de PENDÊNCIAS ATUAIS]
+         Antes de interromper para [MOTIVO DA INTERRUPÇÃO], você me pediu:
 
-PASSO 4: Continuar aguardando instrução do usuário
+         1) — [tarefa pedida] — ✅ concluída
+         2) — [tarefa pedida] — ✅ concluída
+         3) — [tarefa pedida] — ❌ não concluída
+         ...
+
+PASSO 3A: SE há itens não concluídos:
+          ➡️ Ainda falta resolver por ordem:
+          - [item não concluído 1]
+          - [item não concluído 2]
+          (resolver antes de qualquer outra coisa)
+
+PASSO 3B: SE tudo foi concluído E havia um fluxo específico em andamento antes:
+          ➡️ Retomando o fluxo: [próxima etapa do fluxo que estava ativo antes da interrupção]
+          (NÃO pular para #1 do caderno — continuar de onde o fluxo estava)
+
+PASSO 3C: SE tudo foi concluído E não havia fluxo específico em andamento:
+          ➡️ Próximo passo sugerido: [item mais relevante das PENDÊNCIAS ATUAIS para o agente ativo]
+          (considerar contexto da sessão — não necessariamente o #1 do caderno)
+
+PASSO 4: Aguardar instrução do usuário — NUNCA avançar sozinho
 ```
 
 **PROIBIDO:**
-- "Vamos retomar o que estávamos fazendo"
-- "Voltando ao projeto..."
-- "Agora que terminamos isso, podemos continuar com..."
-- Qualquer frase que anuncia a retomada em vez de mostrar o estado
-- Mostrar o "📍 Antes de interromper" sem o "➡️ Próximo passo" — os dois são obrigatórios
+- "Vamos retomar o que estávamos fazendo" — sem mostrar o que era
+- "Voltando ao projeto..." — sem listar o que foi feito durante a interrupção
+- Mostrar apenas 1 item quando foram pedidas múltiplas coisas durante a interrupção
+- Ignorar o fluxo que estava ativo e pular para #1 do caderno automaticamente
+- Sugerir como próximo passo algo diferente do que foi pedido explicitamente na sessão
 
-**CORRETO:**
+**CORRETO (exemplo com múltiplos itens):**
 ```
-📍 Antes de interromper, o projeto estava em: rodar nova rodada de mineração com @analyst.
-➡️ Próximo passo sugerido: #1 — @analyst rodar nova mineração — briefing expira 2026-03-30, julia-chief trava sem ele.
+Antes de interromper para implementar BLOCO 0-K, você me pediu:
+
+1) — implementar BLOCO 0-F corrigido no CLAUDE.md — ✅ concluída
+2) — executar BLOCO 0-H (verificação de atualização do AIOX) — ✅ concluída
+3) — salvar Customizações 21-23 no MANUAL.md — ✅ concluída
+
+➡️ Retomando o fluxo: [próxima etapa do que estava sendo feito antes]
 ```
 
-**Por que os dois são obrigatórios:**
-Mostrar só onde parou sem indicar o próximo passo deixa o usuário sem direção para retomar o fluxo. O par (onde estava + próximo passo) dá contexto completo sem o usuário precisar reler o caderno.
+**Por que o fluxo tem prioridade sobre o #1 do caderno:**
+Se Felipe estava no meio do fluxo de criativos de ads (etapa 3 de 5), ao retomar após uma interrupção o agente deve voltar à etapa 4 — não pular para a prioridade máxima do caderno, que pode ser outra coisa completamente diferente.
 
 **Esta regra se aplica a TODOS os agentes, incluindo @aiox-master.**
 
