@@ -758,4 +758,25 @@ Total: [N] pendências
 
 ---
 
+## CUSTOMIZAÇÃO 24 — BLOCO 3 PASSO 2 — AUDITORIA INTEGRAL DA SESSÃO
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** O BLOCO 3 PASSO 2 buscava apenas palavras-chave específicas ("mais tarde", "depois", etc.) no .jsonl, o que deixava passar pedidos feitos de outras formas. Tarefas discutidas sem essas palavras não eram capturadas.
+**O que faz:** A auditoria do PASSO 2 agora lê a sessão inteira (do início ao "vou parar"), não é uma busca por palavras — é leitura completa da conversa para identificar qualquer pedido, decisão ou item que não foi formalizado no caderno.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 3 PASSO 2
+**Regra:**
+```
+PASSO 2 — AUDITORIA ATIVA DA SESSÃO (leitura integral — não busca por palavras):
+  2.1: Identificar o .jsonl mais recente em C:\Users\felip\.claude\projects\C--Users-felip-projeto00\
+  2.2: LER A SESSÃO INTEIRA — do início ao "vou parar"
+       → Não é busca por palavras — é leitura completa
+       → Identificar: pedidos feitos, tarefas discutidas, decisões, itens deixados de lado
+       → Comparar com PROJETO-STATUS.md: o que foi discutido mas não está formalizado?
+       → Incluir o resumo de compactação se houver
+  2.3: Apresentar os achados → aguardar confirmação → adicionar ao caderno
+  2.4: Se nada encontrado → informar "Auditei a sessão inteira — nada ficou fora do caderno."
+```
+
+---
+
 *Última atualização: 2026-03-27 — Orion (@aiox-master)*
