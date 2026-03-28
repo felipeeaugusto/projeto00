@@ -338,13 +338,36 @@ PASSO 2: Reative o agente chamando o slash command correspondente:
 PASSO 3: O agente reativado exibe imediatamente:
          "⚡ Conversa compactada — retomando automaticamente.
           📍 Estava em: [campo PAROU EM do caderno]"
-PASSO 4: Aguarda instrução do usuário — NÃO reinicia o trabalho sozinho
+
+PASSO 4: LER O RESUMO DA COMPACTAÇÃO e comparar com o caderno:
+         → O resumo da compactação está no contexto — é o bloco "This session is being
+           continued from a previous conversation..." que aparece logo após a compactação
+         → Ler esse resumo integralmente
+         → Comparar com PROJETO-STATUS.md: o que está no resumo mas NÃO está no caderno?
+         → Esses itens são o que foi perdido pela compactação e precisa ser recuperado
+
+PASSO 5: Apresentar os itens encontrados:
+
+         🗜️ A compactação capturou estes pontos em aberto que não estão no caderno:
+         1) — [item do resumo ausente no caderno]
+         2) — [item do resumo ausente no caderno]
+
+         Posso registrar esses itens no caderno agora?
+
+PASSO 6: AGUARDAR confirmação do Felipe
+         → Se confirmar → adicionar itens no caderno → commitar → prosseguir
+         → Se não houver itens ausentes → informar "Resumo da compactação alinhado com o caderno — nada perdido."
+
+PASSO 7: Aguarda instrução do usuário — NÃO reinicia o trabalho sozinho
 ```
 
 **EXCEÇÃO:** Se nenhuma fonte indicar o agente → reativar @aiox-master por padrão.
 
 **Por que o caderno é prioridade sobre `.current-agent`:**
 O `.current-agent` é um arquivo local (gitignored) — não sincroniza entre PCs. O caderno é commitado e está no GitHub. Quando Felipe abre o outro PC e faz `git pull`, o caderno tem o agente correto. O `.current-agent` não.
+
+**Por que ler o resumo da compactação é inegociável:**
+O resumo da compactação contém exatamente o que estava sendo discutido no momento em que o contexto encheu. Se não for lido e comparado com o caderno imediatamente após reativar, esses itens se perdem para sempre — é exatamente o ciclo de falha que gerou problemas recorrentes neste projeto.
 
 **Por que esta regra existe:**
 Após compactação, o Claude base assume. Esta regra garante que o agente correto retome automaticamente, sem o usuário precisar chamar manualmente.
