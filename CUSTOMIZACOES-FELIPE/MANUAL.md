@@ -842,4 +842,29 @@ PASSO 7: Aguardar instrução do usuário
 
 ---
 
+## CUSTOMIZAÇÃO 27 — BLOCO 1-A — SEÇÃO "🗣️ O QUE FELIPE PEDIU" + MERGE DE ENTRADAS DO MESMO DIA
+
+**Data de aprovação:** 2026-03-27
+**Problema resolvido:** (1) O BLOCO 1-A mostrava apenas o que foi feito (perspectiva do agente), mas não o que Felipe pediu (perspectiva de Felipe). O analyst perdia o contexto de intenção. (2) Sessões do mesmo dia geravam duas entradas no caderno, criando ambiguidade sobre qual era a "mais recente" para o 🔧 Implementações.
+**O que faz:** (1) Adiciona a seção "🗣️ O que Felipe pediu na última sessão" ao BLOCO 1-A, lida do campo "O QUE O FELIPE PEDIU" do caderno — palavras exatas de Felipe, sem reinterpretação. (2) Entradas do mesmo dia devem ser mescladas em uma única entrada.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 1-A (formato + REGRAS INEGOCIÁVEIS)
+**Regra:**
+```
+Adicionar ao formato do BLOCO 1-A, após 🔧 Implementações:
+
+🗣️ O que Felipe pediu na última sessão:
+- [item do "O QUE O FELIPE PEDIU" da sessão mais recente do caderno]
+(listar todos os itens — palavras exatas de Felipe, sem reinterpretação)
+
+Adicionar às REGRAS INEGOCIÁVEIS:
+- Seção "🗣️ O que Felipe pediu" lida do campo "O QUE O FELIPE PEDIU" da sessão mais recente
+- Seção "🗣️ O que Felipe pediu" NÃO é editável pelo @analyst — palavras exatas de Felipe, sem reinterpretação
+
+Regra de merge para o caderno:
+- Se uma sessão for continuação do mesmo dia (ex: compactação), mesclar na entrada principal do dia
+- Uma entrada por dia — sem duplicatas de data no caderno
+```
+
+---
+
 *Última atualização: 2026-03-27 — Orion (@aiox-master)*

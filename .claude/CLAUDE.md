@@ -610,6 +610,10 @@ PASSO 3: Exibir SEMPRE neste formato (após o greeting do agente):
 - [item do "O QUE FOI FEITO" da sessão mais recente do caderno] — [impacto no projeto]
 (listar todos os itens da sessão mais recente — dá ao @analyst contexto de o que mudou)
 
+🗣️ O que Felipe pediu na última sessão:
+- [item do "O QUE O FELIPE PEDIU" da sessão mais recente do caderno]
+(listar todos os itens — palavras exatas de Felipe, sem reinterpretação)
+
 📍 PAROU EM: [campo PAROU EM da última sessão do caderno]
 ➡️ Próximo passo sugerido: [primeiro item do MEU trabalho que @analyst deve executar agora]
 Total: [N] pendências — resolver #1 a #N encerra o backlog.
@@ -626,6 +630,8 @@ Total: [N] pendências — resolver #1 a #N encerra o backlog.
 - NÃO é escopo do @analyst: criar carrosseis, implementar HTML, auditar LP, escrever copy, git push
 - Seção "🔧 Implementações da última sessão" lida do campo "O QUE FOI FEITO" da sessão mais recente
 - Seção "🔧 Implementações" NÃO é editável pelo @analyst — é leitura do caderno, sem reinterpretação
+- Seção "🗣️ O que Felipe pediu" lida do campo "O QUE O FELIPE PEDIU" da sessão mais recente
+- Seção "🗣️ O que Felipe pediu" NÃO é editável pelo @analyst — palavras exatas de Felipe, sem reinterpretação
 
 ---
 
