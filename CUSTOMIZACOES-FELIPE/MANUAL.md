@@ -915,4 +915,34 @@ PASSO 4: Confirmar: "✅ [N] arquivos gerados e commitados: [lista]"
 
 ---
 
-*Última atualização: 2026-03-28 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 30 — BLOCO 0-N — IDENTIFICAÇÃO OBRIGATÓRIA DO PRODUTOR DE INPUT
+
+**Data de aprovação:** 2026-03-30
+**Problema resolvido:** @dev ao projetar o content-generator.js apresentou "config.json (você preenche o copy)" — o copy de slides é trabalho do copy-agent, não do usuário. O agente só reconheceu o erro quando questionado. A regra do BLOCO 0-I (copy → copy-agent) existia, mas não havia obrigação de verificar isso ao projetar inputs de ferramentas.
+**O que faz:** Qualquer agente que projetar uma ferramenta, script, workflow ou sistema com inputs DEVE identificar qual agente do pipeline é responsável por cada input — antes de apresentar o design ao usuário. Proibido assumir "você preenche" sem verificar.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-N (novo, após BLOCO 0-M)
+**Agentes afetados:** @dev, @architect, @aiox-master, @analyst e TODOS os agentes atuais e futuros ao projetar sistemas com inputs.
+**Regra:**
+```
+ANTES DE DIZER "você preenche X":
+
+PASSO 1: Identificar o tipo de input necessário
+         → Copy/texto de marketing → copy-agent ou @hormozi-copy
+         → Briefing de conteúdo → briefing-agent
+         → Análise de posts → analyst-agent-mineracao
+         → Coleta Instagram → scout-agent
+         → Decisão de conteúdo/pauta → julia-chief
+         → Configuração técnica de infra → @devops
+         → Análise estratégica → @analyst
+
+PASSO 2: Verificar em agent-authority.md se existe agente responsável
+
+PASSO 3a: SE existe agente → "[nome-do-agente] é responsável por gerar este input"
+          NUNCA apresentar "você preenche" quando há agente responsável
+
+PASSO 3b: SE não existe agente → "Você preenche — [motivo explícito]"
+```
+
+---
+
+*Última atualização: 2026-03-30 — Orion (@aiox-master)*

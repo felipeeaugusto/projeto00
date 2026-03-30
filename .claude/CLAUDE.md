@@ -581,6 +581,52 @@ Arquivos gerados em sessões ficaram localmente no PC onde foram criados, nunca 
 
 ---
 
+### BLOCO 0-N — IDENTIFICAÇÃO OBRIGATÓRIA DO PRODUTOR DE INPUT (inegociável)
+
+**Gatilho:** Qualquer agente que esteja projetando, descrevendo ou documentando uma ferramenta, script, arquivo, workflow ou sistema que requer dados de entrada (input) para funcionar.
+
+**REGRA ABSOLUTA:** Nenhum agente pode apresentar "você preenche" ou equivalente como resposta para quem gera o input de uma ferramenta, sem antes verificar se existe um agente responsável por isso.
+
+```
+ANTES DE DIZER "você preenche X" ou "config.json (você preenche o copy)":
+
+PASSO 1: Identificar o tipo de input necessário:
+         → Copy/texto de marketing, slides, legendas → copy-agent ou @hormozi-copy
+         → Briefing de conteúdo → briefing-agent
+         → Análise de posts coletados → analyst-agent-mineracao
+         → Coleta de dados Instagram → scout-agent
+         → Decisão de conteúdo / pauta → julia-chief
+         → Decisão estratégica de produto → @pm ou julia-chief
+         → Configuração técnica de infra → @devops
+         → Análise de mercado / pesquisa → @analyst
+         → Código, script, template visual → @dev ou compositor-agent
+
+PASSO 2: Verificar em agent-authority.md se existe agente responsável por gerar esse input
+
+PASSO 3a: SE existe agente responsável:
+          → Apresentar SEMPRE: "[nome-do-agente] é responsável por gerar este input"
+          → NUNCA apresentar "você preenche" — mesmo que o copy seja simples
+          → NUNCA assumir que é o usuário sem ter verificado
+
+PASSO 3b: SE não existe agente responsável (input genuinamente do usuário):
+          → Apresentar: "Você preenche este campo — [motivo explícito: decisão de negócio,
+            preferência pessoal, credencial secreta, etc.]"
+          → Ser explícito sobre POR QUE é o usuário e não um agente
+```
+
+**PROIBIDO:**
+- Apresentar "você preenche o copy" quando copy-agent / @hormozi-copy existe
+- Assumir que o usuário é o responsável por qualquer input sem verificar primeiro
+- Apresentar o design de uma ferramenta sem identificar o produtor de cada campo de input
+- Descobrir o agente responsável apenas quando questionado (deve ser proativo)
+
+**O ERRO QUE GEROU ESTA REGRA:**
+@dev (Dex) ao projetar o content-generator.js apresentou "config.json (você preenche o copy)" — o copy de slides de carrossel é trabalho do copy-agent, não do usuário. Só reconheceu o erro quando Felipe questionou. A regra já existia no BLOCO 0-I (copy → copy-agent), mas não havia obrigação explícita de verificar isso ao projetar inputs de ferramentas.
+
+**Aplica-se a: @dev, @architect, @aiox-master, @analyst e TODOS os agentes atuais e futuros ao projetar qualquer sistema, ferramenta, script ou workflow com inputs.**
+
+---
+
 ### BLOCO 0-J — SILÊNCIO DO ORQUESTRADOR APÓS AGENTE ESPECIALIZADO (inegociável)
 
 **Gatilho:** @aiox-master invoca um agente especializado via Skill tool.
