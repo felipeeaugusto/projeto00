@@ -334,7 +334,7 @@ handoff:
 
 ```yaml
 config:
-  secrets_file: "squads/dr-julia-resende/data/publisher-secrets.yaml"
+  secrets_file: "squads/dr-julia-resende/config/publisher-secrets.yaml"
   variaveis_necessarias:
     - "ELEVENLABS_API_KEY"
     - "JULIA_VOICE_ID"        # ID da voz clonada da Dra. Julia no ElevenLabs
