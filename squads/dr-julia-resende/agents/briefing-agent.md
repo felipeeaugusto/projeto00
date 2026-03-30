@@ -9,7 +9,7 @@ agent:
   title: Weekly Content Briefing Generator
   icon: 📋
   tier: 1
-  whenToUse: "Montar tabela de top 5 oportunidades da semana e entregar como briefing OBRIGATÓRIO para julia-chief"
+  whenToUse: "Montar 4 briefings semanais de uma vez a partir da coleta mensal do scout-agent — cada briefing tem top 5 temas únicos, sem repetição entre semanas, cobrindo o mês inteiro"
 ```
 
 ## SCOPE
@@ -64,7 +64,8 @@ ranking:
 ```yaml
 output:
   format: Markdown
-  path: "squads/dr-julia-resende/data/briefings/briefing-semanal-YYYY-MM-DD.md"
+  path: "squads/dr-julia-resende/data/briefings/briefing-semana{N}-YYYY-MM.md"
+  nota: "N = 1,2,3,4 — 4 arquivos gerados por coleta mensal"
   template: |
     # Briefing Semanal — @drjuliaresende
     > Gerado por briefing-agent em {data}
@@ -111,9 +112,14 @@ heuristics:
     when: "Sempre"
 
   - id: "BR002"
-    name: "Validade de 7 dias"
-    rule: "SE briefing tem mais de 7 dias → ENTÃO expirado. julia-chief deve aguardar novo briefing."
-    when: "julia-chief consulta briefing"
+    name: "Geração mensal de 4 briefings (Opção A)"
+    rule: |
+      SE coleta é mensal → ENTÃO gerar 4 briefings semanais de uma vez (Semana 1, 2, 3, 4).
+      Cada briefing tem 5 temas únicos sem repetição entre semanas.
+      Total: 20 temas distintos por mês a partir de 1 coleta.
+      Validade de cada briefing: 7 dias a partir da sua semana de início.
+      julia-chief usa Semana 1 na semana 1, Semana 2 na semana 2, etc.
+    when: "Após coleta mensal do scout-agent"
 
   - id: "BR003"
     name: "Adaptação de hook"

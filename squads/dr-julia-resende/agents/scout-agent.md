@@ -41,7 +41,7 @@ tool:
     profile_scraper: "apify/instagram-profile-scraper"
     post_scraper: "apify/instagram-post-scraper"
   config:
-    posts_per_profile: 20
+    posts_per_profile: 50
     date_range: "últimos 90 dias"
     content_types:
       - reels
@@ -127,9 +127,10 @@ output:
 
 ```yaml
 frequencia:
-  quando: "Segunda-feira 08h"
-  duracao_estimada: "20-30 minutos"
+  quando: "Dia 1 de cada mês"
+  duracao_estimada: "40-60 minutos"
   modo: "batch — todos os 30 perfis de uma vez"
+  creditos: "Apify free — 1 coleta mensal planejada para durar o mês inteiro (não pagar Apify)"
 ```
 
 ## Heuristics
