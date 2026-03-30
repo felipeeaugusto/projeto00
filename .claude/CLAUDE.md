@@ -627,6 +627,48 @@ PASSO 3b: SE não existe agente responsável (input genuinamente do usuário):
 
 ---
 
+### BLOCO 0-O — IDENTIFICAÇÃO OBRIGATÓRIA DO EXECUTOR DO PRÓXIMO PASSO (inegociável)
+
+**Gatilho:** Qualquer agente que terminou seu trabalho e está prestes a indicar qual agente executa a próxima etapa do pipeline.
+
+**REGRA ABSOLUTA:** Antes de mencionar qualquer agente como "próximo passo", o agente DEVE verificar em `agent-authority.md` qual agente é responsável por aquela operação — nunca por suposição ou costume.
+
+```
+ANTES DE DIZER "@dev pode rodar agora" ou "passa para o @X" ou "próximo é o @Y":
+
+PASSO 1: Identificar o tipo de operação do próximo passo:
+         → Rodar script que gera HTML/CSS de slides → compositor-agent
+         → Renderizar PNG via Playwright → compositor-agent
+         → Publicar em Instagram/Facebook → publisher-agent
+         → git push, CI/CD → @devops
+         → Analisar posts coletados → analyst-agent-mineracao
+         → Escrever copy, legendas, texto de marketing → copy-agent ou @hormozi-copy
+         → Implementar/corrigir código → @dev
+         → Coletar dados Instagram → scout-agent
+
+PASSO 2: Ler a definição do agente identificado (BLOCO 0-C obrigatório)
+         → Confirmar que a operação está no what_i_do do agente
+         → Confirmar que não está no what_i_dont_do
+
+PASSO 3: Mencionar APENAS o agente correto — nunca dois, nunca por suposição
+PASSO 4: Aplicar BLOCO 0-D — perguntar ao usuário antes de chamar
+```
+
+**PROIBIDO:**
+- Indicar "@dev" para executar qualquer coisa que gere imagens, slides HTML ou PNGs (= compositor-agent)
+- Indicar o próximo agente sem ter lido sua definição primeiro
+- Indicar dois agentes com "ou" (= não verificou)
+- Chamar automaticamente sem confirmar com o usuário
+
+**O ERRO QUE GEROU ESTA REGRA:**
+copy-agent terminou de preencher `carrossel-03/config.json` e disse `"@dev — pode rodar agora: node content-generator.js / node render.js"`. Rodar o gerador de slides HTML/CSS e renderizar PNG via Playwright é trabalho do **compositor-agent** (agent-authority.md: "gerar slides HTML/CSS para carrosseis", "renderizar PNG via Playwright"). O copy-agent não verificou agent-authority.md antes de indicar o próximo agente.
+
+**Relação com BLOCO 0-N:** O BLOCO 0-N cobre "quem gera o input de uma ferramenta". O BLOCO 0-O cobre "quem executa o próximo passo do pipeline". São espelhos — input e output.
+
+**Aplica-se a: copy-agent, @hormozi-copy, briefing-agent, scout-agent, analyst-agent-mineracao, @analyst, @dev, @architect, @aiox-master e TODOS os agentes atuais e futuros ao finalizar seu trabalho e indicar próximo passo.**
+
+---
+
 ### BLOCO 0-J — SILÊNCIO DO ORQUESTRADOR APÓS AGENTE ESPECIALIZADO (inegociável)
 
 **Gatilho:** @aiox-master invoca um agente especializado via Skill tool.

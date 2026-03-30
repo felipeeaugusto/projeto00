@@ -945,4 +945,29 @@ PASSO 3b: SE não existe agente → "Você preenche — [motivo explícito]"
 
 ---
 
+## CUSTOMIZAÇÃO 31 — BLOCO 0-O — IDENTIFICAÇÃO OBRIGATÓRIA DO EXECUTOR DO PRÓXIMO PASSO
+
+**Data de aprovação:** 2026-03-30
+**Problema resolvido:** copy-agent terminou de preencher o config.json do carrossel-03 e indicou "@dev — pode rodar agora" para executar content-generator.js + render.js. Rodar o gerador de slides HTML/CSS e renderizar PNG via Playwright é trabalho do compositor-agent, não do @dev. O agente não verificou agent-authority.md antes de indicar o próximo agente. Erro da mesma família do BLOCO 0-N (input), mas no lado do output/execução.
+**O que faz:** Qualquer agente que termina seu trabalho e indica o próximo passo do pipeline DEVE verificar em agent-authority.md qual agente é responsável antes de nomear qualquer agente. Proibido indicar por suposição ou costume.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-O (novo, após BLOCO 0-N)
+**Agentes afetados:** copy-agent, @hormozi-copy, briefing-agent, scout-agent, analyst-agent-mineracao, @analyst, @dev, @architect, @aiox-master e TODOS os agentes atuais e futuros.
+**Regra:**
+```
+ANTES DE DIZER "próximo é o @X" ou "passa para o @Y":
+
+PASSO 1: Identificar o tipo de operação do próximo passo
+         → Gerar slides HTML/CSS, renderizar PNG → compositor-agent
+         → Publicar → publisher-agent
+         → git push → @devops
+         → copy/texto → copy-agent
+         → código → @dev
+
+PASSO 2: Ler definição do agente (BLOCO 0-C)
+PASSO 3: Nomear apenas 1 agente com certeza
+PASSO 4: BLOCO 0-D — confirmar com usuário antes de chamar
+```
+
+---
+
 *Última atualização: 2026-03-30 — Orion (@aiox-master)*
