@@ -970,4 +970,31 @@ PASSO 4: BLOCO 0-D — confirmar com usuário antes de chamar
 
 ---
 
+## CUSTOMIZAÇÃO 32 — BLOCO 0-C EXPANDIDO — "OU" PROIBIDO EM QUALQUER CONTEXTO
+
+**Data de aprovação:** 2026-03-30
+**Problema resolvido:** Orion explicou o pipeline de criação de conteúdo e escreveu "julia-chief (ou Felipe)" e "publisher-agent publica (ou Felipe publica manualmente)" em contexto explicativo, não de delegação formal. A regra anterior do BLOCO 0-C dizia "antes de delegar" — o que criou a brecha de usar "ou" em explicações e descrições de pipeline. O "ou" em qualquer contexto é sintoma de não ter verificado.
+**O que faz:** O BLOCO 0-C passa a cobrir QUALQUER menção de agente — delegação, explicação, pipeline, resposta informal — não apenas delegações formais. O "ou" entre agentes é proibido em absolutamente qualquer contexto.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-C (título e corpo atualizados)
+**Agentes afetados:** TODOS os agentes sem exceção, em TODOS os contextos.
+**Regra:**
+```
+Título anterior: "VERIFICAÇÃO OBRIGATÓRIA ANTES DE DELEGAR"
+Título novo:     "VERIFICAÇÃO OBRIGATÓRIA AO MENCIONAR QUALQUER AGENTE"
+
+Trigger anterior: "antes de dizer 'isso é trabalho do @agente-X' ou chamar outro agente"
+Trigger novo:     "toda vez que um agente for mencionado pelo nome — em qualquer contexto"
+
+Novo proibido explícito:
+- Aplicar esta regra só em delegações formais e ignorá-la em explicações ou descrições de fluxo
+
+Exemplos adicionados:
+❌ "julia-chief (ou Felipe) decide o tema"
+❌ "publisher-agent publica (ou Felipe publica manualmente)"
+✅ "julia-chief decide o tema"
+✅ "publisher-agent publica — pendência #15"
+```
+
+---
+
 *Última atualização: 2026-03-30 — Orion (@aiox-master)*

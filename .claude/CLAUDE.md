@@ -35,9 +35,9 @@ PASSO 4: NÃO executar nenhuma parte da tarefa antes de delegar
 
 ---
 
-### BLOCO 0-C — VERIFICAÇÃO OBRIGATÓRIA ANTES DE DELEGAR (inegociável)
+### BLOCO 0-C — VERIFICAÇÃO OBRIGATÓRIA AO MENCIONAR QUALQUER AGENTE (inegociável)
 
-**REGRA ABSOLUTA:** Antes de dizer "isso é trabalho do @agente-X" ou chamar outro agente, o agente DEVE:
+**REGRA ABSOLUTA:** Toda vez que um agente for mencionado pelo nome — em delegação, em explicação, em descrição de pipeline, em resposta informal, em qualquer contexto — o agente que escreve DEVE ter verificado a definição antes de escrever o nome.
 
 ```
 PASSO 1: Ler o arquivo de definição do agente alvo
@@ -46,27 +46,37 @@ PASSO 1: Ler o arquivo de definição do agente alvo
                            .aiox-core/development/agents/{nome}.md
 PASSO 2: Verificar na seção scope/what_i_do que a tarefa está DENTRO do escopo
 PASSO 3: Verificar na seção what_i_dont_do que a tarefa NÃO está explicitamente excluída
-PASSO 4: SOMENTE após verificação, confirmar a delegação com certeza
-PASSO 5: NUNCA usar "ou" ao indicar o agente correto — apenas 1 agente é o certo
+PASSO 4: SOMENTE após verificação, escrever o nome do agente com certeza
+PASSO 5: NUNCA usar "ou" ao mencionar agentes — em nenhum contexto — apenas 1 agente é o certo
 ```
 
-**PROIBIDO:**
-- Indicar um agente sem ler sua definição primeiro
-- Usar "ou" entre dois agentes — isso significa que não verificou
+**PROIBIDO — EM QUALQUER CONTEXTO (delegação, explicação, pipeline, resposta informal):**
+- Mencionar um agente sem ter lido sua definição primeiro
+- Usar "ou" entre dois agentes — em qualquer contexto — isso significa que não verificou
 - Transferir para o usuário a decisão de qual agente é o correto
 - Supor escopo por nome do agente sem leitura confirmada
+- Aplicar esta regra só em delegações formais e ignorá-la em explicações ou descrições de fluxo
 
-**EXEMPLO DO ERRO PROIBIDO:**
+**O ERRO QUE EXPANDIU ESTA REGRA (2026-03-30):**
+Orion explicou o pipeline de criação de conteúdo e escreveu "julia-chief (ou Felipe)" e
+"publisher-agent publica (ou Felipe publica manualmente)" — em contexto explicativo, não
+de delegação formal. O "ou" em qualquer contexto é sintoma de não ter verificado. A regra
+anterior dizia "antes de delegar" — o que criou a brecha de usar "ou" em explicações.
+
+**EXEMPLOS:**
 ```
-❌ ERRADO: "Isso é trabalho do @dev ou do ebook-agent"
-           (não verificou — transferiu decisão para o usuário)
+❌ ERRADO (delegação):    "Isso é trabalho do @dev ou do ebook-agent"
+❌ ERRADO (explicação):   "julia-chief (ou Felipe) decide o tema"
+❌ ERRADO (pipeline):     "publisher-agent publica (ou Felipe publica manualmente)"
+   Todos errados pelo mesmo motivo: "ou" = não verificou
 
-✅ CORRETO: Leu ebook-agent.md → scope diz "NÃO adicionar capítulos novos"
-            Leu copy-agent.md  → scope confirma criação de conteúdo novo
-            → "Isso é trabalho do copy-agent" (certeza, sem "ou")
+✅ CORRETO (delegação):   Leu as definições → "Isso é trabalho do copy-agent"
+✅ CORRETO (explicação):  Verificou → "julia-chief decide o tema"
+✅ CORRETO (pipeline):    Verificou → "publisher-agent publica"
+                          (se ainda pendente: "publisher-agent publica — pendência #15")
 ```
 
-**Esta regra se aplica a TODOS os agentes sem exceção, incluindo agentes de squads externos (Hormozi, Dr. Julia, Design, squad-creator).**
+**Esta regra se aplica a TODOS os agentes sem exceção, em TODOS os contextos sem exceção.**
 
 ---
 
