@@ -1,0 +1,21 @@
+{
+  "pasta": "carrossel-03",
+  "id": "carrossel-03",
+  "tema": "[copy-agent: tema em 1 linha — ex: Custo emocional de criar filhos sem rotina]",
+  "gerado_em": "2026-03-30T21:51:16.443Z",
+  "gerado_por": "content-generator.js",
+  "slides_html": [
+    "slide-01.html",
+    "slide-02.html",
+    "slide-03.html",
+    "slide-04.html",
+    "slide-05.html"
+  ],
+  "slides_png": [
+    "slide-01.png",
+    "slide-02.png",
+    "slide-03.png",
+    "slide-04.png",
+    "slide-05.png"
+  ]
+}

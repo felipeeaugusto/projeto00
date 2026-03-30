@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;700;800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 1080px; height: 1080px; overflow: hidden; background: #F5ECD7; position: relative; font-family: 'Poppins', sans-serif; }
+    body::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(180,150,100,0.04) 2px, rgba(180,150,100,0.04) 4px), repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(180,150,100,0.03) 3px, rgba(180,150,100,0.03) 6px); z-index: 0; }
+    .accent-bar { position: absolute; left: 0; top: 0; width: 8px; height: 100%; background: #03bb85; z-index: 10; }
+    .handle { position: absolute; top: 52px; right: 72px; font-size: 18px; font-weight: 300; color: rgba(44,24,16,0.35); letter-spacing: 1px; z-index: 10; }
+    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 90px 0 110px; }
+    .label { display: inline-flex; align-items: center; gap: 12px; background: rgba(3,187,133,0.12); border: 1px solid rgba(3,187,133,0.3); color: #03bb85; font-size: 15px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; padding: 10px 22px; border-radius: 2px; margin-bottom: 40px; width: fit-content; }
+    .title { font-family: 'Playfair Display', serif; font-size: 58px; font-weight: 700; line-height: 1.2; color: #2C1810; margin-bottom: 50px; }
+    .title em { font-style: italic; color: #03bb85; }
+    .list { display: flex; flex-direction: column; gap: 0; }
+    .item { display: flex; align-items: center; gap: 24px; padding: 20px 0; border-bottom: 1px solid rgba(44,24,16,0.1); }
+    .item:last-child { border-bottom: none; }
+    .bullet { width: 8px; height: 8px; border-radius: 50%; background: #03bb85; flex-shrink: 0; }
+    .item-text { font-size: 26px; font-weight: 300; color: #2C1810; line-height: 1.4; }
+    
+    .dots {
+      position: absolute;
+      bottom: 58px;
+      left: 110px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .dot {
+      height: 7px;
+      border-radius: 10px;
+      background: rgba(44,24,16,0.2);
+      width: 7px;
+    }
+    .dot.active {
+      background: #03bb85;
+      width: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="accent-bar"></div>
+  <div class="handle">@drjuliaresende</div>
+  <div class="content">
+    <div class="label">[copy-agent: label curto — ex: Por que acontece]</div>
+    <h2 class="title">[copy-agent: título com destaque — ex: Não é falta de amor.\nÉ falta de <em>estrutura.</em>]</h2>
+    <div class="list">
+      <div class="item"><div class="bullet"></div><span class="item-text">[copy-agent: bullet 1]</span></div>
+      <div class="item"><div class="bullet"></div><span class="item-text">[copy-agent: bullet 2]</span></div>
+      <div class="item"><div class="bullet"></div><span class="item-text">[copy-agent: bullet 3]</span></div>
+      <div class="item"><div class="bullet"></div><span class="item-text">[copy-agent: bullet 4]</span></div>
+      <div class="item"><div class="bullet"></div><span class="item-text">[copy-agent: bullet 5 — opcional]</span></div>
+    </div>
+  </div>
+  <div class="dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</body>
+</html>

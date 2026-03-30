@@ -1,0 +1,62 @@
+{
+  "_instrucoes": "Este arquivo é preenchido pelo copy-agent. Substitua todos os campos marcados com [copy-agent] pelo copy real. Não altere os campos 'tipo'. Use \\n para quebra de linha e [verde]...[/verde] ou [em]...[/em] para destaques.",
+  "_briefing_ref": "Briefing #2 — 2026-03-23 — Custo real (emocional) de criar filhos sem rotina",
+  "_hook_original": "Ter filho é lindo. É também esgotante pra caramba.",
+  "_estilo_ds_yaml": "S01 Bold (slide 1 e 5) + S03 Collage (slides 2, 3, 4)",
+
+  "id": "carrossel-03",
+  "tema": "[copy-agent: tema em 1 linha — ex: Custo emocional de criar filhos sem rotina]",
+
+  "slides": [
+    {
+      "_nota": "Slide 1 — HOOK — fundo escuro #0A0A0A. Hook grande, impactante. Use [verde]...[/verde] para destacar palavras-chave.",
+      "tipo": "hook",
+      "eyebrow": "Dra. Julia Resende",
+      "hook": "[copy-agent: hook principal do carrossel — ex: Ter filho é lindo.\\nÉ também [verde]esgotante[/verde]\\npra caramba.]",
+      "sub": "[copy-agent: frase de apoio ao hook — 1 a 2 linhas]",
+      "cta": "deslize para entender"
+    },
+    {
+      "_nota": "Slide 2 — LISTA ESCURA — lado negativo. Label curto. Título com [em]...[/em] para itálico. 4 a 5 bullets.",
+      "tipo": "lista-escura",
+      "label": "[copy-agent: label curto — ex: O esgotamento custa]",
+      "titulo": "[copy-agent: título com destaque — ex: Mais do que você\\n[em]imagina:[/em]]",
+      "items": [
+        "[copy-agent: bullet 1]",
+        "[copy-agent: bullet 2]",
+        "[copy-agent: bullet 3]",
+        "[copy-agent: bullet 4]",
+        "[copy-agent: bullet 5 — opcional]"
+      ]
+    },
+    {
+      "_nota": "Slide 3 — LISTA CLARA — fundo papel #F5ECD7, lado positivo ou causa. 4 a 5 bullets.",
+      "tipo": "lista-clara",
+      "label": "[copy-agent: label curto — ex: Por que acontece]",
+      "titulo": "[copy-agent: título com destaque — ex: Não é falta de amor.\\nÉ falta de [em]estrutura.[/em]]",
+      "items": [
+        "[copy-agent: bullet 1]",
+        "[copy-agent: bullet 2]",
+        "[copy-agent: bullet 3]",
+        "[copy-agent: bullet 4]",
+        "[copy-agent: bullet 5 — opcional]"
+      ]
+    },
+    {
+      "_nota": "Slide 4 — REFLEXÃO — fundo papel #F5ECD7. Citação impactante em Playfair. Use [em]...[/em] para destaques.",
+      "tipo": "reflexao",
+      "citacao": "[copy-agent: citação principal — 3 a 4 linhas — ex: 7 minutos de rotina\\nnão resolve [em]tudo.[/em]\\nMas resolve o suficiente\\npara você [em]respirar.[/em]]",
+      "sub": "[copy-agent: frase de apoio à citação — 1 a 2 linhas]"
+    },
+    {
+      "_nota": "Slide 5 — CTA — fundo verde #03bb85. Título é sempre O Poder da Rotina. cta_linha1 NÃO deve conter números fabricados.",
+      "tipo": "cta",
+      "eyebrow": "o método",
+      "titulo": "O Poder\nda Rotina",
+      "subtitulo": "7 minutos por dia para\ntransformar o caos em paz",
+      "cta_linha1": "[copy-agent: linha de apoio sem números fabricados — ex: O método que mães usam para sair do caos.]",
+      "cta_linha2": "Link na Bio.",
+      "cta_seta": "↑"
+    }
+  ]
+}
