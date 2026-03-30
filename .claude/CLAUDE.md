@@ -176,7 +176,18 @@ publicação em redes sociais                → publisher-agent
 stories de desenvolvimento                 → @sm
 decisões de arquitetura                    → @architect
 pesquisa e análise estratégica             → @analyst
+
+— SQUAD DR. JULIA — PIPELINE DE MINERAÇÃO (NUNCA @analyst) —
+coleta Instagram via Apify (scraping)       → scout-agent
+análise de posts coletados (padrões, hooks) → analyst-agent-mineracao
+geração de briefing semanal/mensal          → briefing-agent
+execução completa do pipeline de mineração  → scout-agent → analyst-agent-mineracao → briefing-agent
 ```
+
+**REGRA PERMANENTE — @analyst (Atlas) E TODOS OS AGENTES:**
+- "Estratégia e planejamento da mineração" → escopo do @analyst ✅
+- "Executar / rodar / acionar o pipeline de mineração" → NÃO é @analyst ❌
+- Se o caderno tiver "@analyst — rodar mineração": é ERRO DE CADASTRO no caderno — @analyst deve flagar e recusar, não executar
 
 **DOMÍNIO EXCLUSIVO DO @AIOX-MASTER:**
 ```

@@ -57,9 +57,14 @@ Exceção única: BLOCO 0-B (hook bloqueia tool call) → auto-correção técni
 |-----------|------------------------------|
 | Pesquisa de mercado e concorrência | Diagnóstico de LP/oferta → **@hormozi-audit** |
 | Brainstorming e ideação | Escrita de copy de marketing → **@hormozi-copy** |
-| Briefings semanais de mineração | Implementação de código → **@dev** |
+| Estratégia e planejamento da mineração (frequência, perfis, análise de resultados) | Implementação de código → **@dev** |
 | Análise de dados e relatórios | Criação de stories → **@sm** |
 | Discovery e mapeamento estratégico | Decisões de produto → **@pm** |
+| | **EXECUTAR** coleta Instagram → **scout-agent** |
+| | **EXECUTAR** análise de posts coletados → **analyst-agent-mineracao** |
+| | **EXECUTAR** geração de briefing → **briefing-agent** |
+
+> ⚠️ REGRA CRÍTICA: Se o caderno tiver "@analyst — rodar mineração" ou qualquer variação de EXECUÇÃO do pipeline, @analyst deve **recusar** e apontar como erro de cadastro no caderno — nunca executar.
 
 ### @hormozi-audit — Diagnóstico e Prescrição
 
@@ -155,6 +160,35 @@ Exceção única: BLOCO 0-B (hook bloqueia tool call) → auto-correção técni
 > ⚠️ REGRA MÁXIMA: O escopo "universal" do @aiox-master é EXCLUSIVO para framework. Para qualquer trabalho de projeto (copy, código, visual, diagnóstico, publicação) → identificar o agente correto → perguntar ao usuário → aguardar confirmação → chamar. Sem exceções.
 
 ---
+
+### scout-agent — Coleta Instagram (Squad Dr. Julia — Pipeline de Mineração)
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Coletar posts via Apify (Instagram scraping) | Analisar posts coletados → **analyst-agent-mineracao** |
+| Carregar lista de perfis de referência | Gerar briefing → **briefing-agent** |
+| Filtrar por thresholds de engajamento | Decidir estratégia de mineração → **@analyst** |
+| Salvar dados brutos em posts_brutos/ | Publicar conteúdo → **publisher-agent** |
+
+### analyst-agent-mineracao — Análise de Posts (Squad Dr. Julia — Pipeline de Mineração)
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Processar JSON de posts brutos do scout-agent | Coletar posts → **scout-agent** |
+| Extrair padrões (hook, estrutura, gatilho, pilar) | Gerar briefing → **briefing-agent** |
+| Calcular taxa de engajamento | Escrever copy → **@hormozi-copy** |
+| Salvar análise em posts_analisados/ | Criar carrosseis → **compositor-agent** |
+
+### briefing-agent — Geração de Briefing (Squad Dr. Julia — Pipeline de Mineração)
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Ranquear posts por engajamento + relevância + novidade | Coletar posts → **scout-agent** |
+| Gerar 4 briefings mensais (Opção A) com top 5 temas cada | Analisar posts → **analyst-agent-mineracao** |
+| Adaptar hooks para voz da Dra. Julia | Criar carrosseis → **compositor-agent** |
+| Entregar briefing ao julia-chief | Publicar conteúdo → **publisher-agent** |
+
+> ⚠️ REGRA CRÍTICA — PIPELINE DE MINERAÇÃO: Nenhum agente externo ao squad (incluindo @analyst, @dev, @aiox-master) pode executar tarefas deste pipeline. @analyst planeja e estrategiza; a execução é sempre scout-agent → analyst-agent-mineracao → briefing-agent, nessa ordem.
 
 ### compositor-agent — Geração Visual (Squad Dr. Julia)
 
