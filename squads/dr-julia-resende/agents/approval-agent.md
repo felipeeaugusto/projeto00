@@ -59,7 +59,12 @@ heuristics:
 
   - id: "AP003"
     name: "Revisão com feedback"
-    rule: "SE REVISAR → ENTÃO perguntar: 'O que precisa mudar?' + coletar feedback + redirecionar para copy-agent ou image-agent"
+    rule: |
+      SE REVISAR → ENTÃO perguntar: 'O que precisa mudar?'
+        SE copy/legenda com problema → redirecionar para copy-agent
+        SE visual/PNG com problema   → redirecionar para compositor-agent
+        SE ambos                     → copy-agent primeiro → compositor-agent depois
+      NUNCA usar "ou" entre agentes — a condição determina o caminho único
     when: "Usuário escolhe REVISAR"
 
   - id: "AP004"
@@ -147,9 +152,9 @@ handoff_to:
     when: "Usuário pediu revisão de copy"
     context: "Feedback específico do usuário sobre o que mudar"
 
-  - agent: "image-agent"
-    when: "Usuário pediu revisão de imagem"
-    context: "Feedback específico do usuário sobre o que mudar"
+  - agent: "compositor-agent"
+    when: "Usuário pediu revisão de visual/PNG"
+    context: "Feedback específico do usuário sobre o que mudar no layout, cor, fonte ou dimensão"
 
   - agent: "julia-chief"
     when: "Conteúdo aprovado — atualizar contadores"

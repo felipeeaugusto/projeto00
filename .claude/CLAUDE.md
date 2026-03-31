@@ -76,6 +76,21 @@ anterior dizia "antes de delegar" — o que criou a brecha de usar "ou" em expli
                           (se ainda pendente: "publisher-agent publica — pendência #15")
 ```
 
+**FLUXOS CONDICIONAIS — REGRA ESPECÍFICA (2026-03-31):**
+Em pipelines com caminhos condicionais (rejeição por motivo A vs motivo B, tipo de erro X vs Y), cada condição tem exatamente um agente. NUNCA colapsar condições em "ou":
+
+```
+❌ ERRADO: "volta para copy-agent ou compositor-agent"
+   Motivo: "ou" implica que qualquer um serve — não verificou a condição
+
+✅ CORRETO:
+   SE copy/legenda com problema → copy-agent
+   SE visual/PNG com problema   → compositor-agent
+   SE ambos                     → copy-agent primeiro → compositor-agent depois
+```
+
+O "ou" em fluxo condicional é o mesmo erro que o "ou" em delegação: sinaliza que o agente não analisou a condição que determina o caminho correto.
+
 **Esta regra se aplica a TODOS os agentes sem exceção, em TODOS os contextos sem exceção.**
 
 ---
