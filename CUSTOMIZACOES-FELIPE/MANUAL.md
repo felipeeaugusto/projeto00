@@ -1027,4 +1027,28 @@ production-guard.js — bloqueia:
 
 ---
 
-*Última atualização: 2026-03-30 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 34 — BLOCO 0-C EXPANDIDO — FLUXOS CONDICIONAIS NUNCA USAM "OU"
+
+**Data de aprovação:** 2026-03-31
+**Problema resolvido:** Orion descreveu o fluxo de rejeição do approval-agent como "volta para copy-agent ou compositor-agent" — colapsando duas condições distintas em uma falsa alternativa. O BLOCO 0-C proibia "ou" em delegações e explicações, mas não endereçava explicitamente fluxos condicionais em pipelines.
+**O que faz:** Expande BLOCO 0-C com regra específica para fluxos condicionais: cada condição tem exatamente um agente, descrito como `SE [condição] → [agente]`. Corrige também o approval-agent.md que usava "ou" em AP003 e referenciava image-agent (DALL-E, descartado) em vez de compositor-agent.
+**Onde implementar:** `.claude/CLAUDE.md` (BLOCO 0-C) + `squads/dr-julia-resende/agents/approval-agent.md` (AP003 + handoff_to)
+**Regra:**
+```
+FLUXOS CONDICIONAIS — REGRA ESPECÍFICA:
+Em pipelines com caminhos condicionais, cada condição tem exatamente um agente.
+NUNCA colapsar condições em "ou":
+
+❌ ERRADO: "volta para copy-agent ou compositor-agent"
+✅ CORRETO:
+   SE copy/legenda com problema → copy-agent
+   SE visual/PNG com problema   → compositor-agent
+   SE ambos                     → copy-agent primeiro → compositor-agent depois
+
+O "ou" em fluxo condicional é o mesmo erro que o "ou" em delegação:
+sinaliza que o agente não analisou a condição que determina o caminho correto.
+```
+
+---
+
+*Última atualização: 2026-03-31 — Orion (@aiox-master)*
