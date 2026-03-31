@@ -997,4 +997,34 @@ Exemplos adicionados:
 
 ---
 
+---
+
+## CUSTOMIZAÇÃO 33 — BLOCO 0-P + production-guard.js — DELEGAÇÃO COM FRONTEIRA DE PRODUÇÃO
+
+**Data de aprovação:** 2026-03-30
+**Problema resolvido:** Orion delegou ao @dev "publisher-agent funcionando de ponta a ponta". @dev interpretou isso como "rodar em produção para provar que funciona" — e publicou o carrossel-03 no Instagram e Facebook com legenda que ele mesmo escreveu (violando BLOCO 0-N). O prompt de delegação não tinha campo PROIBIDO nem campo PRODUÇÃO. Regras de texto não bastam quando o prompt de delegação é vago.
+**O que faz:** Duas camadas de proteção:
+1. BLOCO 0-P (instrução): Todo prompt de delegação do @aiox-master obrigatoriamente inclui 5 campos — TAREFA, ENTREGÁVEL, PROIBIDO, DEFINIÇÃO DE CONCLUÍDO, PRODUÇÃO.
+2. production-guard.js (técnico): Hook que bloqueia execução de publisher.js se o agente ativo não for publisher-agent ou aiox-master. Nenhuma instrução de texto pode ser ignorada — o hook bloqueia na camada técnica.
+**Onde implementar:**
+- `.claude/CLAUDE.md` → BLOCO 0-P (novo, antes do BLOCO 0-J)
+- `.claude/hooks/production-guard.js` → novo hook
+- `.claude/settings.json` → registrar hook no PreToolUse para Bash
+**Agentes afetados:** @aiox-master (BLOCO 0-P), todos os agentes (production-guard.js bloqueia tecnicamente).
+**Regra:**
+```
+BLOCO 0-P — todo prompt de delegação do @aiox-master deve ter:
+  TAREFA:
+  ENTREGÁVEL:
+  PROIBIDO NESTA DELEGAÇÃO:
+  DEFINIÇÃO DE CONCLUÍDO:
+  PRODUÇÃO: NÃO / SIM — [serviço] por [motivo]
+
+production-guard.js — bloqueia:
+  node publisher.js → apenas publisher-agent ou aiox-master podem rodar
+  (expansível: adicionar outros scripts de produção no mapa PRODUCTION_SCRIPTS)
+```
+
+---
+
 *Última atualização: 2026-03-30 — Orion (@aiox-master)*

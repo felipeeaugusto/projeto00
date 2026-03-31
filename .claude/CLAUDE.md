@@ -679,6 +679,60 @@ copy-agent terminou de preencher `carrossel-03/config.json` e disse `"@dev — p
 
 ---
 
+### BLOCO 0-P — TEMPLATE OBRIGATÓRIO DE DELEGAÇÃO (inegociável)
+
+**Gatilho:** @aiox-master está prestes a chamar qualquer agente especializado via Skill tool.
+
+**REGRA ABSOLUTA:** Todo prompt de delegação do @aiox-master DEVE conter obrigatoriamente os 5 campos abaixo. Sem esses campos, a delegação está incompleta e não pode ser enviada.
+
+```
+TAREFA: [o que deve ser feito — específico, não genérico]
+ENTREGÁVEL: [arquivo(s) exato(s) a criar ou modificar]
+PROIBIDO NESTA DELEGAÇÃO:
+  - [item 1 — explícito]
+  - [item 2 — explícito]
+  (mínimo 1 item — se não há nada proibido, questione se a tarefa está bem delimitada)
+DEFINIÇÃO DE CONCLUÍDO: [critério exato — o que constitui "feito", sem ambiguidade]
+PRODUÇÃO: NÃO — proibido qualquer execução contra APIs externas, contas reais ou serviços pagos
+         OU
+         SIM — autorizado tocar [serviço específico] por [motivo específico]
+```
+
+**POR QUE O CAMPO "PRODUÇÃO" É OBRIGATÓRIO:**
+O campo força o @aiox-master a declarar explicitamente se a delegação envolve sistemas reais.
+Se PRODUÇÃO = NÃO → o agente recebedor sabe que está proibido rodar qualquer script
+que toque APIs externas. O hook `production-guard.js` reforça isso tecnicamente.
+Se PRODUÇÃO = SIM → o @aiox-master assumiu responsabilidade explícita pela execução em produção.
+
+**O ERRO QUE GEROU ESTA REGRA (2026-03-30):**
+Orion delegou ao @dev com o prompt "publisher-agent funcionando de ponta a ponta".
+@dev interpretou "ponta a ponta" como "rodar em produção para provar que funciona"
+e publicou o carrossel-03 no Instagram e Facebook com legenda que ele mesmo escreveu
+(violando também o BLOCO 0-N). O prompt não tinha campo PROIBIDO nem campo PRODUÇÃO.
+Se tivesse, @dev teria visto: "PRODUÇÃO: NÃO" e "PROIBIDO: escrever caption, rodar publisher.js".
+
+**EXEMPLO CORRETO — como a delegação ao @dev deveria ter sido:**
+```
+TAREFA: Construir o script publisher.js que implementa o fluxo de publicação da publisher-agent.md
+ENTREGÁVEL: squads/dr-julia-resende/assets/publisher.js
+PROIBIDO NESTA DELEGAÇÃO:
+  - Escrever ou preencher qualquer legenda/caption (→ copy-agent)
+  - Rodar publisher.js contra Instagram ou Facebook reais
+  - Criar publish-config.json com campos preenchidos (→ copy-agent + julia-chief preenchem)
+DEFINIÇÃO DE CONCLUÍDO: publisher.js criado, sintaxe válida (`node publisher.js` sem args mostra uso)
+PRODUÇÃO: NÃO — proibido qualquer execução contra APIs externas
+```
+
+**PROIBIDO:**
+- Delegar com prompt genérico tipo "faça X funcionar de ponta a ponta" sem os 5 campos
+- Omitir o campo PRODUÇÃO — mesmo que "óbvio" que é NÃO
+- Omitir o campo PROIBIDO — mesmo que pareça desnecessário
+- Usar PRODUÇÃO = SIM sem especificar qual serviço e por qual motivo
+
+**Esta regra se aplica exclusivamente ao @aiox-master em toda delegação via Skill tool.**
+
+---
+
 ### BLOCO 0-J — SILÊNCIO DO ORQUESTRADOR APÓS AGENTE ESPECIALIZADO (inegociável)
 
 **Gatilho:** @aiox-master invoca um agente especializado via Skill tool.
