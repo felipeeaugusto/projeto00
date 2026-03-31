@@ -62,13 +62,13 @@ function parseYamlSecrets(filePath) {
     const trimmed = raw.trim();
 
     if (indent === 0) {
-      const m = trimmed.match(/^([a-zA-Z_]+):\s*(.*)$/);
+      const m = trimmed.match(/^([a-zA-Z_][a-zA-Z0-9_]*):\s*(.*)$/);
       if (!m) continue;
       section = m[1];
       const val = extractValue(m[2]);
       result[section] = val !== '' ? val : {};
     } else if (indent === 2 && section && typeof result[section] === 'object') {
-      const m = trimmed.match(/^([a-zA-Z_]+):\s*(.*)$/);
+      const m = trimmed.match(/^([a-zA-Z_][a-zA-Z0-9_]*):\s*(.*)$/);
       if (!m) continue;
       result[section][m[1]] = extractValue(m[2]);
     }
@@ -303,7 +303,7 @@ function cloudinarySign(params, apiSecret) {
 async function uploadAudioToCloudinary(mp3Path, cloudinary) {
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const params    = { resource_type: 'video', timestamp }; // Cloudinary trata áudio como "video"
-  const signature = cloudinarySign({ timestamp, resource_type: 'video' }, cloudinary.api_secret);
+  const signature = cloudinarySign({ timestamp }, cloudinary.api_secret); // resource_type não entra na assinatura
   const boundary  = `----CloudBoundary${Date.now().toString(16)}`;
   const CRLF      = '\r\n';
   const file      = fs.readFileSync(mp3Path);
