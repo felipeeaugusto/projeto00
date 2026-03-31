@@ -2,7 +2,8 @@
   "pasta": "carrossel-03",
   "id": "carrossel-03",
   "tema": "Custo emocional de criar filhos sem rotina",
-  "gerado_em": "2026-03-31T03:13:06.357Z",
+  "tipo": "carrossel",
+  "gerado_em": "2026-03-31T12:55:12.565Z",
   "gerado_por": "content-generator.js",
   "slides_html": [
     "slide-01.html",
