@@ -70,6 +70,29 @@ heuristics:
     name: "Briefing semanal obrigatório"
     rule: "ANTES de gerar qualquer conteúdo → OBRIGATÓRIO ler o briefing mais recente em squads/dr-julia-resende/data/mineracao/briefings/. SE nenhum briefing disponível → VETO — alertar que o briefing-agent precisa rodar primeiro. SE briefing disponível → usar os top 5 padrões da semana como base para decidir tema, formato e ângulo do conteúdo. NÃO gerar conteúdo sem briefing — o briefing é a fonte de inteligência de mercado da semana."
     when: "Início de CADA ciclo de geração — sem exceção"
+
+  - id: "JC008"
+    name: "Grid check obrigatório — alternância de formato"
+    rule: |
+      ANTES de decidir formato do próximo conteúdo de feed:
+        1. Ler squads/dr-julia-resende/data/content-state.json
+        2. Verificar campo last_published_format
+        3. SE last_published_format = 'carrossel' → próximo feed DEVE ser 'post-unico'
+           SE last_published_format = 'post-unico' → próximo feed PODE ser 'carrossel' ou 'post-unico'
+           SE arquivo não existe → criar com estado atual antes de continuar
+        4. VETO se a decisão viola a regra de alternância
+      Após publicação confirmada → atualizar content-state.json com novo last_published_format
+    when: "SEMPRE — antes de decidir formato de qualquer conteúdo de feed"
+
+  - id: "JC009"
+    name: "Approval gate com preview visual"
+    rule: |
+      APÓS gerar copy + imagem → ANTES de qualquer publicação:
+        1. Mostrar preview: copy completo + imagem gerada + como ficará no grid (último publicado → novo)
+        2. Aguardar APROVAÇÃO EXPLÍCITA do Felipe: [APROVAR] / [REJEITAR] / [REVISAR]
+        3. SOMENTE após APROVAR → passar para publisher-agent
+        4. Approval-agent executa este gate — NUNCA pular
+    when: "SEMPRE — sem exceção — zero bypass"
 ```
 
 ## Handoff

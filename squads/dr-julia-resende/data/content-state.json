@@ -1,0 +1,54 @@
+{
+  "_instrucoes": "Arquivo de estado do feed — julia-chief lê e atualiza após cada publicação. NUNCA editar manualmente.",
+  "_atualizado_em": "2026-03-31",
+  "_atualizado_por": "aiox-master (Orion) — mapeamento inicial do estado real do feed",
+
+  "feed": {
+    "last_published_format": "carrossel",
+    "last_published_visual": "escuro",
+    "last_published_tema": "Enquanto muitas mães correm atrás da perfeição, algumas buscam a presença.",
+    "last_published_ref": "carrossel-02",
+    "post_number": 2,
+    "cycle_position": 1,
+    "next_format_required": "post-unico",
+    "next_visual": "branco",
+    "next_pilar": "EM",
+    "_nota_next": "Segundo JC001: feed. JC002: post_number=2 (par) → branco. JC003: cycle_position=1 → EM (emocional)."
+  },
+
+  "fila_publicacao": [
+    {
+      "ordem": 1,
+      "conteudo": "Post Único — a criar via julia-chief agora",
+      "formato": "post-unico",
+      "visual": "branco",
+      "pilar": "EM",
+      "status": "pendente",
+      "nota": "DEVE ser publicado ANTES do carrossel-03"
+    },
+    {
+      "ordem": 2,
+      "conteudo": "carrossel-03 — pronto em squads/dr-julia-resende/carrossel-03/",
+      "formato": "carrossel",
+      "visual": "escuro",
+      "pilar": "E",
+      "status": "pronto_aguardando_vez",
+      "nota": "Publicar SOMENTE após o Post Único da ordem 1 ser publicado"
+    }
+  ],
+
+  "stories": {
+    "last_published": "story-02",
+    "story_number": 2,
+    "next_tipo": "frase-impacto"
+  },
+
+  "historico": [
+    { "ref": "carrossel-01", "formato": "carrossel", "visual": "escuro", "data": "2026-03-24" },
+    { "ref": "post-01", "formato": "post-unico", "visual": "verde", "data": "2026-03-24" },
+    { "ref": "post-02", "formato": "post-unico", "visual": "branco", "data": "2026-03-24" },
+    { "ref": "story-01", "formato": "story", "visual": "verde", "data": "2026-03-24" },
+    { "ref": "story-02", "formato": "story", "visual": "branco", "data": "2026-03-24" },
+    { "ref": "carrossel-02", "formato": "carrossel", "visual": "escuro", "data": "antes-de-2026-03-31" }
+  ]
+}
