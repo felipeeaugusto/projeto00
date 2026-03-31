@@ -1,0 +1,17 @@
+{
+  "_instrucoes": "copy-agent preenche 'caption'. julia-chief preenche 'pilar', 'formato', 'briefing_ref'.",
+
+  "pngs": [
+    "slide-01.png",
+    "slide-02.png",
+    "slide-03.png",
+    "slide-04.png",
+    "slide-05.png"
+  ],
+
+  "caption": "Ter filho é lindo. É também esgotante pra caramba.\n\nNão é fraqueza sua. É falta de estrutura.\n\nA rotina não precisa ser perfeita para funcionar.\nPrecisa ser consistente.\n\n7 minutos por dia podem mudar o seu dia inteiro.\n\n🔗 Link na Bio — O Poder da Rotina\n\n#rotinareal #maternidadereal #organizacaofamiliar #drajuliaresende #parentalidade",
+
+  "pilar": "parentalidade",
+  "formato": "carrossel",
+  "briefing_ref": "Briefing #2 — 2026-03-23 — Custo real (emocional) de criar filhos sem rotina"
+}
