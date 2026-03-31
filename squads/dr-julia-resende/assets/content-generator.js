@@ -47,7 +47,7 @@ function dots(activeIndex, total, theme) {
   const activeBg   = isCta ? '#FFFFFF' : '#03bb85';
   const position   = isCta
     ? 'left: 50%; transform: translateX(-50%);'
-    : 'left: 110px;';
+    : 'left: 160px;';
 
   const css = `
     .dots {
@@ -101,8 +101,8 @@ function slideHook(slide, index, total) {
       z-index: 0;
     }
     .accent-bar { position: absolute; left: 0; top: 0; width: 8px; height: 100%; background: #03bb85; z-index: 10; }
-    .handle { position: absolute; top: 52px; right: 72px; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.35); letter-spacing: 1px; z-index: 10; }
-    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 90px 0 110px; }
+    .handle { position: absolute; top: 52px; right: 130px; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.35); letter-spacing: 1px; z-index: 10; }
+    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 130px 0 160px; }
     .eyebrow { font-size: 17px; font-weight: 400; letter-spacing: 5px; text-transform: uppercase; color: #03bb85; margin-bottom: 40px; }
     .hook { font-size: 62px; font-weight: 800; line-height: 1.1; color: #FFFFFF; margin-bottom: 48px; }
     .hook span { color: #03bb85; }
@@ -149,8 +149,8 @@ function slideListaEscura(slide, index, total) {
     body { width: 1080px; height: 1080px; overflow: hidden; background: #0A0A0A; position: relative; font-family: 'Poppins', sans-serif; }
     body::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.015) 3px, rgba(255,255,255,0.015) 4px); z-index: 0; }
     .accent-bar { position: absolute; left: 0; top: 0; width: 8px; height: 100%; background: rgba(255,255,255,0.15); z-index: 10; }
-    .handle { position: absolute; top: 52px; right: 72px; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.3); letter-spacing: 1px; z-index: 10; }
-    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 90px 0 110px; }
+    .handle { position: absolute; top: 52px; right: 130px; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.3); letter-spacing: 1px; z-index: 10; }
+    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 130px 0 160px; }
     .label { display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); font-size: 15px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; padding: 10px 22px; border-radius: 2px; margin-bottom: 40px; width: fit-content; }
     .title { font-family: 'Playfair Display', serif; font-size: 58px; font-weight: 700; line-height: 1.2; color: rgba(255,255,255,0.9); margin-bottom: 50px; }
     .title em { font-style: italic; color: rgba(255,255,255,0.45); }
@@ -194,8 +194,8 @@ function slideListaClara(slide, index, total) {
     body { width: 1080px; height: 1080px; overflow: hidden; background: #F5ECD7; position: relative; font-family: 'Poppins', sans-serif; }
     body::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(180,150,100,0.04) 2px, rgba(180,150,100,0.04) 4px), repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(180,150,100,0.03) 3px, rgba(180,150,100,0.03) 6px); z-index: 0; }
     .accent-bar { position: absolute; left: 0; top: 0; width: 8px; height: 100%; background: #03bb85; z-index: 10; }
-    .handle { position: absolute; top: 52px; right: 72px; font-size: 18px; font-weight: 300; color: rgba(44,24,16,0.35); letter-spacing: 1px; z-index: 10; }
-    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 90px 0 110px; }
+    .handle { position: absolute; top: 52px; right: 130px; font-size: 18px; font-weight: 300; color: rgba(44,24,16,0.35); letter-spacing: 1px; z-index: 10; }
+    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 130px 0 160px; }
     .label { display: inline-flex; align-items: center; gap: 12px; background: rgba(3,187,133,0.12); border: 1px solid rgba(3,187,133,0.3); color: #03bb85; font-size: 15px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; padding: 10px 22px; border-radius: 2px; margin-bottom: 40px; width: fit-content; }
     .title { font-family: 'Playfair Display', serif; font-size: 58px; font-weight: 700; line-height: 1.2; color: #2C1810; margin-bottom: 50px; }
     .title em { font-style: italic; color: #03bb85; }
@@ -236,8 +236,8 @@ function slideReflexao(slide, index, total) {
     body { width: 1080px; height: 1080px; overflow: hidden; background: #F5ECD7; position: relative; font-family: 'Poppins', sans-serif; }
     body::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(180,150,100,0.04) 2px, rgba(180,150,100,0.04) 4px), repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(180,150,100,0.03) 3px, rgba(180,150,100,0.03) 6px); z-index: 0; }
     .accent-bar { position: absolute; left: 0; top: 0; width: 8px; height: 100%; background: #03bb85; z-index: 10; }
-    .handle { position: absolute; top: 52px; right: 72px; font-size: 18px; font-weight: 300; color: rgba(44,24,16,0.35); letter-spacing: 1px; z-index: 10; }
-    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 100px 0 110px; }
+    .handle { position: absolute; top: 52px; right: 130px; font-size: 18px; font-weight: 300; color: rgba(44,24,16,0.35); letter-spacing: 1px; z-index: 10; }
+    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 130px 0 160px; }
     .quote-mark { font-family: 'Playfair Display', serif; font-size: 120px; font-weight: 700; color: rgba(3,187,133,0.2); line-height: 0.7; margin-bottom: 24px; }
     .quote { font-family: 'Playfair Display', serif; font-size: 66px; font-weight: 700; line-height: 1.18; color: #2C1810; margin-bottom: 52px; }
     .quote em { font-style: italic; color: #03bb85; }
@@ -277,8 +277,8 @@ function slideCta(slide, index, total) {
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { width: 1080px; height: 1080px; overflow: hidden; background: #03bb85; position: relative; font-family: 'Poppins', sans-serif; }
     body::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.04) 3px, rgba(255,255,255,0.04) 4px); z-index: 0; }
-    .handle { position: absolute; top: 52px; right: 72px; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.55); letter-spacing: 1px; z-index: 10; }
-    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 100px; }
+    .handle { position: absolute; top: 52px; right: 130px; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.55); letter-spacing: 1px; z-index: 10; }
+    .content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 130px; }
     .eyebrow { font-size: 16px; font-weight: 400; letter-spacing: 5px; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 36px; }
     .title { font-family: 'Poppins', sans-serif; font-size: 72px; font-weight: 800; line-height: 1.08; color: #FFFFFF; margin-bottom: 18px; }
     .subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 36px; font-weight: 400; color: rgba(255,255,255,0.8); margin-bottom: 60px; }
