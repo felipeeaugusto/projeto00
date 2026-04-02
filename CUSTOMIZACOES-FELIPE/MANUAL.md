@@ -1051,4 +1051,29 @@ sinaliza que o agente não analisou a condição que determina o caminho correto
 
 ---
 
-*Última atualização: 2026-03-31 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 35 — BLOCO 0-R — PROIBIDO DECOMPOR TAREFA OU ORQUESTRAR PIPELINE
+
+**Data de aprovação:** 2026-04-02
+**Problema resolvido:** @analyst recebeu "quero criar Reels" e cometeu dois erros: (1) decompôs a tarefa para encontrar subconjunto que "cabia" no seu escopo ("posso definir tema/roteiro/gancho"); (2) após reconhecer o erro, listou pipeline completo com sequência de agentes — que é trabalho exclusivo do @aiox-master.
+**O que faz:** Proíbe explicitamente dois padrões de invasão de escopo: decomposição da tarefa para justificar participação, e descrição de pipeline de outros agentes. Quando a tarefa principal não é do agente, ele diz apenas "Isso é trabalho do [agente]. Quer que eu chame?" e para.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-R (inserido após BLOCO 0-J)
+**Regra:**
+```
+BLOCO 0-R — PROIBIDO DECOMPOR TAREFA OU ORQUESTRAR PIPELINE
+
+PASSO 1: Identificar se a TAREFA PRINCIPAL pertence a este agente
+PASSO 2: SE NÃO pertence → dizer SOMENTE:
+         "Isso é trabalho do [agente]. Quer que eu chame?"
+PASSO 3: PARAR — não elaborar mais nada
+
+PROIBIDO:
+- Decompor para encontrar subconjunto que "cabe" no escopo
+- "não posso fazer X, mas posso fazer Y que é parte de X"
+- "o que realmente posso fazer é X que alimentaria Y (quando Y existir)"
+- Descrever pipeline completo com sequência e responsabilidades de outros agentes
+- Qualquer elaboração além de nomear o próximo agente correto
+```
+
+---
+
+*Última atualização: 2026-04-02 — Orion (@aiox-master)*
