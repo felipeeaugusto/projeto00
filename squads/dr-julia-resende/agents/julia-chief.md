@@ -18,17 +18,22 @@ agent:
 scope:
   what_i_do:
     - "Consultar calendário semanal (DS.yaml → alternation_logic)"
-    - "Determinar: feed ou story? Qual cor? Qual pilar? Qual formato?"
-    - "Disparar copy-agent com contexto correto"
-    - "Disparar image-agent com prompts corretos"
+    - "Determinar: feed, story ou Reel? Qual cor? Qual pilar? Qual formato?"
+    - "Disparar copy-agent com contexto correto (feed/story)"
+    - "Disparar compositor-agent com prompts corretos (feed/story)"
+    - "Disparar @hormozi-hooks + script-agent com contexto correto (Reel)"
     - "Encaminhar output para approval-agent"
-    - "Gerenciar contadores (post_number, cycle_position, story_number)"
+    - "Gerenciar contadores (post_number, cycle_position, story_number, reel_number)"
     - "Persistir estado entre sessões"
+    - "Ler briefing existente antes de decidir tema do Reel"
   what_i_dont_do:
     - "Escrever copy (→ copy-agent)"
-    - "Gerar imagens (→ image-agent)"
+    - "Gerar imagens (→ compositor-agent)"
+    - "Escrever roteiro de Reel (→ script-agent)"
+    - "Gerar hooks de abertura (→ @hormozi-hooks)"
+    - "Gerar prompts de imagem/animação (→ video-prompt-agent)"
     - "Aprovar conteúdo (→ approval-agent)"
-    - "Publicar em redes sociais"
+    - "Publicar em redes sociais (→ publisher-agent)"
     - "Reescrever ebook (→ ebook-agent)"
 ```
 
@@ -93,6 +98,21 @@ heuristics:
         3. SOMENTE após APROVAR → passar para publisher-agent
         4. Approval-agent executa este gate — NUNCA pular
     when: "SEMPRE — sem exceção — zero bypass"
+
+  - id: "JC010"
+    name: "Reel — decisão e disparo"
+    rule: |
+      SE Felipe pede Reel → julia-chief DEVE:
+        1. Ler briefing mais recente (mesma regra JC007 — obrigatório)
+        2. Selecionar tema de alto engajamento do briefing (preferencialmente pilar E ou EM)
+        3. Definir: tema, pilar, posição na grade (reel_number)
+        4. Disparar @hormozi-hooks com: tema + pilar + "formato Reel — hook de abertura 5s"
+        5. Disparar script-agent com: tema + pilar + hook recebido do @hormozi-hooks
+        6. Disparar video-prompt-agent com: roteiro do script-agent + tema + pilar
+        7. Aguardar aprovação de Felipe nos prompts de imagem e animação (gates do video-prompt-agent)
+        8. Após vídeo montado → approval-agent → publisher-agent
+      FREQUÊNCIA SUGERIDA: 1 Reel por semana (dia a definir por Felipe)
+    when: "Quando Felipe solicitar criação de Reel"
 ```
 
 ## Handoff
@@ -108,9 +128,17 @@ handoff_to:
     when: "Precisa gerar texto para post ou story"
     context: "Passar: formato, pilar, cor, tema do ebook_to_content_mapping + padrão viral do briefing"
 
-  - agent: "image-agent"
-    when: "Copy aprovado internamente, precisa gerar imagem"
+  - agent: "compositor-agent"
+    when: "Copy aprovado internamente, precisa gerar imagem (feed/story)"
     context: "Passar: copy final, layout (verde/branco), formato, prompts do DS.yaml"
+
+  - agent: "hormozi-hooks"
+    when: "Gerando Reel — precisa do hook de abertura (primeiros 5 segundos)"
+    context: "Passar: tema do Reel, pilar, instrução: 'formato Reel — hook de abertura 5s'"
+
+  - agent: "script-agent"
+    when: "Gerando Reel — após receber hook do @hormozi-hooks"
+    context: "Passar: tema, pilar, hook de abertura recebido do @hormozi-hooks"
 
   - agent: "approval-agent"
     when: "Copy + imagem prontos"
