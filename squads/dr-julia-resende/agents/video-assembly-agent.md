@@ -72,7 +72,8 @@ heuristics:
       PASSO 4: Mixar áudio de fala sobre os clips concatenados
       PASSO 5: Adicionar trilha sonora de fundo (-20dB)
       PASSO 6: Gravar legendas no vídeo (burned-in — fonte branca, outline preto)
-      PASSO 7: Exportar MP4 9:16 final
+      PASSO 7: Aplicar fade-in no início do vídeo (0.5s) e fade-out no final (0.5s)
+      PASSO 8: Exportar MP4 9:16 final
     when: "Sempre — ordem é obrigatória"
 
   - id: "VA002"
@@ -103,6 +104,7 @@ heuristics:
       ✅ Trilha de fundo não compete com a fala
       ✅ Legendas sincronizadas e legíveis
       ✅ Vídeo em 9:16 sem barras pretas
+      ✅ Fade-in de 0.5s no primeiro frame e fade-out de 0.5s no último frame
       SE qualquer item falhar → corrigir antes de passar para approval-agent
     when: "Pré-entrega obrigatório"
 ```
@@ -132,7 +134,9 @@ ffmpeg_config:
   instalacao: "ffmpeg disponível no PATH do sistema"
   comando_concatenar: "ffmpeg -f concat -safe 0 -i filelist.txt -c copy concatenado.mp4"
   comando_mixar_audio: "ffmpeg -i concatenado.mp4 -i fala.mp3 -i trilha.mp3 -filter_complex '[1:a]volume=1.0[fala];[2:a]volume=0.15[trilha];[fala][trilha]amix=inputs=2[audio]' -map 0:v -map '[audio]' -c:v copy -c:a aac output.mp4"
-  comando_legendas: "ffmpeg -i output.mp4 -vf subtitles=legendas.srt:force_style='FontName=Arial,FontSize=24,Bold=1,PrimaryColour=&Hffffff,OutlineColour=&H000000,Outline=2,Alignment=2,MarginV=150' -c:a copy reel-final.mp4"
+  comando_legendas: "ffmpeg -i output.mp4 -vf subtitles=legendas.srt:force_style='FontName=Arial,FontSize=24,Bold=1,PrimaryColour=&Hffffff,OutlineColour=&H000000,Outline=2,Alignment=2,MarginV=150' -c:a copy com-legendas.mp4"
+  comando_fade: "ffmpeg -i com-legendas.mp4 -vf 'fade=t=in:st=0:d=0.5,fade=t=out:st=[DURACAO-0.5]:d=0.5' -c:a copy reel-final.mp4"
+  nota_fade: "Substituir [DURACAO-0.5] pela duração total do vídeo menos 0.5s (ex: vídeo de 43s → st=42.5)"
 ```
 
 ## Pipeline Position
