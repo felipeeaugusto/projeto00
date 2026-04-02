@@ -20,7 +20,8 @@ scope:
     - "Gerar áudio de fala via ElevenLabs TTS (voz Julia, ID: bMQVOFw0g6ACPbiM5XqE)"
     - "Concatenar 8 clips .mp4 (gerados pelo Kling via Felipe) via FFmpeg"
     - "Mixar áudio de fala (ElevenLabs) sobre os clips"
-    - "Adicionar trilha sonora de fundo (Artlist) com volume reduzido"
+    - "Gerar trilha sonora de fundo via ElevenLabs Music API (prompt do script-agent)"
+    - "Adicionar trilha sonora gerada com volume reduzido (-20dB)"
     - "Sincronizar legendas com a fala (formato SRT → burned-in)"
     - "Exportar MP4 9:16 final (1080x1920)"
     - "Passar o MP4 final para approval-agent"
@@ -30,7 +31,7 @@ scope:
     - "Gerar prompts de imagem ou animação (→ video-prompt-agent)"
     - "Aprovar o Reel (→ approval-agent)"
     - "Publicar em redes sociais (→ publisher-agent)"
-    - "Escolher trilha sonora (→ Felipe escolhe do Artlist)"
+    - "Escolher ou criar a trilha sonora manualmente (gerada automaticamente via ElevenLabs Music API)"
 ```
 
 ## Input Obrigatório
@@ -49,14 +50,22 @@ input:
     nota: "Texto contínuo sem marcações de cena — apenas a fala da Julia"
 
   trilha_sonora:
-    origem: "Felipe escolhe do Artlist (biblioteca de música)"
+    origem: "ElevenLabs Music API — gerada com prompt do script-agent (SC005)"
     arquivo: "squads/dr-julia-resende/output/reels/[data]/trilha.mp3"
     volume_target: "-20dB (fundo, não compete com a fala)"
+    nota: "Gerada automaticamente — sem dependência do Artlist ou escolha manual"
 
-  config_elevenlabs:
+  config_elevenlabs_tts:
     voice_id: "bMQVOFw0g6ACPbiM5XqE"
     model: "eleven_multilingual_v2"
     credenciais: "squads/dr-julia-resende/config/publisher-secrets.yaml → elevenlabs_api_key"
+
+  config_elevenlabs_music:
+    endpoint: "POST https://api.elevenlabs.io/v1/music/compose"
+    input: "prompt de texto (SC005 do script-agent) + duração estimada do roteiro"
+    output: "trilha.mp3 — instrumental, sem voz, duração alinhada com o Reel"
+    credenciais: "squads/dr-julia-resende/config/publisher-secrets.yaml → elevenlabs_api_key"
+    nota: "Mesma chave API do TTS — sem custo adicional de configuração"
 ```
 
 ## Heuristics
@@ -66,14 +75,15 @@ heuristics:
   - id: "VA001"
     name: "Ordem de operações"
     rule: |
-      PASSO 1: Gerar áudio ElevenLabs (texto → MP3)
-      PASSO 2: Gerar legendas SRT sincronizadas com o áudio
-      PASSO 3: Concatenar clips Kling em sequência (clip-01 → clip-08)
-      PASSO 4: Mixar áudio de fala sobre os clips concatenados
-      PASSO 5: Adicionar trilha sonora de fundo (-20dB)
-      PASSO 6: Gravar legendas no vídeo (burned-in — fonte branca, outline preto)
-      PASSO 7: Aplicar fade-in no início do vídeo (0.5s) e fade-out no final (0.5s)
-      PASSO 8: Exportar MP4 9:16 final
+      PASSO 1: Gerar áudio de fala via ElevenLabs TTS (texto → fala.mp3)
+      PASSO 2: Gerar trilha sonora via ElevenLabs Music API (prompt SC005 → trilha.mp3)
+      PASSO 3: Gerar legendas SRT sincronizadas com o áudio de fala
+      PASSO 4: Concatenar clips Kling em sequência (clip-01 → clip-08)
+      PASSO 5: Mixar áudio de fala sobre os clips concatenados
+      PASSO 6: Adicionar trilha sonora de fundo (-20dB)
+      PASSO 7: Gravar legendas no vídeo (burned-in — fonte branca, outline preto)
+      PASSO 8: Aplicar fade-in no início do vídeo (0.5s) e fade-out no final (0.5s)
+      PASSO 9: Exportar MP4 9:16 final
     when: "Sempre — ordem é obrigatória"
 
   - id: "VA002"
@@ -145,8 +155,7 @@ ffmpeg_config:
 pipeline:
   recebe_de:
     - felipe_manual: "8 clips .mp4 do Kling (clip-01.mp4 ... clip-08.mp4)"
-    - script-agent: "roteiro de fala (texto contínuo para ElevenLabs)"
-    - felipe_manual: "trilha sonora escolhida do Artlist"
+    - script-agent: "roteiro de fala (texto contínuo para ElevenLabs TTS) + prompt de música (SC005)"
   passa_para:
     - approval-agent: "MP4 final para Felipe aprovar"
 ```

@@ -116,6 +116,18 @@ heuristics:
       Seguir mesma structure do copy-agent para captions
       Terminar com: @drjuliaresende
     when: "Após roteiro aprovado"
+
+  - id: "SC005"
+    name: "Prompt de trilha sonora para ElevenLabs Music"
+    rule: |
+      Gerar prompt de música baseado no pilar:
+      SE E (educativo)  → "Calm instrumental, piano and soft strings, hopeful and focused, 45 seconds, no vocals"
+      SE EM (emocional) → "Warm and tender instrumental, piano, gentle strings, emotional and comforting, 45 seconds, no vocals"
+      SE PS (prova social) → "Uplifting instrumental, light piano, confident and warm, 45 seconds, no vocals"
+      SE C (CTA)        → "Motivational instrumental, piano and light percussion, energetic yet warm, 45 seconds, no vocals"
+      Ajustar duração estimada conforme duração total do roteiro.
+      "no vocals" é obrigatório — a trilha nunca pode ter voz.
+    when: "Sempre — gerado junto com o roteiro"
 ```
 
 ## Output Format
@@ -149,6 +161,11 @@ output:
     model: "eleven_multilingual_v2"
     texto_continuo: "[roteiro completo sem marcações de cena — apenas a fala]"
 
+  elevenlabs_music_prompt:
+    prompt: "[gerado pela heurística SC005 com base no pilar]"
+    duracao_estimada: "[duração total do roteiro em segundos]"
+    nota: "Enviado ao video-assembly-agent para geração da trilha via ElevenLabs Music API"
+
 veto_conditions:
   - "Roteiro sem hook do @hormozi-hooks na cena 1 → VETO"
   - "Cena com mais de 10 palavras de fala → VETO"
@@ -166,5 +183,5 @@ pipeline:
     - hormozi-hooks: "hook de abertura (cena 1)"
   passa_para:
     - video-prompt-agent: "roteiro com estrutura de 8 cenas (guia os prompts de imagem)"
-    - video-assembly-agent: "elevenlabs_input.texto_continuo (áudio TTS)"
+    - video-assembly-agent: "elevenlabs_input.texto_continuo (áudio TTS) + elevenlabs_music_prompt (trilha sonora)"
 ```
