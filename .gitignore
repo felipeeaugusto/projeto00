@@ -28,6 +28,9 @@ Thumbs.db
 .claude/settings.local.json
 .aiox/install-log.txt
 
+# MCP config local (contém tokens)
+.mcp.json
+
 # Secrets de publicação — Dr. Julia Resende
 squads/dr-julia-resende/config/publisher-secrets.yaml
 squads/dr-julia-resende/config/publisher-secrets-oficial.yaml
