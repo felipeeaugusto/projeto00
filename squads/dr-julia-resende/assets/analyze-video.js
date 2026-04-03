@@ -7,7 +7,16 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-const API_KEY = 'AIzaSyB2ldwoSpGxon--EK75lohgFWnuZzUU1jE';
+// Lê chave do publisher-secrets.yaml (NUNCA hardcodar chave no código)
+function loadApiKey() {
+  const secretsPath = path.join(__dirname, '../config/publisher-secrets.yaml');
+  const secrets = fs.readFileSync(secretsPath, 'utf8');
+  const match = secrets.match(/GOOGLE_AI_STUDIO_KEY:\s*["']?([^"'\n]+)["']?/);
+  if (!match) throw new Error('GOOGLE_AI_STUDIO_KEY não encontrada em publisher-secrets.yaml');
+  return match[1].trim();
+}
+
+const API_KEY = loadApiKey();
 const OUTPUT_DIR = path.join(__dirname, '../data/reels-referencia');
 
 function httpsRequest(options, body) {
