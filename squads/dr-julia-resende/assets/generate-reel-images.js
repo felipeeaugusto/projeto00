@@ -7,6 +7,9 @@
  * CENA 8 usa ebook-capa-poder-da-rotina.png como reference image
  *
  * Usage: node generate-reel-images.js [--dry-run]
+ *
+ * Requisito: squads/dr-julia-resende/config/vertex-ai-key.json
+ *   (Service Account JSON do GCP — gitignored, sincronizar via Google Drive)
  */
 
 'use strict';
@@ -23,8 +26,10 @@ const OUTPUT_DIR   = path.join(SQUAD_DIR, 'output', 'reels', '2026-04-02');
 const EBOOK_PATH   = path.join(SQUAD_DIR, 'assets', 'ebook-capa-poder-da-rotina.png');
 
 // ─── Config ────────────────────────────────────────────────────────────────
-// Usando Google AI Studio API (generativelanguage.googleapis.com) — sem billing necessário
-const MODEL = 'gemini-3-pro-image-preview';
+// Vertex AI Imagen 3 — requer Service Account com billing ativo
+const GCP_PROJECT  = 'gen-lang-client-0541444185';
+const GCP_LOCATION = 'us-central1';
+const IMAGEN_MODEL = 'imagen-3.0-generate-002';
 
 // ─── 8 Prompts aprovados por Felipe (FASE 1) ───────────────────────────────
 const SCENES = [
@@ -97,71 +102,102 @@ function httpsPost(urlStr, headers, bodyBuf) {
   });
 }
 
-// ─── Gemini Image Generation via Google AI Studio API ───────────────────────
+// ─── Vertex AI Auth — JWT → Bearer token ────────────────────────────────────
 
-async function generateImage(scene, apiKey, dryRun) {
-  // gemini-3-pro-image-preview usa generateContent (não :predict)
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
+function buildJwt(serviceAccount) {
+  const now = Math.floor(Date.now() / 1000);
+  const header  = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
+  const payload = Buffer.from(JSON.stringify({
+    iss:   serviceAccount.client_email,
+    scope: 'https://www.googleapis.com/auth/cloud-platform',
+    aud:   serviceAccount.token_uri || 'https://oauth2.googleapis.com/token',
+    iat:   now,
+    exp:   now + 3600,
+  })).toString('base64url');
+
+  const unsigned  = `${header}.${payload}`;
+  const signer    = crypto.createSign('RSA-SHA256');
+  signer.update(unsigned);
+  const signature = signer.sign(serviceAccount.private_key, 'base64url');
+  return `${unsigned}.${signature}`;
+}
+
+async function getAccessToken(keyPath) {
+  const serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
+  const jwt = buildJwt(serviceAccount);
+
+  const tokenUrl = serviceAccount.token_uri || 'https://oauth2.googleapis.com/token';
+  const body = Buffer.from(
+    `grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=${jwt}`
+  );
+
+  const res = await httpsPost(tokenUrl, {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }, body);
+
+  if (res.statusCode !== 200) {
+    throw new Error(`Auth Vertex AI falhou (${res.statusCode}): ${JSON.stringify(res.body)}`);
+  }
+
+  return res.body.access_token;
+}
+
+// ─── Vertex AI Imagen 3 — Geração de imagem ─────────────────────────────────
+
+async function generateImage(scene, accessToken, dryRun) {
+  const endpoint = `https://${GCP_LOCATION}-aiplatform.googleapis.com/v1/projects/${GCP_PROJECT}/locations/${GCP_LOCATION}/publishers/google/models/${IMAGEN_MODEL}:predict`;
   const outPath  = path.join(OUTPUT_DIR, `${scene.id}.png`);
 
   if (dryRun) {
-    console.log(`  [DRY-RUN] ${scene.id} — chamaria ${MODEL}`);
+    console.log(`  [DRY-RUN] ${scene.id} — chamaria Imagen 3 (${IMAGEN_MODEL})`);
     fs.writeFileSync(outPath, Buffer.from('DRY-RUN-PLACEHOLDER'));
     return outPath;
   }
 
-  // Build parts — texto do prompt
-  const parts = [
-    {
-      text: `Generate a photorealistic image exactly as described. Do not add text overlays unless specified in the prompt.\n\n${scene.prompt}`,
-    },
-  ];
+  // Build instance
+  const instance = { prompt: scene.prompt };
 
-  // CENA 8 — incluir capa do ebook como referência inline
+  // CENA 8 — incluir capa do ebook como referenceImage
   if (scene.useEbookReference && fs.existsSync(EBOOK_PATH)) {
     const ebookB64 = fs.readFileSync(EBOOK_PATH).toString('base64');
-    parts.unshift({
-      inlineData: { mimeType: 'image/png', data: ebookB64 },
-    });
-    parts[1].text = `Using the ebook cover shown in the image above as reference for what should appear on the phone screen, generate the following scene:\n\n${scene.prompt}`;
-    console.log(`  📎 Capa ebook passada como inline image reference`);
+    instance.referenceImages = [{
+      referenceType:  'REFERENCE_TYPE_RAW',
+      referenceId:    1,
+      referenceImage: { bytesBase64Encoded: ebookB64 },
+    }];
+    console.log(`  📎 Capa ebook passada como referenceImage`);
   }
 
   const reqBody = Buffer.from(JSON.stringify({
-    contents: [{ parts }],
-    generationConfig: {
-      responseModalities: ['IMAGE'],
+    instances:  [instance],
+    parameters: {
+      sampleCount:    1,
+      aspectRatio:    '9:16',
+      outputMimeType: 'image/png',
     },
   }));
 
   console.log(`  ⏳ Gerando ${scene.id}...`);
-  const res = await httpsPost(endpoint, { 'Content-Type': 'application/json' }, reqBody);
+  const res = await httpsPost(endpoint, {
+    'Content-Type':  'application/json',
+    'Authorization': `Bearer ${accessToken}`,
+  }, reqBody);
 
   if (res.statusCode !== 200) {
-    throw new Error(`Gemini erro ${res.statusCode} (${scene.id}): ${JSON.stringify(res.body)}`);
+    throw new Error(`Imagen 3 erro ${res.statusCode} (${scene.id}): ${JSON.stringify(res.body)}`);
   }
 
-  // Extrair imagem da resposta generateContent
-  const candidates = res.body.candidates;
-  if (!candidates || candidates.length === 0) {
-    throw new Error(`${scene.id}: sem candidates na resposta: ${JSON.stringify(res.body)}`);
+  // Resposta Imagen 3: predictions[0].bytesBase64Encoded
+  const prediction = res.body.predictions?.[0];
+  if (!prediction?.bytesBase64Encoded) {
+    throw new Error(`${scene.id}: sem bytesBase64Encoded na resposta: ${JSON.stringify(res.body)}`);
   }
 
-  const imagePart = candidates[0].content?.parts?.find(p => p.inlineData);
-  if (!imagePart) {
-    throw new Error(`${scene.id}: sem inlineData na resposta: ${JSON.stringify(candidates[0])}`);
-  }
-
-  const b64      = imagePart.inlineData.data;
-  const mimeType = imagePart.inlineData.mimeType || 'image/png';
-  const ext      = mimeType.includes('jpeg') ? 'jpg' : 'png';
-  const finalPath = outPath.replace('.png', `.${ext}`);
-
-  fs.mkdirSync(path.dirname(finalPath), { recursive: true });
-  fs.writeFileSync(finalPath, Buffer.from(b64, 'base64'));
-  const kb = Math.round(fs.statSync(finalPath).size / 1024);
-  console.log(`  ✅ ${path.basename(finalPath)} salvo (${kb} KB)`);
-  return finalPath;
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, Buffer.from(prediction.bytesBase64Encoded, 'base64'));
+  const kb = Math.round(fs.statSync(outPath).size / 1024);
+  console.log(`  ✅ ${path.basename(outPath)} salvo (${kb} KB)`);
+  return outPath;
 }
 
 // ─── Kling Animation Prompts ────────────────────────────────────────────────
@@ -229,23 +265,27 @@ async function main() {
 
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  // Carregar API key
-  let apiKey = null;
+  // Vertex AI auth — carregar token via Service Account
+  let accessToken = null;
   if (!dryRun) {
-    const secrets = fs.readFileSync(path.join(SQUAD_DIR, 'config', 'publisher-secrets.yaml'), 'utf8');
-    const match = secrets.match(/GOOGLE_AI_STUDIO_KEY:\s*["']?([^"'\n]+)["']?/);
-    if (!match) throw new Error('GOOGLE_AI_STUDIO_KEY não encontrada em publisher-secrets.yaml');
-    apiKey = match[1].trim();
-    console.log('🔑 API key Google AI Studio carregada\n');
+    if (!fs.existsSync(KEY_PATH)) {
+      throw new Error(
+        `vertex-ai-key.json não encontrado em: ${KEY_PATH}\n` +
+        `  → Copie o arquivo do Google Drive para esta pasta e tente novamente.`
+      );
+    }
+    console.log('🔑 Autenticando com Vertex AI (Service Account)...');
+    accessToken = await getAccessToken(KEY_PATH);
+    console.log('✅ Token obtido\n');
   }
 
   // Generate 8 images
-  console.log('🖼️  Gerando 8 imagens (Imagen 3 via AI Studio)...\n');
+  console.log(`🖼️  Gerando 8 imagens (Imagen 3 — ${IMAGEN_MODEL})...\n`);
   const generated = [];
 
   for (const scene of SCENES) {
     try {
-      const p = await generateImage(scene, apiKey, dryRun);
+      const p = await generateImage(scene, accessToken, dryRun);
       generated.push({ scene: scene.id, path: p, status: 'ok' });
     } catch (err) {
       console.error(`  ❌ ${scene.id} FALHOU: ${err.message}`);
