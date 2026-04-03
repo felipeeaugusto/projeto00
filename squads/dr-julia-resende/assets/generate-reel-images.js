@@ -23,9 +23,8 @@ const OUTPUT_DIR   = path.join(SQUAD_DIR, 'output', 'reels', '2026-04-02');
 const EBOOK_PATH   = path.join(SQUAD_DIR, 'assets', 'ebook-capa-poder-da-rotina.png');
 
 // ─── Config ────────────────────────────────────────────────────────────────
-const PROJECT_ID = 'gen-lang-client-0541444185';
-const LOCATION   = 'us-central1';
-const MODEL      = 'imagen-3.0-generate-002';
+// Usando Google AI Studio API (generativelanguage.googleapis.com) — sem billing necessário
+const MODEL = 'gemini-3-pro-image-preview';
 
 // ─── 8 Prompts aprovados por Felipe (FASE 1) ───────────────────────────────
 const SCENES = [
@@ -72,25 +71,7 @@ const SCENES = [
   },
 ];
 
-// ─── JWT + Auth ─────────────────────────────────────────────────────────────
-
-function generateJWT(sa) {
-  const header  = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT', kid: sa.private_key_id })).toString('base64url');
-  const now     = Math.floor(Date.now() / 1000);
-  const payload = Buffer.from(JSON.stringify({
-    iss: sa.client_email,
-    sub: sa.client_email,
-    scope: 'https://www.googleapis.com/auth/cloud-platform',
-    aud: 'https://oauth2.googleapis.com/token',
-    exp: now + 3600,
-    iat: now,
-  })).toString('base64url');
-
-  const sign = crypto.createSign('RSA-SHA256');
-  sign.update(`${header}.${payload}`);
-  const sig = sign.sign(sa.private_key, 'base64url');
-  return `${header}.${payload}.${sig}`;
-}
+// ─── HTTP helper ────────────────────────────────────────────────────────────
 
 function httpsPost(urlStr, headers, bodyBuf) {
   return new Promise((resolve, reject) => {
@@ -116,111 +97,71 @@ function httpsPost(urlStr, headers, bodyBuf) {
   });
 }
 
-async function getAccessToken(sa) {
-  const jwt  = generateJWT(sa);
-  const body = Buffer.from(new URLSearchParams({
-    grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-    assertion:  jwt,
-  }).toString());
+// ─── Gemini Image Generation via Google AI Studio API ───────────────────────
 
-  const res = await httpsPost('https://oauth2.googleapis.com/token', {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  }, body);
-
-  if (res.statusCode !== 200 || !res.body.access_token) {
-    throw new Error(`Auth falhou (${res.statusCode}): ${JSON.stringify(res.body)}`);
-  }
-  return res.body.access_token;
-}
-
-// ─── Imagen 3 API ───────────────────────────────────────────────────────────
-
-async function generateImage(scene, token, dryRun) {
-  const endpoint = `https://${LOCATION}-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/google/models/${MODEL}:predict`;
+async function generateImage(scene, apiKey, dryRun) {
+  // gemini-3-pro-image-preview usa generateContent (não :predict)
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
   const outPath  = path.join(OUTPUT_DIR, `${scene.id}.png`);
 
   if (dryRun) {
-    console.log(`  [DRY-RUN] ${scene.id} — chamaria Imagen 3`);
+    console.log(`  [DRY-RUN] ${scene.id} — chamaria ${MODEL}`);
     fs.writeFileSync(outPath, Buffer.from('DRY-RUN-PLACEHOLDER'));
     return outPath;
   }
 
-  // Build instance
-  const instance = { prompt: scene.prompt };
+  // Build parts — texto do prompt
+  const parts = [
+    {
+      text: `Generate a photorealistic image exactly as described. Do not add text overlays unless specified in the prompt.\n\n${scene.prompt}`,
+    },
+  ];
 
-  // CENA 8 — reference image: ebook cover
+  // CENA 8 — incluir capa do ebook como referência inline
   if (scene.useEbookReference && fs.existsSync(EBOOK_PATH)) {
     const ebookB64 = fs.readFileSync(EBOOK_PATH).toString('base64');
-    instance.referenceImages = [
-      {
-        referenceType: 'REFERENCE_TYPE_SUBJECT',
-        referenceId:   1,
-        referenceImage: { bytesBase64Encoded: ebookB64 },
-      },
-    ];
-    console.log(`  📎 Passando capa ebook como reference_image`);
+    parts.unshift({
+      inlineData: { mimeType: 'image/png', data: ebookB64 },
+    });
+    parts[1].text = `Using the ebook cover shown in the image above as reference for what should appear on the phone screen, generate the following scene:\n\n${scene.prompt}`;
+    console.log(`  📎 Capa ebook passada como inline image reference`);
   }
 
   const reqBody = Buffer.from(JSON.stringify({
-    instances:  [instance],
-    parameters: {
-      sampleCount:    1,
-      aspectRatio:    '9:16',
-      outputMimeType: 'image/png',
-      safetyFilterLevel: 'block_some',
-      personGeneration:  'allow_adult',
+    contents: [{ parts }],
+    generationConfig: {
+      responseModalities: ['IMAGE'],
     },
   }));
 
   console.log(`  ⏳ Gerando ${scene.id}...`);
-  const res = await httpsPost(endpoint, {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type':  'application/json',
-  }, reqBody);
+  const res = await httpsPost(endpoint, { 'Content-Type': 'application/json' }, reqBody);
 
   if (res.statusCode !== 200) {
-    // Se reference_image não for suportado, tentar sem ela
-    if (res.statusCode === 400 && scene.useEbookReference) {
-      console.warn(`  ⚠️  referenceImages não suportado — gerando ${scene.id} sem referência`);
-      const fallbackInstance = { prompt: scene.prompt };
-      const fallbackBody = Buffer.from(JSON.stringify({
-        instances:  [fallbackInstance],
-        parameters: {
-          sampleCount: 1, aspectRatio: '9:16', outputMimeType: 'image/png',
-          safetyFilterLevel: 'block_some', personGeneration: 'allow_adult',
-        },
-      }));
-      const res2 = await httpsPost(endpoint, {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type':  'application/json',
-      }, fallbackBody);
-      if (res2.statusCode !== 200) {
-        throw new Error(`Imagen erro ${res2.statusCode} (${scene.id}): ${JSON.stringify(res2.body)}`);
-      }
-      return saveImageResponse(res2.body, outPath, scene.id);
-    }
-    throw new Error(`Imagen erro ${res.statusCode} (${scene.id}): ${JSON.stringify(res.body)}`);
+    throw new Error(`Gemini erro ${res.statusCode} (${scene.id}): ${JSON.stringify(res.body)}`);
   }
 
-  return saveImageResponse(res.body, outPath, scene.id);
-}
-
-function saveImageResponse(body, outPath, sceneId) {
-  const predictions = body.predictions;
-  if (!predictions || predictions.length === 0) {
-    throw new Error(`${sceneId}: sem predictions na resposta: ${JSON.stringify(body)}`);
+  // Extrair imagem da resposta generateContent
+  const candidates = res.body.candidates;
+  if (!candidates || candidates.length === 0) {
+    throw new Error(`${scene.id}: sem candidates na resposta: ${JSON.stringify(res.body)}`);
   }
 
-  const b64 = predictions[0].bytesBase64Encoded;
-  if (!b64) {
-    throw new Error(`${sceneId}: sem bytesBase64Encoded: ${JSON.stringify(predictions[0])}`);
+  const imagePart = candidates[0].content?.parts?.find(p => p.inlineData);
+  if (!imagePart) {
+    throw new Error(`${scene.id}: sem inlineData na resposta: ${JSON.stringify(candidates[0])}`);
   }
 
-  fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  fs.writeFileSync(outPath, Buffer.from(b64, 'base64'));
-  const kb = Math.round(fs.statSync(outPath).size / 1024);
-  console.log(`  ✅ ${path.basename(outPath)} salvo (${kb} KB)`);
-  return outPath;
+  const b64      = imagePart.inlineData.data;
+  const mimeType = imagePart.inlineData.mimeType || 'image/png';
+  const ext      = mimeType.includes('jpeg') ? 'jpg' : 'png';
+  const finalPath = outPath.replace('.png', `.${ext}`);
+
+  fs.mkdirSync(path.dirname(finalPath), { recursive: true });
+  fs.writeFileSync(finalPath, Buffer.from(b64, 'base64'));
+  const kb = Math.round(fs.statSync(finalPath).size / 1024);
+  console.log(`  ✅ ${path.basename(finalPath)} salvo (${kb} KB)`);
+  return finalPath;
 }
 
 // ─── Kling Animation Prompts ────────────────────────────────────────────────
@@ -288,22 +229,23 @@ async function main() {
 
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  // Auth
-  let token = null;
+  // Carregar API key
+  let apiKey = null;
   if (!dryRun) {
-    console.log('🔑 Autenticando no Vertex AI...');
-    const sa = JSON.parse(fs.readFileSync(KEY_PATH, 'utf8'));
-    token = await getAccessToken(sa);
-    console.log('  ✅ Access token obtido\n');
+    const secrets = fs.readFileSync(path.join(SQUAD_DIR, 'config', 'publisher-secrets.yaml'), 'utf8');
+    const match = secrets.match(/GOOGLE_AI_STUDIO_KEY:\s*["']?([^"'\n]+)["']?/);
+    if (!match) throw new Error('GOOGLE_AI_STUDIO_KEY não encontrada em publisher-secrets.yaml');
+    apiKey = match[1].trim();
+    console.log('🔑 API key Google AI Studio carregada\n');
   }
 
   // Generate 8 images
-  console.log('🖼️  Gerando 8 imagens (Imagen 3)...\n');
+  console.log('🖼️  Gerando 8 imagens (Imagen 3 via AI Studio)...\n');
   const generated = [];
 
   for (const scene of SCENES) {
     try {
-      const p = await generateImage(scene, token, dryRun);
+      const p = await generateImage(scene, apiKey, dryRun);
       generated.push({ scene: scene.id, path: p, status: 'ok' });
     } catch (err) {
       console.error(`  ❌ ${scene.id} FALHOU: ${err.message}`);
