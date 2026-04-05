@@ -36,42 +36,42 @@ const SCENES = [
   {
     id: 'cena-01',
     description: 'Criança pequena com celular, rosto iluminado pela tela',
-    prompt: `A close-up of a small Brazilian child (2-4 years old) sitting on a couch in a cozy domestic living room, face softly illuminated by the blue-white glow of a smartphone screen. The child's expression is absorbed, almost hypnotic. Warm ambient light in the background — beige walls, soft lamp glow. The room feels familiar and middle-class. No text overlays. Cinematic depth of field. Vertical 9:16 format, photorealistic, 4K. Warm tones dominate the background; the cool screen glow creates a gentle contrast on the child's face.`,
+    prompt: `A close-up of a small Brazilian child (2-4 years old) sitting on a couch in a cozy domestic living room, face softly illuminated by the blue-white glow of a smartphone screen. The child's expression is absorbed, almost hypnotic. Neutral ambient light in the background — beige walls, soft lamp glow. The room feels familiar and middle-class. No text overlays. Cinematic depth of field. Vertical 9:16 format, photorealistic, 4K.`,
   },
   {
     id: 'cena-02',
     description: 'Criança olhando para cima com curiosidade, luz suave dourada',
-    prompt: `A Brazilian toddler (2-3 years old) sitting on a bright, sunlit floor, looking up with wide-eyed curiosity and wonder — as if seeing something magical. Natural golden morning light streams through a window off-frame. The background is soft and blurred (bokeh) — cream-colored walls, wooden furniture. The child's expression radiates pure curiosity and openness. No smartphones in frame. Warm golden tones throughout. Vertical 9:16 format, photorealistic, 4K. Clean, hopeful composition.`,
+    prompt: `A Brazilian toddler (2-3 years old) sitting on a bright, sunlit floor, looking up with wide-eyed curiosity and wonder — as if seeing something magical. Natural morning light streams through a window off-frame. The background is soft and blurred (bokeh) — cream-colored walls, wooden furniture. The child's expression radiates pure curiosity and openness. No smartphones in frame. Vertical 9:16 format, photorealistic, 4K. Clean, hopeful composition.`,
   },
   {
     id: 'cena-03',
     description: 'Mãe ao lado da criança com celular, expressão cansada',
-    prompt: `A Brazilian mother (30s, warm brown skin, casual home clothes) sitting on a sofa beside her young child (3-5 years old) who is absorbed in a tablet or smartphone. The mother's expression is gently tired — not angry, but quietly exhausted and slightly worried. She looks at the child with concern. Living room setting, warm afternoon light, soft golden tones. Cozy but real middle-class Brazilian home. No judgment in the image — just a real moment. Vertical 9:16 format, photorealistic, 4K.`,
+    prompt: `A Brazilian mother (30s, warm brown skin, casual home clothes) sitting on a sofa beside her young child (3-5 years old) who is absorbed in a tablet or smartphone. The mother's expression is gently tired — not angry, but quietly exhausted and slightly worried. She looks at the child with concern. Living room setting, natural afternoon light. Cozy but real middle-class Brazilian home. No judgment in the image — just a real moment. Vertical 9:16 format, photorealistic, 4K.`,
   },
   {
     id: 'cena-04',
     description: 'Criança tentando brincar sozinha, olhando para brinquedo',
-    prompt: `A Brazilian child (3-4 years old) sitting on a warm wooden floor, looking at a colorful toy in front of them — a simple wooden block or stuffed animal. The child's expression is restless, slightly distracted, as if finding it hard to engage. Bright, warm sunlight fills the room — golden afternoon tones, cream-colored walls, soft shadows. The scene feels hopeful despite the child's restlessness. No screens in frame. Vertical 9:16 format, photorealistic, 4K. Warm beige, golden, and honey tones throughout.`,
+    prompt: `A Brazilian child (3-4 years old) sitting on a wooden floor, looking at a colorful toy in front of them — a simple wooden block or stuffed animal. The child's expression is restless, slightly distracted, as if finding it hard to engage. Natural light fills the room — cream-colored walls, soft shadows. The scene feels hopeful despite the child's restlessness. No screens in frame. Vertical 9:16 format, photorealistic, 4K.`,
   },
   {
     id: 'cena-05',
     description: 'Mãe e filho sentados juntos lendo, luz dourada',
-    prompt: `A Brazilian mother (30s) and her young child (3-4 years old) sitting close together on a comfortable couch, reading a picture book together. Both are smiling softly — the mother pointing at something in the book, the child looking up at her with delight. Warm golden afternoon light fills the scene. No phones or screens visible. The moment feels connected, peaceful, intimate. Vertical 9:16 format, photorealistic, 4K. Rich warm tones: golden, honey, beige. Depth of field blurs the background softly.`,
+    prompt: `A Brazilian mother (30s) and her young child (3-4 years old) sitting close together on a comfortable couch, reading a picture book together. Both are smiling softly — the mother pointing at something in the book, the child looking at the book page. Natural afternoon light fills the scene. No phones or screens visible. The moment feels connected, peaceful, intimate. Vertical 9:16 format, photorealistic, 4K. Depth of field blurs the background softly.`,
   },
   {
     id: 'cena-06',
     description: 'Infográfico — limites OMS de tempo de tela por faixa etária',
-    prompt: `A clean, warm-toned infographic card displayed as if on a light beige background. The card shows three age groups in simple bold typography in Portuguese: "0–2 anos: zero tela", "2–5 anos: até 1h/dia", "6 anos+: com supervisão". Clean sans-serif font, warm golden accent color (#D4A96A), white card background with soft shadow. Minimal design — no clutter. Small OMS logo reference at the bottom. The overall feel is warm, trustworthy, educational. Vertical 9:16 format, clean flat design, 4K.`,
+    prompt: `A professional educational infographic card, vertically oriented (9:16), designed to look like high-quality health content from a Brazilian pediatric specialist. Clean white card centered on a very light grey background (#F5F5F5) with a subtle soft drop shadow. At the top of the card: a small icon of a smartphone with a red restriction symbol, followed by the header text in dark charcoal (#1A1A2E): "Tempo de Tela Recomendado pela OMS" in bold sans-serif (Inter or Montserrat style), font size large and clearly readable. Below the header: three distinct horizontal rows, each with a soft blue left border (#4A7EC7, 4px), light blue background fill (#EEF4FB), rounded corners. Each row contains: Row 1 — icon of a baby + bold text: "0 a 2 anos" + subtext: "Zero tela". Row 2 — icon of a toddler + bold text: "2 a 5 anos" + subtext: "Até 1h por dia". Row 3 — icon of a child + bold text: "6 anos ou mais" + subtext: "Com supervisão dos pais". Icons are simple flat line-style, dark blue (#1A1A2E). Text hierarchy is clear: age range in bold large font, recommendation in regular smaller font below. At the bottom of the card: a thin separator line, followed by a small OMS (WHO) logo placeholder and the text "Fonte: Organização Mundial da Saúde" in small grey caption font. The overall design feels clinical, trustworthy, and educational — similar to a real health ministry infographic. No golden tones, no particles, no decorative elements. Flat design, 4K resolution.`,
   },
   {
     id: 'cena-07',
     description: 'Família caminhando ao pôr do sol, crianças correndo',
-    prompt: `A Brazilian family walking together on a warm golden-hour evening path — mother and father holding hands, two young children running ahead with joy and energy. Silhouettes against a breathtaking warm sunset sky: deep orange, golden yellow, soft pink horizon. The scene radiates happiness, freedom, and connection. No phones or screens. Wide shot with space above for text overlays. Vertical 9:16 format, photorealistic, 4K. Rich sunset palette: deep amber, terracotta, golden yellow, warm rose.`,
+    prompt: `A Brazilian family walking together on an evening path — mother and father holding hands, two young children running ahead with joy and energy. Silhouettes against a clear sky at dusk. The scene radiates happiness, freedom, and connection. No phones or screens. Wide shot with space above for text overlays. Vertical 9:16 format, photorealistic, 4K.`,
   },
   {
     id: 'cena-08',
     description: 'Capa do ebook O Poder da Rotina em celular, fundo dourado — CTA',
-    prompt: `A close-up of a modern smartphone held in a woman's hands (only hands visible, warm Brazilian skin tone, no nail polish), displaying the cover of the ebook "O Poder da Rotina" by Dra. Júlia Resende on the screen. The ebook cover shows a warm golden family silhouette at sunset — matching the visual style of this Reel. Soft warm bokeh background in golden and cream tones. The phone screen is bright and clear. The composition feels like a CTA moment — inviting, warm, actionable. Vertical 9:16 format, photorealistic, 4K. Dominant warm golden palette.`,
+    prompt: `A close-up of a modern smartphone held in a woman's hands (only hands visible, warm Brazilian skin tone, no nail polish), displaying the cover of the ebook "O Poder da Rotina" by Dra. Júlia Resende on the screen. The ebook cover is fully visible and clearly readable. Neutral blurred background — no bokeh particles, no golden tones. The phone screen is bright and clear. The composition feels like a CTA moment — inviting, actionable. Vertical 9:16 format, photorealistic, 4K.`,
     useEbookReference: true,
   },
 ];
