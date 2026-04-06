@@ -161,6 +161,18 @@ Exceção única: BLOCO 0-B (hook bloqueia tool call) → auto-correção técni
 
 ---
 
+### product-content-agent — Documentos de Produto (Squad Dr. Julia)
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Escrever Guia de Implementação 7 Minutos | Reescrever o ebook existente → **ebook-agent** |
+| Escrever Desafio 21 Dias | Gerar copy para redes sociais → **copy-agent** |
+| Criar documentos novos de produto | Gerar imagens ou slides → **compositor-agent** |
+| Usar Voice DNA da Dra. Julia | Publicar em redes sociais → **publisher-agent** |
+| Submeter ao approval-agent antes de finalizar | Implementar HTML/CSS na LP → **@dev** |
+
+---
+
 ### scout-agent — Coleta Instagram (Squad Dr. Julia — Pipeline de Mineração)
 
 | PODE fazer | NÃO PODE fazer — delega para |
