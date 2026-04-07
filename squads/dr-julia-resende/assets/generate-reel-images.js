@@ -7,6 +7,9 @@
  * CENA 8 usa ebook-capa-poder-da-rotina.png como reference image
  *
  * Usage: node generate-reel-images.js [--dry-run]
+ *
+ * Requisito: squads/dr-julia-resende/config/vertex-ai-key.json
+ *   (Service Account JSON do GCP — gitignored, sincronizar via Google Drive)
  */
 
 'use strict';
@@ -23,50 +26,52 @@ const OUTPUT_DIR   = path.join(SQUAD_DIR, 'output', 'reels', '2026-04-02');
 const EBOOK_PATH   = path.join(SQUAD_DIR, 'assets', 'ebook-capa-poder-da-rotina.png');
 
 // ─── Config ────────────────────────────────────────────────────────────────
-// Usando Google AI Studio API (generativelanguage.googleapis.com) — sem billing necessário
-const MODEL = 'gemini-3-pro-image-preview';
+// Vertex AI Imagen 3 — requer Service Account com billing ativo
+const GCP_PROJECT  = 'gen-lang-client-0541444185';
+const GCP_LOCATION = 'us-central1';
+const IMAGEN_MODEL = 'imagen-3.0-generate-002';
 
 // ─── 8 Prompts aprovados por Felipe (FASE 1) ───────────────────────────────
 const SCENES = [
   {
     id: 'cena-01',
     description: 'Criança pequena com celular, rosto iluminado pela tela',
-    prompt: `A close-up of a small Brazilian child (2-4 years old) sitting on a couch in a cozy domestic living room, face softly illuminated by the blue-white glow of a smartphone screen. The child's expression is absorbed, almost hypnotic. Warm ambient light in the background — beige walls, soft lamp glow. The room feels familiar and middle-class. No text overlays. Cinematic depth of field. Vertical 9:16 format, photorealistic, 4K. Warm tones dominate the background; the cool screen glow creates a gentle contrast on the child's face.`,
+    prompt: `A close-up of a small Brazilian child (2-4 years old) sitting on a couch in a cozy domestic living room, face softly illuminated by the blue-white glow of a smartphone screen. The child's expression is absorbed, almost hypnotic. Neutral ambient light in the background — beige walls, soft lamp glow. The room feels familiar and middle-class. No text overlays. Cinematic depth of field. Vertical 9:16 format, photorealistic, 4K.`,
   },
   {
     id: 'cena-02',
     description: 'Criança olhando para cima com curiosidade, luz suave dourada',
-    prompt: `A Brazilian toddler (2-3 years old) sitting on a bright, sunlit floor, looking up with wide-eyed curiosity and wonder — as if seeing something magical. Natural golden morning light streams through a window off-frame. The background is soft and blurred (bokeh) — cream-colored walls, wooden furniture. The child's expression radiates pure curiosity and openness. No smartphones in frame. Warm golden tones throughout. Vertical 9:16 format, photorealistic, 4K. Clean, hopeful composition.`,
+    prompt: `A Brazilian toddler (2-3 years old) sitting on a bright, sunlit floor, looking up with wide-eyed curiosity and wonder — as if seeing something magical. Natural morning light streams through a window off-frame. The background is soft and blurred (bokeh) — cream-colored walls, wooden furniture. The child's expression radiates pure curiosity and openness. No smartphones in frame. Vertical 9:16 format, photorealistic, 4K. Clean, hopeful composition.`,
   },
   {
     id: 'cena-03',
     description: 'Mãe ao lado da criança com celular, expressão cansada',
-    prompt: `A Brazilian mother (30s, warm brown skin, casual home clothes) sitting on a sofa beside her young child (3-5 years old) who is absorbed in a tablet or smartphone. The mother's expression is gently tired — not angry, but quietly exhausted and slightly worried. She looks at the child with concern. Living room setting, warm afternoon light, soft golden tones. Cozy but real middle-class Brazilian home. No judgment in the image — just a real moment. Vertical 9:16 format, photorealistic, 4K.`,
+    prompt: `A Brazilian mother (30s, warm brown skin, casual home clothes) sitting on a sofa beside her young child (3-5 years old) who is absorbed in a tablet or smartphone. The mother's expression is gently tired — not angry, but quietly exhausted and slightly worried. She looks at the child with concern. Living room setting, natural afternoon light. Cozy but real middle-class Brazilian home. No judgment in the image — just a real moment. Vertical 9:16 format, photorealistic, 4K.`,
   },
   {
     id: 'cena-04',
     description: 'Criança tentando brincar sozinha, olhando para brinquedo',
-    prompt: `A Brazilian child (3-4 years old) sitting on a warm wooden floor, looking at a colorful toy in front of them — a simple wooden block or stuffed animal. The child's expression is restless, slightly distracted, as if finding it hard to engage. Bright, warm sunlight fills the room — golden afternoon tones, cream-colored walls, soft shadows. The scene feels hopeful despite the child's restlessness. No screens in frame. Vertical 9:16 format, photorealistic, 4K. Warm beige, golden, and honey tones throughout.`,
+    prompt: `A Brazilian child (3-4 years old) sitting on a wooden floor, looking at a colorful toy in front of them — a simple wooden block or stuffed animal. The child's expression is restless, slightly distracted, as if finding it hard to engage. Natural light fills the room — cream-colored walls, soft shadows. The scene feels hopeful despite the child's restlessness. No screens in frame. Vertical 9:16 format, photorealistic, 4K.`,
   },
   {
     id: 'cena-05',
     description: 'Mãe e filho sentados juntos lendo, luz dourada',
-    prompt: `A Brazilian mother (30s) and her young child (3-4 years old) sitting close together on a comfortable couch, reading a picture book together. Both are smiling softly — the mother pointing at something in the book, the child looking up at her with delight. Warm golden afternoon light fills the scene. No phones or screens visible. The moment feels connected, peaceful, intimate. Vertical 9:16 format, photorealistic, 4K. Rich warm tones: golden, honey, beige. Depth of field blurs the background softly.`,
+    prompt: `A Brazilian mother (30s) and her young child (3-4 years old) sitting close together on a comfortable couch, reading a picture book together. Both are smiling softly — the mother pointing at something in the book, the child looking at the book page. Natural afternoon light fills the scene. No phones or screens visible. The moment feels connected, peaceful, intimate. Vertical 9:16 format, photorealistic, 4K. Depth of field blurs the background softly.`,
   },
   {
     id: 'cena-06',
     description: 'Infográfico — limites OMS de tempo de tela por faixa etária',
-    prompt: `A clean, warm-toned infographic card displayed as if on a light beige background. The card shows three age groups in simple bold typography in Portuguese: "0–2 anos: zero tela", "2–5 anos: até 1h/dia", "6 anos+: com supervisão". Clean sans-serif font, warm golden accent color (#D4A96A), white card background with soft shadow. Minimal design — no clutter. Small OMS logo reference at the bottom. The overall feel is warm, trustworthy, educational. Vertical 9:16 format, clean flat design, 4K.`,
+    prompt: `A professional educational infographic card, vertically oriented (9:16), designed to look like high-quality health content from a Brazilian pediatric specialist. Clean white card centered on a very light grey background (#F5F5F5) with a subtle soft drop shadow. At the top of the card: a small icon of a smartphone with a red restriction symbol, followed by the header text in dark charcoal (#1A1A2E): "Tempo de Tela Recomendado pela OMS" in bold sans-serif (Inter or Montserrat style), font size large and clearly readable. Below the header: three distinct horizontal rows, each with a soft blue left border (#4A7EC7, 4px), light blue background fill (#EEF4FB), rounded corners. Each row contains: Row 1 — icon of a baby + bold text: "0 a 2 anos" + subtext: "Zero tela". Row 2 — icon of a toddler + bold text: "2 a 5 anos" + subtext: "Até 1h por dia". Row 3 — icon of a child + bold text: "6 anos ou mais" + subtext: "Com supervisão dos pais". Icons are simple flat line-style, dark blue (#1A1A2E). Text hierarchy is clear: age range in bold large font, recommendation in regular smaller font below. At the bottom of the card: a thin separator line, followed by a small OMS (WHO) logo placeholder and the text "Fonte: Organização Mundial da Saúde" in small grey caption font. The overall design feels clinical, trustworthy, and educational — similar to a real health ministry infographic. No golden tones, no particles, no decorative elements. Flat design, 4K resolution.`,
   },
   {
     id: 'cena-07',
     description: 'Família caminhando ao pôr do sol, crianças correndo',
-    prompt: `A Brazilian family walking together on a warm golden-hour evening path — mother and father holding hands, two young children running ahead with joy and energy. Silhouettes against a breathtaking warm sunset sky: deep orange, golden yellow, soft pink horizon. The scene radiates happiness, freedom, and connection. No phones or screens. Wide shot with space above for text overlays. Vertical 9:16 format, photorealistic, 4K. Rich sunset palette: deep amber, terracotta, golden yellow, warm rose.`,
+    prompt: `A Brazilian family walking together on an evening path — mother and father holding hands, two young children running ahead with joy and energy. Silhouettes against a clear sky at dusk. The scene radiates happiness, freedom, and connection. No phones or screens. Wide shot with space above for text overlays. Vertical 9:16 format, photorealistic, 4K.`,
   },
   {
     id: 'cena-08',
     description: 'Capa do ebook O Poder da Rotina em celular, fundo dourado — CTA',
-    prompt: `A close-up of a modern smartphone held in a woman's hands (only hands visible, warm Brazilian skin tone, no nail polish), displaying the cover of the ebook "O Poder da Rotina" by Dra. Júlia Resende on the screen. The ebook cover shows a warm golden family silhouette at sunset — matching the visual style of this Reel. Soft warm bokeh background in golden and cream tones. The phone screen is bright and clear. The composition feels like a CTA moment — inviting, warm, actionable. Vertical 9:16 format, photorealistic, 4K. Dominant warm golden palette.`,
+    prompt: `A close-up of a modern smartphone held in a woman's hands (only hands visible, warm Brazilian skin tone, no nail polish), displaying the cover of the ebook "O Poder da Rotina" by Dra. Júlia Resende on the screen. The ebook cover is fully visible and clearly readable. Neutral blurred background — no bokeh particles, no golden tones. The phone screen is bright and clear. The composition feels like a CTA moment — inviting, actionable. Vertical 9:16 format, photorealistic, 4K.`,
     useEbookReference: true,
   },
 ];
@@ -97,71 +102,102 @@ function httpsPost(urlStr, headers, bodyBuf) {
   });
 }
 
-// ─── Gemini Image Generation via Google AI Studio API ───────────────────────
+// ─── Vertex AI Auth — JWT → Bearer token ────────────────────────────────────
 
-async function generateImage(scene, apiKey, dryRun) {
-  // gemini-3-pro-image-preview usa generateContent (não :predict)
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
+function buildJwt(serviceAccount) {
+  const now = Math.floor(Date.now() / 1000);
+  const header  = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
+  const payload = Buffer.from(JSON.stringify({
+    iss:   serviceAccount.client_email,
+    scope: 'https://www.googleapis.com/auth/cloud-platform',
+    aud:   serviceAccount.token_uri || 'https://oauth2.googleapis.com/token',
+    iat:   now,
+    exp:   now + 3600,
+  })).toString('base64url');
+
+  const unsigned  = `${header}.${payload}`;
+  const signer    = crypto.createSign('RSA-SHA256');
+  signer.update(unsigned);
+  const signature = signer.sign(serviceAccount.private_key, 'base64url');
+  return `${unsigned}.${signature}`;
+}
+
+async function getAccessToken(keyPath) {
+  const serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
+  const jwt = buildJwt(serviceAccount);
+
+  const tokenUrl = serviceAccount.token_uri || 'https://oauth2.googleapis.com/token';
+  const body = Buffer.from(
+    `grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=${jwt}`
+  );
+
+  const res = await httpsPost(tokenUrl, {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }, body);
+
+  if (res.statusCode !== 200) {
+    throw new Error(`Auth Vertex AI falhou (${res.statusCode}): ${JSON.stringify(res.body)}`);
+  }
+
+  return res.body.access_token;
+}
+
+// ─── Vertex AI Imagen 3 — Geração de imagem ─────────────────────────────────
+
+async function generateImage(scene, accessToken, dryRun) {
+  const endpoint = `https://${GCP_LOCATION}-aiplatform.googleapis.com/v1/projects/${GCP_PROJECT}/locations/${GCP_LOCATION}/publishers/google/models/${IMAGEN_MODEL}:predict`;
   const outPath  = path.join(OUTPUT_DIR, `${scene.id}.png`);
 
   if (dryRun) {
-    console.log(`  [DRY-RUN] ${scene.id} — chamaria ${MODEL}`);
+    console.log(`  [DRY-RUN] ${scene.id} — chamaria Imagen 3 (${IMAGEN_MODEL})`);
     fs.writeFileSync(outPath, Buffer.from('DRY-RUN-PLACEHOLDER'));
     return outPath;
   }
 
-  // Build parts — texto do prompt
-  const parts = [
-    {
-      text: `Generate a photorealistic image exactly as described. Do not add text overlays unless specified in the prompt.\n\n${scene.prompt}`,
-    },
-  ];
+  // Build instance
+  const instance = { prompt: scene.prompt };
 
-  // CENA 8 — incluir capa do ebook como referência inline
+  // CENA 8 — incluir capa do ebook como referenceImage
   if (scene.useEbookReference && fs.existsSync(EBOOK_PATH)) {
     const ebookB64 = fs.readFileSync(EBOOK_PATH).toString('base64');
-    parts.unshift({
-      inlineData: { mimeType: 'image/png', data: ebookB64 },
-    });
-    parts[1].text = `Using the ebook cover shown in the image above as reference for what should appear on the phone screen, generate the following scene:\n\n${scene.prompt}`;
-    console.log(`  📎 Capa ebook passada como inline image reference`);
+    instance.referenceImages = [{
+      referenceType:  'REFERENCE_TYPE_RAW',
+      referenceId:    1,
+      referenceImage: { bytesBase64Encoded: ebookB64 },
+    }];
+    console.log(`  📎 Capa ebook passada como referenceImage`);
   }
 
   const reqBody = Buffer.from(JSON.stringify({
-    contents: [{ parts }],
-    generationConfig: {
-      responseModalities: ['IMAGE'],
+    instances:  [instance],
+    parameters: {
+      sampleCount:    1,
+      aspectRatio:    '9:16',
+      outputMimeType: 'image/png',
     },
   }));
 
   console.log(`  ⏳ Gerando ${scene.id}...`);
-  const res = await httpsPost(endpoint, { 'Content-Type': 'application/json' }, reqBody);
+  const res = await httpsPost(endpoint, {
+    'Content-Type':  'application/json',
+    'Authorization': `Bearer ${accessToken}`,
+  }, reqBody);
 
   if (res.statusCode !== 200) {
-    throw new Error(`Gemini erro ${res.statusCode} (${scene.id}): ${JSON.stringify(res.body)}`);
+    throw new Error(`Imagen 3 erro ${res.statusCode} (${scene.id}): ${JSON.stringify(res.body)}`);
   }
 
-  // Extrair imagem da resposta generateContent
-  const candidates = res.body.candidates;
-  if (!candidates || candidates.length === 0) {
-    throw new Error(`${scene.id}: sem candidates na resposta: ${JSON.stringify(res.body)}`);
+  // Resposta Imagen 3: predictions[0].bytesBase64Encoded
+  const prediction = res.body.predictions?.[0];
+  if (!prediction?.bytesBase64Encoded) {
+    throw new Error(`${scene.id}: sem bytesBase64Encoded na resposta: ${JSON.stringify(res.body)}`);
   }
 
-  const imagePart = candidates[0].content?.parts?.find(p => p.inlineData);
-  if (!imagePart) {
-    throw new Error(`${scene.id}: sem inlineData na resposta: ${JSON.stringify(candidates[0])}`);
-  }
-
-  const b64      = imagePart.inlineData.data;
-  const mimeType = imagePart.inlineData.mimeType || 'image/png';
-  const ext      = mimeType.includes('jpeg') ? 'jpg' : 'png';
-  const finalPath = outPath.replace('.png', `.${ext}`);
-
-  fs.mkdirSync(path.dirname(finalPath), { recursive: true });
-  fs.writeFileSync(finalPath, Buffer.from(b64, 'base64'));
-  const kb = Math.round(fs.statSync(finalPath).size / 1024);
-  console.log(`  ✅ ${path.basename(finalPath)} salvo (${kb} KB)`);
-  return finalPath;
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, Buffer.from(prediction.bytesBase64Encoded, 'base64'));
+  const kb = Math.round(fs.statSync(outPath).size / 1024);
+  console.log(`  ✅ ${path.basename(outPath)} salvo (${kb} KB)`);
+  return outPath;
 }
 
 // ─── Kling Animation Prompts ────────────────────────────────────────────────
@@ -229,23 +265,27 @@ async function main() {
 
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  // Carregar API key
-  let apiKey = null;
+  // Vertex AI auth — carregar token via Service Account
+  let accessToken = null;
   if (!dryRun) {
-    const secrets = fs.readFileSync(path.join(SQUAD_DIR, 'config', 'publisher-secrets.yaml'), 'utf8');
-    const match = secrets.match(/GOOGLE_AI_STUDIO_KEY:\s*["']?([^"'\n]+)["']?/);
-    if (!match) throw new Error('GOOGLE_AI_STUDIO_KEY não encontrada em publisher-secrets.yaml');
-    apiKey = match[1].trim();
-    console.log('🔑 API key Google AI Studio carregada\n');
+    if (!fs.existsSync(KEY_PATH)) {
+      throw new Error(
+        `vertex-ai-key.json não encontrado em: ${KEY_PATH}\n` +
+        `  → Copie o arquivo do Google Drive para esta pasta e tente novamente.`
+      );
+    }
+    console.log('🔑 Autenticando com Vertex AI (Service Account)...');
+    accessToken = await getAccessToken(KEY_PATH);
+    console.log('✅ Token obtido\n');
   }
 
   // Generate 8 images
-  console.log('🖼️  Gerando 8 imagens (Imagen 3 via AI Studio)...\n');
+  console.log(`🖼️  Gerando 8 imagens (Imagen 3 — ${IMAGEN_MODEL})...\n`);
   const generated = [];
 
   for (const scene of SCENES) {
     try {
-      const p = await generateImage(scene, apiKey, dryRun);
+      const p = await generateImage(scene, accessToken, dryRun);
       generated.push({ scene: scene.id, path: p, status: 'ok' });
     } catch (err) {
       console.error(`  ❌ ${scene.id} FALHOU: ${err.message}`);
