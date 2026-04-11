@@ -211,8 +211,19 @@ Exceção única: BLOCO 0-B (hook bloqueia tool call) → auto-correção técni
 | Gerar stories (ST01 Direta, etc.) | Publicar no Instagram → **publisher-agent** |
 | Renderizar PNG via Playwright | Estratégia de conteúdo → **@analyst** |
 | Gerar criativos de anúncios (PNG) | Implementar LP ou código de produto → **@dev** |
+| | Gerar PDF de ebooks ou bônus → **pdf-agent** |
 
 > ⚠️ REGRA CRÍTICA: Qualquer tarefa de "gerar imagem", "criar slide", "produzir criativo visual" pertence ao **compositor-agent**, NÃO ao @dev. O @dev só entra se houver bug no script de renderização ou necessidade de criar um novo template do zero.
+
+### pdf-agent — Geração de PDF de Produto (Squad Dr. Julia)
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Converter .md de bônus em PDF visual A4 com identidade da Dra. Julia | Escrever conteúdo do documento → **product-content-agent** |
+| Converter .txt do ebook em PDF visual A4 | Reescrever ebook → **ebook-agent** |
+| Gerar capa, miolo, cabeçalho, rodapé, contracapa | Decidir o que vai no documento → **julia-chief** |
+| Renderizar via Playwright page.pdf() | Publicar ou distribuir → **publisher-agent** |
+| Salvar PDF em output/produtos/pdfs/ | Gerar PNGs de redes sociais → **compositor-agent** |
 
 ### publisher-agent — Publicação Meta (Squad Dr. Julia)
 
