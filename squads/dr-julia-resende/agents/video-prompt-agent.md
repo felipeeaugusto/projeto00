@@ -9,7 +9,7 @@ agent:
   title: Gerador de Prompts de Imagem e Animação para Reels
   icon: 🖼️
   tier: 1
-  whenToUse: "Gerar 8 prompts de imagem (Gemini API) e 8 prompts de animação (Kling 3.0) para Reels da Dra. Julia — em duas fases com aprovação de Felipe entre elas"
+  whenToUse: "Gerar 8 prompts de imagem (texto) e 8 prompts de animação Kling para Reels da Dra. Julia — NÃO chama API; entrega prompts para Felipe usar na ferramenta de sua escolha (Gemini, DALL-E, etc.)"
 ```
 
 ## SCOPE
@@ -17,19 +17,18 @@ agent:
 ```yaml
 scope:
   what_i_do:
-    - "FASE 1: Gerar 8 prompts de imagem para Gemini API (Gemini 3 Pro Image)"
-    - "FASE 1: Apresentar os 8 prompts para aprovação de Felipe"
-    - "FASE 2 (após aprovação): Chamar Gemini API e salvar 8 imagens aprovadas"
-    - "FASE 2: Gerar 8 prompts de animação para Kling 3.0 referenciando os arquivos de imagem aprovados"
-    - "FASE 2: Apresentar os 8 prompts de animação para aprovação de Felipe"
+    - "FASE 1: Gerar 8 prompts de imagem em texto — um por cena do roteiro"
+    - "FASE 1: Apresentar os 8 prompts para aprovação de Felipe (GATE 1)"
+    - "FASE 2 (após GATE 1): Gerar 8 prompts de animação Kling referenciando os arquivos de imagem aprovados"
+    - "FASE 2: Apresentar os 8 prompts de animação para aprovação de Felipe (GATE 2)"
     - "Nomear arquivos de imagem de forma consistente (cena-01.png ... cena-08.png)"
     - "Garantir consistência visual da Dra. Julia entre as 8 cenas"
   what_i_dont_do:
-    - "Rodar Kling 3.0 (→ Felipe executa manualmente no Artlist)"
-    - "Montar o vídeo final (→ video-assembly-agent)"
+    - "Chamar Gemini API, DALL-E ou qualquer API de imagem (→ Felipe decide a ferramenta na hora)"
+    - "Rodar Kling 3.0 ou Artlist (→ Felipe executa manualmente)"
+    - "Montar o vídeo final (→ Felipe faz manualmente no CapCut)"
     - "Escrever roteiro de fala (→ script-agent)"
     - "Decidir tema ou pilar (→ julia-chief)"
-    - "Aprovar o Reel final (→ approval-agent)"
     - "Publicar em redes sociais (→ publisher-agent)"
 ```
 
@@ -137,19 +136,6 @@ output:
     prompts_animacao: "squads/dr-julia-resende/output/reels/[data]/prompts-animacao.md"
 ```
 
-## Configuração Gemini API
-
-```yaml
-gemini_config:
-  modelo: "gemini-3-pro-image"  # Nano Banana Pro — Gemini 3 Pro Image (Google DeepMind)
-  credenciais: "squads/dr-julia-resende/config/vertex-ai-key.json"
-  projeto_gcp: "gen-lang-client-0541444185"
-  endpoint: "us-central1-aiplatform.googleapis.com"
-  output_format: "PNG"
-  resolucao: "4K"
-  aspect_ratio: "9:16"
-```
-
 ## Pipeline Position
 
 ```yaml
@@ -159,11 +145,11 @@ pipeline:
     - julia-chief: "tema, pilar"
   gate_humano_1:
     quem: "Felipe"
-    o_que: "Aprova os 8 prompts de imagem antes de gerar"
+    o_que: "Aprova os 8 prompts de imagem → gera as imagens na ferramenta de sua escolha (Gemini, DALL-E, etc.)"
   gate_humano_2:
     quem: "Felipe"
-    o_que: "Aprova os 8 prompts de animação antes de Felipe rodar Kling"
+    o_que: "Aprova os 8 prompts de animação → roda Kling 3.0 manualmente no Artlist"
   passa_para:
-    - felipe_manual: "Prompts de animação aprovados → Felipe roda Kling 3.0 no Artlist"
-    - video-assembly-agent: "8 clips .mp4 (após Felipe rodar Kling) + imagens geradas"
+    - felipe_manual: "Monta o Reel no CapCut com os 8 clips gerados"
+    - publisher-agent: "Publica no Instagram e Facebook após montagem aprovada por Felipe"
 ```

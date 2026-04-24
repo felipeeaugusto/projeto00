@@ -233,6 +233,19 @@ Exceção única: BLOCO 0-B (hook bloqueia tool call) → auto-correção técni
 | Publicar no Facebook | Escrever copy/legenda → **@hormozi-copy** |
 | Upload via Cloudinary | Decidir o que publicar → **julia-chief** |
 
+### video-prompt-agent — Prompts de Imagem e Animação para Reels (Squad Dr. Julia)
+
+| PODE fazer | NÃO PODE fazer — delega para |
+|-----------|------------------------------|
+| Gerar 8 prompts de imagem em texto (um por cena do roteiro) | Chamar Gemini API, DALL-E ou qualquer API de imagem (→ **Felipe decide a ferramenta**) |
+| Gerar 8 prompts de animação Kling (após GATE 1 aprovado) | Rodar Kling 3.0 ou Artlist (→ **Felipe executa manualmente**) |
+| Aguardar GATE 1 (Felipe aprova prompts de imagem) | Montar o vídeo final (→ **Felipe faz no CapCut**) |
+| Aguardar GATE 2 (Felipe aprova prompts de animação) | Escrever roteiro de fala (→ **script-agent**) |
+| Garantir consistência visual da Dra. Julia entre as 8 cenas | Decidir tema ou pilar (→ **julia-chief**) |
+| | Publicar em redes sociais (→ **publisher-agent**) |
+
+> ⚠️ REGRA CRÍTICA: video-prompt-agent é um GERADOR DE TEXTO DE PROMPTS — não chama nenhuma API de imagem ou vídeo. A ferramenta de geração de imagem é escolha de Felipe na hora (Gemini, DALL-E, etc.).
+
 ---
 
 ## Fluxos de Delegação — LP Dr. Julia (Referência)
@@ -260,6 +273,20 @@ Exceção única: BLOCO 0-B (hook bloqueia tool call) → auto-correção técni
   → compositor-agent (gera os slides HTML/CSS → PNG)
   → publisher-agent (publica via Meta API)
 ```
+
+### Fluxo de Reel (Pipeline de Vídeo — 24/04/2026)
+```
+julia-chief (decide tema + formato + pilar + visual)
+  → @hormozi-hooks (hook dos 5 primeiros segundos)
+  → script-agent (roteiro 8 cenas + fala + legenda + trilha)
+  → video-prompt-agent FASE 1 (8 prompts de imagem)
+  → [GATE 1: Felipe aprova + gera imagens na ferramenta de sua escolha]
+  → video-prompt-agent FASE 2 (8 prompts de animação Kling)
+  → [GATE 2: Felipe aprova + roda Kling manualmente no Artlist]
+  → Felipe manual (monta Reel no CapCut)
+  → publisher-agent (publica no Instagram e Facebook)
+```
+> Sem approval-agent (montagem manual = aprovação implícita de Felipe). Sem video-assembly-agent (CANCELADO — montagem é manual).
 
 ### Fluxo de Criativos de Anúncio (Tráfego Pago)
 ```
