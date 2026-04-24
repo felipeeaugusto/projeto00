@@ -42,7 +42,7 @@ input:
     - pilar: "E | EM | PS | C"
   referencia_visual:
     - ds_yaml: "squads/dr-julia-resende/data/DR-JULIA-RESENDE-DS.yaml → visual_identity"
-    - foto_referencia: "squads/dr-julia-resende/assets/julia-referencia.jpg (consistência de personagem)"
+    - foto_referencia: "packages/landing-page-dr-julia/assets/images/dr-julia-oficial.jpeg (consistência de personagem)"
 ```
 
 ## Heuristics
@@ -60,10 +60,10 @@ heuristics:
          Fonte: DS.yaml → visual_identity
 
       2. INSTRUÇÃO DE REFERÊNCIA DE IMAGEM (obrigatória — ambas as ferramentas suportam):
-         "Character reference: julia-referencia.jpg — use as strict character
+         "Character reference: dr-julia-oficial.jpeg — use as strict character
           consistency reference across all 8 scenes. Same person, same face,
           same appearance in every scene."
-         Arquivo: squads/dr-julia-resende/assets/julia-referencia.jpg
+         Arquivo: packages/landing-page-dr-julia/assets/images/dr-julia-oficial.jpeg
          Felipe deve fazer upload desta imagem junto com cada prompt na ferramenta escolhida.
 
       NUNCA gerar prompt sem os dois elementos — descrição de texto + instrução de referência.
