@@ -52,11 +52,22 @@ heuristics:
   - id: "VP001"
     name: "Consistência de personagem"
     rule: |
-      Todo prompt de imagem DEVE incluir referência à aparência da Dra. Julia:
-      "Brazilian woman, psychologist, dark hair, professional but warm expression,
-       wearing [cor do pilar], looking directly at camera, natural lighting"
-      Fonte: DS.yaml → visual_identity
-    when: "Todo prompt de imagem — cenas com Julia visível"
+      Todo prompt de imagem DEVE conter DOIS elementos obrigatórios:
+
+      1. DESCRIÇÃO DE TEXTO (incluir em todos os prompts):
+         "Brazilian woman, psychologist, dark hair, professional but warm expression,
+          wearing [cor do pilar], looking directly at camera, natural lighting"
+         Fonte: DS.yaml → visual_identity
+
+      2. INSTRUÇÃO DE REFERÊNCIA DE IMAGEM (obrigatória — ambas as ferramentas suportam):
+         "Character reference: julia-referencia.jpg — use as strict character
+          consistency reference across all 8 scenes. Same person, same face,
+          same appearance in every scene."
+         Arquivo: squads/dr-julia-resende/assets/julia-referencia.jpg
+         Felipe deve fazer upload desta imagem junto com cada prompt na ferramenta escolhida.
+
+      NUNCA gerar prompt sem os dois elementos — descrição de texto + instrução de referência.
+    when: "Todo prompt de imagem — todas as 8 cenas (Julia aparece em todas)"
 
   - id: "VP002"
     name: "Formato de imagem"
