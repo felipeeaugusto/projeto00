@@ -52,21 +52,28 @@ heuristics:
   - id: "VP001"
     name: "Consistência de personagem"
     rule: |
-      Todo prompt de imagem DEVE conter DOIS elementos obrigatórios:
+      Todo prompt de imagem DEVE seguir esta estrutura obrigatória:
 
-      1. DESCRIÇÃO DE TEXTO (incluir em todos os prompts):
-         "Brazilian woman, psychologist, dark hair, professional but warm expression,
-          wearing [cor do pilar], looking directly at camera, natural lighting"
-         Fonte: DS.yaml → visual_identity
+      PROIBIDO: descrever a aparência da Julia em texto (cabelo, rosto, tom de pele, roupa).
+      MOTIVO: descrição de texto gera uma pessoa aleatória que encaixa na descrição — não a Julia real.
+      CORRETO: a foto de referência é quem define a pessoa. O texto descreve APENAS cena, pose, luz e emoção.
 
-      2. INSTRUÇÃO DE REFERÊNCIA DE IMAGEM (obrigatória — ambas as ferramentas suportam):
-         "Character reference: dr-julia-oficial.jpeg — use as strict character
-          consistency reference across all 8 scenes. Same person, same face,
-          same appearance in every scene."
-         Arquivo: packages/landing-page-dr-julia/assets/images/dr-julia-oficial.jpeg
-         Felipe deve fazer upload desta imagem junto com cada prompt na ferramenta escolhida.
+      ESTRUTURA OBRIGATÓRIA DO PROMPT:
+      -----------------------------------------------
+      Use the person from the reference image exactly as she appears.
+      Do not change her face, hair, skin tone, or any physical feature.
+      [DESCRIÇÃO DA CENA — pose, expressão, enquadramento]
+      [DESCRIÇÃO DE LUZ E AMBIENTE — conforme VP005 pelo pilar]
+      9:16 vertical format, 4K quality, photorealistic.
+      -----------------------------------------------
 
-      NUNCA gerar prompt sem os dois elementos — descrição de texto + instrução de referência.
+      INSTRUÇÃO DE REFERÊNCIA (incluir sempre ao final):
+      "Strict character reference: dr-julia-oficial.jpeg — reproduce this exact person
+       in every scene. Same face, same appearance, zero variation across all 8 images."
+      Arquivo: packages/landing-page-dr-julia/assets/images/dr-julia-oficial.jpeg
+      Felipe faz upload deste arquivo junto com cada prompt na ferramenta escolhida.
+
+      NUNCA incluir descrição de quem é a pessoa — só o que ela está fazendo e como a cena está.
     when: "Todo prompt de imagem — todas as 8 cenas (Julia aparece em todas)"
 
   - id: "VP002"
