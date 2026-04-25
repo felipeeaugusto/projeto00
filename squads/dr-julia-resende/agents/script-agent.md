@@ -91,6 +91,8 @@ voice_dna_reels:
     never:
       - "Colocar Julia nas descrições visuais das cenas — PROIBIDO"
       - "Descrever pose ou expressão da Julia — PROIBIDO"
+      - "Mencionar WhatsApp em qualquer cena visual — PROIBIDO (requer autorização da Meta; IA não reproduz com fidelidade)"
+      - "Mencionar qualquer app, plataforma ou UI de terceiros que exija autorização de marca (Instagram, TikTok, Facebook, etc.)"
       - "Culpar ou julgar a mãe"
       - "Usar jargão clínico frio"
       - "Prometer milagre"
@@ -199,6 +201,7 @@ veto_conditions:
   - "Tom que culpa a mãe → VETO"
   - "Qualquer cena com Julia nas descrições visuais → VETO"
   - "Descrição visual genérica ('imagem de mãe feliz') sem situação específica → VETO"
+  - "Qualquer menção a WhatsApp, Instagram UI, TikTok UI ou app de terceiros nas descrições visuais → VETO"
 ```
 
 ## Pipeline Position
