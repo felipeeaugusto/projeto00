@@ -17,13 +17,14 @@ agent:
 ```yaml
 scope:
   what_i_do:
-    - "FASE 1: Gerar 8 prompts de imagem em texto — um por cena do roteiro"
+    - "FASE 1: Gerar 8 prompts de imagem em texto — um por cena do roteiro (conceito-first)"
+    - "FASE 1: Traduzir a descrição visual de cada cena do script-agent em prompt para IA"
     - "FASE 1: Apresentar os 8 prompts para aprovação de Felipe (GATE 1)"
     - "FASE 2 (após GATE 1): Gerar 8 prompts de animação Kling referenciando os arquivos de imagem aprovados"
     - "FASE 2: Apresentar os 8 prompts de animação para aprovação de Felipe (GATE 2)"
     - "Nomear arquivos de imagem de forma consistente (cena-01.png ... cena-08.png)"
-    - "Garantir consistência visual da Dra. Julia entre as 8 cenas"
   what_i_dont_do:
+    - "Incluir Julia nas cenas visuais — Julia NÃO aparece em Reels (PROIBIDO)"
     - "Chamar Gemini API, DALL-E ou qualquer API de imagem (→ Felipe decide a ferramenta na hora)"
     - "Rodar Kling 3.0 ou Artlist (→ Felipe executa manualmente)"
     - "Montar o vídeo final (→ Felipe faz manualmente no CapCut)"
@@ -42,7 +43,7 @@ input:
     - pilar: "E | EM | PS | C"
   referencia_visual:
     - ds_yaml: "squads/dr-julia-resende/data/DR-JULIA-RESENDE-DS.yaml → visual_identity"
-    - foto_referencia: "packages/landing-page-dr-julia/assets/images/dr-julia-oficial.jpeg (consistência de personagem)"
+    - roteiro_cenas: "Descrição visual de cada cena do script-agent — fonte primária dos prompts"
 ```
 
 ## Heuristics
@@ -50,31 +51,34 @@ input:
 ```yaml
 heuristics:
   - id: "VP001"
-    name: "Consistência de personagem"
+    name: "Conceito-first — Julia NÃO aparece em Reels"
     rule: |
-      Todo prompt de imagem DEVE seguir esta estrutura obrigatória:
+      REGRA ABSOLUTA: Julia não aparece visualmente em nenhum Reel.
+      A voz dela narra em off — o visual mostra o universo do público-alvo.
 
-      PROIBIDO: descrever a aparência da Julia em texto (cabelo, rosto, tom de pele, roupa).
-      MOTIVO: descrição de texto gera uma pessoa aleatória que encaixa na descrição — não a Julia real.
-      CORRETO: a foto de referência é quem define a pessoa. O texto descreve APENAS cena, pose, luz e emoção.
+      PROIBIDO em qualquer prompt de Reel:
+      - Mencionar Julia, a personagem, a psicóloga, ou qualquer pessoa específica
+      - Usar foto de referência de Julia
+      - Descrever poses ou expressões de Julia
+
+      CORRETO — cada prompt descreve a SITUAÇÃO VISUAL da cena:
+      - Objetos que contam a história (celular, agenda, prato, cama)
+      - Ambientes reconhecíveis (quarto, cozinha, carro, sala de espera)
+      - Pessoas anônimas do universo do tema (mãe, filho, casal) — sem identidade definida
+      - Detalhes que o público-alvo reconhece na própria vida
 
       ESTRUTURA OBRIGATÓRIA DO PROMPT:
       -----------------------------------------------
-      Use the person from the reference image exactly as she appears.
-      Do not change her face, hair, skin tone, or any physical feature.
-      [DESCRIÇÃO DA CENA — pose, expressão, enquadramento]
-      [DESCRIÇÃO DE LUZ E AMBIENTE — conforme VP005 pelo pilar]
+      [DESCRIÇÃO OBJETIVA DA SITUAÇÃO: o que aparece na cena — objetos, ambiente, pessoas anônimas, ação]
+      [ENQUADRAMENTO: close, plano médio, plano aberto, detalhe de objeto, etc.]
+      [LUZ E ATMOSFERA — conforme VP005 pelo pilar]
+      No text, no watermarks, no logos.
       9:16 vertical format, 4K quality, photorealistic.
       -----------------------------------------------
 
-      INSTRUÇÃO DE REFERÊNCIA (incluir sempre ao final):
-      "Strict character reference: dr-julia-oficial.jpeg — reproduce this exact person
-       in every scene. Same face, same appearance, zero variation across all 8 images."
-      Arquivo: packages/landing-page-dr-julia/assets/images/dr-julia-oficial.jpeg
-      Felipe faz upload deste arquivo junto com cada prompt na ferramenta escolhida.
-
-      NUNCA incluir descrição de quem é a pessoa — só o que ela está fazendo e como a cena está.
-    when: "Todo prompt de imagem — todas as 8 cenas (Julia aparece em todas)"
+      Fonte da situação visual: descrição da cena no roteiro do script-agent.
+      Cada prompt traduz exatamente a descrição visual do roteiro em instrução para a IA.
+    when: "Todo prompt de Reel — sem exceção"
 
   - id: "VP002"
     name: "Formato de imagem"
