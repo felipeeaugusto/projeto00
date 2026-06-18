@@ -907,13 +907,20 @@ PASSO 2: Mostrar OBRIGATORIAMENTE antes da assinatura:
          "✅ [Resumo do que foi concluído nesta tarefa]
           ➡️ Próximo passo no fluxo: [agente responsável] — [tarefa específica]"
 
-PASSO 3: SOMENTE ENTÃO assinar e encerrar
+PASSO 3: Fazer a pergunta de confirmação direcionada — OBRIGATÓRIO:
+         "Quer que eu chame o [próximo agente] agora para [tarefa específica do próximo passo]?"
+         → A pergunta nomeia o agente E a ação — nunca genérica como "quer continuar?"
+         → AGUARDAR resposta do usuário antes de assinar
+
+PASSO 4: SOMENTE ENTÃO assinar e encerrar
 ```
 
 **PROIBIDO:**
 - Assinar sem mostrar o próximo passo
-- "— [assinatura do agente]" como última linha sem indicação de próximo passo
-- Encerrar com "✅ Concluído" sem dizer o que vem depois
+- Assinar sem fazer a pergunta de confirmação direcionada
+- Usar pergunta genérica: "quer continuar?", "podemos prosseguir?", "próximos passos?"
+- "— [assinatura do agente]" como última linha sem pergunta antes
+- Encerrar com "✅ Concluído" sem direção e sem pergunta
 
 **EXEMPLO DO ERRO QUE GEROU ESTA REGRA (2026-06-18):**
 ```
@@ -922,10 +929,13 @@ PASSO 3: SOMENTE ENTÃO assinar e encerrar
 → Felipe ficou sem saber o que vem depois
 → O fluxo original (navegar para o feed via Playwright) ficou perdido
 
-CORRETO seria:
-"✅ Commit a9bc945 — push origin master ✅
- ➡️ Próximo passo no fluxo: @devops abre o Edge com --remote-debugging-port=9222
-    → depois @dev cria o script Node.js para navegar para o feed
+CORRETO (com pergunta direcionada):
+"✅ Commit ac6e35e — push origin master ✅
+ ➡️ Próximo passo no fluxo: @aiox-master orquestra — @devops abre o Edge
+    com --remote-debugging-port=9222, depois @dev cria o script Node.js.
+
+ Quer que eu chame o @aiox-master agora para continuar o fluxo?
+
  — Gage, deployando com confiança 🚀"
 ```
 

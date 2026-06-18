@@ -1125,10 +1125,15 @@ Aplica-se EXCLUSIVAMENTE ao @aiox-master — em TODA resposta sobre execução.
 **Regra:**
 ```
 SUB-BLOCO T1 — ao concluir tarefa delegada (todo agente especializado):
-  ANTES DE ASSINAR: mostrar obrigatoriamente:
-  "✅ [Resumo do que foi concluído]
-   ➡️ Próximo passo no fluxo: [agente responsável] — [tarefa específica]"
-  PROIBIDO: assinar sem próximo passo, encerrar com "✅ Concluído" sem direção
+  ANTES DE ASSINAR — sequência obrigatória:
+  1. "✅ [Resumo do que foi concluído]
+      ➡️ Próximo passo no fluxo: [agente responsável] — [tarefa específica]"
+  2. Pergunta de confirmação DIRECIONADA (obrigatória):
+     "Quer que eu chame o [próximo agente] agora para [tarefa específica]?"
+     → Nomeia o agente E a ação — nunca genérica ("quer continuar?")
+     → AGUARDAR resposta antes de assinar
+  3. SOMENTE ENTÃO assinar
+  PROIBIDO: assinar sem próximo passo, assinar sem pergunta direcionada, pergunta genérica
 
 SUB-BLOCO T2 — ao ser ativado/reativado com fluxo em andamento (todo agente):
   SE detectar fluxo ativo → após greeting + caderno (BLOCO 1), mostrar:
