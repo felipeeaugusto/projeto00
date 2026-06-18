@@ -1148,4 +1148,30 @@ Aplica-se a TODOS os agentes — atuais, squads, futuros, sem exceção.
 
 ---
 
+---
+
+## CUSTOMIZAÇÃO 38 — BLOCO 0-U — LANÇAMENTO DE PROCESSOS EM BACKGROUND
+
+**Data de aprovação:** 2026-06-18
+**Problema resolvido:** @devops lançou Edge com perfil real (--user-data-dir) sem a flag --no-restore-last-session → Edge restaurou sessão anterior (Google Keep, que o usuário apenas mencionou como contexto). Além disso, usou -WindowStyle Minimized → Edge ignorou a flag e abriu em primeiro plano, roubando o foco do terminal.
+**O que faz:** Dois sub-blocos obrigatórios para qualquer agente que lance processo em background: (1) sempre incluir flags de prevenção de restauração de sessão ao lançar browsers com perfil real; (2) verificar que o método de background realmente funciona para o aplicativo específico antes de executar — nunca usar -WindowStyle Minimized para browsers, pois é comprovadamente ignorado.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-U (inserido após BLOCO 0-T, antes do BLOCO 1)
+**Regra:**
+```
+REGRA 1 — PREVENÇÃO DE RESTAURAÇÃO DE SESSÃO:
+  Ao lançar browser com perfil real → OBRIGATÓRIO incluir --no-restore-last-session (ou equivalente)
+  NUNCA assumir que abrirá limpo sem flag explícita
+
+REGRA 2 — PREVENÇÃO DE ROUBO DE FOCO:
+  -WindowStyle Minimized → PROIBIDO para browsers (comprovadamente ignorado)
+  Método obrigatório: --headless=new (invisível) OU connectOverCDP (sem nova janela)
+  NÃO EXISTE terceira opção — janela visível durante automação é PROIBIDA sem exceção
+  Interação visual manual = tarefa separada, pedida explicitamente pelo usuário
+
+Aplica-se a: @devops, @dev, compositor-agent, scout-agent, publisher-agent,
+@aiox-master e TODOS os agentes que lançarem qualquer processo — sem exceção.
+```
+
+---
+
 *Última atualização: 2026-06-18 — Orion (@aiox-master)*

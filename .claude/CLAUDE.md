@@ -989,6 +989,92 @@ Contexto: @devops acabou de fazer push do BLOCO 0-S + Customização 36.
 
 ---
 
+### BLOCO 0-U — LANÇAMENTO DE PROCESSOS EM BACKGROUND (inegociável)
+
+**Gatilho:** Qualquer agente que for lançar, abrir ou iniciar um processo, aplicação ou serviço em background — independente do propósito (browser, servidor, script, etc.).
+
+**REGRA ABSOLUTA:** Todo processo lançado em background DEVE obedecer as duas regras abaixo, SEM EXCEÇÃO.
+
+---
+
+#### REGRA 1 — PREVENÇÃO DE RESTAURAÇÃO DE SESSÃO ANTERIOR
+
+**Problema:** Ao lançar um browser (Edge, Chrome, etc.) usando o perfil real do usuário, o browser pode restaurar a sessão anterior (abrir abas que estavam abertas antes) — mesmo que o usuário não tenha pedido isso.
+
+```
+ANTES DE LANÇAR QUALQUER BROWSER OU APLICAÇÃO QUE GERENCIE SESSÃO:
+
+PASSO 1: Identificar se o processo pode restaurar sessão anterior
+         → Browsers com perfil real: Edge, Chrome, Firefox, Brave
+         → Qualquer app que salva "onde parou" e reabre automaticamente
+
+PASSO 2: SE pode restaurar sessão → OBRIGATORIAMENTE incluir flag de prevenção:
+         → Microsoft Edge / Chrome (Chromium):  --no-restore-last-session
+         → Firefox:                             -no-remote + novo perfil temporário
+         → Aplicações genéricas:               verificar documentação antes de lançar
+
+PASSO 3: NUNCA assumir que o processo abrirá limpo sem flag explícita
+         NUNCA omitir a flag de sessão alegando "provavelmente não vai restaurar"
+         NUNCA lançar com perfil real sem incluir --no-restore-last-session (ou equivalente)
+
+PASSO 4: Verificar no comando final se a flag está presente — antes de executar
+```
+
+**PROIBIDO:**
+- Lançar Edge/Chrome com perfil real sem `--no-restore-last-session`
+- Assumir comportamento limpo sem flag explícita
+- Ignorar a regra quando o usuário não mencionou a sessão anterior — a prevenção é sempre obrigatória
+
+**O ERRO QUE GEROU ESTA REGRA (2026-06-18):**
+@devops lançou Edge com `--user-data-dir` (perfil real) e `--remote-debugging-port=9222` mas sem `--no-restore-last-session`. O Edge restaurou a sessão anterior e abriu o Google Keep — que o usuário apenas mencionou como contexto ("eu estava no Keep"), sem pedir que fosse aberto.
+
+---
+
+#### REGRA 2 — PREVENÇÃO DE ROUBO DE FOCO DO TERMINAL
+
+**Problema:** Ao lançar um processo em background, o processo pode aparecer na frente do terminal e roubar o foco do usuário — mesmo quando o objetivo é que rode "debaixo dos panos".
+
+```
+ANTES DE LANÇAR QUALQUER PROCESSO EM BACKGROUND:
+
+PASSO 1: Identificar o método de background escolhido
+         → PowerShell -WindowStyle Minimized    : NÃO funciona para Edge/Chrome (ignorado)
+         → PowerShell Start-Process -WindowStyle : NÃO confiável para browsers
+         → --headless=new                        : funciona — processo invisível, sem janela
+         → Playwright connectOverCDP             : conecta em instância existente, sem nova janela
+         → Start-Process com -WindowStyle Hidden : pode não funcionar para GUI apps
+
+PASSO 2: Verificar se o método escolhido REALMENTE garante background para ESTE aplicativo específico
+         → Se houver dúvida → escolher método mais forte (headless mode ou equivalente)
+         → NUNCA usar -WindowStyle Minimized para browsers — comprovadamente não funciona
+
+PASSO 3: Para browsers com Playwright/CDP — método obrigatório:
+         → SEMPRE usar --headless=new (processo totalmente invisível, sem janela)
+         OU
+         → SEMPRE conectar a instância existente via connectOverCDP (sem abrir nova janela)
+         → NÃO HÁ TERCEIRA OPÇÃO — estas são as únicas duas formas permitidas
+
+PASSO 4: Janela visível de browser é PROIBIDA em qualquer circunstância durante automação
+         → Não existe "SE precisar de janela" — a solução é sempre headless ou CDP
+         → Se a tarefa tecnicamente exige interação visual manual → NÃO É AUTOMAÇÃO
+           e deve ser explicitamente solicitada pelo usuário como tarefa separada
+```
+
+**PROIBIDO:**
+- Usar `-WindowStyle Minimized` para browsers — comprovadamente não impede janela em primeiro plano
+- Qualquer método que não seja `--headless=new` ou `connectOverCDP` para automação de browser
+- Assumir que "minimizado" = "não vai roubar o foco"
+- Abrir janela de browser em qualquer circunstância durante execução de automação
+
+**O ERRO QUE GEROU ESTA REGRA (2026-06-18):**
+@devops usou `Start-Process -WindowStyle Minimized` para lançar Edge. O Edge ignorou a flag e abriu em primeiro plano, saindo do foco do terminal onde o usuário estava trabalhando. O usuário não pediu para ver o Edge — apenas pediu que o processo rodasse em background.
+
+---
+
+**Esta regra se aplica a: @devops, @dev, compositor-agent, scout-agent, publisher-agent, @aiox-master e TODOS os agentes atuais e futuros que lançarem qualquer processo, aplicação ou serviço — sem exceção.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.
