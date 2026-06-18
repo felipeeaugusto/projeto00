@@ -884,6 +884,101 @@ O BLOCO 0-I e 0-R disparam quando o agente está prestes a EXECUTAR. Este erro o
 
 ---
 
+### BLOCO 0-T — RETOMADA OBRIGATÓRIA DO FLUXO — TODO AGENTE (inegociável)
+
+**Gatilho:** Qualquer agente em qualquer um dos dois momentos abaixo.
+
+---
+
+#### SUB-BLOCO T1 — AO CONCLUIR UMA TAREFA DELEGADA (todo agente especializado)
+
+**Gatilho:** O agente finalizou a tarefa que recebeu por delegação e está prestes a assinar/encerrar.
+
+**REGRA ABSOLUTA:** Nenhum agente pode encerrar sua participação sem antes indicar o próximo passo do fluxo. Assinar e parar sem direção é PROIBIDO.
+
+```
+ANTES DE ASSINAR E ENCERRAR:
+
+PASSO 1: Identificar o fluxo que estava ativo quando esta tarefa foi delegada
+         → Qual era o objetivo original do usuário antes desta delegação?
+         → O que vem depois desta etapa no fluxo?
+
+PASSO 2: Mostrar OBRIGATORIAMENTE antes da assinatura:
+         "✅ [Resumo do que foi concluído nesta tarefa]
+          ➡️ Próximo passo no fluxo: [agente responsável] — [tarefa específica]"
+
+PASSO 3: SOMENTE ENTÃO assinar e encerrar
+```
+
+**PROIBIDO:**
+- Assinar sem mostrar o próximo passo
+- "— [assinatura do agente]" como última linha sem indicação de próximo passo
+- Encerrar com "✅ Concluído" sem dizer o que vem depois
+
+**EXEMPLO DO ERRO QUE GEROU ESTA REGRA (2026-06-18):**
+```
+@devops terminou o push e encerrou com:
+"✅ Concluído. — Gage, deployando com confiança 🚀"
+→ Felipe ficou sem saber o que vem depois
+→ O fluxo original (navegar para o feed via Playwright) ficou perdido
+
+CORRETO seria:
+"✅ Commit a9bc945 — push origin master ✅
+ ➡️ Próximo passo no fluxo: @devops abre o Edge com --remote-debugging-port=9222
+    → depois @dev cria o script Node.js para navegar para o feed
+ — Gage, deployando com confiança 🚀"
+```
+
+---
+
+#### SUB-BLOCO T2 — AO SER ATIVADO/REATIVADO APÓS OUTRO AGENTE CONCLUIR (todo agente)
+
+**Gatilho:** Qualquer agente que é ativado e detecta que há um fluxo em andamento — ou seja, o contexto da conversa mostra que outro agente acabou de concluir uma tarefa antes desta ativação.
+
+**REGRA ABSOLUTA:** Nenhum agente pode ser ativado e simplesmente aguardar o usuário definir o próximo passo quando há um fluxo em andamento. O agente DEVE identificar e apresentar o próximo passo imediatamente após o greeting.
+
+```
+AO SER ATIVADO COM FLUXO EM ANDAMENTO:
+
+PASSO 1: Verificar se há fluxo ativo — sinais de fluxo em andamento:
+         → Contexto da conversa mostra outro agente acabou de concluir uma tarefa
+         → Há um objetivo original do usuário que ainda não foi completado
+         → O BLOCO 1 (caderno) lista uma tarefa como "em andamento"
+
+PASSO 2: SE há fluxo ativo → após o greeting e caderno (BLOCO 1), mostrar OBRIGATORIAMENTE:
+         "🔄 Fluxo em andamento: [objetivo original do usuário]
+          📍 Último passo concluído: [agente anterior] — [o que fez]
+          ➡️ Próximo passo: [tarefa específica do próximo agente ou desta ativação]
+          Quer continuar?"
+
+PASSO 3: SE não há fluxo ativo → seguir BLOCO 1 normalmente (mostrar caderno e aguardar)
+
+PASSO 4: AGUARDAR confirmação do usuário — nunca avançar sozinho
+```
+
+**PROIBIDO:**
+- Ser ativado com fluxo em andamento e aguardar o usuário definir o próximo passo
+- Ignorar o fluxo ativo e mostrar só o caderno sem mencionar o que estava em andamento
+- Deixar o usuário "de mãos abanando" sem direção após qualquer transição de agente
+
+**CORRETO (exemplo desta regra aplicada):**
+```
+Contexto: @devops acabou de fazer push do BLOCO 0-S + Customização 36.
+          O objetivo original era: navegar para comunidade.vidalendaria.com.br/feed via Playwright.
+
+@aiox-master ao ser reativado deveria mostrar:
+"🔄 Fluxo em andamento: navegar para o feed via Playwright (Edge logado)
+ 📍 Último passo concluído: @devops — commit a9bc945 + push (BLOCO 0-S implementado)
+ ➡️ Próximo passo: @devops abre o Edge com --remote-debugging-port=9222
+ Quer continuar?"
+```
+
+---
+
+**Esta regra se aplica a: @aiox-master, @devops, @dev, @qa, @analyst, @architect, @pm, @po, @sm, @data-engineer, @ux-design-expert, todos os agentes do Squad Dr. Julia (julia-chief, copy-agent, compositor-agent, publisher-agent, scout-agent, analyst-agent-mineracao, briefing-agent, pdf-agent, product-content-agent, approval-agent, script-agent, video-prompt-agent, ebook-agent, image-agent), todos os agentes do Squad Hormozi (hormozi-chief, hormozi-audit, hormozi-copy, hormozi-offers, hormozi-ads, hormozi-hooks, hormozi-closer, hormozi-content, hormozi-models, hormozi-pricing, hormozi-retention, hormozi-scale, hormozi-leads, hormozi-launch, hormozi-workshop, hormozi-advisor), todos os agentes do Squad Design, todos os agentes do squad-creator, e TODOS os agentes/squads que serão criados no futuro — sem exceção.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.

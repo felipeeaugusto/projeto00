@@ -1114,4 +1114,33 @@ Aplica-se EXCLUSIVAMENTE ao @aiox-master — em TODA resposta sobre execução.
 
 ---
 
+---
+
+## CUSTOMIZAÇÃO 37 — BLOCO 0-T — RETOMADA OBRIGATÓRIA DO FLUXO APÓS AGENTE CONCLUIR
+
+**Data de aprovação:** 2026-06-18
+**Problema resolvido:** Após @devops concluir commit+push, o sistema ficou sem direção — @devops assinou e parou, @aiox-master ficou em silêncio esperando o usuário (por causa do BLOCO 0-J), e o usuário ficou sem saber o próximo passo. O fluxo original (navegar para o feed via Playwright) ficou perdido. Não existia nenhuma regra que obrigasse (a) o agente especializado a mostrar o próximo passo antes de encerrar, nem (b) qualquer agente ao ser reativado a identificar o fluxo em andamento e apresentar o próximo passo.
+**O que faz:** Dois sub-blocos complementares. T1: todo agente especializado, ANTES de assinar e encerrar, mostra "✅ [o que fez] ➡️ Próximo passo: [agente] — [tarefa]". T2: qualquer agente ao ser ativado/reativado, se detectar fluxo em andamento, apresenta imediatamente o próximo passo após o greeting — nunca deixa o usuário sem direção.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-T (inserido após BLOCO 0-S, antes do BLOCO 1)
+**Regra:**
+```
+SUB-BLOCO T1 — ao concluir tarefa delegada (todo agente especializado):
+  ANTES DE ASSINAR: mostrar obrigatoriamente:
+  "✅ [Resumo do que foi concluído]
+   ➡️ Próximo passo no fluxo: [agente responsável] — [tarefa específica]"
+  PROIBIDO: assinar sem próximo passo, encerrar com "✅ Concluído" sem direção
+
+SUB-BLOCO T2 — ao ser ativado/reativado com fluxo em andamento (todo agente):
+  SE detectar fluxo ativo → após greeting + caderno (BLOCO 1), mostrar:
+  "🔄 Fluxo em andamento: [objetivo original]
+   📍 Último passo concluído: [agente anterior] — [o que fez]
+   ➡️ Próximo passo: [tarefa específica]
+   Quer continuar?"
+  PROIBIDO: aguardar o usuário definir o próximo passo quando há fluxo ativo
+
+Aplica-se a TODOS os agentes — atuais, squads, futuros, sem exceção.
+```
+
+---
+
 *Última atualização: 2026-06-18 — Orion (@aiox-master)*
