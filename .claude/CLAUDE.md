@@ -1075,6 +1075,140 @@ PASSO 4: Janela visível de browser é PROIBIDA em qualquer circunstância duran
 
 ---
 
+### BLOCO 0-V — PLAYWRIGHT COM SITES QUE EXIGEM LOGIN (inegociável)
+
+**Gatilho:** Qualquer agente que precisar usar o Playwright para acessar um site que exige autenticação (login) — independente do objetivo (screenshot, scraping, navegação, pesquisa).
+
+**REGRA ABSOLUTA:** O único método permitido é o CDP (Chrome DevTools Protocol) conectando ao Edge real do Felipe, que já está logado. Nunca criar perfil temporário, nunca usar headless com credenciais.
+
+```
+FLUXO OBRIGATÓRIO — EXECUTAR NESTA ORDEM EXATA:
+
+PASSO 1: Fechar o Edge se estiver aberto
+         → PowerShell: Stop-Process -Name msedge -Force -ErrorAction SilentlyContinue
+         → Aguardar: Start-Sleep -Seconds 2
+
+PASSO 2: Reabrir o Edge com a flag de depuração + sem restaurar sessão anterior
+         → $edgeExe = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+         → Start-Process -FilePath $edgeExe -ArgumentList "--remote-debugging-port=9222 --no-restore-last-session"
+         → Aguardar: Start-Sleep -Seconds 5
+
+PASSO 3: Minimizar a janela do Edge automaticamente via Win32 API
+         → Add-Type -TypeDefinition @"
+           using System;
+           using System.Runtime.InteropServices;
+           public class Win32ApiCDP {
+               [DllImport("user32.dll")]
+               public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+           }
+           "@
+         → $procs = Get-Process msedge -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
+         → foreach ($p in $procs) { [Win32ApiCDP]::ShowWindow($p.MainWindowHandle, 6) | Out-Null }
+         → (SW_MINIMIZE = 6 — minimiza sem fechar)
+
+PASSO 4: Conectar via CDP e navegar
+         → Node.js:
+           const { chromium } = require('playwright');
+           const browser = await chromium.connectOverCDP('http://localhost:9222');
+           const context = browser.contexts()[0];
+           const page = await context.newPage();
+           await page.goto('URL_DESEJADA', { waitUntil: 'domcontentloaded', timeout: 30000 });
+           await page.waitForTimeout(4000);
+
+PASSO 5: Executar a tarefa (screenshot, leitura de texto, interação)
+         → await page.screenshot({ path: 'output.png' });
+         → Sempre fechar a página ao final: await page.close();
+         → NÃO desconectar o browser — Edge continua aberto para próximas sessões
+```
+
+**PROIBIDO:**
+- Usar perfil temporário (`--user-data-dir` apontando para pasta nova) — não tem login
+- Usar `--headless=new` com o perfil real — bloqueado pelo Edge ("Multiple targets not supported")
+- Usar `launch()` em vez de `connectOverCDP()` — abre nova janela sem login
+- Digitar credenciais de login manualmente via Playwright — Felipe não quer isso
+- Pular o PASSO 3 (minimizar) — Edge abre em primeiro plano e rouba o foco do terminal
+
+**POR QUE CDP E NÃO HEADLESS:**
+O Edge v20+ usa App-Bound Encryption para cookies — impossível decriptografar fora do processo do browser. O único jeito de aproveitar o login já existente do Felipe é conectar ao Edge real via CDP. Headless com perfil real falha com "Multiple targets not supported" porque o perfil tem múltiplas janelas salvas.
+
+**COMANDO COMPLETO VALIDADO (2026-06-18):**
+```powershell
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class Win32ApiCDP {
+    [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+}
+"@
+Stop-Process -Name msedge -Force -ErrorAction SilentlyContinue
+Start-Sleep -Seconds 2
+$edgeExe = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+Start-Process -FilePath $edgeExe -ArgumentList "--remote-debugging-port=9222 --no-restore-last-session"
+Start-Sleep -Seconds 5
+$procs = Get-Process msedge -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
+foreach ($p in $procs) { [Win32ApiCDP]::ShowWindow($p.MainWindowHandle, 6) | Out-Null }
+```
+
+**Esta regra se aplica a: @aiox-master, @devops, @dev, @analyst, compositor-agent, scout-agent, publisher-agent, briefing-agent, analyst-agent-mineracao e TODOS os agentes atuais e futuros — sem exceção.**
+
+---
+
+### BLOCO 0-W — FILTRO DE ESCOPO ANTES DE QUALQUER OFERTA DE EXECUÇÃO (inegociável)
+
+**Gatilho:** Qualquer agente que esteja prestes a escrever uma frase oferecendo executar, fazer, criar, rodar, commitar, publicar, implementar ou qualquer ação — antes de digitar essa frase.
+
+**REGRA ABSOLUTA:** Nenhum agente pode oferecer executar algo sem antes verificar se aquela ação é do seu escopo. A violação acontece na **frase**, não na execução — portanto o filtro deve ocorrer antes de escrever, não antes de agir.
+
+```
+ANTES DE ESCREVER QUALQUER FRASE DO TIPO:
+"Quer que eu faça...", "Posso...", "Vou...", "Farei...", "Posso commitar...",
+"Quer que eu publique...", "Vou implementar...", "Posso rodar..." — ou qualquer variação:
+
+PASSO 1: Identificar QUAL ação está sendo oferecida
+         → commit / push → @devops
+         → código / script / HTML / CSS → @dev
+         → copy / texto de marketing → @hormozi-copy ou copy-agent
+         → imagem / slide / PNG → compositor-agent
+         → publicar Instagram/Facebook → publisher-agent
+         → diagnóstico de LP → @hormozi-audit
+         → qualquer outra ação → verificar agent-authority.md
+
+PASSO 2: Verificar se essa ação é do ESCOPO DO AGENTE ATUAL
+         → SE É MEU ESCOPO → posso oferecer e executar normalmente
+         → SE NÃO É MEU ESCOPO → ir para PASSO 3
+
+PASSO 3: SE não é meu escopo → a ÚNICA frase permitida é:
+         "Isso é trabalho do [agente correto]. Quer que eu chame?"
+         PARAR — não elaborar, não explicar, não oferecer alternativa
+```
+
+**O PADRÃO DE ERRO QUE GEROU ESTA REGRA (2026-06-20):**
+```
+@aiox-master acabou de implementar BLOCO 0-V e salvou no MANUAL.md.
+Escreveu: "Quer que eu faça o commit e push agora?"
+→ ERRADO: commit/push é @devops. Oferecer já é violação — o hook não chega a bloquear
+  porque a oferta acontece antes de qualquer tool call.
+
+CORRETO: "Isso é trabalho do @devops. Quer que eu chame?"
+```
+
+**A DISTINÇÃO CRÍTICA:**
+- BLOCO 0-I proíbe **executar** trabalho de outro agente
+- BLOCO 0-W proíbe **oferecer** executar trabalho de outro agente
+- São camadas diferentes — ambas obrigatórias
+- Oferecer errado é tão grave quanto executar errado: passa ao usuário a impressão de que o agente pode fazer algo que não é seu
+
+**PROIBIDO:**
+- "Quer que eu faça o commit?" — quando não é @devops
+- "Posso publicar isso?" — quando não é publisher-agent
+- "Vou implementar no HTML" — quando não é @dev
+- Qualquer oferta de execução fora do escopo, em qualquer contexto, sob qualquer justificativa
+
+**Esta regra se aplica a: @aiox-master, @devops, @dev, @qa, @analyst, @architect, @pm, @po, @sm, compositor-agent, copy-agent, scout-agent, publisher-agent, briefing-agent, analyst-agent-mineracao, pdf-agent, product-content-agent, script-agent, video-prompt-agent, ebook-agent, todos os agentes do Squad Hormozi, todos os agentes do Squad Design, squad-creator, e TODOS os agentes/squads atuais e futuros — sem exceção.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.

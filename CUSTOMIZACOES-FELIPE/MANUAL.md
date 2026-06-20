@@ -1174,4 +1174,69 @@ Aplica-se a: @devops, @dev, compositor-agent, scout-agent, publisher-agent,
 
 ---
 
-*Última atualização: 2026-06-18 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 39 — BLOCO 0-V — PLAYWRIGHT COM SITES QUE EXIGEM LOGIN (CDP)
+
+**Data de aprovação:** 2026-06-20
+**Problema resolvido:** Nenhum agente sabia como usar o Playwright em sites que exigem login (como comunidade.vidalendaria.com.br) sem precisar digitar senha manualmente. Tentativas com perfil temporário falhavam por autenticação; headless com perfil real falhava com "Multiple targets not supported" (Edge v20+ App-Bound Encryption).
+**O que faz:** Formaliza o fluxo obrigatório via CDP (Chrome DevTools Protocol) para TODOS os agentes: fechar Edge → reabrir com --remote-debugging-port=9222 --no-restore-last-session → minimizar via Win32 API → conectar com connectOverCDP → navegar. Qualquer agente executa esse fluxo sem precisar delegar para @devops ou @dev.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-V (inserido após BLOCO 0-U, antes do BLOCO 1)
+**Regra:**
+```
+FLUXO OBRIGATÓRIO (nesta ordem):
+
+PASSO 1: Stop-Process -Name msedge -Force -ErrorAction SilentlyContinue
+         Start-Sleep -Seconds 2
+
+PASSO 2: Start-Process -FilePath "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+                       -ArgumentList "--remote-debugging-port=9222 --no-restore-last-session"
+         Start-Sleep -Seconds 5
+
+PASSO 3: Minimizar via Win32 API (SW_MINIMIZE = 6):
+         Add-Type -TypeDefinition "...Win32ApiCDP com ShowWindow..."
+         foreach ($p in Get-Process msedge | Where MainWindowHandle -ne 0) {
+             [Win32ApiCDP]::ShowWindow($p.MainWindowHandle, 6)
+         }
+
+PASSO 4: Node.js — conectar e navegar:
+         const browser = await chromium.connectOverCDP('http://localhost:9222');
+         const context = browser.contexts()[0];
+         const page = await context.newPage();
+         await page.goto('URL', { waitUntil: 'domcontentloaded', timeout: 30000 });
+
+PROIBIDO: perfil temporário, headless com perfil real, launch() em vez de connectOverCDP(),
+          pular minimização, digitar credenciais via Playwright.
+
+Aplica-se a: @aiox-master, @devops, @dev, @analyst, compositor-agent, scout-agent,
+publisher-agent, briefing-agent, analyst-agent-mineracao e TODOS os agentes — sem exceção.
+```
+
+---
+
+## CUSTOMIZAÇÃO 40 — BLOCO 0-W — FILTRO DE ESCOPO ANTES DE QUALQUER OFERTA DE EXECUÇÃO
+
+**Data de aprovação:** 2026-06-20
+**Problema resolvido:** @aiox-master implementou BLOCO 0-V, depois ofereceu "Quer que eu faça o commit e push?" — ação que é exclusiva do @devops. A violação ocorreu na frase, antes de qualquer execução — por isso o hook check-agent-scope.js não bloqueou. O BLOCO 0-I proibia executar fora do escopo, mas não havia regra proibindo oferecer.
+**O que faz:** Força verificação de escopo ANTES de escrever qualquer frase oferecendo executar algo. Se a ação não é do agente atual, a única frase permitida é "Isso é trabalho do [agente]. Quer que eu chame?" — sem elaborar, sem oferecer alternativa.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-W (inserido após BLOCO 0-V, antes do BLOCO 1)
+**Regra:**
+```
+ANTES DE ESCREVER QUALQUER OFERTA DE EXECUÇÃO:
+
+PASSO 1: Identificar qual ação está sendo oferecida
+PASSO 2: Verificar se é do escopo do agente atual (agent-authority.md)
+         → SE É MEU ESCOPO → pode oferecer e executar
+         → SE NÃO É MEU ESCOPO → ir para PASSO 3
+PASSO 3: Única frase permitida: "Isso é trabalho do [agente]. Quer que eu chame?"
+         PARAR — sem elaborar, sem alternativa
+
+DISTINÇÃO CRÍTICA:
+- BLOCO 0-I proíbe EXECUTAR fora do escopo
+- BLOCO 0-W proíbe OFERECER executar fora do escopo
+- Ambos obrigatórios — camadas diferentes da mesma proteção
+
+Aplica-se a: TODOS os agentes atuais e futuros — sem exceção.
+```
+
+---
+
+*Última atualização: 2026-06-20 — Orion (@aiox-master)*
