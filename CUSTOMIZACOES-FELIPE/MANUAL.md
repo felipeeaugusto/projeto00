@@ -1239,4 +1239,43 @@ Aplica-se a: TODOS os agentes atuais e futuros — sem exceção.
 
 ---
 
-*Última atualização: 2026-06-20 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 41 — BLOCO 3 MULTI-PROJETO — SUPORTE A KARZEN E DR-JULIA
+
+**Data de aprovação:** 2026-07-01
+**Problema resolvido:** O BLOCO 3 tinha os comandos git hardcoded para o projeto landing-page-dr-julia. Ao trabalhar na karzen e dizer "vou parar", o caderno salvo seria o errado (Dr. Julia) e o caderno da karzen nunca seria persistido.
+**O que faz:** Adiciona detecção automática do projeto ativo no BLOCO 3. Antes de salvar, o agente identifica em qual projeto estava trabalhando e executa os comandos git corretos para aquele projeto. Também criou o caderno `packages/karzen/PROJETO-STATUS.md`.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 3 (substituição completa da seção)
+**Regra:**
+```
+PASSO 0 (novo) — DETECTAR PROJETO ATIVO:
+  → Identificar pelo contexto da sessão qual projeto estava ativo
+  → Projetos suportados:
+      KARZEN   → packages/karzen/PROJETO-STATUS.md (pasta regular — NÃO é submódulo)
+      DR-JULIA → packages/landing-page-dr-julia/PROJETO-STATUS.md (submódulo git)
+  → Se não identificar → perguntar ao usuário: "Qual projeto estávamos trabalhando?"
+
+PASSO 4 (git) — COMANDOS CONDICIONAIS POR PROJETO:
+
+  SE projeto ativo é KARZEN:
+    git add packages/karzen/PROJETO-STATUS.md packages/karzen/HISTORICO-SESSOES.md
+    git commit -m "chore: caderno karzen atualizado — sessão YYYY-MM-DD"
+    git push origin master
+
+  SE projeto ativo é DR-JULIA:
+    git -C packages/landing-page-dr-julia add PROJETO-STATUS.md HISTORICO-SESSOES.md
+    git -C packages/landing-page-dr-julia commit -m "chore: caderno atualizado — sessão YYYY-MM-DD"
+    git -C packages/landing-page-dr-julia push origin master
+    git add packages/landing-page-dr-julia
+    git commit -m "chore: ponteiro submodule atualizado — sessão YYYY-MM-DD"
+    git push origin master
+
+TABELA DE PROJETOS REGISTRADOS:
+| Projeto  | Caminho do caderno                                    | Tipo git              |
+|----------|-------------------------------------------------------|-----------------------|
+| KARZEN   | packages/karzen/PROJETO-STATUS.md                     | Pasta regular         |
+| DR-JULIA | packages/landing-page-dr-julia/PROJETO-STATUS.md      | Submódulo git         |
+```
+
+---
+
+*Última atualização: 2026-07-01 — Orion (@aiox-master)*

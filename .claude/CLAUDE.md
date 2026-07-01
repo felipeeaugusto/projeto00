@@ -1352,9 +1352,18 @@ PASSO 4: Continuar a conversa normalmente
 Palavras que ativam este bloco: "vou parar", "vou dormir", "até amanhã", "por hoje é isso", "vou sair", "vou descansar", "tchau", "até logo".
 
 ```
+PASSO 0 — DETECTAR PROJETO ATIVO (obrigatório antes de qualquer outro passo):
+  → Identificar qual projeto estava sendo trabalhado nesta sessão pelo contexto da conversa
+  → Projetos suportados:
+      - KARZEN          → packages/karzen/PROJETO-STATUS.md
+                          (pasta regular — NÃO é submódulo git)
+      - DR-JULIA        → packages/landing-page-dr-julia/PROJETO-STATUS.md
+                          (submódulo git — tem git próprio)
+  → Se não for possível identificar pelo contexto → perguntar ao usuário: "Qual projeto estávamos trabalhando?"
+
 PASSO 1: Mostre o resumo da sessão SEMPRE neste formato:
 ```
-📋 Resumo da sessão [DATA]:
+📋 Resumo da sessão [DATA] — Projeto: [KARZEN ou DR-JULIA]:
 ✅ Fizemos: [lista completa do que foi feito e aprovado hoje]
 📋 Pendências adicionadas: [novas pendências registradas nesta sessão]
 🔄 Ainda falta: [total de pendências atualizadas no caderno]
@@ -1368,7 +1377,7 @@ PASSO 2 — AUDITORIA ATIVA DA SESSÃO (obrigatório — leitura integral, não 
   2.2: LER A SESSÃO INTEIRA — do início ao "vou parar":
        → Não é busca por palavras-chave — é leitura completa da conversa
        → Identificar: pedidos feitos, tarefas discutidas, decisões tomadas, itens deixados de lado
-       → Comparar com PROJETO-STATUS.md: o que foi discutido mas não está formalizado?
+       → Comparar com PROJETO-STATUS.md do projeto ativo: o que foi discutido mas não está formalizado?
        → Incluir o resumo de compactação se houver — ele faz parte da sessão
   2.3: Apresentar os achados ao Felipe:
        "🔍 Auditei a sessão inteira. Encontrei [N] itens que não estão formalizados:
@@ -1381,27 +1390,42 @@ PASSO 2 — AUDITORIA ATIVA DA SESSÃO (obrigatório — leitura integral, não 
   IMPORTANTE: Se a leitura completa não encontrar nada além do que já está no caderno:
   → Informar: "🔍 Auditei a sessão inteira — nada ficou fora do caderno." → continuar para PASSO 3
 
-PASSO 3: Atualize `PROJETO-STATUS.md`:
+PASSO 3: Atualize o PROJETO-STATUS.md do projeto ativo:
   - Verificar se já existe entrada do mesmo dia em ULTIMAS 3 SESSOES:
     → SE existe entrada do mesmo dia → NÃO criar nova entrada → adicionar itens novos à entrada existente
     → SE não existe → criar nova entrada no formato obrigatório
   - Campo PAROU EM DEVE incluir: "[tarefa] | Agente ativo: [nome-do-agente-atual]"
   - Mover sessão mais antiga para HISTORICO-SESSOES.md se já houver 3
 
-PASSO 3: Execute OBRIGATORIAMENTE (sem pedir permissão — é mandatório):
-```
-git -C packages/landing-page-dr-julia add PROJETO-STATUS.md HISTORICO-SESSOES.md
-git -C packages/landing-page-dr-julia commit -m "chore: caderno atualizado — sessão YYYY-MM-DD"
-git -C packages/landing-page-dr-julia push origin master
-git add packages/landing-page-dr-julia
-git commit -m "chore: ponteiro submodule atualizado — sessão YYYY-MM-DD"
-git push origin master
-```
+PASSO 4: Execute os comandos git OBRIGATORIAMENTE (sem pedir permissão — é mandatório):
 
-PASSO 4: Confirme: "✅ Caderno salvo e no GitHub. Seguro fechar o terminal."
+  SE projeto ativo é KARZEN (pasta regular — não é submódulo):
+  ```
+  git add packages/karzen/PROJETO-STATUS.md packages/karzen/HISTORICO-SESSOES.md
+  git commit -m "chore: caderno karzen atualizado — sessão YYYY-MM-DD"
+  git push origin master
+  ```
+
+  SE projeto ativo é DR-JULIA (submódulo git):
+  ```
+  git -C packages/landing-page-dr-julia add PROJETO-STATUS.md HISTORICO-SESSOES.md
+  git -C packages/landing-page-dr-julia commit -m "chore: caderno atualizado — sessão YYYY-MM-DD"
+  git -C packages/landing-page-dr-julia push origin master
+  git add packages/landing-page-dr-julia
+  git commit -m "chore: ponteiro submodule atualizado — sessão YYYY-MM-DD"
+  git push origin master
+  ```
+
+PASSO 5: Confirme: "✅ Caderno salvo e no GitHub. Seguro fechar o terminal."
 ```
 
 **POR QUE O PUSH É MANDATÓRIO (sem opção de recusar):**
 Felipe trabalha em 2 PCs. Sem o push, o outro PC abre desatualizado e o Orion retoma com informação errada — exatamente o problema que causou a perda do product-content-agent e do Guia 7 Minutos. Não há situação em que o push não deve acontecer. Nenhuma.
+
+**PROJETOS ATIVOS REGISTRADOS:**
+| Projeto | Caminho do caderno | Tipo git |
+|---|---|---|
+| KARZEN | packages/karzen/PROJETO-STATUS.md | Pasta regular (não é submódulo) |
+| DR-JULIA | packages/landing-page-dr-julia/PROJETO-STATUS.md | Submódulo git |
 
 **Esta regra se aplica a TODOS os agentes — quem receber o "vou parar" executa o BLOCO 3 inteiro.**
