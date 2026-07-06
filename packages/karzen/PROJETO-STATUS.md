@@ -62,6 +62,23 @@
 
 ---
 
+### SESSÃO — 03/07/2026
+
+**O QUE FOI FEITO:**
+- @dev adicionou os SKUs (Item ID do Mercado Livre) de 28 produtos ao dashboard-karzen-ads.html (Downloads), cruzando com a planilha Excel "ANÚNCIOS EM POTENCIAL - KARZEN ELETRO" aberta no PC — dashboard passa a permitir localizar cada produto direto no Mercado Livre
+- Tentativa de criar um dashboard v2 inspirado num post da "Comunidade Sobral" (Facebook) barrada por bloqueio de segurança do Edge/Chromium — a porta de depuração remota (CDP) não abre no perfil padrão do navegador em versões recentes
+- Identificada solução: criar um perfil separado do Edge (fora do perfil real do Felipe) para persistir o login da comunidade sem tocar no perfil principal — explicada a segurança da abordagem, ainda aguardando decisão do Felipe para executar
+- Auditoria profunda de fim de sessão (leitura linha a linha do JSONL, cruzamento com git, verificação de arquivos em disco) — confirmado que nada se perdeu; único ponto de atenção: dashboard-karzen-ads.html fica em Downloads, fora do repositório git, sem backup
+
+**O QUE O FELIPE PEDIU:**
+- Adicionar os SKUs dos produtos do dashboard, puxando da planilha Excel aberta
+- Criar um dashboard v2 inspirado visualmente num post de exemplo da Comunidade Sobral, navegando os comentários do post pra descobrir e pesquisar a plataforma usada por quem fez aquele dashboard
+- Auditoria profunda de fim de sessão antes de fechar o terminal e desligar o PC
+
+**PAROU EM:** Aguardando decisão do Felipe sobre criar o perfil separado do Edge para logar na Comunidade Sobral e retomar a construção do dashboard v2 | Agente ativo: aiox-master
+
+---
+
 ## DECISÕES IMPORTANTES
 
 - Projeto Karzen: desenvolver agentes/squads de IA para mapear produtos e ações de publicidade no Mercado Livre (conta Karzen)
