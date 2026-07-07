@@ -11,6 +11,8 @@
 ⚠️ Nota: as pendências abaixo (sessão 02/07/2026) são de uma frente sem relação com o Mercado Livre — a agência de marketing do primo do Felipe (EUA, nicho SPA/salão). Registradas aqui a pedido do Felipe, na ausência de um caderno próprio para essa frente.
 
 🔴 Prioridade Máxima:
+- @aiox-master — investigar em todas as configurações do caderno/manual (CLAUDE.md, MANUAL.md, rules/) se já existe uma regra de alta prioridade proibindo QUALQUER agente de inventar informação; se não existir com força suficiente, criar e registrar essa regra — pedido feito por Felipe de forma preventiva/geral (independente de caso específico) (a acionar quando Felipe disser "chame o Orion")
+  - CONTEXTO (resolvido): a dúvida que originou o pedido foi sobre os 28 SKUs do dashboard-karzen-ads.html (sessão 03/07/2026) — @dev re-verificou em 06/07/2026 contra a planilha real em `C:\Downloads\ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx` (aba "SEM CAMPANHA", 736 linhas) e os 28 SKUs batem 100% com a coluna "Item ID". Não houve invenção neste caso — a planilha só não tinha sido localizada na primeira varredura (estava em C:\Downloads, fora das pastas padrão) e a coluna se chama "Item ID", não "SKU", o que gerou a confusão inicial do Felipe
 - @hormozi-offers — estruturar a oferta da agência do primo pro nicho SPA/salão (garantia, bônus, resultado prometido), com Felipe e o primo trazendo os fatos reais do negócio
 - Configurar Pixel + evento de conversão no formulário Lovable antes do lançamento da campanha de segunda-feira (bloqueio crítico identificado em elicitação estratégica)
 
@@ -18,6 +20,8 @@
 - Depois da oferta definida: cadastrar Cliente no FuncionarIA (funcionaria.ai) com a oferta estruturada no campo Base de Conhecimento
 - @hormozi-copy — definir persona e tom de voz da campanha
 - @hormozi-ads — direção de criativo dos anúncios
+- @dev — decidir e ajustar o rótulo "SKU" no dashboard-karzen-ads.html: manter "Item ID (Mercado Livre)" só renomeando o rótulo, extrair também o código de modelo do fabricante (ex: EMG70-220V) de dentro do título de cada produto e mostrar os dois, ou outra abordagem — Felipe ainda não escolheu entre as 3 opções apresentadas (sessão 06/07/2026)
+- @analyst — fechar com Felipe o conteúdo do relatório/PDF pra pessoa que cuida do Ads da Karzen no Mercado Livre: falta responder se o relatório é pra ela decidir onde investir ads ou é só inventário informativo, e se há dado de margem de lucro por produto disponível (sessão 06/07/2026)
 
 🔵 Pode deixar pra depois:
 - (a preencher conforme o projeto avançar)
@@ -26,21 +30,7 @@
 
 ## ÚLTIMAS 3 SESSÕES
 
-### SESSÃO — 01/07/2026
-
-**O QUE FOI FEITO:**
-- Caderno da karzen criado (PROJETO-STATUS.md) — projeto agora tem registro de sessões persistido no GitHub
-- BLOCO 3 do CLAUDE.md adaptado para multi-projeto — ao dizer "vou parar" na karzen, o caderno correto é salvo automaticamente
-- Customização 41 registrada no MANUAL.md — regra documentada para uso em projetos futuros
-- Tudo commitado e no GitHub (commit a93bd3b)
-
-**O QUE O FELIPE PEDIU:**
-- Criar caderno para a karzen
-- Adaptar o BLOCO 3 para reconhecer a karzen ao dizer "vou parar"
-
-**PAROU EM:** Infraestrutura inicial da karzen configurada — próxima sessão inicia o trabalho real (agentes de IA para publicidade no Mercado Livre) | Agente ativo: aiox-master
-
----
+> Sessões mais antigas em `HISTORICO-SESSOES.md`.
 
 ### SESSÃO — 02/07/2026
 
@@ -76,6 +66,26 @@
 - Auditoria profunda de fim de sessão antes de fechar o terminal e desligar o PC
 
 **PAROU EM:** Aguardando decisão do Felipe sobre criar o perfil separado do Edge para logar na Comunidade Sobral e retomar a construção do dashboard v2 | Agente ativo: aiox-master
+
+---
+
+### SESSÃO — 06/07/2026
+
+**O QUE FOI FEITO:**
+- @dev investigou a origem dos 28 SKUs no dashboard-karzen-ads.html — inicialmente a planilha "ANÚNCIOS EM POTENCIAL - KARZEN ELETRO" não foi encontrada nas pastas padrão do PC (Downloads, Desktop, Documents, OneDrive), o que levantou suspeita de dado inventado — pendência registrada para o @aiox-master investigar/reforçar regra anti-invenção
+- Felipe indicou o caminho real da planilha (`C:\Downloads\ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx`, aba "SEM CAMPANHA", 736 linhas) — @dev cruzou os 28 SKUs um a um contra a coluna "Item ID": bateram 100% — suspeita de invenção descartada, dado confirmado correto
+- Esclarecida a confusão de terminologia: "SKU" pro Felipe = código do fabricante (ex: EMG70-220V), embutido só no texto livre da coluna "Título item", sem coluna própria na planilha; o dashboard usa "Item ID" (identificador do Mercado Livre), que é o dado certo pro objetivo de achar o produto direto no ML — mas o rótulo "SKU" no dashboard pode confundir por não ser o que Felipe entende por SKU
+- @analyst (Atlas) elicitou o conteúdo do relatório/PDF que Felipe quer montar pra pessoa que cuida do Ads da Karzen no Mercado Livre — além de estoque e preço normal/promocional (Rebate) que Felipe já tinha, sugeriu: Item ID/link do anúncio, receita orgânica total, status de integração SAds, grupo de prioridade (A/B/C), histórico de investimento ruim, prazo de validade do Rebate, e margem de lucro no preço promocional
+- @dev esclareceu divergência aparente de receita "máquina de gelo R$80.900 x R$163 mil" — são 2 produtos diferentes (Item ID 6716539200 "Eos 70kg" = R$80.900; Item ID 6894630390 "HQ 45kg Profissional" = R$162.300), ambos batendo com a planilha real — não houve erro, só confusão de qual máquina é qual
+
+**O QUE O FELIPE PEDIU:**
+- Verificar se o @dev colocou os SKUs certos no dashboard e de onde tirou essa informação, já que não achava "SKU" explícito na planilha
+- Registrar pendência para o @aiox-master investigar regra anti-invenção de dados, a ser acionada quando Felipe disser "chame o Orion" (ainda não acionado nesta sessão)
+- Esclarecer que "SKU" pra ele é a sequência tipo "EMG70-220V", não o Item ID do Mercado Livre
+- Elicitar com o @analyst o que deveria entrar num relatório pra pessoa de Ads da Karzen no Mercado Livre
+- Chamar o @dev de novo para explicar a divergência de receita entre duas "máquinas de gelo" no dashboard
+
+**PAROU EM:** Duas decisões em aberto: (1) qual rótulo usar no dashboard pro "SKU"/Item ID, e (2) fechar com o @analyst o escopo exato do relatório de Ads (decisório x informativo, e se há dado de margem de lucro) | Agente ativo: aiox-master
 
 ---
 
