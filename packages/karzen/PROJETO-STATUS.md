@@ -21,7 +21,9 @@
 - @hormozi-copy — definir persona e tom de voz da campanha
 - @hormozi-ads — direção de criativo dos anúncios
 - @dev — decidir e ajustar o rótulo "SKU" no dashboard-karzen-ads.html: manter "Item ID (Mercado Livre)" só renomeando o rótulo, extrair também o código de modelo do fabricante (ex: EMG70-220V) de dentro do título de cada produto e mostrar os dois, ou outra abordagem — Felipe ainda não escolheu entre as 3 opções apresentadas (sessão 06/07/2026)
-- @analyst — fechar com Felipe o conteúdo do relatório/PDF pra pessoa que cuida do Ads da Karzen no Mercado Livre: falta responder se o relatório é pra ela decidir onde investir ads ou é só inventário informativo, e se há dado de margem de lucro por produto disponível (sessão 06/07/2026)
+- @analyst — fechar com Felipe o conteúdo do relatório/PDF pra pessoa que cuida do Ads da Karzen no Mercado Livre: falta responder se o relatório é pra ela decidir onde investir ads ou é só inventário informativo, se há dado de margem de lucro por produto disponível, e se "o patrão" do Felipe é essa mesma pessoa ou alguém acima dela (sessão 06/07/2026, detalhada em 10/07/2026)
+- @analyst — cruzar a coluna "Stock" da planilha `ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx` com o relatório `Relatorio_desempenho_publicacoes_2026_06_10-2026_07_10.xlsx` (por ID do anúncio), e Felipe precisa exportar os relatórios equivalentes de 15 e 7 dias — necessário pra calcular velocidade de venda e estoque restante dos 696 produtos (sessão 10/07/2026)
+- @analyst — Felipe precisa decidir qual caminho de classificação Curva A/B/C adotar pros 696 produtos: Pareto por receita, Giro (vendas ÷ estoque), Score composto, ou Híbrido — opções levantadas na elicitação avançada de 10/07/2026, nenhuma escolhida ainda
 
 🔵 Pode deixar pra depois:
 - (a preencher conforme o projeto avançar)
@@ -31,26 +33,6 @@
 ## ÚLTIMAS 3 SESSÕES
 
 > Sessões mais antigas em `HISTORICO-SESSOES.md`.
-
-### SESSÃO — 02/07/2026
-
-**O QUE FOI FEITO:**
-- Elicitação estratégica completa (9 métodos de advanced elicitation) sobre a campanha de tráfego pago da agência do primo do Felipe (SPA/salão, Massachusetts/New Hampshire) — conclusão: objetivo "Leads" no Meta Ads Manager + Pixel/evento de conversão no formulário Lovable é obrigatório antes do lançamento de segunda-feira
-- Resolvido bloqueio técnico de acesso ao Chrome via Playwright/CDP — o Chrome bloqueia `--remote-debugging-port` no perfil real/logado por segurança; solução encontrada foi lançar uma instância isolada com `--user-data-dir` temporário, sem mexer nas outras janelas do Chrome do Felipe
-- Estudo completo da plataforma FuncionarIA (funcionaria.ai) via automação: 42 agentes de IA de copy (incluindo um agente dedicado "Hooks Estilo Alex Hormozi"), mapeada a estrutura de cadastro de Cliente (Nome/Segmento → Descrição/Tom de Voz → Base de Conhecimento) como o ponto de integração com a pasta pessoal de materiais do Hormozi do Felipe
-- Esclarecido, a pedido do Felipe, que a pasta do Hormozi (estratégia de oferta) tem mais potencial de gerar resultado do que o FuncionarIA (execução/velocidade de produção de copy) — o FuncionarIA só vira multiplicador de resultado depois que a oferta estiver definida
-- Nenhum arquivo de projeto foi gerado (screenshots e scripts de exploração ficaram só no scratchpad temporário)
-
-**O QUE O FELIPE PEDIU:**
-- Rodar elicitação estratégica completa sobre a campanha da agência do primo
-- Acessar via Playwright/Chrome a plataforma FuncionarIA (logado no perfil real) e estudá-la por inteiro
-- Entender como o FuncionarIA pode trabalhar em conjunto com a pasta do Hormozi
-- Entender qual dos dois (pasta do Hormozi ou FuncionarIA) tem mais potencial de gerar resultado
-- Entender a divisão de responsabilidade entre Felipe/primo e o framework do Hormozi na construção da oferta
-
-**PAROU EM:** Decidir se chama o @hormozi-offers para estruturar a oferta da agência do primo (SPA/salão) — oferta ainda não definida | Agente ativo: analyst
-
----
 
 ### SESSÃO — 03/07/2026
 
@@ -86,6 +68,27 @@
 - Chamar o @dev de novo para explicar a divergência de receita entre duas "máquinas de gelo" no dashboard
 
 **PAROU EM:** Duas decisões em aberto: (1) qual rótulo usar no dashboard pro "SKU"/Item ID, e (2) fechar com o @analyst o escopo exato do relatório de Ads (decisório x informativo, e se há dado de margem de lucro) | Agente ativo: aiox-master
+
+---
+
+### SESSÃO — 10/07/2026
+
+**O QUE FOI FEITO:**
+- @aiox-master verificou o escopo do @dev (dev.md) antes de delegar, e delegou com o template completo de 5 campos (TAREFA/ENTREGÁVEL/PROIBIDO/DEFINIÇÃO DE CONCLUÍDO/PRODUÇÃO) a tarefa de acessar a planilha aberta e contar produtos
+- @dev contou os produtos em `ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx` (aba "SEM CAMPANHA"): 736 total, 40 marcados em azul (RGB 66,133,244, cor aplicada por Felipe depois de salvar a planilha) → resultado final de **696 produtos** — leitura feita direto na instância aberta do Excel via COM/PowerShell (sem Python, a pedido do Felipe)
+- @analyst (Atlas) abriu o relatório `Relatorio_desempenho_publicacoes_2026_06_10-2026_07_10.xlsx` (981 anúncios) e identificou que ele traz Visitas/Vendas/Conversão/SKU real por anúncio, mas não tem estoque nem quebra por 15/7 dias — é só um agregado do período de 30 dias selecionado na exportação
+- @analyst explicou a Felipe a lógica de velocidade de vendas e censura de demanda por estoque (por que "vendeu 400 em 30 dias" não prova que o produto venderia as mesmas 400 unidades em 10 dias)
+- @analyst rodou uma sessão de elicitação avançada completa (9 métodos) sobre como classificar os 696 produtos em Curva A/B/C de forma rápida, já que a integradora não fornece "Dias no CD" nem "Vendas por dia" limpos — chegou a uma proposta concreta: planilha de 5 colunas (SKU + Unidades vendidas 30d + Vendas brutas 30d + Estoque atual + Conversão), classificação por Pareto de receita ou por Giro (vendas ÷ estoque), e proxies pra substituir os dados que a integradora não dá
+
+**O QUE O FELIPE PEDIU:**
+- Confirmar se o @dev consegue acessar uma planilha aberta no PC e modificar/analisar coisas nela
+- Contar quantos produtos tem na planilha "ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx", excluindo os marcados em azul
+- Parar de usar Python na análise da planilha
+- Entender como medir com precisão se um produto vende X unidades em Y dias (velocidade de venda / curva de demanda)
+- Analisar o relatório de desempenho de publicações baixado da integradora, verificando se dá pra cruzar estoque + vendas de 30/15/7 dias
+- Elicitação avançada completa (9 métodos) sobre como montar de forma eficiente a planilha de classificação Curva A/B/C dos 696 produtos
+
+**PAROU EM:** Sessão de elicitação avançada concluída (9 métodos aplicados sobre a metodologia de Curva A/B/C); Felipe ainda não escolheu qual caminho de classificação adotar (Pareto, Giro, Score composto ou Híbrido), e ainda faltam 2 exportações (relatórios de 15 e 7 dias) e o cruzamento Stock x relatório novo antes de fechar a planilha final dos 696 produtos | Agente ativo: analyst
 
 ---
 

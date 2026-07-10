@@ -19,3 +19,23 @@
 **PAROU EM:** Infraestrutura inicial da karzen configurada — próxima sessão inicia o trabalho real (agentes de IA para publicidade no Mercado Livre) | Agente ativo: aiox-master
 
 ---
+
+### SESSÃO — 02/07/2026
+
+**O QUE FOI FEITO:**
+- Elicitação estratégica completa (9 métodos de advanced elicitation) sobre a campanha de tráfego pago da agência do primo do Felipe (SPA/salão, Massachusetts/New Hampshire) — conclusão: objetivo "Leads" no Meta Ads Manager + Pixel/evento de conversão no formulário Lovable é obrigatório antes do lançamento de segunda-feira
+- Resolvido bloqueio técnico de acesso ao Chrome via Playwright/CDP — o Chrome bloqueia `--remote-debugging-port` no perfil real/logado por segurança; solução encontrada foi lançar uma instância isolada com `--user-data-dir` temporário, sem mexer nas outras janelas do Chrome do Felipe
+- Estudo completo da plataforma FuncionarIA (funcionaria.ai) via automação: 42 agentes de IA de copy (incluindo um agente dedicado "Hooks Estilo Alex Hormozi"), mapeada a estrutura de cadastro de Cliente (Nome/Segmento → Descrição/Tom de Voz → Base de Conhecimento) como o ponto de integração com a pasta pessoal de materiais do Hormozi do Felipe
+- Esclarecido, a pedido do Felipe, que a pasta do Hormozi (estratégia de oferta) tem mais potencial de gerar resultado do que o FuncionarIA (execução/velocidade de produção de copy) — o FuncionarIA só vira multiplicador de resultado depois que a oferta estiver definida
+- Nenhum arquivo de projeto foi gerado (screenshots e scripts de exploração ficaram só no scratchpad temporário)
+
+**O QUE O FELIPE PEDIU:**
+- Rodar elicitação estratégica completa sobre a campanha da agência do primo
+- Acessar via Playwright/Chrome a plataforma FuncionarIA (logado no perfil real) e estudá-la por inteiro
+- Entender como o FuncionarIA pode trabalhar em conjunto com a pasta do Hormozi
+- Entender qual dos dois (pasta do Hormozi ou FuncionarIA) tem mais potencial de gerar resultado
+- Entender a divisão de responsabilidade entre Felipe/primo e o framework do Hormozi na construção da oferta
+
+**PAROU EM:** Decidir se chama o @hormozi-offers para estruturar a oferta da agência do primo (SPA/salão) — oferta ainda não definida | Agente ativo: analyst
+
+---
