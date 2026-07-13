@@ -21,9 +21,15 @@
 - @hormozi-copy — definir persona e tom de voz da campanha
 - @hormozi-ads — direção de criativo dos anúncios
 - @dev — decidir e ajustar o rótulo "SKU" no dashboard-karzen-ads.html: manter "Item ID (Mercado Livre)" só renomeando o rótulo, extrair também o código de modelo do fabricante (ex: EMG70-220V) de dentro do título de cada produto e mostrar os dois, ou outra abordagem — Felipe ainda não escolheu entre as 3 opções apresentadas (sessão 06/07/2026)
-- @analyst — fechar com Felipe o conteúdo do relatório/PDF pra pessoa que cuida do Ads da Karzen no Mercado Livre: falta responder se o relatório é pra ela decidir onde investir ads ou é só inventário informativo, se há dado de margem de lucro por produto disponível, e se "o patrão" do Felipe é essa mesma pessoa ou alguém acima dela (sessão 06/07/2026, detalhada em 10/07/2026)
-- @analyst — cruzar a coluna "Stock" da planilha `ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx` com o relatório `Relatorio_desempenho_publicacoes_2026_06_10-2026_07_10.xlsx` (por ID do anúncio), e Felipe precisa exportar os relatórios equivalentes de 15 e 7 dias — necessário pra calcular velocidade de venda e estoque restante dos 696 produtos (sessão 10/07/2026)
-- @analyst — Felipe precisa decidir qual caminho de classificação Curva A/B/C adotar pros 696 produtos: Pareto por receita, Giro (vendas ÷ estoque), Score composto, ou Híbrido — opções levantadas na elicitação avançada de 10/07/2026, nenhuma escolhida ainda
+- ~~@analyst — fechar com Felipe o conteúdo do relatório/PDF~~ — RESOLVIDO na sessão 12/07/2026: relatório é decisório, sem dado de margem de lucro por enquanto, destinatário é o patrão de Felipe amanhã (que depois repassa pra Evelyn)
+- ~~@analyst — cruzar a coluna "Stock"~~ — SUPERADO na sessão 12/07/2026: @dev adicionou colunas "Estoque 1"/"Estoque 2" com dado atualizado direto do ML, mais recente que os relatórios de 15/7 dias que nunca chegaram a ser exportados
+- ~~@analyst — Felipe precisa decidir qual caminho de classificação Curva A/B/C adotar pros 696 produtos~~ — RESOLVIDO na sessão 11/07/2026: decisão não é mais única pra todos os produtos, virou 3 trilhas por bucket de Status (ver sessão 11/07/2026)
+- ~~@dev — mapear os ~600 e poucos IDs restantes~~ — CONCLUÍDO na sessão 12/07/2026: 696 IDs processados, 372 SKUs únicos identificados, `Pasta pro Dev.xlsx` completa com Status + Estoque 1/2
+- @analyst/Felipe — investigar os 90 IDs que não retornaram resultado na busca do Mercado Livre durante o mapeamento (lista completa registrada na conversa da sessão 12/07/2026) — anúncio pode ter sido removido/renomeado
+- Felipe — decidir, produto a produto, qual dos valores "Estoque 1"/"Estoque 2" (quando diferentes) é do CD próprio da Karzen e qual é do Full do Mercado Livre — só Felipe tem essa informação
+- Felipe — resolver os 9 casos especiais registrados em `C:\Downloads\Casos Especiais - SKUs.txt` (falsificação, duplicidade, produto fora do catálogo) — inclui um caso grave: 939 unidades de estoque presas em 2 anúncios finalizados pelo ML por suspeita de falsificação e falta de NF-e
+- @dev — corrigir a duplicidade de SKU na fonte (`Pasta pro Dev.xlsx` tem o mesmo SKU em mais de uma linha, ex: BB-PLUS, CX450-TROLLEY, HC112) — hoje só foi corrigida na consolidação do PDF final, a planilha original continua com as linhas duplicadas
+- Felipe — decidir se vale aplicar a classificação real de Situação de Preço (1/2/3) produto a produto nos 150 SKUs "Ativo com estoque" — hoje o PDF só tem o guia de método, não uma classificação aplicada (exige checar catálogo/Buy Box manualmente, um por um, no Mercado Livre)
 
 🔵 Pode deixar pra depois:
 - (a preencher conforme o projeto avançar)
@@ -33,43 +39,6 @@
 ## ÚLTIMAS 3 SESSÕES
 
 > Sessões mais antigas em `HISTORICO-SESSOES.md`.
-
-### SESSÃO — 03/07/2026
-
-**O QUE FOI FEITO:**
-- @dev adicionou os SKUs (Item ID do Mercado Livre) de 28 produtos ao dashboard-karzen-ads.html (Downloads), cruzando com a planilha Excel "ANÚNCIOS EM POTENCIAL - KARZEN ELETRO" aberta no PC — dashboard passa a permitir localizar cada produto direto no Mercado Livre
-- Tentativa de criar um dashboard v2 inspirado num post da "Comunidade Sobral" (Facebook) barrada por bloqueio de segurança do Edge/Chromium — a porta de depuração remota (CDP) não abre no perfil padrão do navegador em versões recentes
-- Identificada solução: criar um perfil separado do Edge (fora do perfil real do Felipe) para persistir o login da comunidade sem tocar no perfil principal — explicada a segurança da abordagem, ainda aguardando decisão do Felipe para executar
-- Auditoria profunda de fim de sessão (leitura linha a linha do JSONL, cruzamento com git, verificação de arquivos em disco) — confirmado que nada se perdeu; único ponto de atenção: dashboard-karzen-ads.html fica em Downloads, fora do repositório git, sem backup
-
-**O QUE O FELIPE PEDIU:**
-- Adicionar os SKUs dos produtos do dashboard, puxando da planilha Excel aberta
-- Criar um dashboard v2 inspirado visualmente num post de exemplo da Comunidade Sobral, navegando os comentários do post pra descobrir e pesquisar a plataforma usada por quem fez aquele dashboard
-- Auditoria profunda de fim de sessão antes de fechar o terminal e desligar o PC
-
-**PAROU EM:** Aguardando decisão do Felipe sobre criar o perfil separado do Edge para logar na Comunidade Sobral e retomar a construção do dashboard v2 | Agente ativo: aiox-master
-
----
-
-### SESSÃO — 06/07/2026
-
-**O QUE FOI FEITO:**
-- @dev investigou a origem dos 28 SKUs no dashboard-karzen-ads.html — inicialmente a planilha "ANÚNCIOS EM POTENCIAL - KARZEN ELETRO" não foi encontrada nas pastas padrão do PC (Downloads, Desktop, Documents, OneDrive), o que levantou suspeita de dado inventado — pendência registrada para o @aiox-master investigar/reforçar regra anti-invenção
-- Felipe indicou o caminho real da planilha (`C:\Downloads\ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx`, aba "SEM CAMPANHA", 736 linhas) — @dev cruzou os 28 SKUs um a um contra a coluna "Item ID": bateram 100% — suspeita de invenção descartada, dado confirmado correto
-- Esclarecida a confusão de terminologia: "SKU" pro Felipe = código do fabricante (ex: EMG70-220V), embutido só no texto livre da coluna "Título item", sem coluna própria na planilha; o dashboard usa "Item ID" (identificador do Mercado Livre), que é o dado certo pro objetivo de achar o produto direto no ML — mas o rótulo "SKU" no dashboard pode confundir por não ser o que Felipe entende por SKU
-- @analyst (Atlas) elicitou o conteúdo do relatório/PDF que Felipe quer montar pra pessoa que cuida do Ads da Karzen no Mercado Livre — além de estoque e preço normal/promocional (Rebate) que Felipe já tinha, sugeriu: Item ID/link do anúncio, receita orgânica total, status de integração SAds, grupo de prioridade (A/B/C), histórico de investimento ruim, prazo de validade do Rebate, e margem de lucro no preço promocional
-- @dev esclareceu divergência aparente de receita "máquina de gelo R$80.900 x R$163 mil" — são 2 produtos diferentes (Item ID 6716539200 "Eos 70kg" = R$80.900; Item ID 6894630390 "HQ 45kg Profissional" = R$162.300), ambos batendo com a planilha real — não houve erro, só confusão de qual máquina é qual
-
-**O QUE O FELIPE PEDIU:**
-- Verificar se o @dev colocou os SKUs certos no dashboard e de onde tirou essa informação, já que não achava "SKU" explícito na planilha
-- Registrar pendência para o @aiox-master investigar regra anti-invenção de dados, a ser acionada quando Felipe disser "chame o Orion" (ainda não acionado nesta sessão)
-- Esclarecer que "SKU" pra ele é a sequência tipo "EMG70-220V", não o Item ID do Mercado Livre
-- Elicitar com o @analyst o que deveria entrar num relatório pra pessoa de Ads da Karzen no Mercado Livre
-- Chamar o @dev de novo para explicar a divergência de receita entre duas "máquinas de gelo" no dashboard
-
-**PAROU EM:** Duas decisões em aberto: (1) qual rótulo usar no dashboard pro "SKU"/Item ID, e (2) fechar com o @analyst o escopo exato do relatório de Ads (decisório x informativo, e se há dado de margem de lucro) | Agente ativo: aiox-master
-
----
 
 ### SESSÃO — 10/07/2026
 
@@ -89,6 +58,60 @@
 - Elicitação avançada completa (9 métodos) sobre como montar de forma eficiente a planilha de classificação Curva A/B/C dos 696 produtos
 
 **PAROU EM:** Sessão de elicitação avançada concluída (9 métodos aplicados sobre a metodologia de Curva A/B/C); Felipe ainda não escolheu qual caminho de classificação adotar (Pareto, Giro, Score composto ou Híbrido), e ainda faltam 2 exportações (relatórios de 15 e 7 dias) e o cruzamento Stock x relatório novo antes de fechar a planilha final dos 696 produtos | Agente ativo: analyst
+
+---
+
+### SESSÃO — 11/07/2026
+
+**O QUE FOI FEITO:**
+- @analyst elicitou a fundo o pedido original do Felipe (planilha pro patrão + plano de ação pra anúncios que não vendem bem) — desmontou a tese "só preço importa" em 4 Situações de Preço (vence no preço / diferença pequena e negociável / ML-1P ou concorrente queimando estoque, sem como vencer agora / problema de negociação com fornecedor), cada uma com uma ação diferente, em vez de um "sim/não vende" binário
+- @analyst corrigiu terminologia de ML com o Felipe: 1P (First Party, não "P1") é o modelo onde o próprio ML compra e revende sem taxa; "família" de anúncio (clássico/premium/variação) é agrupamento interno do próprio Felipe, não tem relação com o catálogo (catalog_product_id, que é quem disputa Buy Box entre sellers diferentes) — são dois conceitos separados
+- @analyst tentou usar a coluna "SKU real" do relatório `Relatorio_desempenho_publicacoes` como atalho de deduplicação automática — descartado: esse relatório não serve pra nada (Felipe já tem a mesma info direto no painel do ML) e o "SKU real" só existe hoje na planilha `Produtos para o Ads.xlsx`, preenchida manualmente pelo Felipe ID por ID, só até a cor "amarelo escuro" da planilha da Evelyn (>R$1.000 em vendas) — não cobre os ~600 e poucos restantes
+- @analyst propôs Fase 1 (triagem em massa por Pareto/"Ingresos totales", sem abrir anúncio) + Fase 2 (investigação manual só do que passa no corte) — Felipe apontou uma falha real: um produto com pouca receita mas estoque alto parado (ex: 969 unidades) ficaria fora da Fase 2 e continuaria parado — Pareto puro por receita não pega risco de estoque encalhado
+- @analyst e Felipe fecharam uma solução melhor: @dev vai mapear TODOS os ~600 e poucos IDs restantes por SKU (dedup via conta Karzen no ML aberta no Chrome, cruzando com a planilha da Evelyn) e classificar cada SKU numa coluna única "Status" (Ativo com estoque / Pausado com estoque / Sem estoque) na planilha `Pasta pro Dev.xlsx` — decisão final trocou as 3 colunas SIM/NÃO/"-" que o Felipe tinha desenhado (tinha um buraco: "pausado sem estoque" não caía em nenhuma coluna) por 1 coluna categórica, mais simples e sem o buraco
+- Fechado o desenho de 3 trilhas de ação por bucket: Pausado com estoque → reativar (serviço do Felipe) → Fase 2; Sem estoque → decidir reposição → Fase 2; Ativo com estoque → aplica Pareto por "Ingresos totales" pra decidir quem entra em Ads (não é mais triagem de risco, vira triagem de oportunidade)
+- @analyst respondeu dúvida do Felipe sobre consumo de token/compactação no Plano Claude Pro dele (7% usado no dia) — sem inventar número exato; explicou que a compactação não apaga arquivo já salvo em disco, só resume a conversa, e que a própria ideia do Felipe de colorir IDs já processados na planilha da Evelyn é a defesa certa contra perda de progresso entre sessões/compactações
+
+**O QUE O FELIPE PEDIU:**
+- Elicitação avançada sobre a planilha que ele monta pro patrão (colunas SKU/Conversão/Faturamento 30d/Vendeu por dia/"vende? sim ou não") e sobre qual Plano de Ação apresentar pra anúncios que não vendem bem, dado que ele acredita que só preço decide quem vende no Mercado Livre
+- Corrigir dois conceitos que o @analyst errou: 1P (não P1) e o que é "família" de anúncio (agrupamento interno, não catálogo entre concorrentes)
+- Avaliar se a coluna "SKU real" de algum relatório existente resolveria a deduplicação dos ~600 e poucos IDs sem trabalho manual — resposta: não resolve, não existe atalho automático
+- Ajuda pra organizar a lógica SIM/NÃO/"-" das colunas da planilha `Pasta pro Dev.xlsx` que ele mesmo desenhou pro @dev, porque ficou em dúvida — resolvido com a troca pra 1 coluna categórica "Status"
+- Explicação sobre consumo de token do Plano Claude Pro e se a compactação de sessão atrapalha o trabalho do @dev
+- Confirmação de que atualizar o caderno (`PROJETO-STATUS.md`) é trabalho do próprio @analyst antes de autorizar a gravação — @analyst confirmou que sim, com base no BLOCO 2-B do CLAUDE.md ("o agente ativo no momento é responsável pelo registro")
+
+**PAROU EM:** Metodologia da Fase 1 (dedup + Status por bucket) fechada e aprovada por Felipe. Falta: Felipe quer conversar direto com o @dev sobre um caso específico de anúncio (aberto agora numa aba do Chrome) ANTES do dev receber a instrução completa do mapeamento dos ~600 e poucos IDs restantes | Agente ativo: analyst
+
+---
+
+### SESSÃO — 12/07/2026
+
+**O QUE FOI FEITO:**
+- @dev conversou com Felipe sobre o caso BG-03 (só leitura, sem tocar na conta real) — achou 9 situações diferentes de status num único SKU (incluindo "Finalizado pelo ML por possível falsificação" e "não enviou NF-e", com 939 unidades presas) — Felipe decidiu que casos assim vão pra um Bloco de Notas separado (`C:\Downloads\Casos Especiais - SKUs.txt`), fora da Pasta pro Dev.xlsx
+- @dev resolveu bloqueio técnico do Chrome (a porta de depuração não abre no perfil padrão por segurança do navegador) — criou perfil isolado `ChromeDebugKarzen`, Felipe logou manualmente uma vez nesse perfil, login ficou salvo pra sempre
+- @dev processou os 696 IDs da planilha da Evelyn (todos, inclusive os 137 já "analisados" à mão antes, porque o formato novo exige dado que a análise antiga não tinha): identificou 372 SKUs únicos, com pares de IDs sincronizados e coluna "Status" (Ativo com estoque / Pausado com estoque / Sem estoque) preenchida — 90 IDs não retornaram resultado na busca do ML, registrados à parte
+- Felipe pegou o @dev fazendo o trabalho "de qualquer jeito" numa etapa (analisando sem cruzar com a planilha da Evelyn primeiro) — corrigido, e Felipe reforçou a regra de só agir com permissão explícita
+- @dev achou e corrigiu um bug real de truncamento de dado no Excel: 9 células com ID cortado pra 1-3 dígitos (não era só exibição, era o valor gravado errado) — recuperou os valores originais via log de processamento, corrigiu com verificação de leitura de volta, e reforçou o script pra não repetir
+- Felipe pediu uma nova coluna de estoque real (percebeu que o Status salvo não batia mais com o estoque atual) — @dev adicionou colunas "Estoque 1"/"Estoque 2" (pra quando o mesmo SKU tem partes no CD próprio e partes no Full do ML, que só Felipe sabe distinguir) e reprocessou os 372 SKUs com dado atualizado — 369 de 372 preenchidos, 3 sem retorno na busca
+- @analyst e Felipe fecharam as 3 perguntas em aberto desde 06/07 sobre o relatório: é decisório, sem dado de margem de lucro por enquanto, destinatário amanhã é o patrão de Felipe (que depois repassa pra Evelyn, responsável pelo Ads da conta)
+- @analyst e Felipe desenharam e fecharam a estrutura final do "Plano de Ação" em PDF: Cobertura+Premissa, Situações de Preço (1/2/3, cortada a 4ª que é sobre negociação com fornecedor — já tem outra frente cuidando disso) como guia de método (não uma classificação aplicada), e Lista de produtos ativos organizada por "Receita Total" (renomeado de "receita de 30 dias" porque o período exato da coluna "Ingresos totales" da Evelyn nunca foi confirmado)
+- @analyst cometeu um erro de processo (perguntou "combinado?" e já chamou o @dev no mesmo movimento, sem esperar resposta) — Felipe corrigiu na hora, a chamada foi interrompida antes de qualquer execução real, sem dano
+- @dev calculou a Receita Total por SKU (cruzando `Pasta pro Dev.xlsx` com a coluna "Ingresos totales" da planilha da Evelyn) e gerou o PDF `C:\Downloads\Plano de Ação - Karzen.pdf` — achou e corrigiu duplicidade de SKU na tabela final (179 linhas viraram 150 SKUs únicos consolidados) — PDF verificado visualmente, pronto
+
+**O QUE O FELIPE PEDIU:**
+- Analisar o caso BG-03 no Chrome (só leitura) antes do @dev seguir a instrução completa
+- Abrir o Chrome com porta de depuração pra o @dev conseguir acessar
+- Corrigir o processo do @dev que estava analisando sem cruzar com a planilha da Evelyn primeiro
+- Explicação sobre o padrão de SIM/NÃO/traço nas colunas que ele mesmo tinha desenhado — resolvido trocando por 1 coluna categórica "Status"
+- Onde está o arquivo do Bloco de Notas
+- Adicionar coluna de estoque real por produto na Pasta pro Dev.xlsx, separando por CD próprio vs Full quando os valores forem diferentes
+- Recapitular o que ficou decidido sobre o plano de ação pro patrão
+- Corrigir a premissa da Seção 1 pra cruzar Ativo/Pausado com receita, e ajustar a Seção 4 pra não presumir "queima de estoque" (nem Felipe sabe identificar isso)
+- Cortar do PDF: seção de correções internas, casos de risco/compliance, e qualquer "pedido de decisão" explícito pro patrão
+- Gerar o PDF de verdade, hoje, cruzando a Pasta pro Dev.xlsx com a "Ingresos totales" da planilha da Evelyn
+- Corrigir a duplicidade de SKU encontrada na tabela final antes de ir dormir
+
+**PAROU EM:** PDF final entregue e corrigido (`C:\Downloads\Plano de Ação - Karzen.pdf`, 150 SKUs únicos na tabela). Felipe encerrou a sessão pra dormir (acorda 5h30). Nenhuma tarefa em andamento | Agente ativo: aiox-master
 
 ---
 
