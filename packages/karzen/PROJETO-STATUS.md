@@ -30,6 +30,7 @@
 - Felipe — resolver os 9 casos especiais registrados em `C:\Downloads\Casos Especiais - SKUs.txt` (falsificação, duplicidade, produto fora do catálogo) — inclui um caso grave: 939 unidades de estoque presas em 2 anúncios finalizados pelo ML por suspeita de falsificação e falta de NF-e
 - @dev — corrigir a duplicidade de SKU na fonte (`Pasta pro Dev.xlsx` tem o mesmo SKU em mais de uma linha, ex: BB-PLUS, CX450-TROLLEY, HC112) — hoje só foi corrigida na consolidação do PDF final, a planilha original continua com as linhas duplicadas
 - Felipe — decidir se vale aplicar a classificação real de Situação de Preço (1/2/3) produto a produto nos 150 SKUs "Ativo com estoque" — hoje o PDF só tem o guia de método, não uma classificação aplicada (exige checar catálogo/Buy Box manualmente, um por um, no Mercado Livre)
+- Felipe — vai passar a cuidar também do Ads da Karzen na Shopee (hoje é feito por um bot da própria Shopee), em colaboração com o representante da conta na Shopee (também chamado Gabriel) — pedido feito por Gabriel (irmão do Carlos, segundo cabeça da empresa) em 29/07/2026; reunião de alinhamento ainda sem data marcada; Felipe precisa começar a estudar Ads da Shopee, e isso vai se somar à carga de trabalho e à rotina dele (que já cobre ML) — ver `ROTINA-FELIPE.md`
 
 🔵 Pode deixar pra depois:
 - (a preencher conforme o projeto avançar)
@@ -39,27 +40,6 @@
 ## ÚLTIMAS 3 SESSÕES
 
 > Sessões mais antigas em `HISTORICO-SESSOES.md`.
-
-### SESSÃO — 10/07/2026
-
-**O QUE FOI FEITO:**
-- @aiox-master verificou o escopo do @dev (dev.md) antes de delegar, e delegou com o template completo de 5 campos (TAREFA/ENTREGÁVEL/PROIBIDO/DEFINIÇÃO DE CONCLUÍDO/PRODUÇÃO) a tarefa de acessar a planilha aberta e contar produtos
-- @dev contou os produtos em `ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx` (aba "SEM CAMPANHA"): 736 total, 40 marcados em azul (RGB 66,133,244, cor aplicada por Felipe depois de salvar a planilha) → resultado final de **696 produtos** — leitura feita direto na instância aberta do Excel via COM/PowerShell (sem Python, a pedido do Felipe)
-- @analyst (Atlas) abriu o relatório `Relatorio_desempenho_publicacoes_2026_06_10-2026_07_10.xlsx` (981 anúncios) e identificou que ele traz Visitas/Vendas/Conversão/SKU real por anúncio, mas não tem estoque nem quebra por 15/7 dias — é só um agregado do período de 30 dias selecionado na exportação
-- @analyst explicou a Felipe a lógica de velocidade de vendas e censura de demanda por estoque (por que "vendeu 400 em 30 dias" não prova que o produto venderia as mesmas 400 unidades em 10 dias)
-- @analyst rodou uma sessão de elicitação avançada completa (9 métodos) sobre como classificar os 696 produtos em Curva A/B/C de forma rápida, já que a integradora não fornece "Dias no CD" nem "Vendas por dia" limpos — chegou a uma proposta concreta: planilha de 5 colunas (SKU + Unidades vendidas 30d + Vendas brutas 30d + Estoque atual + Conversão), classificação por Pareto de receita ou por Giro (vendas ÷ estoque), e proxies pra substituir os dados que a integradora não dá
-
-**O QUE O FELIPE PEDIU:**
-- Confirmar se o @dev consegue acessar uma planilha aberta no PC e modificar/analisar coisas nela
-- Contar quantos produtos tem na planilha "ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx", excluindo os marcados em azul
-- Parar de usar Python na análise da planilha
-- Entender como medir com precisão se um produto vende X unidades em Y dias (velocidade de venda / curva de demanda)
-- Analisar o relatório de desempenho de publicações baixado da integradora, verificando se dá pra cruzar estoque + vendas de 30/15/7 dias
-- Elicitação avançada completa (9 métodos) sobre como montar de forma eficiente a planilha de classificação Curva A/B/C dos 696 produtos
-
-**PAROU EM:** Sessão de elicitação avançada concluída (9 métodos aplicados sobre a metodologia de Curva A/B/C); Felipe ainda não escolheu qual caminho de classificação adotar (Pareto, Giro, Score composto ou Híbrido), e ainda faltam 2 exportações (relatórios de 15 e 7 dias) e o cruzamento Stock x relatório novo antes de fechar a planilha final dos 696 produtos | Agente ativo: analyst
-
----
 
 ### SESSÃO — 11/07/2026
 
@@ -112,6 +92,27 @@
 - Corrigir a duplicidade de SKU encontrada na tabela final antes de ir dormir
 
 **PAROU EM:** PDF final entregue e corrigido (`C:\Downloads\Plano de Ação - Karzen.pdf`, 150 SKUs únicos na tabela). Felipe encerrou a sessão pra dormir (acorda 5h30). Nenhuma tarefa em andamento | Agente ativo: aiox-master
+
+---
+
+### SESSÃO — 29/07/2026
+
+**O QUE FOI FEITO:**
+- @analyst desenhou uma rotina semanal completa pra evitar burnout (Segunda-Quinta, Plano de Contingência pra saída tardia, Sexta, Sábado, Domingo), com 3 achados críticos: meta de sono não fecha (6h55 real vs 8h desejado), o bloco de almoço tem dois propósitos conflitantes (descanso vs estudo de AIOX), e a saída tardia é frequente — não exceção
+- @analyst publicou um artifact visual (página HTML) com a rotina organizada por categorias (trabalho / rotina pessoal / saúde / sono / relacionamento / fé)
+- Fechado o framework "Fixo x Maleável": fronteiras pessoais (entrada, saída-alvo, almoço real, exercício, sono) são fixas; conteúdo de trabalho (incluindo Ads e estudo de AIOX) é maleável e pode ser deslocado por demanda urgente sem culpa — conteúdo completo salvo em `ROTINA-FELIPE.md`
+- Aplicado o framework a um caso real (quinta-feira 30/07): promoção de agosto no ML com a Julya absorvida pelo bloco maleável sem problema; fisioterapia nova (13:20-14:30, terça/quinta, ~2,5 semanas restantes) virou compromisso fixo, colidindo com a sugestão anterior de estudar AIOX nesses mesmos dias — sugerido mover pra segunda/quarta enquanto durar a fisio
+- Registrada pendência nova: Felipe vai passar a cuidar também do Ads da Karzen na Shopee (pedido de Gabriel, irmão do Carlos), reunião ainda sem data — ver PENDÊNCIAS ATUAIS
+
+**O QUE O FELIPE PEDIU:**
+- Ajuda pra organizar a rotina diária/semanal dado o volume de horas extras na Karzen, a falta de exercício, sono insuficiente (6h55, dormindo depois de 23h30 e acordando 5h25) e o risco de burnout
+- Uma versão organizada em página (artifact) da rotina, e depois uma versão em tabela no terminal
+- Confirmou que bater o ponto deixando 30min do intervalo de almoço "faltando" vira hora extra de verdade
+- Aplicar o framework a um dia real (quinta-feira 30/07): promoção de agosto no ML pela manhã, fisioterapia nova às terças/quintas, saída até 19h10, igreja às 19h30
+- Avisou sobre uma pendência de trabalho nova: vai passar a cuidar do Ads da Shopee também, a pedido do Gabriel (irmão do Carlos) — reunião ainda sem data
+- Autorizou registrar a pendência do Ads da Shopee no caderno e criar um arquivo separado (`ROTINA-FELIPE.md`) pra não perder as decisões da rotina pessoal
+
+**PAROU EM:** Rotina desenhada e decisões parcialmente tomadas; ainda faltam 3 decisões pessoais em aberto (sono 7h vs 8h; dias de exercício; dias de estudo AIOX/Shopee Ads agora que terça/quinta têm fisio) — ver `ROTINA-FELIPE.md` | Agente ativo: analyst
 
 ---
 

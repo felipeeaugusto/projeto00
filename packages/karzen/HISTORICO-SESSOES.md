@@ -76,3 +76,24 @@
 **PAROU EM:** Duas decisões em aberto: (1) qual rótulo usar no dashboard pro "SKU"/Item ID, e (2) fechar com o @analyst o escopo exato do relatório de Ads (decisório x informativo, e se há dado de margem de lucro) | Agente ativo: aiox-master
 
 ---
+
+### SESSÃO — 10/07/2026
+
+**O QUE FOI FEITO:**
+- @aiox-master verificou o escopo do @dev (dev.md) antes de delegar, e delegou com o template completo de 5 campos (TAREFA/ENTREGÁVEL/PROIBIDO/DEFINIÇÃO DE CONCLUÍDO/PRODUÇÃO) a tarefa de acessar a planilha aberta e contar produtos
+- @dev contou os produtos em `ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx` (aba "SEM CAMPANHA"): 736 total, 40 marcados em azul (RGB 66,133,244, cor aplicada por Felipe depois de salvar a planilha) → resultado final de **696 produtos** — leitura feita direto na instância aberta do Excel via COM/PowerShell (sem Python, a pedido do Felipe)
+- @analyst (Atlas) abriu o relatório `Relatorio_desempenho_publicacoes_2026_06_10-2026_07_10.xlsx` (981 anúncios) e identificou que ele traz Visitas/Vendas/Conversão/SKU real por anúncio, mas não tem estoque nem quebra por 15/7 dias — é só um agregado do período de 30 dias selecionado na exportação
+- @analyst explicou a Felipe a lógica de velocidade de vendas e censura de demanda por estoque (por que "vendeu 400 em 30 dias" não prova que o produto venderia as mesmas 400 unidades em 10 dias)
+- @analyst rodou uma sessão de elicitação avançada completa (9 métodos) sobre como classificar os 696 produtos em Curva A/B/C de forma rápida, já que a integradora não fornece "Dias no CD" nem "Vendas por dia" limpos — chegou a uma proposta concreta: planilha de 5 colunas (SKU + Unidades vendidas 30d + Vendas brutas 30d + Estoque atual + Conversão), classificação por Pareto de receita ou por Giro (vendas ÷ estoque), e proxies pra substituir os dados que a integradora não dá
+
+**O QUE O FELIPE PEDIU:**
+- Confirmar se o @dev consegue acessar uma planilha aberta no PC e modificar/analisar coisas nela
+- Contar quantos produtos tem na planilha "ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx", excluindo os marcados em azul
+- Parar de usar Python na análise da planilha
+- Entender como medir com precisão se um produto vende X unidades em Y dias (velocidade de venda / curva de demanda)
+- Analisar o relatório de desempenho de publicações baixado da integradora, verificando se dá pra cruzar estoque + vendas de 30/15/7 dias
+- Elicitação avançada completa (9 métodos) sobre como montar de forma eficiente a planilha de classificação Curva A/B/C dos 696 produtos
+
+**PAROU EM:** Sessão de elicitação avançada concluída (9 métodos aplicados sobre a metodologia de Curva A/B/C); Felipe ainda não escolheu qual caminho de classificação adotar (Pareto, Giro, Score composto ou Híbrido), e ainda faltam 2 exportações (relatórios de 15 e 7 dias) e o cruzamento Stock x relatório novo antes de fechar a planilha final dos 696 produtos | Agente ativo: analyst
+
+---
