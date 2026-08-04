@@ -1278,4 +1278,42 @@ TABELA DE PROJETOS REGISTRADOS:
 
 ---
 
-*Última atualização: 2026-07-01 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 42 — BLOCO 0-X — "MODO NAVEGADOR" (gatilho universal de acesso a browser via Playwright)
+
+**Data de aprovação:** 2026-08-04
+**Problema resolvido:** O procedimento de acesso ao Chrome via CDP (BLOCO 0-V, pensado pro Edge) precisou ser reconstruído "de memória" numa sessão do Karzen, porque o Felipe só usa Chrome nesse projeto, não Edge. A reconstrução saiu incompleta — faltou a flag `--no-first-run` — e o Chrome travou repetidamente com "Falha ao criar o diretório de dados", gerando horas de investigação até a causa ser encontrada no histórico de uma sessão salva anterior (12/07/2026), onde o comando exato e validado já existia. Também não havia gatilho curto — o Felipe tinha que digitar uma frase inteira toda vez que precisava desse acesso, com qualquer agente.
+**O que faz:** Cria o gatilho "Modo Navegador", reconhecido por qualquer agente/squad — atual ou futuro — em qualquer momento da conversa (não só na ativação), inclusive entre agentes diferentes numa mesma cadeia de delegação. O gatilho aponta para uma task compartilhada (`.aiox-core/development/tasks/modo-navegador-browser-access.md`), fonte única da verdade do procedimento, nunca reescrita ou parafraseada dentro da definição de um agente individual. A task documenta: comando literal validado (as 4 flags obrigatórias, incluindo `--no-first-run`), verificação de pré-requisito (chrome.exe existe), checagem de processo duplicado (evita conflito entre agentes simultâneos), timeout de 15s, verificação da porta 9222 antes de conectar via Playwright, protocolo de falha obrigatório (5 checks de diagnóstico somente-leitura, na ordem processo → porta → pasta → permissão → versão — nunca inventar solução alternativa sem autorização), e riscos conhecidos documentados (Chrome se autoatualiza e pode quebrar de novo; login pode expirar por inatividade; janela minimizada pode reaparecer). Passou por sessão formal de elicitação com @analyst (9 métodos: Critique and Refine, Identify Potential Risks, Assess Alignment with Goals, Expand/Contract for Audience, Stakeholder Roundtable, Hindsight Reflection, Tree of Thoughts, Red Team vs Blue Team, Escape Room Challenge) antes de ser formalizado.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-X (inserido após BLOCO 0-W, antes do BLOCO 1) + `.aiox-core/development/tasks/modo-navegador-browser-access.md` (task nova, procedimento completo)
+**Regra:**
+```
+GATILHO: "Modo Navegador" — em qualquer mensagem, pra qualquer agente, a qualquer momento.
+
+AO RECEBER:
+PASSO 1: Ler .aiox-core/development/tasks/modo-navegador-browser-access.md
+PASSO 2: Confirmar pré-requisito (chrome.exe existe no caminho esperado)
+PASSO 3: Confirmar que não há outro processo já usando a mesma pasta de perfil
+PASSO 4: Executar o comando validado literal (4 flags obrigatórias:
+         --user-data-dir, --remote-debugging-port=9222,
+         --no-restore-last-session, --no-first-run)
+PASSO 5: Minimizar automaticamente via Win32 API — nunca deixar em primeiro
+         plano além do momento inicial
+PASSO 6: Verificar a porta 9222 antes de conectar via Playwright
+PASSO 7: SE qualquer etapa falhar → Protocolo de Falha (5 checks de
+         diagnóstico só-leitura, reportar ao Felipe, PARAR — nunca
+         inventar alternativa sem autorização explícita)
+
+PROIBIDO: reescrever/parafrasear o comando em vez de referenciar a task,
+          pular verificação de porta, tentar caminho alternativo sem
+          autorização, deixar janela visível além do momento inicial.
+
+Pendências relacionadas (registradas em packages/karzen/PROJETO-STATUS.md,
+não fazem parte deste procedimento): avaliar alternativas técnicas (@dev,
+sem pressa), converter em script .ps1 (@devops), backup da pasta
+ChromeDebugKarzen (Felipe confirmou que quer, execução em aberto).
+
+Aplica-se a TODOS os agentes atuais e futuros, de todos os squads — sem exceção.
+```
+
+---
+
+*Última atualização: 2026-08-04 — Orion (@aiox-master)*
