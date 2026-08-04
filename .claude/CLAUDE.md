@@ -1209,6 +1209,45 @@ CORRETO: "Isso é trabalho do @devops. Quer que eu chame?"
 
 ---
 
+### BLOCO 0-X — "MODO NAVEGADOR" (gatilho universal de acesso a browser via Playwright) (inegociável)
+
+**Gatilho:** Felipe escreve a expressão **"Modo Navegador"** em qualquer mensagem, pra qualquer agente, em qualquer momento da conversa — não só na ativação, e vale entre agentes diferentes (se um agente delega a execução pra outro, o outro reconhece o mesmo gatilho, porque a regra é do framework, não de um agente específico).
+
+**REGRA ABSOLUTA:** "Modo Navegador" significa: usar o procedimento validado e único de acesso a um Chrome real (já logado com a conta do Felipe) via Playwright/CDP, descrito integralmente em `.aiox-core/development/tasks/modo-navegador-browser-access.md`. Esse arquivo é a fonte da verdade técnica — não reescrever nem parafrasear o procedimento em nenhum agente individual.
+
+```
+AO RECEBER "MODO NAVEGADOR":
+
+PASSO 1: Ler .aiox-core/development/tasks/modo-navegador-browser-access.md
+PASSO 2: Confirmar pré-requisito (chrome.exe existe no caminho esperado)
+PASSO 3: Confirmar que não há outro processo já usando a mesma pasta de perfil
+PASSO 4: Executar o comando validado literal (as 4 flags são obrigatórias, nenhuma é opcional)
+PASSO 5: Minimizar automaticamente (Win32 API) — nunca deixar em primeiro plano além do momento inicial
+PASSO 6: Verificar a porta 9222 antes de conectar via Playwright — só prosseguir se responder
+PASSO 7: SE qualquer etapa falhar → seguir o Protocolo de Falha do próprio arquivo da task
+         (rodar só os 5 checks de diagnóstico documentados, reportar ao Felipe, PARAR —
+         nunca inventar solução alternativa sem autorização explícita)
+```
+
+**Escopo:** serve pra qualquer site, não é exclusivo de nenhum projeto — só a URL final de destino muda.
+
+**Riscos conhecidos, documentados (sem solução técnica, só ciência — ver detalhe completo na task):**
+- Chrome se autoatualiza sozinho e pode voltar a quebrar o procedimento no futuro sem aviso — a resposta é sempre o Protocolo de Falha, nunca contornar por conta própria
+- Login pode expirar por inatividade — é manutenção normal, não é bug
+- A janela é real, só minimizada — pode reaparecer em primeiro plano se algo forçar foco nela
+
+**PROIBIDO:**
+- Reescrever ou parafrasear o comando validado em vez de referenciar o arquivo da task
+- Pular a verificação da porta e conectar via Playwright "no escuro"
+- Tentar caminho alternativo (outra pasta, outro perfil, outras flags) quando o procedimento documentado falhar, sem antes parar e perguntar ao Felipe
+- Deixar a janela do Chrome visível além do momento inicial, antes da minimização
+
+**O ERRO QUE GEROU ESTA REGRA (04/08/2026):** o procedimento de acesso ao Chrome via CDP foi reconstruído "de memória" (a partir do padrão geral do BLOCO 0-V, que documenta o Edge) em vez de ir atrás do comando exato já validado em sessão anterior — faltou a flag `--no-first-run`, o que causou falha repetida ("Falha ao criar o diretório de dados") e horas de investigação até a causa ser encontrada no histórico de uma sessão salva. Esta regra existe pra garantir que o comando literal, uma vez validado, nunca mais precise ser reconstruído de memória por nenhum agente.
+
+**Esta regra se aplica a TODOS os agentes atuais e futuros, de todos os squads — sem exceção.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.

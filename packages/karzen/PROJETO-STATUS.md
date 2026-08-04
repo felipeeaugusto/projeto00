@@ -33,7 +33,9 @@
 - Felipe — vai passar a cuidar também do Ads da Karzen na Shopee (hoje é feito por um bot da própria Shopee), em colaboração com o representante da conta na Shopee (também chamado Gabriel) — pedido feito por Gabriel (irmão do Carlos, segundo cabeça da empresa) em 29/07/2026; reunião de alinhamento ainda sem data marcada; Felipe precisa começar a estudar Ads da Shopee, e isso vai se somar à carga de trabalho e à rotina dele (que já cobre ML) — ver `ROTINA-FELIPE.md`
 
 🔵 Pode deixar pra depois:
-- (a preencher conforme o projeto avançar)
+- @dev — avaliar alternativas técnicas ao procedimento "Modo Navegador" (Chrome sempre aberto em background, ou `launchPersistentContext` nativo do Playwright em vez do lançamento manual via `chrome.exe`) — sem pressa, o procedimento atual já funciona; ver `.aiox-core/development/tasks/modo-navegador-browser-access.md`
+- @devops — transformar o comando validado do "Modo Navegador" num script `.ps1` salvo no repositório, em vez de reescrito inline toda vez — reduz risco de esquecer uma flag (quase aconteceu em 04/08/2026 com o `--no-first-run`)
+- @dev ou @devops — Felipe confirmou que quer backup da pasta `C:\Users\Felipe Augusto\ChromeDebugKarzen` (protege o login salvo contra perda por corrupção, exclusão acidental ou troca/formatação de PC) — decisão já fechada, falta decidir COMO/ONDE fazer o backup e QUEM executa
 
 ---
 
