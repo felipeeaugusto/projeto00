@@ -128,6 +128,8 @@ module.exports = { minimizeChrome };
 
 Uso: `require('./minimize-chrome.js').minimizeChrome()` chamado **dentro do mesmo script** que chamou `bringToFront()`, sempre antes de `process.exit()`. Nunca como comando PowerShell separado depois — isso reintroduz a brecha de interrupção.
 
+**Por que minimizar TODAS as janelas, não uma fixa:** o script consulta `Get-Process chrome | Where MainWindowHandle -ne Zero` **a cada chamada**, pegando qualquer janela do Chrome que exista naquele momento — não uma janela específica lembrada de antes. Isso importa porque, se uma segunda janela solta aparecer no meio da sessão (ver "Janela solta" nos Riscos conhecidos abaixo), um script que minimizasse só a janela original conhecida deixaria a nova passar batido. Minimizar "tudo que existir agora" cobre esse caso automaticamente, sem precisar detectar a janela nova primeiro.
+
 ---
 
 ## Protocolo de falha (obrigatório, sem exceção)

@@ -6,6 +6,8 @@ Procedimento validado para identificar produtos com ACOS ≥ X% numa Campanha do
 
 Depende do procedimento de conexão documentado em `modo-navegador-browser-access.md` (gatilho "Modo Navegador"). Validado em 04/08/2026 no projeto Karzen (Curva A, Curva B, AVA PERFORMANCE).
 
+**Regra geral obrigatória: nunca confiar em atalho — sempre confirmar via aba Anúncios/página "Alterar" antes de aceitar qualquer status de catálogo como certo.** Nenhuma fonte isolada (painel de variações da Campanha, badge visto de relance, memória de uma checagem anterior) é suficiente sozinha — o dado só é aceito depois de verificado na aba Anúncios (Passo 3) ou, se escondido lá, na página "Alterar" (Passo 4). Dá mais trabalho, mas é a única forma de não reportar status errado.
+
 ---
 
 ## Passo 1 — Extrair ACOS de todos os produtos da Campanha
@@ -38,6 +40,8 @@ Depende do procedimento de conexão documentado em `modo-navegador-browser-acces
 ## Passo 4 — Quando o catálogo NÃO aparece de forma explícita (regra crítica)
 
 **A lista normal de Anúncios pode esconder o badge de Ganhando/Perdendo quando a Qualidade do anúncio está em certos níveis (observado em 30 e 65).** Isso não significa que o anúncio não está competindo — o dado só não é mostrado nessa tela.
+
+**É normal um produto não ter NENHUMA disputa de catálogo ativa** — nem Clássico nem Premium, ou só uma das duas condições. Depois de checar via "Alterar" (abaixo) e confirmar que não existe seção "Concorrência no Mercado Livre" nenhuma, isso é um resultado válido, não um erro de processo — não insistir tentando achar status onde genuinamente não tem. Excluir esse MLB da planilha (ver Passo 5).
 
 Quando isso acontecer (nenhum MLB do SKU mostra Ganhando/Perdendo/Compartilhando na busca normal, mas o produto tem ACOS relevante o suficiente pra fazer sentido investigar mais fundo):
 
