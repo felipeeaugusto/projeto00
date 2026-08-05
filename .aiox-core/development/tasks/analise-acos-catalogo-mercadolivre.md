@@ -28,6 +28,8 @@ Depende do procedimento de conexão documentado em `modo-navegador-browser-acces
 3. Fechar qualquer drawer/painel que tenha sobrado de uma consulta anterior antes de continuar
 4. Clicar em "N variações", rolar o painel (`mouse.wheel`) até o número de MLBs únicos estabilizar, e **cruzar contra o total declarado** ("N variações (M não se pode/podem mostrar)" → esperado N-M) — se o número não bater, não confiar na lista, investigar antes de prosseguir
 
+**⚠️ Cada `#`/MLB dentro do mesmo painel de "N variações" pode ter um SKU diferente dos outros.** Não presumir que todos os MLBs listados nas variações de um produto resolvem pro mesmo SKU — cada um precisa ser verificado individualmente na aba Anúncios (Passo 3) antes de agrupar.
+
 ## Passo 3 — Determinar SKU e status de catálogo de cada MLB
 
 0. **Bug crítico de seleção de aba (04/08/2026):** ao localizar a aba de Anúncios via `url.includes('mercadolivre.com.br/anuncios')`, isso também bate com a URL da página **"Alterar"** (`mercadolivre.com.br/anuncios/MLBU.../modificar/...`), porque `/modificar/` também está sob o path `/anuncios/`. Sempre exigir o `?` logo depois de `/anuncios` na checagem: `/mercadolivre\.com\.br\/anuncios\?/.test(url)`. Sem essa correção, scripts pegam a aba errada (uma "Alterar" antiga) e falham silenciosamente ou dão timeout — sintoma: "aba de Anúncios sumiu" repetidamente mesmo sem ela ter sido fechada de verdade.
@@ -50,7 +52,9 @@ Quando isso acontecer (nenhum MLB do SKU mostra Ganhando/Perdendo/Compartilhando
 3. Pegar o **link (href)** do "Alterar" e abrir numa **aba nova separada** (nunca deixar o clique navegar a aba de Anúncios atual — perde a busca/listagem que estava aberta)
 4. Na página "Alterar", a seção **"Concorrência no Mercado Livre"** mostra o status real (GANHANDO/PERDENDO) por opção de venda (Clássico/Premium), mesmo quando escondido na lista
 5. Ler, fechar a aba, e voltar pra aba de Anúncios original (confirmar que ela ainda existe antes de seguir pro próximo MLB — abrir de novo se tiver sumido)
-6. Repetir pra cada MLB do produto — cada MLB é uma linha própria na planilha (mesmo que dois MLBs do mesmo SKU estejam ambos "Ganhando", por exemplo — registrar os dois separadamente)
+6. Repetir pra cada MLB do produto — cada MLB é uma linha própria na planilha
+
+**⚠️ Regra crítica — um SKU pode ter MAIS de 1 MLB com status de catálogo na mesma condição, ao mesmo tempo.** Não presumir que existe só 1 anúncio "Ganhando"/"Perdendo" por condição (Clássico ou Premium) por SKU — a checagem via "Alterar" pode revelar 2 (ou mais) MLBs escondidos com status simultâneo. **Caso real (04/08/2026, Campanha AVA PERFORMANCE, SKU `GTW20-127V`):** checando MLB por MLB via "Alterar", apareceram **2 MLBs diferentes, ambos "Clássico = Ganhando"** ao mesmo tempo (`#5715849724` e `#5719134834`), além de um terceiro "Premium = Perdendo" (`#5719186698`) — resultado final: **3 linhas na planilha**, não 1. Cada MLB com status vira sua própria linha, mesmo que o status e a condição se repitam entre eles.
 
 ## Passo 5 — Escrever na planilha
 
