@@ -91,6 +91,45 @@ await page.goto('URL_DESEJADA', { waitUntil: 'domcontentloaded', timeout: 30000 
 
 ---
 
+## Uso de `bringToFront()` — regra obrigatória (crítica, 04/08/2026)
+
+Algumas ações (`page.screenshot()` em aba minimizada, alguns cliques em painéis específicos) só funcionam de forma confiável se a aba estiver em primeiro plano — exigindo `page.bringToFront()`. Isso é aceitável, **mas nunca pode ser uma chamada de ferramenta separada de quem minimiza depois**.
+
+**Motivo:** se `bringToFront()` roda num script/tool call e o minimizar roda em outro script/tool call separado, existe uma janela de tempo entre os dois onde a tela fica visível pro Felipe — e se qualquer coisa (uma pergunta do usuário, uma interrupção) acontecer nesse intervalo, o minimizar nunca chega a rodar e a tela fica presa em primeiro plano indefinidamente.
+
+**Bug adicional descoberto:** mesmo colocando os dois passos dentro do mesmo script Node (`bringToFront()` seguido de um `ShowWindow(SW_MINIMIZE)` único), a janela ainda pode aparecer — porque o `bringToFront()` do Playwright é assíncrono e o Windows pode elevar a janela pro primeiro plano **depois** que o minimize já rodou (race condition). Um único `ShowWindow` não é suficiente.
+
+**Solução validada:** todo script que usa `bringToFront()` DEVE, antes de `process.exit()`, chamar uma rotina que minimiza e **fica reforçando o minimize por ~2 segundos** (loop, não chamada única), pra pegar qualquer elevação tardia da janela. Módulo de referência (`minimize-chrome.js`):
+
+```javascript
+const { execSync } = require('child_process');
+
+function minimizeChrome() {
+  const ps = `
+Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+public class Win32MinPersist {
+    [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+}
+'@
+for ($i = 0; $i -lt 10; $i++) {
+  $procs = Get-Process chrome -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
+  foreach ($p in $procs) { [Win32MinPersist]::ShowWindow($p.MainWindowHandle, 6) | Out-Null }
+  Start-Sleep -Milliseconds 200
+}
+`;
+  execSync(`powershell -NoProfile -Command "${ps.replace(/"/g, '\\"')}"`, { stdio: 'ignore' });
+}
+
+module.exports = { minimizeChrome };
+```
+
+Uso: `require('./minimize-chrome.js').minimizeChrome()` chamado **dentro do mesmo script** que chamou `bringToFront()`, sempre antes de `process.exit()`. Nunca como comando PowerShell separado depois — isso reintroduz a brecha de interrupção.
+
+---
+
 ## Protocolo de falha (obrigatório, sem exceção)
 
 Se qualquer etapa acima falhar, **parar imediatamente** e rodar, nessa ordem, só os checks abaixo (todos somente leitura — nenhum tenta corrigir nada sozinho):

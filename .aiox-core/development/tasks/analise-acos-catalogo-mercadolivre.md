@@ -60,3 +60,5 @@ Ver `feedback_excel_preservar_formatacao.md` (memória) pra regras de formataç�
 ## Cuidado com foco de janela (crítico)
 
 Ao longo dessas verificações (muitos cliques, abas novas), a janela do Chrome pode aparecer em primeiro plano sem querer. **Antes de investigar qual ação específica causou isso, checar se existe uma segunda janela do Chrome solta, sem `--remote-debugging-port` — não conectada à automação — que pode estar se confundindo com a de trabalho.** Ver `modo-navegador-browser-access.md`, seção "Riscos conhecidos", pra detalhes e comando de diagnóstico.
+
+**Qualquer script que use `page.bringToFront()`** (necessário pra screenshot ou alguns cliques em painel) **DEVE minimizar de volta dentro do mesmo script, com a rotina reforçada de `minimize-chrome.js`** — ver `modo-navegador-browser-access.md`, seção "Uso de bringToFront() — regra obrigatória". Nunca minimizar como comando separado depois: cria uma brecha onde a tela fica visível até a próxima chamada de ferramenta.
