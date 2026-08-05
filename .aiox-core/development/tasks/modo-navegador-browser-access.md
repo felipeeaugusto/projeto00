@@ -45,7 +45,7 @@ public class Win32ApiCDP {
 $exe = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
 $dst = 'C:\Users\Felipe Augusto\ChromeDebugKarzen'
 
-$proc = Start-Process -FilePath $exe -ArgumentList "--user-data-dir=`"$dst`" --remote-debugging-port=9222 --no-restore-last-session --no-first-run" -PassThru
+$proc = Start-Process -FilePath $exe -ArgumentList "--user-data-dir=`"$dst`" --profile-directory=`"Profile 3`" --remote-debugging-port=9222 --no-restore-last-session --no-first-run" -PassThru
 
 $deadline = (Get-Date).AddSeconds(15)
 $minimized = $false
@@ -53,19 +53,24 @@ while ((Get-Date) -lt $deadline -and -not $minimized) {
     Start-Sleep -Milliseconds 300
     $p = Get-Process -Id $proc.Id -ErrorAction SilentlyContinue
     if ($p -and $p.MainWindowHandle -ne [IntPtr]::Zero) {
-        [Win32ApiCDP]::ShowWindow($p.MainWindowHandle, 6) | Out-Null
+        [Win32ApiCDP]::ShowWindow($p.MainWindowHandle, 11) | Out-Null  # SW_FORCEMINIMIZE, nao SW_MINIMIZE (6) -- ver secao do vigia abaixo
         $minimized = $true
     }
 }
+
+# Logo em seguida, SEMPRE lancar o vigia de foco (ver secao propria abaixo), passando $proc.Id
 ```
 
-**As 4 flags são obrigatórias, nenhuma é opcional:**
+**As 5 flags são obrigatórias, nenhuma é opcional:**
 - `--user-data-dir="C:\Users\Felipe Augusto\ChromeDebugKarzen"` — perfil isolado, fora da pasta padrão protegida do Chrome
+- `--profile-directory="Profile 3"` — **crítica, adicionada em 05/08/2026**. Essa pasta de perfil tem múltiplos perfis do Chrome dentro dela (Default, Profile 3, Profile 4 — só "Profile 3" é o perfil real do Felipe, "Felipe Simplicio", `felipeaatrabalho@gmail.com`, confirmado via `Local State` → `profile.info_cache`). Sem essa flag, o Chrome pode mostrar a tela de seleção de perfil (visível, exige clique manual do Felipe) em vez de ir direto pro perfil certo — bug real encontrado em 05/08/2026, nunca tinha sido notado antes.
 - `--remote-debugging-port=9222` — abre a ponte CDP
 - `--no-restore-last-session` — evita restaurar abas antigas sem querer
 - `--no-first-run` — **crítica**. Sem ela, o Chrome trava com "Falha ao criar o diretório de dados" antes até de conseguir escrever seu próprio log. Essa flag faltou na primeira tentativa de reproduzir o processo em 04/08/2026 e causou horas de investigação.
 
 **Timeout: 15 segundos.** Se a janela não aparecer (`MainWindowHandle` não populado) dentro desse prazo, considerar travado e ir para o Protocolo de Falha.
+
+**Se a pasta de perfil já tiver múltiplos perfis e não for possível confirmar qual é o certo:** ler `C:\Users\Felipe Augusto\ChromeDebugKarzen\Local State` (JSON), campo `profile.info_cache` — cada chave é o nome da pasta (`Default`, `Profile 3`, etc.), e o valor tem `gaia_name`/`user_name` com a identidade real. O campo `profile.last_used` também indica qual foi usado por último.
 
 ## Verificação da porta (obrigatória antes de conectar via Playwright)
 
@@ -205,6 +210,123 @@ Isso vale em conjunto com a regra de `minimizeChrome()` no `finally` — quando 
 **Como cada um foi provado, não só teorizado:** isolando o `ShowWindow(FORCEMINIMIZE)` puro (fora do `execSync`, comando direto) — funcionou 100% das vezes, confirmado com `IsIconic` antes/depois. Rodando o mesmo script via `execSync` com `-Command` inline — sem erro, mas sem efeito real (`IsIconic` continuava `False` minutos depois). Trocando pra `-File` sem a `ExecutionPolicy` — erro real e explícito. Com `-ExecutionPolicy Bypass -File` — funcionou, confirmado com um monitor externo rodando 100ms antes, durante e depois, mostrando a transição `minimized: False → True` no exato momento da chamada, permanecendo `True` por mais de 5 segundos depois sem regressão.
 
 **Regra de disciplina (a lição maior, apontada pelo Felipe):** não basta verificar o resultado de uma ação só nos pontos "oficiais" de um teste — **qualquer comando que toque a janela do Chrome (inclusive comandos de preparação/diagnóstico, como "restaurar pra estado limpo") precisa ser verificado e corrigido imediatamente depois, não só no final da sequência.** Foi exatamente um comando de preparação (`ShowWindow(hWnd, 9)` = `SW_RESTORE`, que ativa/foca a janela ao restaurar) que roubou o foco do Felipe sem que a investigação notasse — porque a verificação só acontecia nos pontos planejados do teste, não depois de cada ação individual.
+
+---
+
+## Vigia de foco por evento — solução definitiva (crítica, 05/08/2026)
+
+**Por que o `minimizeChrome()` no `finally` de cada script (seção acima) não é suficiente sozinho:** ele depende de checagem repetida (polling a cada ~100-200ms) DEPOIS que a ação já rodou. Isso significa até ~100ms de exposição real, visível ao olho humano, toda vez — e depende de cada script individual lembrar de chamar a rotina. Se um script novo (de qualquer agente, presente ou futuro) esquecer, a proteção não existe.
+
+**A solução estrutural: um processo separado, sempre rodando, que não fica checando de tempos em tempos — o Windows AVISA ele instantaneamente** via `SetWinEventHook` (hook de evento do sistema operacional), no exato momento em que a janela do Chrome sai do estado minimizado, por qualquer motivo (`bringToFront()`, `context.newPage()`, ou qualquer causa futura ainda não descoberta). Esse vigia roda **independente de qualquer script de automação lembrar de fazer algo** — a proteção fica ligada o tempo todo, para qualquer agente, durante toda a vida daquela instância do Chrome.
+
+**Dois eventos precisam ser monitorados juntos, não só um** — bug real encontrado durante a validação: monitorando só `EVENT_SYSTEM_FOREGROUND` (janela virou ativa), o vigia perdeu 2 de 4 casos de teste, porque a janela pode sair do estado minimizado **sem** tecnicamente virar a janela em foreground (fica visível, mas outra janela continua "ativa" segundo o Windows). A correção: monitorar também o intervalo `EVENT_SYSTEM_MINIMIZESTART`..`EVENT_SYSTEM_MINIMIZEEND`, que cobre qualquer transição de sair-de-minimizado, com ou sem foreground.
+
+**Script de referência (`focus-watchdog.ps1`):**
+
+```powershell
+param(
+    [Parameter(Mandatory=$true)][int]$TargetPid,
+    [Parameter(Mandatory=$true)][string]$LogPath  # NUNCA usar default com $PSScriptRoot -- nao resolve
+                                                    # corretamente quando lancado via Start-Process -File
+                                                    # (bug real: tentou escrever em C:\ raiz, "acesso negado")
+)
+
+Add-Type -AssemblyName System.Windows.Forms
+
+Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+
+public class WatchdogWin32 {
+    public delegate void WinEventDelegate(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr SetWinEventHook(uint eventMin, uint eventMax, IntPtr hmodWinEventProc, WinEventDelegate lpfnWinEventProc, uint idProcess, uint idThread, uint dwFlags);
+
+    [DllImport("user32.dll")]
+    public static extern bool UnhookWinEvent(IntPtr hWinEventHook);
+
+    [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    [DllImport("user32.dll")]
+    public static extern bool IsIconic(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+    public const uint EVENT_SYSTEM_FOREGROUND = 0x0003;
+    public const uint EVENT_SYSTEM_MINIMIZESTART = 0x0016;
+    public const uint EVENT_SYSTEM_MINIMIZEEND = 0x0017;
+    public const uint WINEVENT_OUTOFCONTEXT = 0x0000;
+    public const int SW_FORCEMINIMIZE = 11;
+}
+'@
+
+function Log-Event($msg) {
+    $ts = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+    "$ts,$msg" | Out-File -FilePath $LogPath -Append -Encoding utf8
+}
+"epoch_ms,event" | Out-File -FilePath $LogPath -Encoding utf8
+Log-Event "watchdog_start_pid_$TargetPid"
+
+$callback = {
+    param($hWinEventHook, $eventType, $hwnd, $idObject, $idChild, $dwEventThread, $dwmsEventTime)
+    if ($hwnd -eq [IntPtr]::Zero) { return }
+    $ownerPid = 0
+    [WatchdogWin32]::GetWindowThreadProcessId($hwnd, [ref]$ownerPid) | Out-Null
+    if ($ownerPid -eq $TargetPid -and -not [WatchdogWin32]::IsIconic($hwnd)) {
+        [WatchdogWin32]::ShowWindow($hwnd, [WatchdogWin32]::SW_FORCEMINIMIZE) | Out-Null
+        Log-Event "reagiu_evento_$eventType"
+    }
+}
+
+$delegate = [WatchdogWin32+WinEventDelegate]$callback
+$hook1 = [WatchdogWin32]::SetWinEventHook([WatchdogWin32]::EVENT_SYSTEM_FOREGROUND, [WatchdogWin32]::EVENT_SYSTEM_FOREGROUND, [IntPtr]::Zero, $delegate, 0, 0, [WatchdogWin32]::WINEVENT_OUTOFCONTEXT)
+$hook2 = [WatchdogWin32]::SetWinEventHook([WatchdogWin32]::EVENT_SYSTEM_MINIMIZESTART, [WatchdogWin32]::EVENT_SYSTEM_MINIMIZEEND, [IntPtr]::Zero, $delegate, 0, 0, [WatchdogWin32]::WINEVENT_OUTOFCONTEXT)
+Log-Event "hooks_installed"
+
+# Timer verifica a cada 1s se o processo alvo ainda existe -- se nao, o vigia se encerra sozinho
+$timer = New-Object System.Windows.Forms.Timer
+$timer.Interval = 1000
+$timer.Add_Tick({
+    if (-not (Get-Process -Id $TargetPid -ErrorAction SilentlyContinue)) {
+        [WatchdogWin32]::UnhookWinEvent($hook1) | Out-Null
+        [WatchdogWin32]::UnhookWinEvent($hook2) | Out-Null
+        [System.Windows.Forms.Application]::Exit()
+    }
+})
+$timer.Start()
+[System.Windows.Forms.Application]::Run()
+```
+
+**Como lançar (parte obrigatória do procedimento de abertura do "Modo Navegador", logo após o Chrome estar minimizado pela primeira vez):**
+
+```powershell
+$watchdogPath = 'CAMINHO\focus-watchdog.ps1'  # gravar o script acima nesse arquivo antes
+$logPath = 'CAMINHO\watchdog-events.csv'
+# CRITICO: elementos do array com espaco no caminho precisam de aspas escapadas DENTRO
+# do proprio elemento -- bug real: Start-Process quebra "C:\Users\Felipe Augusto\..." em
+# dois argumentos separados se nao vier com `"..."` embutido.
+$argArray = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "`"$watchdogPath`"", '-TargetPid', "$proc.Id", '-LogPath', "`"$logPath`"")
+Start-Process -FilePath 'powershell' -ArgumentList $argArray -WindowStyle Hidden
+```
+
+**Validado com medição real (05/08/2026), não suposição:** 5 rodadas de teste consecutivas, cada uma disparando `context.newPage()` — todas as 5 detectadas e corrigidas pelo vigia, sem nenhuma ação manual. Tempos de reação (evento detectado → `ShowWindow` chamado): **2ms, 2ms, 5ms, 9ms, 19ms** — ordens de magnitude abaixo do limiar de percepção visual humana consciente (~50-100ms).
+
+**Sendo honesto sobre o limite real:** isso não é "matematicamente impossível a janela existir visível nem por 1 milissegundo" — é "existe por um punhado de milissegundos, tempo abaixo do que dá pra perceber conscientemente". A única forma de exposição zero absoluta é headless (sem janela nenhuma) — e headless foi descartado (ver seção própria) por dois motivos: o Mercado Livre bloqueia navegadores headless por completo (mesmo na home page, sem login nenhum envolvido), e headless remove a possibilidade do Felipe acessar manualmente a janela quando quiser, que é um requisito explícito dele.
+
+---
+
+## `--headless=new` — por que foi descartado definitivamente (05/08/2026)
+
+Investigado a fundo depois de uma dúvida legítima do Felipe: será que o erro antigo ("Multiple targets not supported") era na verdade causado pela falta da flag `--profile-directory`, e não pela criptografia de cookies como a documentação antiga dizia?
+
+**Testado com `--headless=new` + `--profile-directory="Profile 3"` juntos:** o erro antigo realmente sumiu (processo não morre mais, porta 9222 responde normalmente, sem "Multiple targets not supported"). A suspeita do Felipe estava certa quanto a isso.
+
+**Mas apareceu um bloqueio diferente e definitivo:** o Mercado Livre detecta o `User-Agent` do Chrome headless (contém literalmente a string `"HeadlessChrome"`) e bloqueia a página com um erro genérico deles ("Hubo un error accediendo a esta página...") — confirmado até na página inicial pública, sem login nenhum envolvido, então não é sobre sessão/cookie, é o site rejeitando o navegador headless em si.
+
+**Mesmo sem esse bloqueio, headless nunca serviria pro objetivo real:** o Felipe quer automação silenciosa **mas acessível manualmente se ele quiser conferir** (like uma janela minimizada, que ele pode restaurar clicando na barra de tarefas). Headless não tem janela nenhuma — nem minimizada, nem acessível de nenhuma forma. Ou seja, headless remove exatamente a capacidade que o Felipe quer manter. **Não é a solução certa pro objetivo dele, independente do bloqueio do Mercado Livre.**
 
 ---
 
