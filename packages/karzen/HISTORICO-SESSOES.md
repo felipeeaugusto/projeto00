@@ -97,3 +97,26 @@
 **PAROU EM:** Sessão de elicitação avançada concluída (9 métodos aplicados sobre a metodologia de Curva A/B/C); Felipe ainda não escolheu qual caminho de classificação adotar (Pareto, Giro, Score composto ou Híbrido), e ainda faltam 2 exportações (relatórios de 15 e 7 dias) e o cruzamento Stock x relatório novo antes de fechar a planilha final dos 696 produtos | Agente ativo: analyst
 
 ---
+
+### SESSÃO — 11/07/2026
+
+**O QUE FOI FEITO:**
+- @analyst elicitou a fundo o pedido original do Felipe (planilha pro patrão + plano de ação pra anúncios que não vendem bem) — desmontou a tese "só preço importa" em 4 Situações de Preço (vence no preço / diferença pequena e negociável / ML-1P ou concorrente queimando estoque, sem como vencer agora / problema de negociação com fornecedor), cada uma com uma ação diferente, em vez de um "sim/não vende" binário
+- @analyst corrigiu terminologia de ML com o Felipe: 1P (First Party, não "P1") é o modelo onde o próprio ML compra e revende sem taxa; "família" de anúncio (clássico/premium/variação) é agrupamento interno do próprio Felipe, não tem relação com o catálogo (catalog_product_id, que é quem disputa Buy Box entre sellers diferentes) — são dois conceitos separados
+- @analyst tentou usar a coluna "SKU real" do relatório `Relatorio_desempenho_publicacoes` como atalho de deduplicação automática — descartado: esse relatório não serve pra nada (Felipe já tem a mesma info direto no painel do ML) e o "SKU real" só existe hoje na planilha `Produtos para o Ads.xlsx`, preenchida manualmente pelo Felipe ID por ID, só até a cor "amarelo escuro" da planilha da Evelyn (>R$1.000 em vendas) — não cobre os ~600 e poucos restantes
+- @analyst propôs Fase 1 (triagem em massa por Pareto/"Ingresos totales", sem abrir anúncio) + Fase 2 (investigação manual só do que passa no corte) — Felipe apontou uma falha real: um produto com pouca receita mas estoque alto parado (ex: 969 unidades) ficaria fora da Fase 2 e continuaria parado — Pareto puro por receita não pega risco de estoque encalhado
+- @analyst e Felipe fecharam uma solução melhor: @dev vai mapear TODOS os ~600 e poucos IDs restantes por SKU (dedup via conta Karzen no ML aberta no Chrome, cruzando com a planilha da Evelyn) e classificar cada SKU numa coluna única "Status" (Ativo com estoque / Pausado com estoque / Sem estoque) na planilha `Pasta pro Dev.xlsx` — decisão final trocou as 3 colunas SIM/NÃO/"-" que o Felipe tinha desenhado (tinha um buraco: "pausado sem estoque" não caía em nenhuma coluna) por 1 coluna categórica, mais simples e sem o buraco
+- Fechado o desenho de 3 trilhas de ação por bucket: Pausado com estoque → reativar (serviço do Felipe) → Fase 2; Sem estoque → decidir reposição → Fase 2; Ativo com estoque → aplica Pareto por "Ingresos totales" pra decidir quem entra em Ads (não é mais triagem de risco, vira triagem de oportunidade)
+- @analyst respondeu dúvida do Felipe sobre consumo de token/compactação no Plano Claude Pro dele (7% usado no dia) — sem inventar número exato; explicou que a compactação não apaga arquivo já salvo em disco, só resume a conversa, e que a própria ideia do Felipe de colorir IDs já processados na planilha da Evelyn é a defesa certa contra perda de progresso entre sessões/compactações
+
+**O QUE O FELIPE PEDIU:**
+- Elicitação avançada sobre a planilha que ele monta pro patrão (colunas SKU/Conversão/Faturamento 30d/Vendeu por dia/"vende? sim ou não") e sobre qual Plano de Ação apresentar pra anúncios que não vendem bem, dado que ele acredita que só preço decide quem vende no Mercado Livre
+- Corrigir dois conceitos que o @analyst errou: 1P (não P1) e o que é "família" de anúncio (agrupamento interno, não catálogo entre concorrentes)
+- Avaliar se a coluna "SKU real" de algum relatório existente resolveria a deduplicação dos ~600 e poucos IDs sem trabalho manual — resposta: não resolve, não existe atalho automático
+- Ajuda pra organizar a lógica SIM/NÃO/"-" das colunas da planilha `Pasta pro Dev.xlsx` que ele mesmo desenhou pro @dev, porque ficou em dúvida — resolvido com a troca pra 1 coluna categórica "Status"
+- Explicação sobre consumo de token do Plano Claude Pro e se a compactação de sessão atrapalha o trabalho do @dev
+- Confirmação de que atualizar o caderno (`PROJETO-STATUS.md`) é trabalho do próprio @analyst antes de autorizar a gravação — @analyst confirmou que sim, com base no BLOCO 2-B do CLAUDE.md ("o agente ativo no momento é responsável pelo registro")
+
+**PAROU EM:** Metodologia da Fase 1 (dedup + Status por bucket) fechada e aprovada por Felipe. Falta: Felipe quer conversar direto com o @dev sobre um caso específico de anúncio (aberto agora numa aba do Chrome) ANTES do dev receber a instrução completa do mapeamento dos ~600 e poucos IDs restantes | Agente ativo: analyst
+
+---

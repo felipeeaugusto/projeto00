@@ -43,29 +43,6 @@
 
 > Sessões mais antigas em `HISTORICO-SESSOES.md`.
 
-### SESSÃO — 11/07/2026
-
-**O QUE FOI FEITO:**
-- @analyst elicitou a fundo o pedido original do Felipe (planilha pro patrão + plano de ação pra anúncios que não vendem bem) — desmontou a tese "só preço importa" em 4 Situações de Preço (vence no preço / diferença pequena e negociável / ML-1P ou concorrente queimando estoque, sem como vencer agora / problema de negociação com fornecedor), cada uma com uma ação diferente, em vez de um "sim/não vende" binário
-- @analyst corrigiu terminologia de ML com o Felipe: 1P (First Party, não "P1") é o modelo onde o próprio ML compra e revende sem taxa; "família" de anúncio (clássico/premium/variação) é agrupamento interno do próprio Felipe, não tem relação com o catálogo (catalog_product_id, que é quem disputa Buy Box entre sellers diferentes) — são dois conceitos separados
-- @analyst tentou usar a coluna "SKU real" do relatório `Relatorio_desempenho_publicacoes` como atalho de deduplicação automática — descartado: esse relatório não serve pra nada (Felipe já tem a mesma info direto no painel do ML) e o "SKU real" só existe hoje na planilha `Produtos para o Ads.xlsx`, preenchida manualmente pelo Felipe ID por ID, só até a cor "amarelo escuro" da planilha da Evelyn (>R$1.000 em vendas) — não cobre os ~600 e poucos restantes
-- @analyst propôs Fase 1 (triagem em massa por Pareto/"Ingresos totales", sem abrir anúncio) + Fase 2 (investigação manual só do que passa no corte) — Felipe apontou uma falha real: um produto com pouca receita mas estoque alto parado (ex: 969 unidades) ficaria fora da Fase 2 e continuaria parado — Pareto puro por receita não pega risco de estoque encalhado
-- @analyst e Felipe fecharam uma solução melhor: @dev vai mapear TODOS os ~600 e poucos IDs restantes por SKU (dedup via conta Karzen no ML aberta no Chrome, cruzando com a planilha da Evelyn) e classificar cada SKU numa coluna única "Status" (Ativo com estoque / Pausado com estoque / Sem estoque) na planilha `Pasta pro Dev.xlsx` — decisão final trocou as 3 colunas SIM/NÃO/"-" que o Felipe tinha desenhado (tinha um buraco: "pausado sem estoque" não caía em nenhuma coluna) por 1 coluna categórica, mais simples e sem o buraco
-- Fechado o desenho de 3 trilhas de ação por bucket: Pausado com estoque → reativar (serviço do Felipe) → Fase 2; Sem estoque → decidir reposição → Fase 2; Ativo com estoque → aplica Pareto por "Ingresos totales" pra decidir quem entra em Ads (não é mais triagem de risco, vira triagem de oportunidade)
-- @analyst respondeu dúvida do Felipe sobre consumo de token/compactação no Plano Claude Pro dele (7% usado no dia) — sem inventar número exato; explicou que a compactação não apaga arquivo já salvo em disco, só resume a conversa, e que a própria ideia do Felipe de colorir IDs já processados na planilha da Evelyn é a defesa certa contra perda de progresso entre sessões/compactações
-
-**O QUE O FELIPE PEDIU:**
-- Elicitação avançada sobre a planilha que ele monta pro patrão (colunas SKU/Conversão/Faturamento 30d/Vendeu por dia/"vende? sim ou não") e sobre qual Plano de Ação apresentar pra anúncios que não vendem bem, dado que ele acredita que só preço decide quem vende no Mercado Livre
-- Corrigir dois conceitos que o @analyst errou: 1P (não P1) e o que é "família" de anúncio (agrupamento interno, não catálogo entre concorrentes)
-- Avaliar se a coluna "SKU real" de algum relatório existente resolveria a deduplicação dos ~600 e poucos IDs sem trabalho manual — resposta: não resolve, não existe atalho automático
-- Ajuda pra organizar a lógica SIM/NÃO/"-" das colunas da planilha `Pasta pro Dev.xlsx` que ele mesmo desenhou pro @dev, porque ficou em dúvida — resolvido com a troca pra 1 coluna categórica "Status"
-- Explicação sobre consumo de token do Plano Claude Pro e se a compactação de sessão atrapalha o trabalho do @dev
-- Confirmação de que atualizar o caderno (`PROJETO-STATUS.md`) é trabalho do próprio @analyst antes de autorizar a gravação — @analyst confirmou que sim, com base no BLOCO 2-B do CLAUDE.md ("o agente ativo no momento é responsável pelo registro")
-
-**PAROU EM:** Metodologia da Fase 1 (dedup + Status por bucket) fechada e aprovada por Felipe. Falta: Felipe quer conversar direto com o @dev sobre um caso específico de anúncio (aberto agora numa aba do Chrome) ANTES do dev receber a instrução completa do mapeamento dos ~600 e poucos IDs restantes | Agente ativo: analyst
-
----
-
 ### SESSÃO — 12/07/2026
 
 **O QUE FOI FEITO:**
@@ -115,6 +92,28 @@
 - Autorizou registrar a pendência do Ads da Shopee no caderno e criar um arquivo separado (`ROTINA-FELIPE.md`) pra não perder as decisões da rotina pessoal
 
 **PAROU EM:** Rotina desenhada e decisões parcialmente tomadas; ainda faltam 3 decisões pessoais em aberto (sono 7h vs 8h; dias de exercício; dias de estudo AIOX/Shopee Ads agora que terça/quinta têm fisio) — ver `ROTINA-FELIPE.md` | Agente ativo: analyst
+
+---
+
+### SESSÃO — 04-05/08/2026
+
+**O QUE FOI FEITO:**
+- Validado e documentado o procedimento "Modo Navegador" (`modo-navegador-browser-access.md`) — conexão via Playwright/CDP num Chrome real já logado com a conta do Felipe (perfil isolado `ChromeDebugKarzen`, porta 9222), com as 4 flags obrigatórias de lançamento (incluindo `--no-first-run`, que faltava numa tentativa anterior e travava o Chrome)
+- Criado o procedimento `analise-acos-catalogo-mercadolivre.md` — passo a passo completo pra achar produtos com ACOS ≥ 5% numa Campanha do Mercado Ads, mapear SKU/MLB de cada variação, e confirmar status de catálogo (Ganhando/Perdendo/Compartilhando), inclusive quando o Mercado Livre esconde o status na tela normal (Qualidade do anúncio em certos níveis) — nesse caso, checado via página "Alterar", seção "Concorrência no Mercado Livre"
+- Analisadas as 6 Campanhas de Mercado Ads da Karzen no período 01-04/08/2026: **[ML] [CURVA-A]**, **[ML] [CURVA-B]**, **[ML] [AVA] [PERFORMANCE]**, **[ML] [BAIXA PERFORMANCE]**, **[ML] [CONTROLE ACOS]** e **[ML] [CURVA-C]** (a maior, 34 anúncios, 13 produtos qualificados) — todos os produtos com ACOS ≥ 5% escritos na planilha `C:\Users\Felipe Augusto\OneDrive\Documentos\Carlos Analise.xlsx` (SKU, MLB, Catálogo Clássico, Catálogo Premium, ACOS, Título)
+- Corrigido bug real de foco de janela: `page.bringToFront()` do Playwright é assíncrono e podia elevar a janela do Chrome ao primeiro plano **depois** do comando de minimizar já ter rodado (race condition) — solução: `minimize-chrome.js`, rotina que minimiza e reforça por ~2s (loop), chamada sempre dentro do mesmo script que usou `bringToFront()`, nunca como comando separado depois (senão reabre a brecha de interrupção)
+- Corrigido bug de seleção de aba: o script que localizava a aba de Anúncios (`url.includes('mercadolivre.com.br/anuncios')`) também batia com a URL da página "Alterar" (`/anuncios/MLBU.../modificar/...`), fazendo o script pegar a aba errada repetidamente — corrigido exigindo o `?` logo após `/anuncios`
+- Documentados casos-limite descobertos durante a análise: MLB que não tem card próprio acessível em lugar nenhum (corresponde à variação "não se pode mostrar" contada no produto — tratar como não verificável, excluir da planilha); mensagem "PREÇO ALTO" na seção "Concorrência" não é status de catálogo (não registrar); quando 2 MLBs aparecem juntos no mesmo card sincronizado, a página "Alterar" (Opção 1/Opção 2) é a única fonte confiável pra saber qual é Clássico e qual é Premium
+- Felipe auditou ao vivo o procedimento documentado contra pontos que ele mesmo tinha levantado mais cedo na sessão — 3 lacunas reais encontradas e corrigidas: faltava dizer explicitamente que produto sem nenhuma disputa de catálogo é resultado normal (não insistir procurando status que não existe); faltava a regra "nunca confiar em atalho, sempre confirmar via Anúncios/Alterar" como regra própria (só estava implícita); faltava explicar por que o `minimize-chrome.js` minimiza TODAS as janelas do Chrome existentes a cada chamada (não uma fixa) — protege contra uma segunda janela solta que apareça no meio da sessão
+
+**O QUE O FELIPE PEDIU:**
+- Analisar cada Campanha de Mercado Ads, achar produtos com ACOS ≥ 5% no período 01-04/08/2026, mapear SKU/MLB de cada um, e registrar o status de catálogo (Ganhando/Perdendo/Compartilhando) na planilha `Carlos Analise.xlsx`
+- Corrigir a janela do Chrome aparecendo em primeiro plano sem querer, de forma definitiva — não aceitar explicação de "é normal" sem investigar a fundo
+- Quando o catálogo não aparecer explícito, checar MLB por MLB via "Alterar" (não "Ir para página de produto") antes de aceitar como "sem disputa"
+- Confirmar se todos os pontos que ele foi separando ao longo do dia (Family, atalho, janela dupla, etc.) tinham sido incorporados no procedimento documentado — pediu resposta em conversa, não em ação direta
+- Corrigido meu processo: expliquei a auditoria em texto primeiro, sem editar/commitar nada até ele confirmar o que queria salvo
+
+**PAROU EM:** Análise completa das 6 campanhas concluída e escrita na planilha. Procedimentos documentados e auditados com Felipe, 3 lacunas fechadas. Felipe disse "vou parar por hoje" | Agente ativo: nenhum agente específico ativado nesta sessão (execução direta)
 
 ---
 
