@@ -406,6 +406,17 @@ Depois de rodar os 5 checks, **reportar ao Felipe o que foi encontrado e parar**
 
 ---
 
+## Ler texto vs tirar print — critério obrigatório (07/08/2026)
+
+**Por que essa regra existe:** sem critério nenhum documentado, prints foram se acumulando sessão após sessão sem necessidade — 93 arquivos `.png` (76MB) encontrados soltos em `.playwright-mcp/`, sem controle de versão, sem ninguém decidindo se ainda eram necessários. O hábito de "tirar print por garantia" ou "só pra registrar" é o que causa esse acúmulo.
+
+- **Texto (padrão, na maioria das vezes):** sempre que o que se precisa é um dado — nome de produto, preço, ACOS, status, título de página. Ler o texto/DOM da página é mais rápido, mais confiável (não depende de interpretação visual) e não gera nenhum arquivo.
+- **Print (só com motivo específico):** quando o que importa é a aparência/estado visual — confirmar que a janela minimizou de verdade, que um elemento está no lugar certo depois de um clique — ou quando algo dá errado de um jeito inesperado (um print ajuda a diagnosticar o que realmente apareceu na tela). Também quando o Felipe pede explicitamente pra ver.
+- **Os dois juntos (caso raro):** só na primeira vez que se mexe com um tipo de página nova e estruturalmente complicada (ex: tabela com células mescladas — já causou bug real de leitura errada, registrado em 05/08/2026) — usar o print pra confirmar visualmente que o texto lido bate com o que está na tela. Depois de confirmar o padrão de leitura, não repetir o print nas próximas vezes.
+- **Regra geral, sem exceção:** texto é o padrão sempre. Print nunca "por garantia" — só com um motivo específico dos três acima.
+
+---
+
 ## Riscos conhecidos (documentados, sem solução técnica — só ciência)
 
 - **Chrome se autoatualiza sozinho** e pode voltar a quebrar esse procedimento no futuro sem aviso (foi exatamente o que causou a falha de 04/08/2026 — a receita antiga estava sem o `--no-first-run`). Não tem prevenção; a resposta é sempre o Protocolo de Falha acima.
