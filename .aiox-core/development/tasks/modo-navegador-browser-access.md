@@ -86,11 +86,15 @@ Só prosseguir para `connectOverCDP` se essa chamada retornar sucesso.
 
 ## Conexão via Playwright
 
+**A partir de 07/08/2026: NUNCA usar `context.newPage()` para abrir a aba de automação — usar `openBackgroundPage()` (ver seção "Abrir aba em segundo plano via CDP" abaixo).** `context.newPage()` continua existindo no Playwright, mas ativa a janela do Chrome no processo (causa raiz confirmada em 05/08/2026) — a nova função evita a causa em vez de só reagir a ela depois.
+
 ```javascript
 const { chromium } = require('playwright');
+const { openBackgroundPage } = require('CAMINHO_RELATIVO_ATE/.aiox-core/development/scripts/modo-navegador/abrir-aba-background.js'); // módulo persistido — ver seção "Abrir aba em segundo plano via CDP" abaixo
+
 const browser = await chromium.connectOverCDP('http://localhost:9222');
 const context = browser.contexts()[0];
-const page = await context.newPage(); // sempre aba nova — nunca navegar em aba já existente do usuário
+const page = await openBackgroundPage(browser, context); // sempre aba nova, sempre em background — nunca navegar em aba já existente do usuário
 await page.goto('URL_DESEJADA', { waitUntil: 'domcontentloaded', timeout: 30000 });
 ```
 
@@ -215,6 +219,47 @@ Isso vale em conjunto com a regra de `minimizeChrome()` no `finally` — quando 
 
 ---
 
+## Abrir aba em segundo plano via CDP — correção da causa raiz (crítica, 07/08/2026)
+
+**Contexto:** a seção anterior confirmou (com medição, não suposição) que `context.newPage()` é o próprio Chrome ativando a janela ao criar a aba via CDP — não um bug do nosso código. Até 06/08/2026, a única defesa era reagir depois (`minimizeChrome()` no `finally`, mais o vigia de evento) — funciona, mas depende de checagem/hook rodando *depois* do fato consumado, com uma janela de milissegundos de exposição real (medida: 2-19ms por rodada de teste em 05/08/2026).
+
+**Correção que ataca a causa em vez de reagir a ela:** o protocolo CDP tem um parâmetro oficial, `background: true`, no comando `Target.createTarget` — pedir pro Chrome já criar a aba **sem nunca ativar a janela**, em vez de criar e ativar (`context.newPage()` faz isso por baixo dos panos) e só depois tentar desfazer. Isso não é gambiarra nem parâmetro não documentado: é a opção oficial do protocolo Chrome DevTools para exatamente esse caso de uso.
+
+**Como enviar esse comando via Playwright:** o Playwright não expõe `background: true` na sua API de alto nível (`context.newPage()` não aceita essa opção), mas expõe uma sessão CDP no nível do browser via `browser.newBrowserCDPSession()` — daí dá pra mandar o comando `Target.createTarget` diretamente. O Playwright continua detectando a aba nova automaticamente (evento `'page'` no `context`, o mesmo mecanismo que ele already usa internamente para `context.newPage()`), então o resto do script (`page.goto()`, `page.click()`, etc.) funciona exatamente igual.
+
+**Módulo persistido (07/08/2026):** ao contrário dos outros trechos de código deste procedimento (que cada script ad-hoc precisa copiar manualmente), este já está salvo como arquivo real em `.aiox-core/development/scripts/modo-navegador/abrir-aba-background.js` — qualquer script novo importa direto de lá, sem copiar o código abaixo.
+
+```javascript
+// .aiox-core/development/scripts/modo-navegador/abrir-aba-background.js
+async function openBackgroundPage(browser, context, url) {
+  const cdpSession = await browser.newBrowserCDPSession();
+  try {
+    const pagePromise = new Promise((resolve, reject) => {
+      const timeout = setTimeout(
+        () => reject(new Error('Timeout esperando a aba em background aparecer no context')),
+        10000
+      );
+      context.once('page', (page) => {
+        clearTimeout(timeout);
+        resolve(page);
+      });
+    });
+    await cdpSession.send('Target.createTarget', { url: url || 'about:blank', background: true });
+    return await pagePromise;
+  } finally {
+    await cdpSession.detach(); // fecha só a sessao CDP auxiliar -- nao fecha a aba nem o Chrome
+  }
+}
+
+module.exports = { openBackgroundPage };
+```
+
+**O vigia de foco e o `minimizeChrome()` continuam ativos — não foram removidos.** Mesmo com a causa raiz resolvida, a defesa em camadas se mantém por dois motivos: (1) ações que exigem `bringToFront()` (screenshot em aba minimizada, alguns cliques específicos) continuam existindo e continuam precisando do tratamento já documentado acima; (2) o grupo de 4 eventos do vigia sem gatilho de script identificado (registrado em 06/08/2026) ainda não tem causa confirmada — enquanto esse mistério não for resolvido, remover qualquer camada de proteção seria prematuro.
+
+**O que muda na prática:** `context.newPage()` deixa de ser usado para abrir a aba de automação em qualquer script novo do Modo Navegador — `openBackgroundPage()` é o substituto direto. Isso não elimina a necessidade de `minimizeChrome()` no `finally` (continua lá, ver seção "Uso de `bringToFront()`" acima), só remove a exposição de milissegundos que existia especificamente na criação da aba.
+
+---
+
 ## Vigia de foco por evento — solução definitiva (crítica, 05/08/2026)
 
 **Por que o `minimizeChrome()` no `finally` de cada script (seção acima) não é suficiente sozinho:** ele depende de checagem repetida (polling a cada ~100-200ms) DEPOIS que a ação já rodou. Isso significa até ~100ms de exposição real, visível ao olho humano, toda vez — e depende de cada script individual lembrar de chamar a rotina. Se um script novo (de qualquer agente, presente ou futuro) esquecer, a proteção não existe.
@@ -222,6 +267,8 @@ Isso vale em conjunto com a regra de `minimizeChrome()` no `finally` — quando 
 **A solução estrutural: um processo separado, sempre rodando, que não fica checando de tempos em tempos — o Windows AVISA ele instantaneamente** via `SetWinEventHook` (hook de evento do sistema operacional), no exato momento em que a janela do Chrome sai do estado minimizado, por qualquer motivo (`bringToFront()`, `context.newPage()`, ou qualquer causa futura ainda não descoberta). Esse vigia roda **independente de qualquer script de automação lembrar de fazer algo** — a proteção fica ligada o tempo todo, para qualquer agente, durante toda a vida daquela instância do Chrome.
 
 **Dois eventos precisam ser monitorados juntos, não só um** — bug real encontrado durante a validação: monitorando só `EVENT_SYSTEM_FOREGROUND` (janela virou ativa), o vigia perdeu 2 de 4 casos de teste, porque a janela pode sair do estado minimizado **sem** tecnicamente virar a janela em foreground (fica visível, mas outra janela continua "ativa" segundo o Windows). A correção: monitorar também o intervalo `EVENT_SYSTEM_MINIMIZESTART`..`EVENT_SYSTEM_MINIMIZEEND`, que cobre qualquer transição de sair-de-minimizado, com ou sem foreground.
+
+**Módulo persistido (07/08/2026):** salvo em `.aiox-core/development/scripts/modo-navegador/focus-watchdog.ps1` — inclui uma coluna extra no CSV de log (`foreground_pid`, `foreground_processo`, `foreground_titulo`) que captura automaticamente qual processo/janela estava em primeiro plano no exato momento de cada reação sem gatilho de script identificado, servindo de "câmera" para o mistério registrado em 06/08/2026.
 
 **Script de referência (`focus-watchdog.ps1`):**
 
