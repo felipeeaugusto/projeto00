@@ -352,7 +352,17 @@ $timer.Start()
 [System.Windows.Forms.Application]::Run()
 ```
 
-**Como lançar (parte obrigatória do procedimento de abertura do "Modo Navegador", logo após o Chrome estar minimizado pela primeira vez):**
+**Verificação de vigia duplicado (obrigatória, 07/08/2026) — checar ANTES de lançar:**
+
+Mesmo motivo da checagem de processo Chrome duplicado acima: evita dois vigias hookados na mesma janela ao mesmo tempo. Confirmado que isso já aconteceu de verdade duas vezes (05/08 e 07/08) — um vigia órfão de uma sessão anterior seguiu rodando, escrevendo num log que ia se perder, enquanto uma nova sessão lançava outro vigia pro mesmo PID sem saber do primeiro.
+
+```powershell
+$vigiaExistente = Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" | Where-Object { $_.CommandLine -match 'focus-watchdog' -and $_.CommandLine -match "-TargetPid $($proc.Id)\b" }
+```
+
+Se `$vigiaExistente` não for vazio, já existe um vigia rodando pro mesmo PID — **não lançar outro**. Seguir em frente sem chamar `Start-Process` de novo. Só lançar um vigia novo se a checagem vier vazia.
+
+**Como lançar (parte obrigatória do procedimento de abertura do "Modo Navegador", logo após o Chrome estar minimizado pela primeira vez, e só se a checagem acima confirmar que não há vigia duplicado):**
 
 ```powershell
 $watchdogPath = 'CAMINHO\focus-watchdog.ps1'  # gravar o script acima nesse arquivo antes
