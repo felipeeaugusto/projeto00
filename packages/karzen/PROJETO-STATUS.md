@@ -11,6 +11,8 @@
 ⚠️ Nota: as pendências abaixo (sessão 02/07/2026) são de uma frente sem relação com o Mercado Livre — a agência de marketing do primo do Felipe (EUA, nicho SPA/salão). Registradas aqui a pedido do Felipe, na ausência de um caderno próprio para essa frente.
 
 🔴 Prioridade Máxima:
+- @dev — mapear os produtos das 7 Campanhas de Mercado Ads (as 6 conhecidas + "Em Alta", nova) na Planilha do Ads ML, abas "Produtos em Ads Atualmente" e "Produtos Perdendo Catálogo em Ads", período 01/08-06/08 — critério ACOS ≥ 5%, refazer as campanhas do zero (não só recolocar o que sumiu). Pedido original desta sessão (06/08), **ainda não iniciado** — a sessão foi tomada por uma investigação de bug de foco antes de começar a análise produto a produto. URLs de dashboard das 7 campanhas já estão mapeadas (ver sessão 06/08 abaixo), só falta a análise em si
+- @dev — implementar a recomendação do @analyst (sessão de `*elicit` de 06/08) sobre o bug de foco roubado durante o Modo Navegador: (1) fazer o Chrome nascer a aba nova em segundo plano via CDP `Target.createTarget` com `background: true`, substituindo `context.newPage()` — resolve a causa já confirmada por log; (2) manter o vigia de foco rodando como rede de segurança (não remover); (3) vigia passa a registrar automaticamente mais detalhe (janela/processo que ficou em primeiro plano) toda vez que reagir sem gatilho de script identificado — vira "câmera" automática pro mistério ainda sem explicação (grupo de 4 eventos sem causa conhecida, sessão 06/08); (4) usar a ferramenta de monitoramento (Monitor) pra o @dev ser avisado em tempo real quando isso acontecer e já reportar pro Felipe antes dele perguntar — ressalva: só funciona com a sessão ativa, não é vigilância 24h. Felipe confirmou "sim" pra essa implementação ao final da sessão 06/08, mas a sessão encerrou (Felipe disse "vou parar") antes do @dev poder começar a implementar — retomar aqui
 - @aiox-master — investigar em todas as configurações do caderno/manual (CLAUDE.md, MANUAL.md, rules/) se já existe uma regra de alta prioridade proibindo QUALQUER agente de inventar informação; se não existir com força suficiente, criar e registrar essa regra — pedido feito por Felipe de forma preventiva/geral (independente de caso específico) (a acionar quando Felipe disser "chame o Orion")
   - CONTEXTO (resolvido): a dúvida que originou o pedido foi sobre os 28 SKUs do dashboard-karzen-ads.html (sessão 03/07/2026) — @dev re-verificou em 06/07/2026 contra a planilha real em `C:\Downloads\ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1).xlsx` (aba "SEM CAMPANHA", 736 linhas) e os 28 SKUs batem 100% com a coluna "Item ID". Não houve invenção neste caso — a planilha só não tinha sido localizada na primeira varredura (estava em C:\Downloads, fora das pastas padrão) e a coluna se chama "Item ID", não "SKU", o que gerou a confusão inicial do Felipe
 - @hormozi-offers — estruturar a oferta da agência do primo pro nicho SPA/salão (garantia, bônus, resultado prometido), com Felipe e o primo trazendo os fatos reais do negócio
@@ -42,37 +44,6 @@
 ## ÚLTIMAS 3 SESSÕES
 
 > Sessões mais antigas em `HISTORICO-SESSOES.md`.
-
-### SESSÃO — 12/07/2026
-
-**O QUE FOI FEITO:**
-- @dev conversou com Felipe sobre o caso BG-03 (só leitura, sem tocar na conta real) — achou 9 situações diferentes de status num único SKU (incluindo "Finalizado pelo ML por possível falsificação" e "não enviou NF-e", com 939 unidades presas) — Felipe decidiu que casos assim vão pra um Bloco de Notas separado (`C:\Downloads\Casos Especiais - SKUs.txt`), fora da Pasta pro Dev.xlsx
-- @dev resolveu bloqueio técnico do Chrome (a porta de depuração não abre no perfil padrão por segurança do navegador) — criou perfil isolado `ChromeDebugKarzen`, Felipe logou manualmente uma vez nesse perfil, login ficou salvo pra sempre
-- @dev processou os 696 IDs da planilha da Evelyn (todos, inclusive os 137 já "analisados" à mão antes, porque o formato novo exige dado que a análise antiga não tinha): identificou 372 SKUs únicos, com pares de IDs sincronizados e coluna "Status" (Ativo com estoque / Pausado com estoque / Sem estoque) preenchida — 90 IDs não retornaram resultado na busca do ML, registrados à parte
-- Felipe pegou o @dev fazendo o trabalho "de qualquer jeito" numa etapa (analisando sem cruzar com a planilha da Evelyn primeiro) — corrigido, e Felipe reforçou a regra de só agir com permissão explícita
-- @dev achou e corrigiu um bug real de truncamento de dado no Excel: 9 células com ID cortado pra 1-3 dígitos (não era só exibição, era o valor gravado errado) — recuperou os valores originais via log de processamento, corrigiu com verificação de leitura de volta, e reforçou o script pra não repetir
-- Felipe pediu uma nova coluna de estoque real (percebeu que o Status salvo não batia mais com o estoque atual) — @dev adicionou colunas "Estoque 1"/"Estoque 2" (pra quando o mesmo SKU tem partes no CD próprio e partes no Full do ML, que só Felipe sabe distinguir) e reprocessou os 372 SKUs com dado atualizado — 369 de 372 preenchidos, 3 sem retorno na busca
-- @analyst e Felipe fecharam as 3 perguntas em aberto desde 06/07 sobre o relatório: é decisório, sem dado de margem de lucro por enquanto, destinatário amanhã é o patrão de Felipe (que depois repassa pra Evelyn, responsável pelo Ads da conta)
-- @analyst e Felipe desenharam e fecharam a estrutura final do "Plano de Ação" em PDF: Cobertura+Premissa, Situações de Preço (1/2/3, cortada a 4ª que é sobre negociação com fornecedor — já tem outra frente cuidando disso) como guia de método (não uma classificação aplicada), e Lista de produtos ativos organizada por "Receita Total" (renomeado de "receita de 30 dias" porque o período exato da coluna "Ingresos totales" da Evelyn nunca foi confirmado)
-- @analyst cometeu um erro de processo (perguntou "combinado?" e já chamou o @dev no mesmo movimento, sem esperar resposta) — Felipe corrigiu na hora, a chamada foi interrompida antes de qualquer execução real, sem dano
-- @dev calculou a Receita Total por SKU (cruzando `Pasta pro Dev.xlsx` com a coluna "Ingresos totales" da planilha da Evelyn) e gerou o PDF `C:\Downloads\Plano de Ação - Karzen.pdf` — achou e corrigiu duplicidade de SKU na tabela final (179 linhas viraram 150 SKUs únicos consolidados) — PDF verificado visualmente, pronto
-
-**O QUE O FELIPE PEDIU:**
-- Analisar o caso BG-03 no Chrome (só leitura) antes do @dev seguir a instrução completa
-- Abrir o Chrome com porta de depuração pra o @dev conseguir acessar
-- Corrigir o processo do @dev que estava analisando sem cruzar com a planilha da Evelyn primeiro
-- Explicação sobre o padrão de SIM/NÃO/traço nas colunas que ele mesmo tinha desenhado — resolvido trocando por 1 coluna categórica "Status"
-- Onde está o arquivo do Bloco de Notas
-- Adicionar coluna de estoque real por produto na Pasta pro Dev.xlsx, separando por CD próprio vs Full quando os valores forem diferentes
-- Recapitular o que ficou decidido sobre o plano de ação pro patrão
-- Corrigir a premissa da Seção 1 pra cruzar Ativo/Pausado com receita, e ajustar a Seção 4 pra não presumir "queima de estoque" (nem Felipe sabe identificar isso)
-- Cortar do PDF: seção de correções internas, casos de risco/compliance, e qualquer "pedido de decisão" explícito pro patrão
-- Gerar o PDF de verdade, hoje, cruzando a Pasta pro Dev.xlsx com a "Ingresos totales" da planilha da Evelyn
-- Corrigir a duplicidade de SKU encontrada na tabela final antes de ir dormir
-
-**PAROU EM:** PDF final entregue e corrigido (`C:\Downloads\Plano de Ação - Karzen.pdf`, 150 SKUs únicos na tabela). Felipe encerrou a sessão pra dormir (acorda 5h30). Nenhuma tarefa em andamento | Agente ativo: aiox-master
-
----
 
 ### SESSÃO — 29/07/2026
 
@@ -125,6 +96,30 @@
 - Auditoria profunda de fim de sessão: cruzar git com tudo que foi feito, ler o JSONL linha por linha, analisar as sessões compactadas desde o início do terminal
 
 **PAROU EM:** Aba "Produtos Perdendo Catálogo em Ads" completa (28 produtos, espaçados, título mesclado, Depósito/FULL preenchidos) e validada pelo Felipe ("bateu certinho"). Auditoria de fim de sessão concluída sem gaps reais encontrados. Felipe disse "vou parar" | Agente ativo: aiox-master
+
+---
+
+### SESSÃO — 06/08/2026
+
+**O QUE FOI FEITO:**
+- @dev reabriu o Modo Navegador (Chrome via CDP na porta 9222, perfil `ChromeDebugKarzen`) e confirmou via `chrome://bookmarks` os 3 favoritos novos que o Felipe organizou na barra do Chrome (Planilha do Ads ML, Anúncios, Publicidade) — evita precisar caçar URL por busca no Google Drive, que foi o caminho ineficiente tentado antes de descobrir os favoritos
+- Mapeadas as 7 campanhas ativas na Publicidade (`ads.mercadolivre.com.br/product-ads/admin/campaigns`), incluindo 1 campanha nova criada pelo Carlos/moça do Ads ("Em Alta", 18 anúncios, status APRENDENDO, criada nos últimos dias) além das 6 já conhecidas (Curva A, Curva B, AVA Performance, Baixa Performance, Controle ACOS, Curva C) — URLs de dashboard de cada uma extraídas e confirmadas
+- Encontrado e corrigido bug real de foco de janela, causa raiz diferente de tudo já documentado: a função `minimizeChrome()` (chamada no `finally` de todo script do Modo Navegador) rodava `execSync('powershell -NoProfile -ExecutionPolicy Bypass -File ...')` **sem `-WindowStyle Hidden`** — isso abre um `powershell.exe` visível por uma fração de segundo (rápido demais pra renderizar, mas suficiente pra o Windows roubar o foco de qualquer janela do usuário, não só do Chrome). Sintoma relatado pelo Felipe: a tela em que ele estava trabalhando (fora do Modo Navegador) perdia foco "do nada", 3x desde o dia anterior, sempre um pouco depois de aprovar uma permissão de comando. Corrigido adicionando `-WindowStyle Hidden` na chamada; testado sem erro; documentado em `modo-navegador-browser-access.md` com data e explicação, seguindo o padrão já usado pra bugs anteriores do procedimento
+- Bug de foco persistiu mesmo depois da correção acima — @dev investigou de novo com dado real (log com timestamp do `focus-watchdog.ps1`, não suposição) e achou a causa mais forte: o Chrome traz a janela pra frente sozinho ao criar aba nova (`context.newPage()`, comportamento já documentado numa sessão anterior), o vigia reage e minimiza rápido (confirmado no log, funcionando certo), mas minimizar não é a mesma coisa que devolver o foco pra janela que o Felipe estava usando — o Windows escolhe outra janela qualquer sozinho. Achado também um padrão ainda sem explicação: um grupo de 4 reações do vigia em sequência, sem nenhum script rodando na hora — lacuna registrada, não resolvida
+- @dev chamou o @analyst com `*elicit` (confirmação do Felipe antes de chamar, conforme BLOCO 0-D), passando o relatório completo da investigação. @analyst aplicou 8 técnicas de elicitação (Critique and Refine, Challenge from Critical Perspective, Identify Potential Risks, Tree of Thoughts, ReWOO, Red Team vs Blue Team, Self-Consistency Validation, Assess Alignment with Goals, Hindsight is 20/20) e fechou recomendação: (1) Chrome deve nascer a aba nova em segundo plano via CDP `Target.createTarget` com `background: true` (opção oficial do protocolo, não gambiarra), resolvendo a causa confirmada, sem tocar em nada do sistema operacional do Felipe; (2) manter o vigia rodando como rede de segurança (não é substituído, é complementado); (3) vigia passa a registrar automaticamente qual janela/processo roubou o foco toda vez que reagir sem gatilho de script — vira "câmera" automática pro mistério dos 4 eventos, sem exigir que o Felipe pare o que está fazendo pra reportar em detalhe; (4) usar a ferramenta de monitoramento (Monitor) pra o @dev ser avisado em tempo real e já reportar pro Felipe antes dele perguntar — com a ressalva honesta de que só funciona durante uma sessão ativa, não é vigilância 24h. @analyst foi explícito que a recomendação resolve a causa confirmada mas não garante "nunca mais" 100% enquanto o mistério dos 4 eventos não for entendido
+
+**O QUE O FELIPE PEDIU:**
+- Mapear de novo os produtos na Planilha do Ads ML (abas "Produtos em Ads Atualmente" e "Produtos Perdendo Catálogo em Ads"), porque o Carlos ou a moça do Ads removeu produtos que tinham sido mapeados nas 2 sessões anteriores — usando Modo Navegador, campanha por campanha, período 01/08 a 06/08
+- Confirmado: critério continua ACOS ≥ 5%, refazer as 6 campanhas conhecidas do zero (não só recolocar o que sumiu) pra também pegar produtos novos que passaram a qualificar no novo período, mesma estrutura de colunas de antes
+- Avisou sobre a campanha nova ("Em Alta") criada pelo Carlos/moça do Ads — pediu pra analisar ela também no mesmo período
+- Investigar por que sua tela principal (fora do Modo Navegador) estava perdendo foco sozinha, repetidamente, desde o dia anterior — encontrada e corrigida uma causa (bug do `-WindowStyle Hidden`), mas o sintoma persistiu, então pediu investigação mais a fundo
+- Rejeitou a primeira proposta de conserto (truque de simular tecla Alt pra forçar o foco de volta) por não ser confiável o suficiente — pediu solução realmente eficiente e definitiva
+- Pediu pra chamar o @analyst com `*elicit` pra investigar mais a fundo antes de qualquer implementação nova, com restrição explícita: nenhuma mudança pode tocar o sistema operacional/computador dele, só o lado da automação
+- Pediu que o "monitoramento" do mistério fosse automático (câmera automática), não dependente dele perceber e reportar em detalhe
+- Foi além: pediu que o @dev seja avisado em tempo real (não só registrado em log) e já reporte o problema antes de Felipe perguntar, sem tomar nenhuma ação — confirmado que é tecnicamente possível via ferramenta de monitoramento, com a ressalva de só funcionar em sessão ativa
+- Confirmou "sim" pra implementação do pacote completo (conserto real + vigia com log automático + monitoramento em tempo real), mas encerrou a sessão ("vou parar") antes do @dev poder começar a implementar
+
+**PAROU EM:** Recomendação do @analyst fechada e aprovada por Felipe, mas **nada foi implementado ainda** — nem o conserto do foco, nem a tarefa original de mapear as 7 campanhas na planilha (só as URLs de dashboard foram obtidas). Duas frentes pendentes pra próxima sessão, ordem a definir com Felipe | Agente ativo: analyst
 
 ---
 

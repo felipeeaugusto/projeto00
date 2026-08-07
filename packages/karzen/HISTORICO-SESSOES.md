@@ -120,3 +120,34 @@
 **PAROU EM:** Metodologia da Fase 1 (dedup + Status por bucket) fechada e aprovada por Felipe. Falta: Felipe quer conversar direto com o @dev sobre um caso específico de anúncio (aberto agora numa aba do Chrome) ANTES do dev receber a instrução completa do mapeamento dos ~600 e poucos IDs restantes | Agente ativo: analyst
 
 ---
+
+### SESSÃO — 12/07/2026
+
+**O QUE FOI FEITO:**
+- @dev conversou com Felipe sobre o caso BG-03 (só leitura, sem tocar na conta real) — achou 9 situações diferentes de status num único SKU (incluindo "Finalizado pelo ML por possível falsificação" e "não enviou NF-e", com 939 unidades presas) — Felipe decidiu que casos assim vão pra um Bloco de Notas separado (`C:\Downloads\Casos Especiais - SKUs.txt`), fora da Pasta pro Dev.xlsx
+- @dev resolveu bloqueio técnico do Chrome (a porta de depuração não abre no perfil padrão por segurança do navegador) — criou perfil isolado `ChromeDebugKarzen`, Felipe logou manualmente uma vez nesse perfil, login ficou salvo pra sempre
+- @dev processou os 696 IDs da planilha da Evelyn (todos, inclusive os 137 já "analisados" à mão antes, porque o formato novo exige dado que a análise antiga não tinha): identificou 372 SKUs únicos, com pares de IDs sincronizados e coluna "Status" (Ativo com estoque / Pausado com estoque / Sem estoque) preenchida — 90 IDs não retornaram resultado na busca do ML, registrados à parte
+- Felipe pegou o @dev fazendo o trabalho "de qualquer jeito" numa etapa (analisando sem cruzar com a planilha da Evelyn primeiro) — corrigido, e Felipe reforçou a regra de só agir com permissão explícita
+- @dev achou e corrigiu um bug real de truncamento de dado no Excel: 9 células com ID cortado pra 1-3 dígitos (não era só exibição, era o valor gravado errado) — recuperou os valores originais via log de processamento, corrigiu com verificação de leitura de volta, e reforçou o script pra não repetir
+- Felipe pediu uma nova coluna de estoque real (percebeu que o Status salvo não batia mais com o estoque atual) — @dev adicionou colunas "Estoque 1"/"Estoque 2" (pra quando o mesmo SKU tem partes no CD próprio e partes no Full do ML, que só Felipe sabe distinguir) e reprocessou os 372 SKUs com dado atualizado — 369 de 372 preenchidos, 3 sem retorno na busca
+- @analyst e Felipe fecharam as 3 perguntas em aberto desde 06/07 sobre o relatório: é decisório, sem dado de margem de lucro por enquanto, destinatário amanhã é o patrão de Felipe (que depois repassa pra Evelyn, responsável pelo Ads da conta)
+- @analyst e Felipe desenharam e fecharam a estrutura final do "Plano de Ação" em PDF: Cobertura+Premissa, Situações de Preço (1/2/3, cortada a 4ª que é sobre negociação com fornecedor — já tem outra frente cuidando disso) como guia de método (não uma classificação aplicada), e Lista de produtos ativos organizada por "Receita Total" (renomeado de "receita de 30 dias" porque o período exato da coluna "Ingresos totales" da Evelyn nunca foi confirmado)
+- @analyst cometeu um erro de processo (perguntou "combinado?" e já chamou o @dev no mesmo movimento, sem esperar resposta) — Felipe corrigiu na hora, a chamada foi interrompida antes de qualquer execução real, sem dano
+- @dev calculou a Receita Total por SKU (cruzando `Pasta pro Dev.xlsx` com a coluna "Ingresos totales" da planilha da Evelyn) e gerou o PDF `C:\Downloads\Plano de Ação - Karzen.pdf` — achou e corrigiu duplicidade de SKU na tabela final (179 linhas viraram 150 SKUs únicos consolidados) — PDF verificado visualmente, pronto
+
+**O QUE O FELIPE PEDIU:**
+- Analisar o caso BG-03 no Chrome (só leitura) antes do @dev seguir a instrução completa
+- Abrir o Chrome com porta de depuração pra o @dev conseguir acessar
+- Corrigir o processo do @dev que estava analisando sem cruzar com a planilha da Evelyn primeiro
+- Explicação sobre o padrão de SIM/NÃO/traço nas colunas que ele mesmo tinha desenhado — resolvido trocando por 1 coluna categórica "Status"
+- Onde está o arquivo do Bloco de Notas
+- Adicionar coluna de estoque real por produto na Pasta pro Dev.xlsx, separando por CD próprio vs Full quando os valores forem diferentes
+- Recapitular o que ficou decidido sobre o plano de ação pro patrão
+- Corrigir a premissa da Seção 1 pra cruzar Ativo/Pausado com receita, e ajustar a Seção 4 pra não presumir "queima de estoque" (nem Felipe sabe identificar isso)
+- Cortar do PDF: seção de correções internas, casos de risco/compliance, e qualquer "pedido de decisão" explícito pro patrão
+- Gerar o PDF de verdade, hoje, cruzando a Pasta pro Dev.xlsx com a "Ingresos totales" da planilha da Evelyn
+- Corrigir a duplicidade de SKU encontrada na tabela final antes de ir dormir
+
+**PAROU EM:** PDF final entregue e corrigido (`C:\Downloads\Plano de Ação - Karzen.pdf`, 150 SKUs únicos na tabela). Felipe encerrou a sessão pra dormir (acorda 5h30). Nenhuma tarefa em andamento | Agente ativo: aiox-master
+
+---

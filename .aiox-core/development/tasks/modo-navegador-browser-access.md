@@ -141,7 +141,7 @@ for ($i = 0; $i -lt 15; $i++) {
   const tmpFile = path.join(os.tmpdir(), `minimize-chrome-${Date.now()}-${Math.random().toString(36).slice(2)}.ps1`);
   fs.writeFileSync(tmpFile, psScript);
   try {
-    execSync(`powershell -NoProfile -ExecutionPolicy Bypass -File "${tmpFile}"`, { stdio: 'pipe' });
+    execSync(`powershell -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "${tmpFile}"`, { stdio: 'pipe' });
   } finally {
     fs.unlinkSync(tmpFile);
   }
@@ -149,6 +149,8 @@ for ($i = 0; $i -lt 15; $i++) {
 
 module.exports = { minimizeChrome };
 ```
+
+**Bug real encontrado (06/08/2026): faltava `-WindowStyle Hidden` na chamada `execSync`.** Sem essa flag, todo `minimizeChrome()` (chamado no `finally` de praticamente todo script do Modo Navegador) abre um processo `powershell.exe` visível por uma fração de segundo antes de fechar sozinho. A janela em si nunca chega a ser percebida (nasce e morre rápido demais pra renderizar), mas o Windows já reage à criação da janela e pode roubar o foco de **qualquer outra janela do usuário** (não só do Chrome) — sintoma relatado pelo Felipe como "o foco muda do nada" na tela em que ele estava trabalhando, sem nenhuma janela visível para explicar. Ocorreu repetidamente numa sessão com muitas chamadas de script seguidas (cada uma dispara um `minimizeChrome()`). Corrigido adicionando `-WindowStyle Hidden` direto na invocação do `powershell.exe` (mesmo princípio já usado no lançamento do vigia via `Start-Process -WindowStyle Hidden`, só que aqui a flag precisa ir para o `powershell.exe` em si, já que a chamada é via `execSync`/shell, não via `Start-Process`).
 
 Uso: `require('./minimize-chrome.js').minimizeChrome()` chamado **dentro do mesmo script** que chamou `bringToFront()`, sempre antes de `process.exit()`, dentro de um `finally` (ver seção seguinte). Nunca como comando PowerShell separado depois — isso reintroduz a brecha de interrupção.
 
