@@ -90,12 +90,15 @@ Só prosseguir para `connectOverCDP` se essa chamada retornar sucesso.
 
 ```javascript
 const { chromium } = require('playwright');
-const { openBackgroundPage } = require('CAMINHO_RELATIVO_ATE/.aiox-core/development/scripts/modo-navegador/abrir-aba-background.js'); // módulo persistido — ver seção "Abrir aba em segundo plano via CDP" abaixo
+// Caminho é relativo ao diretório de onde o script roda. Testado e validado (07/08/2026)
+// rodando com `node script.js` a partir da RAIZ do repositório -- se o script ad-hoc
+// ficar em outra pasta, ajustar os "../" de acordo, ou usar path.resolve(__dirname, ...).
+const { openBackgroundPage } = require('./.aiox-core/development/scripts/modo-navegador/abrir-aba-background.js');
 
 const browser = await chromium.connectOverCDP('http://localhost:9222');
 const context = browser.contexts()[0];
-const page = await openBackgroundPage(browser, context); // sempre aba nova, sempre em background — nunca navegar em aba já existente do usuário
-await page.goto('URL_DESEJADA', { waitUntil: 'domcontentloaded', timeout: 30000 });
+const page = await openBackgroundPage(browser, context, 'URL_DESEJADA'); // sempre aba nova, sempre em background — nunca navegar em aba já existente do usuário
+await page.waitForLoadState('domcontentloaded', { timeout: 30000 });
 ```
 
 ---
