@@ -20,22 +20,28 @@ function setClipboard(value) {
 }
 
 async function readClipboard(page) {
-  return page.evaluate(async () => {
+  const resultado = await page.evaluate(async () => {
     try {
-      return await navigator.clipboard.readText();
+      return { ok: true, valor: await navigator.clipboard.readText() };
     } catch (e) {
-      return 'ERRO_CLIPBOARD: ' + e.message;
+      return { ok: false, erro: e.message };
     }
   });
+  if (!resultado.ok) {
+    throw new Error(`Falha ao ler clipboard: ${resultado.erro}`);
+  }
+  return resultado.valor;
 }
 
 // Espera a Name Box ficar habilitada (Sheets mantem ela disabled enquanto ainda
-// esta carregando/inicializando a planilha logo apos abrir a aba).
+// esta carregando/inicializando a planilha logo apos abrir a aba). Seguro chamar
+// toda vez -- se ja estiver habilitada, o waitFor retorna na hora.
 async function esperarPlanilhaCarregar(page, timeoutMs = 15000) {
   await page.locator('#t-name-box:not([disabled])').waitFor({ timeout: timeoutMs });
 }
 
 async function irParaCelula(page, celula) {
+  await esperarPlanilhaCarregar(page);
   const nameBox = page.locator('#t-name-box');
   await nameBox.click({ timeout: 5000 });
   await page.waitForTimeout(200);
@@ -75,10 +81,20 @@ async function limparCelula(page, celula) {
   await page.waitForTimeout(400);
 }
 
+// Escreve varias colunas de uma vez a partir de uma celula inicial (ex: "A50"),
+// juntando os valores com tab -- o Sheets expande automaticamente pras colunas
+// seguintes ao colar um texto com tab. Cada valor NAO deve conter tab nem quebra
+// de linha (isso quebraria o alinhamento das colunas).
+async function escreverLinha(page, celulaInicial, valores) {
+  const linha = valores.map((v) => String(v)).join('\t');
+  await escreverCelula(page, celulaInicial, linha);
+}
+
 module.exports = {
   esperarPlanilhaCarregar,
   irParaCelula,
   escreverCelula,
+  escreverLinha,
   lerCelula,
   limparCelula,
 };
