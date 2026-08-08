@@ -83,9 +83,18 @@ async function limparCelula(page, celula) {
 
 // Escreve varias colunas de uma vez a partir de uma celula inicial (ex: "A50"),
 // juntando os valores com tab -- o Sheets expande automaticamente pras colunas
-// seguintes ao colar um texto com tab. Cada valor NAO deve conter tab nem quebra
-// de linha (isso quebraria o alinhamento das colunas).
+// seguintes ao colar um texto com tab. Cada valor NAO pode conter tab nem quebra
+// de linha (isso deslocaria o alinhamento das colunas) -- validado abaixo, lanca
+// erro em vez de colar errado silenciosamente.
 async function escreverLinha(page, celulaInicial, valores) {
+  valores.forEach((v, i) => {
+    const texto = String(v);
+    if (/[\t\n\r]/.test(texto)) {
+      throw new Error(
+        `escreverLinha: valor na posição ${i} contém tab ou quebra de linha, o que deslocaria as colunas seguintes: ${JSON.stringify(texto)}`
+      );
+    }
+  });
   const linha = valores.map((v) => String(v)).join('\t');
   await escreverCelula(page, celulaInicial, linha);
 }
