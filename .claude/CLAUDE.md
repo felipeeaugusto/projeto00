@@ -283,6 +283,8 @@ PASSO 5: AGUARDAR resposta antes de qualquer transição de agente
 
 ### BLOCO 0-F — RETOMADA APÓS INTERRUPÇÃO (obrigatório)
 
+**Nota (08/08/2026):** o gatilho original desta regra (autopercepção do agente) se mostrou pouco confiável na prática — nenhum agente aplicava consistentemente. Ver **BLOCO 0-Y ("Momento de Pausa")**, que resolve a mesma necessidade com gatilho por frase explícita do Felipe. Esta BLOCO permanece como princípio de boa prática, mas o mecanismo primário e obrigatório agora é a BLOCO 0-Y.
+
 **Gatilho:** Qualquer agente que interrompeu o fluxo principal para implementar uma melhoria, regra, protocolo ou correção.
 
 ```
@@ -1245,6 +1247,52 @@ PASSO 7: SE qualquer etapa falhar → seguir o Protocolo de Falha do próprio ar
 **O ERRO QUE GEROU ESTA REGRA (04/08/2026):** o procedimento de acesso ao Chrome via CDP foi reconstruído "de memória" (a partir do padrão geral do BLOCO 0-V, que documenta o Edge) em vez de ir atrás do comando exato já validado em sessão anterior — faltou a flag `--no-first-run`, o que causou falha repetida ("Falha ao criar o diretório de dados") e horas de investigação até a causa ser encontrada no histórico de uma sessão salva. Esta regra existe pra garantir que o comando literal, uma vez validado, nunca mais precise ser reconstruído de memória por nenhum agente.
 
 **Esta regra se aplica a TODOS os agentes atuais e futuros, de todos os squads — sem exceção.**
+
+---
+
+### BLOCO 0-Y — "MOMENTO DE PAUSA" (pausa e retomada controlada por frase) (inegociável)
+
+**Gatilho:** Felipe escreve literalmente a frase **"momento de pausa"**, em qualquer momento, para qualquer agente ativo naquela hora — não importa se é o @aiox-master, um agente especializado, ou um agente de qualquer squad.
+
+**REGRA ABSOLUTA:** Ao receber "momento de pausa", o agente ativo PARA o que está fazendo e responde OBRIGATORIAMENTE em um dos dois formatos abaixo — nunca os dois juntos, nunca nenhum outro formato, e nunca escrevendo os rótulos internos "Estado A"/"Estado B" na resposta ao Felipe (são só nomes de referência para os agentes, não aparecem na tela).
+
+```
+PASSO 1: Identificar em qual dos dois estados o agente estava no momento do "momento de pausa":
+
+  ESTADO A — Executando uma ação/tarefa técnica (rodando um script, navegando,
+             editando arquivo, esperando um comando terminar, etc.):
+    Responder com exatamente 2 tópicos:
+    - "O que está sendo feito nesse momento": descrição detalhada do que está em
+      andamento E o PORQUÊ (contexto/motivo por trás da ação) — não só o quê
+    - "O que fazer depois do 'voltei'": o passo exato que o agente deve retomar
+      quando Felipe voltar
+
+  ESTADO B — Conversando com Felipe, sem nenhuma ação técnica em andamento:
+    Reler a sessão inteira do terminal, desde o início dela até o "momento de
+    pausa", e responder com:
+    - O que está sendo discutido/construído nessa sessão
+    - Tópicos que ficaram em aberto, pra trás, ou que o Felipe não estava lembrando
+
+PASSO 2: Aguardar. Não continuar nenhum trabalho até Felipe escrever "voltei".
+
+PASSO 3: Quando Felipe escrever "voltei", retomar exatamente do que foi registrado
+         no PASSO 1 — sem pular etapas, sem presumir que ele lembra o contexto sozinho.
+```
+
+**PROIBIDO:**
+- Disparar esse formato para qualquer OUTRA interrupção que não seja a frase literal "momento de pausa" — inclusive quando Felipe interrompe por outro motivo (ex: corrigir uma ação ineficiente, redirecionar a conversa). Isso é interrupção normal, não "momento de pausa" — o agente responde à correção normalmente, sem entrar no formato de pausa
+- Escrever os rótulos "Estado A"/"Estado B" na resposta ao Felipe — são nomes internos de referência
+- Misturar os dois formatos numa mesma resposta
+- Continuar qualquer ação depois de responder ao "momento de pausa", mesmo que pareça rápido de terminar — sempre esperar o "voltei"
+- Presumir que uma pausa curta não precisa do registro completo — a regra vale sempre, independente de quanto tempo Felipe vai ficar ausente (ele não sabe de antemão quanto tempo vai demorar)
+
+**Por que esta regra existe:**
+Felipe se ausenta com frequência (ex: sai às 9h, volta às 14h) — normalmente por causa de prompts de permissão esperando resposta dele, ou porque precisa fazer outra coisa mais urgente. Antes desta regra, só existia o "vou parar" (BLOCO 3) — um fluxo pesado (fecha tudo, commita, faz push) inadequado pra uma ausência temporária. Sem um mecanismo leve de pausa, o agente ficava sem registrar nada, ou Felipe precisava usar o fluxo pesado pra algo que não era o fim da sessão de verdade.
+
+**Relação com a BLOCO 0-F ("Retomada Após Interrupção"):**
+A BLOCO 0-F tentava resolver um problema parecido (revisar o que ficou pendente numa interrupção), mas com um defeito de design: o gatilho dependia do agente se auto-perceber ("eu interrompi o fluxo pra fazer uma melhoria") — sem nenhum sinal externo forçando isso. Na prática, isso nunca funcionou de forma confiável — nenhum agente aplicava a regra consistentemente (inclusive dentro desta própria sessão, um agente corrigiu um documento, gatilho clássico da BLOCO 0-F, e não aplicou a listagem exigida). A BLOCO 0-Y resolve a mesma necessidade com um gatilho confiável: uma frase literal do Felipe, igual já funciona bem pra "vou parar". **A BLOCO 0-F permanece registrada como princípio de boa prática**, mas o mecanismo prático e obrigatório agora é esta BLOCO 0-Y — o "Estado B" cobre integralmente o que a BLOCO 0-F tentava fazer, de forma mais confiável.
+
+**Esta regra se aplica a TODOS os agentes e squads do AIOX — atuais, futuros, e vindos de atualizações oficiais do repositório `SynkraAI/aiox-core` — sem exceção, mesmo padrão universal da BLOCO 0-X ("Modo Navegador").**
 
 ---
 
