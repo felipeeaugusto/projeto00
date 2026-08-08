@@ -1316,4 +1316,41 @@ Aplica-se a TODOS os agentes atuais e futuros, de todos os squads — sem exceç
 
 ---
 
-*Última atualização: 2026-08-04 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 43 — BLOCO 0-Y — "MOMENTO DE PAUSA" (pausa e retomada controlada por frase)
+
+**Data de aprovação:** 2026-08-08
+**Problema resolvido:** Felipe se ausenta do computador com frequência (ex: sai às 9h, volta às 14h) — geralmente porque um agente ficou esperando permissão dele, ou porque precisou fazer algo mais urgente. O único mecanismo existente pra isso era o "vou parar" (BLOCO 3), um fluxo pesado (fecha tudo, commita, faz push) inadequado pra uma ausência temporária — usar esse fluxo pra uma pausa curta seria desproporcional, e sem ele o agente simplesmente ficava parado sem registrar nada sobre onde estava ou o que fazer ao retomar. Havia também uma tentativa anterior de resolver isso (BLOCO 0-F, "Retomada Após Interrupção"), mas seu gatilho dependia do agente se auto-perceber interrompendo o fluxo — na prática, nenhum agente aplicava a regra de forma confiável (confirmado nesta mesma sessão: um agente corrigiu um documento, gatilho clássico da BLOCO 0-F, e não aplicou a listagem exigida).
+**O que faz:** Cria o gatilho "momento de pausa" (frase literal, dita pelo Felipe, pra qualquer agente ativo a qualquer momento). Ao recebê-la, o agente registra o estado atual em um de dois formatos fixos — se estava executando uma ação técnica (o que está sendo feito e por quê, mais o que fazer depois do "voltei"), ou se estava só conversando (revisão da sessão inteira até aquele ponto, o que está sendo discutido/construído, e tópicos em aberto) — e aguarda a palavra "voltei" pra retomar exatamente do que foi registrado. Dispara apenas com a frase exata — qualquer outra interrupção (correção, redirecionamento) é tratada normalmente, sem esse formato. Proposta original de Felipe, refinada via `*elicit` com @analyst, que também diagnosticou a falha de gatilho da BLOCO 0-F e recomendou esta como o mecanismo confiável que a substitui na prática (BLOCO 0-F permanece registrada como princípio, com nota apontando pra cá).
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-Y (inserido após BLOCO 0-X, antes do BLOCO 1) + nota de referência adicionada no topo da BLOCO 0-F
+**Regra:**
+```
+GATILHO: "momento de pausa" — frase literal do Felipe, pra qualquer agente ativo, a qualquer momento.
+
+AO RECEBER:
+PASSO 1: Identificar o estado do agente naquele momento:
+
+  SE estava executando ação técnica (script, navegação, edição de arquivo etc.):
+    Responder com 2 tópicos:
+    - "O que está sendo feito nesse momento": detalhado, com o porquê
+    - "O que fazer depois do 'voltei'": passo exato de retomada
+
+  SE estava conversando, sem ação técnica em andamento:
+    Reler a sessão inteira até o "momento de pausa" e responder com:
+    - O que está sendo discutido/construído
+    - Tópicos que ficaram em aberto ou pra trás
+
+PASSO 2: Aguardar — não continuar nenhum trabalho até Felipe escrever "voltei"
+PASSO 3: Ao receber "voltei", retomar exatamente do que foi registrado no PASSO 1
+
+PROIBIDO: disparar esse formato pra qualquer interrupção que não seja a frase
+          exata "momento de pausa"; misturar os dois formatos; continuar
+          qualquer ação depois de responder à pausa; pular o registro completo
+          achando que a ausência vai ser curta.
+
+Aplica-se a TODOS os agentes e squads do AIOX — atuais, futuros, e vindos de
+atualizações oficiais do repositório SynkraAI/aiox-core — sem exceção.
+```
+
+---
+
+*Última atualização: 2026-08-08 — Orion (@aiox-master)*
