@@ -417,6 +417,24 @@ Depois de rodar os 5 checks, **reportar ao Felipe o que foi encontrado e parar**
 
 ---
 
+## Ler/escrever no Google Sheets sem API e sem print (crítica, 08/08/2026)
+
+**Por que essa regra existe:** o Google Sheets desenha a grade em canvas — não é texto de página normal, então o método padrão de leitura (`innerText`) não funciona pra ler célula nenhuma (só pega o menu de cima). API do Google foi descartada por decisão do Felipe (risco de cobrança futura por excesso de cota). Screenshot foi descartado por um bug real e documentado (sessão de 05/08/2026): tirar print logo depois de colar/mesclar travava de forma imprevisível, às vezes 10+ minutos, às vezes travava de vez.
+
+**Solução validada:** clipboard do próprio Windows, sem nenhuma das duas coisas acima.
+- **Escrever:** `Set-Clipboard -Value "..."` (PowerShell) → focar a célula pela "Name Box" (`#t-name-box`) → `Ctrl+V`
+- **Ler:** focar a célula pela Name Box → `Ctrl+C` → `page.evaluate(() => navigator.clipboard.readText())`
+
+Módulo persistido: `.aiox-core/development/scripts/modo-navegador/planilha-clipboard.js` (`escreverCelula`, `lerCelula`, `limparCelula`, `irParaCelula`, `esperarPlanilhaCarregar`).
+
+**⚠️ Regra crítica, causou horas de investigação em 07-08/08/2026: NUNCA reusar uma aba da planilha que já acumulou várias tentativas (inclusive com erro).** O estado interno do Sheets fica inconsistente depois de várias tentativas seguidas na mesma aba, e a Name Box passa a falhar com **"O nome dado ao intervalo é inválido"** — uma mensagem enganosa (é o erro de "criar intervalo nomeado com nome inválido", não o erro real de "célula não encontrada") — mesmo digitando um endereço de célula perfeitamente válido. A correção não é ajustar o texto digitado, é **abrir uma aba nova**, sempre, antes de uma sequência de operações. Validado: numa aba nova e limpa, a mesma operação que falhava repetidamente funcionou de primeira, sem nenhum ajuste no código.
+
+**Outra pegadinha real:** logo depois de abrir a aba, a Name Box fica com o atributo `disabled` enquanto o Sheets ainda está carregando — clicar nela antes disso dá timeout. Esperar com `page.locator('#t-name-box:not([disabled])').waitFor(...)` antes de qualquer interação (já embutido em `esperarPlanilhaCarregar()` no módulo).
+
+**Validado com medição real (08/08/2026):** ciclo escrever→ler completo, numa aba nova, valor lido bateu exatamente com o valor escrito, sem nenhum erro em nenhuma etapa.
+
+---
+
 ## Riscos conhecidos (documentados, sem solução técnica — só ciência)
 
 - **Chrome se autoatualiza sozinho** e pode voltar a quebrar esse procedimento no futuro sem aviso (foi exatamente o que causou a falha de 04/08/2026 — a receita antiga estava sem o `--no-first-run`). Não tem prevenção; a resposta é sempre o Protocolo de Falha acima.
