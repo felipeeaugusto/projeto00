@@ -281,6 +281,42 @@ PASSO 5: AGUARDAR resposta antes de qualquer transição de agente
 
 ---
 
+### GUIA DE DECISÃO — QUAL REGRA DE RETOMADA/REATIVAÇÃO USAR (obrigatório, ler ANTES de escrever qualquer resposta de retomada)
+
+**Por que este guia existe (08-09/08/2026):** existem 5 regras diferentes tratando de "o que dizer quando um agente retoma ou é reativado" — BLOCO 0-F, BLOCO 0-G, BLOCO 0-T (Sub-bloco T1), BLOCO 0-T (Sub-bloco T2), e BLOCO 0-Y. Cada uma serve uma situação distinta, mas os formatos de resposta são parecidos o suficiente pra causar confusão real — já aconteceu de um agente usar o template da BLOCO 0-F numa situação que era da BLOCO 0-T (Sub-bloco T2), confundindo o Felipe sobre o que realmente tinha acontecido. **Antes de escrever qualquer mensagem de retomada, passar pelas perguntas abaixo, em ordem, e parar na primeira que responder "sim":**
+
+```
+PERGUNTA 1: Foi o Felipe que escreveu literalmente a frase "momento de pausa"
+            (antes) ou "voltei" (agora)?
+            SIM → usar BLOCO 0-Y
+
+PERGUNTA 2: A conversa foi resumida automaticamente pelo próprio sistema
+            (compactação), sem o Felipe ter pedido nada?
+            SIM → usar BLOCO 0-G
+
+PERGUNTA 3: Este agente mesmo desviou do fluxo principal pra fazer outra coisa
+            (ex: implementar uma regra nova pedida no meio do caminho), e está
+            voltando pro assunto original agora?
+            SIM → usar BLOCO 0-F
+
+PERGUNTA 4: Este agente está terminando o trabalho que foi mandado fazer, e
+            está prestes a encerrar/assinar?
+            SIM → usar BLOCO 0-T (Sub-bloco T1)
+
+PERGUNTA 5: Este agente foi chamado/ativado, e outro agente tinha acabado de
+            concluir algo logo antes desta ativação (fluxo em andamento)?
+            SIM → usar BLOCO 0-T (Sub-bloco T2)
+
+Nenhuma das 5 bateu → não é uma situação de retomada, seguir o fluxo normal
+(BLOCO 1, greeting padrão).
+```
+
+**Regra de desempate:** se mais de uma pergunta parecer "sim" ao mesmo tempo, a ordem acima é a prioridade — pergunta 1 vence a 2, que vence a 3, e assim por diante. "Momento de pausa"/"voltei" sempre tem prioridade máxima porque é o único gatilho por frase literal do Felipe, sem ambiguidade nenhuma.
+
+**PROIBIDO:** escrever qualquer resposta de retomada sem antes ter passado por essas 5 perguntas — mesmo que pareça óbvio qual regra usar. Foi justamente "parecer óbvio" que causou o erro real documentado acima.
+
+---
+
 ### BLOCO 0-F — RETOMADA APÓS INTERRUPÇÃO (obrigatório)
 
 **Nota (08/08/2026):** o gatilho original desta regra (autopercepção do agente) se mostrou pouco confiável na prática — nenhum agente aplicava consistentemente. Ver **BLOCO 0-Y ("Momento de Pausa")**, que resolve a mesma necessidade com gatilho por frase explícita do Felipe. Esta BLOCO permanece como princípio de boa prática, mas o mecanismo primário e obrigatório agora é a BLOCO 0-Y.
@@ -959,7 +995,11 @@ PASSO 1: Verificar se há fluxo ativo — sinais de fluxo em andamento:
 
 PASSO 2: SE há fluxo ativo → após o greeting e caderno (BLOCO 1), mostrar OBRIGATORIAMENTE:
          "🔄 Fluxo em andamento: [objetivo original do usuário]
-          📍 Último passo concluído: [agente anterior] — [o que fez]
+          📍 Último passo concluído: [agente anterior] — [o que fez] — [como isso
+             contribui pro objetivo geral da linha acima; tamanho natural, proporcional
+             ao quanto ainda falta pro objetivo — curto quando está perto do fim, mais
+             completo quando falta bastante; NUNCA um contador de quantas vezes esta
+             regra já disparou nesta cadeia, correção de 08-09/08/2026]
           ➡️ Próximo passo: [tarefa específica do próximo agente ou desta ativação]
           Quer continuar?"
 
@@ -981,6 +1021,7 @@ Contexto: @devops acabou de fazer push do BLOCO 0-S + Customização 36.
 @aiox-master ao ser reativado deveria mostrar:
 "🔄 Fluxo em andamento: navegar para o feed via Playwright (Edge logado)
  📍 Último passo concluído: @devops — commit a9bc945 + push (BLOCO 0-S implementado)
+    — isso desbloqueia a regra de foco de janela que faltava antes de abrir o Edge
  ➡️ Próximo passo: @devops abre o Edge com --remote-debugging-port=9222
  Quer continuar?"
 ```
@@ -1466,16 +1507,31 @@ PASSO 2 — AUDITORIA ATIVA DA SESSÃO (obrigatório — leitura integral, não 
        → Identificar: pedidos feitos, tarefas discutidas, decisões tomadas, itens deixados de lado
        → Comparar com PROJETO-STATUS.md do projeto ativo: o que foi discutido mas não está formalizado?
        → Incluir o resumo de compactação se houver — ele faz parte da sessão
-  2.3: Apresentar os achados ao Felipe:
-       "🔍 Auditei a sessão inteira. Encontrei [N] itens que não estão formalizados:
+  2.2-B: CRUZAR COM O ESTADO REAL DO GIT (obrigatório, 08-09/08/2026):
+       → Rodar `git status --short` e `git diff` nos arquivos modificados
+       → Comparar contra o que já foi commitado nesta sessão — existe algo editado
+         que a conversa nunca mencionou como "pendente", mas que também nunca foi
+         commitado? Isso conta como achado da auditoria também.
+       → Motivo: a leitura da conversa sozinha NÃO pega isso — um arquivo pode ter
+         sido editado e nunca commitado sem que ninguém tenha comentado a respeito
+         na conversa (caso real: packages/karzen/PROJETO-STATUS.md ficou editado e
+         sem commit por sessões inteiras, sem que a auditoria baseada só em texto
+         conversado pegasse)
+  2.3: Apresentar os achados ao Felipe (juntando os da conversa E os do git):
+       "🔍 Auditei a sessão inteira (conversa + git status/diff). Encontrei [N] itens
+        que não estão formalizados:
         - [item 1]: [descrição]
         - [item 2]: [descrição]
-        Posso adicionar ao caderno, commitar e fazer push?"
-  2.4: AGUARDAR confirmação do Felipe
-  2.5: Após confirmação → adicionar itens em PENDÊNCIAS ATUAIS → continuar para PASSO 3
+        Quer que eu resolva algum desses agora, antes de fechar, ou prefere só
+        documentar no caderno e resolver numa próxima sessão?"
+  2.4: AGUARDAR confirmação do Felipe — inclui a decisão de resolver agora vs depois,
+       não é só "pode adicionar ao caderno". Se ele responder resolver algum item
+       agora, resolver antes de prosseguir pro PASSO 3.
+  2.5: Após confirmação → adicionar itens em PENDÊNCIAS ATUAIS (os que ficaram pra
+       depois) → continuar para PASSO 3
 
-  IMPORTANTE: Se a leitura completa não encontrar nada além do que já está no caderno:
-  → Informar: "🔍 Auditei a sessão inteira — nada ficou fora do caderno." → continuar para PASSO 3
+  IMPORTANTE: Se a leitura completa (conversa + git) não encontrar nada além do que já está no caderno:
+  → Informar: "🔍 Auditei a sessão inteira (conversa + git) — nada ficou fora do caderno." → continuar para PASSO 3
 
 PASSO 3: Atualize o PROJETO-STATUS.md do projeto ativo:
   - Verificar se já existe entrada do mesmo dia em ULTIMAS 3 SESSOES:
@@ -1484,30 +1540,35 @@ PASSO 3: Atualize o PROJETO-STATUS.md do projeto ativo:
   - Campo PAROU EM DEVE incluir: "[tarefa] | Agente ativo: [nome-do-agente-atual]"
   - Mover sessão mais antiga para HISTORICO-SESSOES.md se já houver 3
 
-PASSO 4: Execute os comandos git OBRIGATORIAMENTE (sem pedir permissão — é mandatório):
+PASSO 4: Execute o `add`/`commit` OBRIGATORIAMENTE (sem pedir permissão — é mandatório),
+         depois CHAME O @DEVOPS PRA FAZER O PUSH — nunca rode `git push` diretamente
+         (correção de 08-09/08/2026: só o @devops pode dar push, ver agent-authority.md;
+         a versão anterior desta regra mandava o agente ativo dar push direto, o que
+         contradizia isso):
 
   SE projeto ativo é KARZEN (pasta regular — não é submódulo):
   ```
   git add packages/karzen/PROJETO-STATUS.md packages/karzen/HISTORICO-SESSOES.md
   git commit -m "chore: caderno karzen atualizado — sessão YYYY-MM-DD"
-  git push origin master
   ```
 
   SE projeto ativo é DR-JULIA (submódulo git):
   ```
   git -C packages/landing-page-dr-julia add PROJETO-STATUS.md HISTORICO-SESSOES.md
   git -C packages/landing-page-dr-julia commit -m "chore: caderno atualizado — sessão YYYY-MM-DD"
-  git -C packages/landing-page-dr-julia push origin master
   git add packages/landing-page-dr-julia
   git commit -m "chore: ponteiro submodule atualizado — sessão YYYY-MM-DD"
-  git push origin master
   ```
 
-PASSO 5: Confirme: "✅ Caderno salvo e no GitHub. Seguro fechar o terminal."
+  Depois do commit (qualquer projeto): chamar o @devops pra rodar o(s) push(es)
+  necessário(s) — nunca pular essa chamada, o push continua sendo mandatório,
+  só a execução dele é que muda de mão.
+
+PASSO 5: Confirme: "✅ Caderno salvo e commitado. Chamando @devops pra fazer o push — depois disso, seguro fechar o terminal."
 ```
 
 **POR QUE O PUSH É MANDATÓRIO (sem opção de recusar):**
-Felipe trabalha em 2 PCs. Sem o push, o outro PC abre desatualizado e o Orion retoma com informação errada — exatamente o problema que causou a perda do product-content-agent e do Guia 7 Minutos. Não há situação em que o push não deve acontecer. Nenhuma.
+Felipe trabalha em 2 PCs. Sem o push, o outro PC abre desatualizado e o Orion retoma com informação errada — exatamente o problema que causou a perda do product-content-agent e do Guia 7 Minutos. Não há situação em que o push não deve acontecer. Nenhuma. **O que mudou (08-09/08/2026) é só quem executa o comando** — sempre o @devops, nunca o agente que fechou a sessão — o push em si continua tão obrigatório quanto sempre foi.
 
 **PROJETOS ATIVOS REGISTRADOS:**
 | Projeto | Caminho do caderno | Tipo git |
