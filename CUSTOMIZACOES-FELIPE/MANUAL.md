@@ -1387,4 +1387,38 @@ Aplica-se a TODOS os agentes atuais e futuros, de todos os squads — sem exceç
 
 ---
 
+## CUSTOMIZAÇÃO 45 — Chrome do Modo Navegador: persiste na pausa, fecha no "vou parar"
+
+**Data de aprovação:** 2026-08-09
+**Problema resolvido:** Não existia nenhuma regra dizendo se o Chrome do Modo Navegador (e o vigia de foco associado) deveria continuar rodando entre sessões ou ser fechado. O procedimento existente só dizia "se já existir um processo ativo e saudável, reutilizar" — sem distinguir uma ausência curta (o Felipe volta em minutos/horas) de um encerramento de verdade (fim do dia, próxima sessão só amanhã ou depois). Isso criava risco de acumular estado sujo no Chrome (abas esquecidas, cache antigo) e de ambiguidade sobre quando um vigia "antigo" deveria ser considerado órfão. Investigado pelo @analyst junto com o Felipe: fechar o Chrome **não perde o login** do Mercado Livre, porque o login fica salvo na pasta do perfil em disco (`ChromeDebugKarzen`), não no processo em si — só demora alguns segundos a mais pra reabrir.
+**O que faz:** Chrome + vigia **persistem** durante um "momento de pausa" seguido de "voltei" (BLOCO 0-Y) — ausência curta, sem fechar nada. Mas são **fechados de verdade** quando o Felipe diz "vou parar" (BLOCO 3) — a próxima sessão sempre abre um Chrome novo e limpo. O @dev documentou e validou o comando técnico de fechamento: identifica especificamente o processo **principal** do Chrome (o único, entre os que batem no filtro `ChromeDebugKarzen`, que não tem a flag `--type=` — os processos-filho de aba/GPU/utilitário/crash-handler todos têm) e fecha só ele — os filhos morrem junto automaticamente. O vigia se desliga sozinho quando o Chrome que protege deixa de existir (comportamento já validado antes, não precisou de mudança). A BLOCO 3 ganhou um novo PASSO 3-B que verifica se o Modo Navegador foi usado na sessão e, se sim, chama esse procedimento — nunca dispara na BLOCO 0-Y, só em "vou parar" de verdade. Avaliação complementar do @analyst: o "Monitor em tempo real" (avisar o @dev na hora que o vigia reage) que tinha sido aprovado numa sessão anterior (06/08) mas nunca implementado foi reavaliado e considerado **dispensável** — o vigia já reage sozinho em milissegundos, e o log de eventos aprimorado (07/08) já cobre o diagnóstico forense sem precisar de alerta ao vivo.
+**Onde implementar:** `.aiox-core/development/tasks/modo-navegador-browser-access.md` (regra de persistência + comando técnico de fechamento, seção "Fechar o Chrome do Modo Navegador") + `.claude/CLAUDE.md` — BLOCO 3, novo PASSO 3-B
+**Regra:**
+```
+Chrome + vigia do Modo Navegador:
+  - "Momento de pausa" + "voltei" → PERSISTE, nunca fecha
+  - "Vou parar" (ou qualquer frase da BLOCO 3) → FECHA, sempre, se foi usado na sessão
+
+Como fechar (comando validado, 09/08/2026):
+  $processoPrincipal = Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" |
+    Where-Object { $_.CommandLine -match 'ChromeDebugKarzen' -and $_.CommandLine -notmatch '--type=' }
+  # deve achar exatamente 1 processo (o principal) -- se achar 0 ou mais de 1, parar e investigar
+  Stop-Process -Id $processoPrincipal.ProcessId -Force
+  # filhos (renderer/gpu/utility/crashpad) morrem junto automaticamente
+  # vigia se desliga sozinho quando o Chrome que protege deixa de existir
+
+BLOCO 3, PASSO 3-B (entre atualizar o caderno e o commit):
+  SE Modo Navegador foi usado na sessão → fechar o Chrome (comando acima)
+  SE NÃO foi usado → pular silenciosamente, sem perguntar nada
+  NUNCA disparar isso na BLOCO 0-Y (Momento de Pausa) — só em "vou parar" de verdade
+
+Monitor em tempo real (proposto em 06/08, nunca implementado): avaliado e
+descartado como dispensável — vigia + log aprimorado já cobrem segurança e
+diagnóstico sem precisar de alerta ao vivo.
+
+Aplica-se a TODOS os agentes que usarem o Modo Navegador — atuais e futuros.
+```
+
+---
+
 *Última atualização: 2026-08-09 — Orion (@aiox-master)*
