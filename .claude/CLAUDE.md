@@ -1540,6 +1540,28 @@ PASSO 3: Atualize o PROJETO-STATUS.md do projeto ativo:
   - Campo PAROU EM DEVE incluir: "[tarefa] | Agente ativo: [nome-do-agente-atual]"
   - Mover sessão mais antiga para HISTORICO-SESSOES.md se já houver 3
 
+PASSO 3-B: FECHAR O CHROME DO MODO NAVEGADOR, SE USADO (obrigatório, 08-09/08/2026):
+  → Verificar se o Modo Navegador foi usado durante esta sessão: checar se existe
+    processo Chrome rodando com `ChromeDebugKarzen` no `CommandLine`, ou se a
+    conversa menciona uso do Chrome via CDP/porta 9222
+  → SE NÃO foi usado nesta sessão → pular este passo silenciosamente, sem fazer
+    nada e sem perguntar nada, continuar pro PASSO 4
+  → SE foi usado → fechar o Chrome seguindo o procedimento já documentado em
+    `.aiox-core/development/tasks/modo-navegador-browser-access.md`, seção
+    "Fechar o Chrome do Modo Navegador" — referenciar essa seção, NUNCA reescrever
+    ou parafrasear o comando aqui (mesmo padrão da BLOCO 0-X, que aponta pra essa
+    task em vez de duplicar procedimento técnico)
+  → O vigia de foco associado se desliga sozinho quando o Chrome que protege
+    deixa de existir — não precisa de nenhuma ação extra pra ele
+
+  ⚠️ ESTE PASSO É EXCLUSIVO DA BLOCO 3 ("vou parar") — NÃO SE APLICA À BLOCO 0-Y
+  ("Momento de Pausa"). São gatilhos por frase diferentes e não devem se confundir:
+  "momento de pausa" + "voltei" preserva o Chrome ligado (ausência curta, sem
+  fechar nada); só "vou parar" de verdade fecha o Chrome. Antes de aplicar este
+  passo, confirmar que o gatilho realmente foi "vou parar" (ou uma das outras
+  frases da BLOCO 3), nunca "momento de pausa" — usar o GUIA DE DECISÃO (antes da
+  BLOCO 0-F) se houver qualquer dúvida sobre qual regra está em jogo.
+
 PASSO 4: Execute o `add`/`commit` OBRIGATORIAMENTE (sem pedir permissão — é mandatório),
          depois CHAME O @DEVOPS PRA FAZER O PUSH — nunca rode `git push` diretamente
          (correção de 08-09/08/2026: só o @devops pode dar push, ver agent-authority.md;
