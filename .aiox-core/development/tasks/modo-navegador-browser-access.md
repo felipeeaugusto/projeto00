@@ -28,7 +28,35 @@ Antes de lançar, checar se já existe um processo Chrome usando a pasta `Chrome
 Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" | Where-Object { $_.CommandLine -match 'ChromeDebugKarzen' }
 ```
 
-Se já existir um processo ativo e saudável (porta 9222 responde), reutilizar — não abrir uma segunda instância.
+**⚠️ Regra de persistência (08-09/08/2026): reutilizar só vale durante uma ausência curta, não pra sempre.** Se já existir um processo ativo e saudável (porta 9222 responde), reutilizar — não abrir uma segunda instância — **isso vale durante um "momento de pausa" seguido de "voltei"** (BLOCO 0-Y do `CLAUDE.md`). **Não vale depois de um "vou parar"**: nesse caso o Chrome (e o vigia junto — ele se desliga sozinho quando o Chrome que protege deixa de existir, comportamento já validado, não precisa mexer nele) deve ter sido fechado antes (ver seção "Fechar o Chrome do Modo Navegador" logo abaixo), e a sessão seguinte abre um Chrome novo e limpo. Fechar o Chrome **não perde o login** do Mercado Livre — o login fica salvo na pasta do perfil em disco (`ChromeDebugKarzen`), não no processo em si; só demora alguns segundos a mais pra reabrir e reconectar no mesmo perfil.
+
+---
+
+## Fechar o Chrome do Modo Navegador (obrigatório após "vou parar", 08-09/08/2026)
+
+**⚠️ O filtro da seção acima acha VÁRIOS processos, não um só — não usar ele direto pra fechar.** `chrome.exe` roda como uma árvore de processos: 1 processo principal + vários processos-filho (aba/renderer, GPU, utilitários, crash-handler) — todos eles têm `ChromeDebugKarzen` no `CommandLine`, porque herdam o `--user-data-dir` do pai. Tentar fechar cada um individualmente é desnecessário e arriscado (pode deixar processo-filho órfão). O jeito certo é fechar só o **processo principal** — os filhos morrem sozinhos junto, automaticamente, quando o pai termina (comportamento padrão do Windows/Chrome).
+
+**Como identificar só o processo principal:** ele é o único, dentre os que batem com `ChromeDebugKarzen`, que **não tem a flag `--type=`** (todo processo-filho tem `--type=renderer`, `--type=gpu-process`, `--type=utility`, `--type=crashpad-handler`, etc. — só o principal não tem nenhum `--type=`, e é o único com `--profile-directory`):
+
+```powershell
+$processoPrincipal = Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" | Where-Object { $_.CommandLine -match 'ChromeDebugKarzen' -and $_.CommandLine -notmatch '--type=' }
+```
+
+**Validado (09/08/2026):** rodado contra uma instância real do Modo Navegador com 15 processos `chrome.exe` no total (1 principal + 14 filhos: crashpad-handler, gpu-process, utility ×3, renderer ×9), o filtro isolou corretamente **só o processo principal** (1 resultado).
+
+**Fechar (só depois de confirmar que achou exatamente 1 processo — se achar 0 ou mais de 1, parar e investigar antes de continuar):**
+
+```powershell
+if ($processoPrincipal.Count -eq 1 -or ($processoPrincipal -and -not ($processoPrincipal -is [array]))) {
+    Stop-Process -Id $processoPrincipal.ProcessId -Force
+} else {
+    # 0 ou mais de 1 encontrado -- não fechar automaticamente, reportar ao Felipe
+}
+```
+
+O vigia associado a esse Chrome se desliga sozinho, sem precisar de nenhum comando extra — o timer interno dele já checa a cada 1 segundo se o processo que protege ainda existe, e se encerra quando não existe mais.
+
+**Quando chamar isso:** no fluxo do "vou parar" (BLOCO 3 do `CLAUDE.md`), se o Modo Navegador foi usado durante a sessão — a integração de *quando* exatamente isso deve rodar dentro da BLOCO 3 é responsabilidade do @aiox-master, não faz parte deste procedimento técnico.
 
 ## Comando validado (literal — não parafrasear)
 
