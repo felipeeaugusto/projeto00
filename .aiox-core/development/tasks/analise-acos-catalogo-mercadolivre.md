@@ -8,6 +8,15 @@ Depende do procedimento de conexão documentado em `modo-navegador-browser-acces
 
 **Regra geral obrigatória: nunca confiar em atalho — sempre confirmar via aba Anúncios/página "Alterar" antes de aceitar qualquer status de catálogo como certo.** Nenhuma fonte isolada (painel de variações da Campanha, badge visto de relance, memória de uma checagem anterior) é suficiente sozinha — o dado só é aceito depois de verificado na aba Anúncios (Passo 3) ou, se escondido lá, na página "Alterar" (Passo 4). Dá mais trabalho, mas é a única forma de não reportar status errado.
 
+**⚠️ Regra obrigatória — reler a Campanha inteira depois de um hiato de tempo real (08/08/2026):** o ACOS de um produto muda sozinho ao longo do tempo (mais vendas/cliques/investimento entrando) — uma busca pontual pelo MLB específico só confirma "esse produto ainda existe", **não confirma** "esse produto ainda serve pro que eu quero fazer" (ex: ACOS ainda ≥5%). Antes de confiar em qualquer ACOS ou status de catálogo já conhecido de um produto, verificar se um dos 4 sinais abaixo aconteceu desde a última leitura da Campanha — se sim, reler a Campanha **inteira** (lista completa, sem filtro) daquele produto antes de continuar, em vez de só confiar numa busca pontual pelo MLB:
+
+1. "Momento de pausa" seguido de "voltei" (ver BLOCO 0-Y do `CLAUDE.md`)
+2. "Vou parar" seguido de início de nova sessão (BLOCO 3)
+3. Compactação de contexto (BLOCO 0-G do `CLAUDE.md`)
+4. O sistema avisar que a data mudou durante a conversa — sinal automático, não depende de nenhuma frase do Felipe; cobre o caso dele simplesmente se ausentar sem avisar nada
+
+**Condição de escopo, crítica:** essa regra **NUNCA** dispara de forma geral. Só vale quando o trabalho sendo retomado ou iniciado naquele momento é especificamente dentro do Modo Análise (prestes a olhar/confiar no ACOS de um produto, ou continuando uma análise de Campanha em andamento). Se nenhum dos 4 sinais coincidir com um contexto de Modo Análise ativo, a regra fica inerte — nunca deve levar um agente a abrir o Modo Navegador e sair checando a Planilha fora de contexto, sem relação com o que está sendo pedido.
+
 ---
 
 ## Passo 1 — Extrair ACOS de todos os produtos da Campanha
@@ -31,6 +40,8 @@ Depende do procedimento de conexão documentado em `modo-navegador-browser-acces
 **⚠️ Correção crítica sobre "(M não se pode/podem mostrar)" (08/08/2026):** essa mensagem **NÃO significa que M variações estão faltando no painel**. As **N variações completas existem e devem aparecer todas** ao rolar o painel até o fim. A mensagem é sobre **Ads (anúncio patrocinado) na busca do Mercado Livre**: para M dessas variações, o Mercado Livre não está exibindo o anúncio com a marcação "AD"/"Ad" no topo dos resultados de busca — o anúncio ainda existe e aparece "naturalmente" mais abaixo (fim da primeira página ou páginas seguintes), só não está sendo promovido via Ads no momento. Essas M variações "sem Ads" podem pertencer ao mesmo SKU entre si, a SKUs diferentes, ou uma combinação — isso só é descoberto depois, MLB por MLB, no Passo 3. **Checagem correta:** contar N variações completas no painel (não N-M); se faltar alguma das N, investigar antes de prosseguir.
 
 **⚠️ Cada `#`/MLB dentro do mesmo painel de "N variações" pode ter um SKU diferente dos outros.** Não presumir que todos os MLBs listados nas variações de um produto resolvem pro mesmo SKU — cada um precisa ser verificado individualmente na aba Anúncios (Passo 3) antes de agrupar.
+
+**⚠️ Um mesmo MLB pode aparecer DUPLICADO dentro do painel de "N variações" (08/08/2026):** isso é comportamento normal do próprio Mercado Livre, não é erro do processo — nunca investigar como se fosse bug. **Caso real (produto #MLB19714481, Campanha Curva C):** painel declarava "14 variações", mas só havia **10 MLBs únicos** — 4 deles apareciam 2 vezes cada, cada aparição com uma tag de status diferente entre si (ex: uma vez sem nenhum aviso, outra vez "DESATIVADA"; ou as duas vezes "NÃO SE PODE MOSTRAR"). O total de linhas (14) sempre bate com o "N variações" declarado — a duplicação é distribuída entre menos MLBs únicos. **Checagem correta:** contar sempre os MLBs **únicos** (diferentes), ignorando duplicatas — é isso que deve bater com o Passo 3, não o total de linhas do painel.
 
 ## Passo 3 — Determinar SKU e status de catálogo de cada MLB
 
