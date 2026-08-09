@@ -14,8 +14,14 @@ Depende do procedimento de conexão documentado em `modo-navegador-browser-acces
 2. "Vou parar" seguido de início de nova sessão (BLOCO 3)
 3. Compactação de contexto (BLOCO 0-G do `CLAUDE.md`)
 4. O sistema avisar que a data mudou durante a conversa — sinal automático, não depende de nenhuma frase do Felipe; cobre o caso dele simplesmente se ausentar sem avisar nada
+5. **Uma busca pontual por um MLB específico falhar 2 vezes seguidas** (ver "Estratégia de espera" logo abaixo pra saber o que conta como falha de verdade) — diferente dos outros 4, este não é sobre tempo passado, é sobre confiabilidade da busca: 2 falhas seguidas (cada uma confirmada, não só demorada) já é evidência suficiente de que algo mudou de verdade no produto (ex: saiu da campanha), mesmo sem nenhum hiato de tempo ter acontecido
 
-**Condição de escopo, crítica:** essa regra **NUNCA** dispara de forma geral. Só vale quando o trabalho sendo retomado ou iniciado naquele momento é especificamente dentro do Modo Análise (prestes a olhar/confiar no ACOS de um produto, ou continuando uma análise de Campanha em andamento). Se nenhum dos 4 sinais coincidir com um contexto de Modo Análise ativo, a regra fica inerte — nunca deve levar um agente a abrir o Modo Navegador e sair checando a Planilha fora de contexto, sem relação com o que está sendo pedido.
+**Condição de escopo, crítica:** essa regra **NUNCA** dispara de forma geral. Só vale quando o trabalho sendo retomado ou iniciado naquele momento é especificamente dentro do Modo Análise (prestes a olhar/confiar no ACOS de um produto, ou continuando uma análise de Campanha em andamento). Se nenhum dos 5 sinais coincidir com um contexto de Modo Análise ativo, a regra fica inerte — nunca deve levar um agente a abrir o Modo Navegador e sair checando a Planilha fora de contexto, sem relação com o que está sendo pedido.
+
+**⚠️ Estratégia de espera — o que conta como "falha" de verdade (08/08/2026):** nunca usar um tempo fixo "no chute" (`waitForTimeout` de N segundos) como critério pra aceitar "0 resultados" como resposta real — a internet pode oscilar, e uma página que só está demorando mais que o esperado não é o mesmo que uma busca que genuinamente não encontrou nada. Antes de aceitar "0 resultados"/"não encontrado":
+1. Confirmar que o carregamento **realmente terminou** — verificar o texto de contagem real da página (ex: "N anúncios patrocinados", "N anúncio patrocinado") em vez de só esperar um tempo fixo e ler o que estiver na tela naquele instante
+2. Se depois de uma espera generosa (bem maior que o normal, ex: 3-4x o tempo que costuma bastar) o resultado continuar vazio, **essa sim** é uma falha confirmada — não antes disso
+3. Só falhas confirmadas dessa forma contam pro critério "2 falhas seguidas" acima — uma busca que só demorou e depois funcionou não conta como falha
 
 ---
 

@@ -435,6 +435,17 @@ Módulo persistido: `.aiox-core/development/scripts/modo-navegador/planilha-clip
 
 ---
 
+## Achar URLs de favoritos do Chrome (crítica, 08/08/2026)
+
+**Método obrigatório: ler o arquivo de perfil do Chrome direto do disco — nunca abrir `chrome://bookmarks` como página navegada.**
+
+- Arquivo: `AccountBookmarks` (JSON), dentro da pasta do perfil (ex: `ChromeDebugKarzen\Profile 3\AccountBookmarks`) — em alguns perfis o nome é `Bookmarks` em vez de `AccountBookmarks`, checar qual existe
+- Ler com `Get-Content` (PowerShell) ou equivalente, procurar pelo `"name"` do favorito desejado dentro de `roots.bookmark_bar.children`, pegar a `"url"` correspondente
+
+**Por que nunca abrir `chrome://bookmarks`:** é uma página de gerenciamento de verdade, com botões de editar/excluir — um clique errado de automação nessa página pode alterar ou apagar favoritos reais do Felipe, sem nenhum jeito de desfazer fácil. Além do risco, é estritamente pior nos outros aspectos: mais lento (precisa carregar/renderizar uma aba inteira contra milissegundos de leitura de arquivo) e consome uma aba da mesma instância do Chrome que está sendo usada pro trabalho real, em vez de ficar completamente fora do navegador.
+
+---
+
 ## Riscos conhecidos (documentados, sem solução técnica — só ciência)
 
 - **Chrome se autoatualiza sozinho** e pode voltar a quebrar esse procedimento no futuro sem aviso (foi exatamente o que causou a falha de 04/08/2026 — a receita antiga estava sem o `--no-first-run`). Não tem prevenção; a resposta é sempre o Protocolo de Falha acima.
