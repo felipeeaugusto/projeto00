@@ -1353,4 +1353,38 @@ atualizações oficiais do repositório SynkraAI/aiox-core — sem exceção.
 
 ---
 
-*Última atualização: 2026-08-08 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 44 — BLOCO 3 corrigida + Guia de Decisão entre as 5 regras de retomada
+
+**Data de aprovação:** 2026-08-09
+**Problema resolvido:** Uma auditoria do @analyst achou 3 falhas reais na BLOCO 3 ("vou parar"): (1) a "Auditoria Ativa da Sessão" só comparava a conversa contra o caderno, nunca contra o `git status`/`git diff` — prova real: `packages/karzen/PROJETO-STATUS.md` ficou editado e sem commit por sessões inteiras sem que a auditoria baseada só em texto pegasse; (2) a BLOCO 3 só documentava pendências achadas pra próxima sessão, nunca perguntava se deveriam ser resolvidas ali mesmo antes de fechar; (3) o PASSO 4 mandava o agente ativo rodar `git push` diretamente, contradizendo `agent-authority.md` (só @devops pode push) e a prática já estabelecida na sessão. Separadamente, o @analyst cometeu um erro real de confundir o template da BLOCO 0-F com o da BLOCO 0-T (Sub-bloco T2) ao ser reativado após o @dev concluir uma tarefa — investigando a causa raiz, descobriu que existem 5 regras diferentes e sobrepostas tratando de "retomada/reativação" (0-F, 0-G, 0-T T1, 0-T T2, 0-Y), sem nenhum guia unificado pra escolher a certa.
+**O que faz:** (1) BLOCO 3 PASSO 2 agora inclui um sub-passo obrigatório de cruzar `git status`/`git diff` contra o que já foi commitado, além da leitura da conversa; (2) BLOCO 3 passa a perguntar explicitamente ao Felipe se os itens achados na auditoria devem ser resolvidos antes de fechar ou só documentados pra depois — nunca decide isso sozinha; (3) BLOCO 3 PASSO 4 agora termina com `git add`/`git commit` feitos pelo agente ativo, e chama o @devops pra executar o(s) push(es) — nunca roda `git push` diretamente. Além disso, um novo "Guia de Decisão" foi inserido antes da BLOCO 0-F: uma árvore de 5 perguntas em ordem de prioridade (momento de pausa/voltei → compactação → desvio de fluxo próprio → concluindo tarefa própria → reativado após outro agente) que qualquer agente deve responder antes de escrever qualquer mensagem de retomada, eliminando a ambiguidade entre as 5 regras. A BLOCO 0-T Sub-bloco T2 também foi ajustada: a Parte 2 ("📍 Último passo concluído") agora exige conectar o que foi feito ao objetivo geral, em tamanho proporcional ao quanto ainda falta (nunca por contador de repetições — avaliado e descartado por exigir infraestrutura de estado que não existe hoje).
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 3 (PASSO 2 e PASSO 4 corrigidos), novo "GUIA DE DECISÃO" inserido antes da BLOCO 0-F, BLOCO 0-T Sub-bloco T2 (Parte 2 do formato ajustada)
+**Regra:**
+```
+BLOCO 3 — mudanças:
+  PASSO 2.2-B (novo): rodar `git status --short` e `git diff` nos arquivos
+    modificados, cruzar contra o que já foi commitado — não só contra a conversa
+  PASSO 2.3 (corrigido): perguntar "quer resolver algum agora, ou só documentar
+    pra depois?" em vez de só "posso adicionar ao caderno?"
+  PASSO 4 (corrigido): agente ativo faz `git add`/`git commit`, depois CHAMA
+    O @DEVOPS pro push — nunca roda `git push` diretamente
+
+GUIA DE DECISÃO (novo, antes da BLOCO 0-F):
+  PERGUNTA 1: Felipe disse "momento de pausa"/"voltei"? → BLOCO 0-Y
+  PERGUNTA 2: sistema compactou a conversa sozinho? → BLOCO 0-G
+  PERGUNTA 3: agente desviou do fluxo próprio e está voltando? → BLOCO 0-F
+  PERGUNTA 4: agente terminando tarefa própria, vai encerrar? → BLOCO 0-T (T1)
+  PERGUNTA 5: agente reativado após outro agente concluir? → BLOCO 0-T (T2)
+  Nenhuma bateu → fluxo normal (BLOCO 1)
+  Empate → ordem acima é a prioridade (pergunta 1 sempre vence)
+
+BLOCO 0-T Sub-bloco T2 — Parte 2 do formato:
+  "📍 Último passo concluído: [agente] — [o que fez] — [como isso contribui
+   pro objetivo geral, tamanho proporcional ao que resta, nunca por contador]"
+
+Aplica-se a TODOS os agentes atuais e futuros, de todos os squads — sem exceção.
+```
+
+---
+
+*Última atualização: 2026-08-09 — Orion (@aiox-master)*
