@@ -141,6 +141,8 @@ Algumas ações (`page.screenshot()` em aba minimizada, alguns cliques em painé
 
 **Solução validada (versão final, corrigida em 05/08/2026 após investigação com timestamps — ver seção "Investigação a fundo" abaixo):** todo script que usa `bringToFront()` DEVE, antes de `process.exit()`, chamar uma rotina que minimiza e **verifica de verdade se funcionou** (via `IsIconic`, não só ausência de erro). Módulo de referência (`minimize-chrome.js`):
 
+**⚠️ Correção crítica (10/08/2026) — incidente real de foco roubado do Felipe:** a versão anterior desta rotina resolvia as janelas a minimizar via `Get-Process chrome | Where MainWindowHandle -ne Zero`, sem filtrar pela automação. Isso pega **qualquer janela do Chrome em execução no PC** — inclusive uma janela pessoal do Felipe, sem nenhuma relação com a automação. Aconteceu de verdade: o Chrome pessoal do Felipe (com WhatsApp aberto) foi minimizado à força no meio de uma automação, tirando o foco do trabalho dele sem aviso nenhum — declarado por ele como algo inegociável: "tirar o foco do meu trabalho não pode acontecer". Confirmado ao vivo (10/08/2026): rodando o filtro antigo contra o Chrome real da sessão, ele achou **2 janelas** (a da automação **e uma segunda, totalmente alheia à automação**) — a versão corrigida abaixo, testada no mesmo momento, achou só **1** (a correta). Correção: resolver os processos via `Get-CimInstance Win32_Process` filtrado por `CommandLine -match 'ChromeDebugKarzen'` primeiro (só esse método expõe `CommandLine`; `Get-Process` sozinho não tem essa propriedade), pegar os `ProcessId` resultantes, e só então usar `Get-Process -Id <esses PIDs>` pra obter o `MainWindowHandle` (que só existe no objeto do `Get-Process`, não no WMI/CIM) — mesma técnica documentada na BLOCO 0-U (Regra 3) do `CLAUDE.md`.
+
 ```javascript
 const { execSync } = require('child_process');
 const fs = require('fs');
@@ -161,7 +163,8 @@ public class Win32MinForce {
 '@
 $SW_FORCEMINIMIZE = 11
 for ($i = 0; $i -lt 15; $i++) {
-  $procs = Get-Process chrome -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
+  $pids = (Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" | Where-Object { $_.CommandLine -match 'ChromeDebugKarzen' }).ProcessId
+  $procs = Get-Process -Id $pids -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
   $allMinimized = $true
   foreach ($p in $procs) {
     if (-not [Win32MinForce]::IsIconic($p.MainWindowHandle)) {
@@ -227,7 +230,7 @@ const { chromium } = require('playwright');
 
 Isso vale em conjunto com a regra de `minimizeChrome()` no `finally` — quando o script usa `bringToFront()`, os dois ficam no mesmo bloco `finally`.
 
-**Por que minimizar TODAS as janelas, não uma fixa:** o script consulta `Get-Process chrome | Where MainWindowHandle -ne Zero` **a cada chamada**, pegando qualquer janela do Chrome que exista naquele momento — não uma janela específica lembrada de antes. Isso importa porque, se uma segunda janela solta aparecer no meio da sessão (ver "Janela solta" nos Riscos conhecidos abaixo), um script que minimizasse só a janela original conhecida deixaria a nova passar batido. Minimizar "tudo que existir agora" cobre esse caso automaticamente, sem precisar detectar a janela nova primeiro.
+**Por que minimizar TODAS as janelas *da automação*, não uma fixa (corrigido 10/08/2026):** o script consulta os processos **a cada chamada** (via `Get-CimInstance` filtrado por `ChromeDebugKarzen`), pegando qualquer janela **da automação** que exista naquele momento — não uma janela específica lembrada de antes. Isso importa porque, se uma segunda janela da própria automação aparecer no meio da sessão (ex: um processo filho renderizando sua própria top-level window, caso raro mas possível), um script que minimizasse só a janela original conhecida deixaria a nova passar batido. **Isso NÃO significa minimizar qualquer janela do Chrome que existir no PC** — essa era a versão antiga, e foi exatamente o que causou o incidente de foco roubado documentado acima. O filtro por `CommandLine` garante que só janelas com `ChromeDebugKarzen` no processo entram no loop, nunca uma janela pessoal do Felipe.
 
 ---
 

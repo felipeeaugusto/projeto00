@@ -37,6 +37,8 @@ PASSO 4: NÃO executar nenhuma parte da tarefa antes de delegar
 
 ### BLOCO 0-C — VERIFICAÇÃO OBRIGATÓRIA AO MENCIONAR QUALQUER AGENTE (inegociável)
 
+**⚠️ Regra da mesma classe estrutural da BLOCO 0-K (ver PRINCÍPIO, antes da BLOCO 0-K) — depende de autopercepção, retrofit técnico ainda pendente.**
+
 **REGRA ABSOLUTA:** Toda vez que um agente for mencionado pelo nome — em delegação, em explicação, em descrição de pipeline, em resposta informal, em qualquer contexto — o agente que escreve DEVE ter verificado a definição antes de escrever o nome.
 
 ```
@@ -509,44 +511,58 @@ PASSO 8: Somente após confirmação → aplicar atualização + aplicar Parte A
 
 ---
 
+### PRINCÍPIO — REGRA SEM GATILHO EXTERNO FALHA (ler antes de aplicar BLOCO 0-C, 0-K, 0-L, 0-N, 0-O)
+
+**Origem (10/08/2026):** a BLOCO 0-K foi identificada em produção como não sendo aplicada de forma confiável — um agente esteve literalmente a uma frase de distância de oferecer um handoff sem ter auditado nada, e só não aconteceu porque o Felipe perguntou antes. Investigação (via `*elicit`, 8 métodos de elicitação) achou a causa-raiz: a BLOCO 0-K depende de **autopercepção** ("o agente perceber que está prestes a escrever uma frase de handoff") — exatamente o mesmo defeito estrutural que a BLOCO 0-F tinha antes de ser substituída pela BLOCO 0-Y. A diferença é que a BLOCO 0-K não pode ser curada com um gatilho de frase do Felipe (como a 0-Y foi) — o objetivo dela é pegar coisas que o Felipe **não pensaria em perguntar**, então depender dele disparar o gatilho devolveria o problema pra ele.
+
+**O princípio, generalizado:** qualquer regra deste documento que dependa de um agente **perceber sozinho, sem nenhum sinal externo**, que está prestes a escrever um certo tipo de frase — e só então lembrar de rodar uma verificação antes de escrever — está estruturalmente sujeita a falhar, cedo ou tarde, do mesmo jeito que a BLOCO 0-F e a BLOCO 0-K falharam. Isso vale hoje para BLOCO 0-C, 0-K, 0-L, 0-N e 0-O — todas pedem "antes de escrever X, verifique Y" sem nenhum gatilho externo ou artefato obrigatório que force isso.
+
+**A correção estrutural, aplicada à BLOCO 0-K primeiro (ver bloco abaixo) e a ser retrofitada nas outras quatro:**
+1. **Saída visível e obrigatória** — a conclusão da verificação tem que aparecer literalmente na mensagem, em formato fixo e checável (não uma alegação solta).
+2. **Checagem incremental, não exaustiva** — sempre que possível, verificar uma lista pequena e sempre atualizada (ver `.aiox/itens-em-aberto.md`), em vez de reler tudo do zero a cada vez — isso mantém o custo baixo o suficiente pra rodar sempre.
+3. **Hook técnico como reforço, não como única camada** — um hook pode checar *presença* do formato obrigatório, mas não a veracidade da verificação (pode ser burlado) — por isso nunca é a única camada, sempre combinado com uma auditoria periódica completa que já existe (BLOCO 3, PASSO 2) como rede de segurança.
+4. **Falha segura (fail closed)** — se a checagem não puder rodar por qualquer motivo, a regra bloqueia e pergunta ao Felipe, em vez de deixar passar.
+
+**Retrofit ainda pendente:** BLOCO 0-C, 0-L, 0-N e 0-O ainda não foram atualizadas com esse padrão — apenas referenciam este princípio por enquanto. Ficam registradas como pendência de framework, não resolvidas nesta rodada.
+
 ---
 
 ### BLOCO 0-K — AUDITORIA OBRIGATÓRIA ANTES DE PASSAR PARA PRÓXIMO AGENTE (inegociável)
 
 **Gatilho:** QUALQUER agente que esteja prestes a dizer "Quer que eu chame o [agente X] agora?" ou qualquer variação de handoff para outro agente.
 
-**REGRA ABSOLUTA:** Nenhum agente pode encerrar seu trabalho e passar para outro agente SEM antes auditar tudo que ficou em aberto na conversa com ele.
+**REGRA ABSOLUTA:** Nenhum agente pode encerrar seu trabalho e passar para outro agente SEM antes checar tudo que ficou em aberto na conversa com ele — E sem incluir a linha de auditoria, no formato obrigatório abaixo, na MESMA mensagem que oferece o handoff.
+
+**⚠️ Reforçada por hook técnico (10/08/2026):** `.claude/hooks/check-handoff-audit.js` (evento `Stop`) bloqueia o encerramento do turno se a última mensagem contiver padrão de oferta de handoff (ex: "quer que eu chame") sem a linha de auditoria no formato exigido logo abaixo. Ver PRINCÍPIO acima pra entender por que isso deixou de depender só de texto.
 
 ```
-ANTES DE PERGUNTAR "Posso chamar o [agente X]?":
+ANTES DE PERGUNTAR "Posso chamar o [agente X]?" — checagem BARATA, não a exaustiva de antes:
 
-PASSO 1: Ler o arquivo .jsonl da sessão atual
-         → Arquivo mais recente em: C:\Users\felip\.claude\projects\C--Users-felip-projeto00\
-         → Buscar por: tarefas pedidas pelo usuário, itens com "mais tarde", perguntas não respondidas,
-           promessas feitas pelo agente que não foram cumpridas, itens interrompidos
+PASSO 1: Ler `.aiox/itens-em-aberto.md` (lista incremental — ver BLOCO 2-B)
+         → Essa lista é alimentada em tempo real por qualquer agente que discuta algo
+           e não formalize na hora (spec não escrita, tarefa adiada, decisão pendente)
+         → Não precisa reler o .jsonl inteiro pra essa checagem do dia a dia —
+           é exatamente pra isso que a lista incremental existe (ver PRINCÍPIO acima)
 
-PASSO 2: Comparar com o que foi efetivamente feito nesta conversa
-         → O que foi discutido MAS não foi concluído?
-         → Pode haver 1 item, 20 ou 30 — verificar TODOS
+PASSO 2: Comparar a lista com o que foi resolvido nesta conversa
+         → Algum item da lista já foi resolvido e pode ser removido?
+         → Algum item continua pendente e bloqueia esse handoff especificamente?
 
-PASSO 3a: SE encontrou itens em aberto:
-          → Apresentar ao usuário: "🔍 Antes de passar para [agente X], encontrei [N] itens
-            que ficaram em aberto:
-            1. [item] — [status]
-            2. [item] — [status]
-            Vou resolver um por um antes de passar."
-          → Resolver cada item
-          → Atualizar caderno com o que foi resolvido
-          → Perguntar: "Posso salvar no caderno, commitar e fazer push?"
-          → Após confirmação → commit + push
-          → SOMENTE ENTÃO perguntar "Posso chamar o [agente X]?"
+PASSO 3: Escrever a linha de auditoria, SEMPRE, na MESMA mensagem da oferta de handoff —
+         formato obrigatório (o hook verifica esse padrão exato):
 
-PASSO 3b: SE não encontrou itens em aberto:
-          → Informar: "✅ Auditei toda a conversa — nada ficou em aberto."
-          → Perguntar: "Posso salvar no caderno, commitar e fazer push?"
-          → Após confirmação → commit + push
-          → SOMENTE ENTÃO perguntar "Posso chamar o [agente X]?"
+         "🔍 Auditoria: lista checada, N itens em aberto (referência: .aiox/itens-em-aberto.md)"
+
+PASSO 4a: SE N > 0 e algum item bloqueia esse handoff específico:
+          → Listar os itens, resolver o que for necessário antes de prosseguir
+          → SOMENTE DEPOIS perguntar "Posso chamar o [agente X]?"
+
+PASSO 4b: SE N = 0, ou os itens existentes não bloqueiam este handoff:
+          → Prosseguir direto pra pergunta "Posso chamar o [agente X]?", com a linha
+            de auditoria do PASSO 3 na mesma mensagem
 ```
+
+**Backstop periódico (não substitui o passo acima, complementa):** a lista incremental depende de cada agente lembrar de registrar na hora (mesmo defeito, um nível abaixo — ver PRINCÍPIO acima) — por isso a auditoria completa e exaustiva do `.jsonl` inteiro continua obrigatória na BLOCO 3 ("vou parar"), como rede de segurança que pega qualquer coisa que a lista incremental deixou passar.
 
 **CASOS QUE ATIVAM ESTE BLOCO:**
 - "Quer que eu chame o @dev agora?"
@@ -556,15 +572,20 @@ PASSO 3b: SE não encontrou itens em aberto:
 - Qualquer frase que indica fim do trabalho deste agente e início de outro
 
 **PROIBIDO:**
-- Encadear handoff sem auditoria
-- Assumir que "nada ficou pra trás" sem verificar
+- Encadear handoff sem a linha de auditoria no formato exigido
+- Escrever a linha de auditoria sem ter checado `.aiox/itens-em-aberto.md` de verdade
+- Assumir que "nada ficou pra trás" sem checar a lista
 - Saltar múltiplas interrupções — cada uma foi um pedido do usuário e deve ser verificada
+
+**O ERRO QUE GEROU ESTA VERSÃO DA REGRA (10/08/2026):** o mecanismo original desta BLOCO exigia reler o `.jsonl` inteiro antes de QUALQUER oferta de handoff — caro, lento, e por depender só de autopercepção do agente, nunca rodava de fato na prática (o próprio Atlas ficou a uma frase de oferecer handoff sem auditar, mesmo com a regra escrita). A correção troca "reler tudo, talvez" por "checar uma lista pequena, sempre, reforçado por hook".
 
 **Esta regra se aplica a TODOS os agentes — atuais, squads existentes, futuros, vindos de atualizações do AIOX.**
 
 ---
 
 ### BLOCO 0-L — PROIBIDO INVENTAR PROBLEMAS OU PRESCRIÇÕES NÃO AUDITADAS (inegociável)
+
+**⚠️ Regra da mesma classe estrutural da BLOCO 0-K (ver PRINCÍPIO, antes da BLOCO 0-K) — depende de autopercepção, retrofit técnico ainda pendente.**
 
 **Gatilho:** Qualquer agente que for reportar um problema, pendência ou item que precisa ser corrigido no projeto.
 
@@ -646,6 +667,8 @@ Arquivos gerados em sessões ficaram localmente no PC onde foram criados, nunca 
 
 ### BLOCO 0-N — IDENTIFICAÇÃO OBRIGATÓRIA DO PRODUTOR DE INPUT (inegociável)
 
+**⚠️ Regra da mesma classe estrutural da BLOCO 0-K (ver PRINCÍPIO, antes da BLOCO 0-K) — depende de autopercepção, retrofit técnico ainda pendente.**
+
 **Gatilho:** Qualquer agente que esteja projetando, descrevendo ou documentando uma ferramenta, script, arquivo, workflow ou sistema que requer dados de entrada (input) para funcionar.
 
 **REGRA ABSOLUTA:** Nenhum agente pode apresentar "você preenche" ou equivalente como resposta para quem gera o input de uma ferramenta, sem antes verificar se existe um agente responsável por isso.
@@ -691,6 +714,8 @@ PASSO 3b: SE não existe agente responsável (input genuinamente do usuário):
 ---
 
 ### BLOCO 0-O — IDENTIFICAÇÃO OBRIGATÓRIA DO EXECUTOR DO PRÓXIMO PASSO (inegociável)
+
+**⚠️ Regra da mesma classe estrutural da BLOCO 0-K (ver PRINCÍPIO, antes da BLOCO 0-K) — depende de autopercepção, retrofit técnico ainda pendente.**
 
 **Gatilho:** Qualquer agente que terminou seu trabalho e está prestes a indicar qual agente executa a próxima etapa do pipeline.
 
@@ -1114,86 +1139,48 @@ PASSO 4: Janela visível de browser é PROIBIDA em qualquer circunstância duran
 
 ---
 
-**Esta regra se aplica a: @devops, @dev, compositor-agent, scout-agent, publisher-agent, @aiox-master e TODOS os agentes atuais e futuros que lançarem qualquer processo, aplicação ou serviço — sem exceção.**
+---
+
+#### REGRA 3 — NUNCA RESOLVER JANELA DE BROWSER POR NOME DE PROCESSO SOLTO (adicionada 10/08/2026)
+
+**Problema:** Scripts que precisam achar/minimizar/fechar uma janela de browser (Chrome, Edge) tendiam a usar `Get-Process <nome>` (ex: `Get-Process chrome`) sem nenhum filtro — isso pega **qualquer janela daquele browser em execução no PC**, inclusive uma janela pessoal do Felipe completamente alheia à automação, não só a instância isolada usada pelo Modo Navegador.
+
+**Regra:** Todo script que precisar identificar uma janela de browser pra minimizar, focar ou fechar DEVE resolver o(s) processo(s) certo(s) via **`CommandLine`** (não por nome sozinho) — usando `Get-CimInstance Win32_Process -Filter "Name='chrome.exe'"` (ou equivalente) filtrado por um marcador exclusivo da automação (ex: `ChromeDebugKarzen`), e só então correlacionar esse(s) `ProcessId` com `Get-Process -Id <pid>` quando precisar do `MainWindowHandle` (que só existe no objeto do `Get-Process`, não no `Win32_Process`/CIM).
+
+```
+❌ PROIBIDO: Get-Process chrome | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
+   (pega QUALQUER janela desse browser, inclusive pessoal)
+
+✅ OBRIGATÓRIO:
+   $pids = (Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" |
+            Where-Object { $_.CommandLine -match 'ChromeDebugKarzen' }).ProcessId
+   $procs = Get-Process -Id $pids -ErrorAction SilentlyContinue |
+            Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
+```
+
+**Exceção:** scripts que já resolvem o processo por PID específico e conhecido (ex: o processo recém-lançado pelo próprio script, ou o vigia de foco que recebe `-TargetPid` explícito) já são seguros por natureza — essa regra é sobre nunca usar nome de processo sozinho como único filtro, não proíbe usar PID direto quando ele já é conhecido com certeza.
+
+**O ERRO QUE GEROU ESTA REGRA (10/08/2026):** a rotina `minimizeChrome()` (documentada em `modo-navegador-browser-access.md`) usava `Get-Process chrome` sem filtro — minimizou à força o Chrome pessoal do Felipe (com WhatsApp aberto) durante uma automação, interrompendo o trabalho dele sem aviso. Investigação encontrou um problema análogo, mais grave, na BLOCO 0-V (Edge) — que motivou sua descontinuação (ver nota na BLOCO 0-V).
+
+**Esta regra se aplica a: TODOS os agentes atuais e futuros que escreverem ou executarem qualquer script que manipule janelas de browser — sem exceção.**
 
 ---
 
-### BLOCO 0-V — PLAYWRIGHT COM SITES QUE EXIGEM LOGIN (inegociável)
+**Esta regra (REGRA 1 e REGRA 2) se aplica a: @devops, @dev, compositor-agent, scout-agent, publisher-agent, @aiox-master e TODOS os agentes atuais e futuros que lançarem qualquer processo, aplicação ou serviço — sem exceção.**
 
-**Gatilho:** Qualquer agente que precisar usar o Playwright para acessar um site que exige autenticação (login) — independente do objetivo (screenshot, scraping, navegação, pesquisa).
+---
 
-**REGRA ABSOLUTA:** O único método permitido é o CDP (Chrome DevTools Protocol) conectando ao Edge real do Felipe, que já está logado. Nunca criar perfil temporário, nunca usar headless com credenciais.
+### BLOCO 0-V — PLAYWRIGHT COM SITES QUE EXIGEM LOGIN (DESCONTINUADA — 10/08/2026)
 
-```
-FLUXO OBRIGATÓRIO — EXECUTAR NESTA ORDEM EXATA:
+**⛔ DESCONTINUADA. Não usar mais este procedimento — usar sempre BLOCO 0-X ("Modo Navegador", via Chrome).**
 
-PASSO 1: Fechar o Edge se estiver aberto
-         → PowerShell: Stop-Process -Name msedge -Force -ErrorAction SilentlyContinue
-         → Aguardar: Start-Sleep -Seconds 2
+**Por que foi descontinuada:** esta BLOCO usava o **perfil real do Edge do Felipe** (sem pasta isolada) — a única forma conhecida, na época, de aproveitar um login já existente. Isso exigia `Stop-Process -Name msedge -Force` **sem filtro nenhum** logo no PASSO 1, matando **qualquer janela do Edge em execução** — inclusive uma janela pessoal do Felipe, com trabalho não salvo, se ela estivesse aberta no momento. Diferente de "roubar o foco" (recuperável), isso **fecha de verdade**, com risco real de perda de dado.
 
-PASSO 2: Reabrir o Edge com a flag de depuração + sem restaurar sessão anterior
-         → $edgeExe = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
-         → Start-Process -FilePath $edgeExe -ArgumentList "--remote-debugging-port=9222 --no-restore-last-session"
-         → Aguardar: Start-Sleep -Seconds 5
+**O que expôs o problema (10/08/2026):** um incidente real e análogo no Chrome (a rotina `minimizeChrome()` minimizando à força o Chrome pessoal do Felipe, sem querer, durante uma automação) levou o Felipe a declarar "tirar o foco do meu trabalho não pode acontecer" como regra inegociável. Ao investigar se o mesmo tipo de risco existia em outro lugar do framework, ficou claro que o BLOCO 0-V tinha uma versão **pior** do mesmo problema — fechar em vez de só minimizar. Felipe decidiu: em vez de corrigir o Edge com um perfil isolado (que exigiria ele logar manualmente numa segunda conta/perfil), **eliminar o uso de Edge para automação por completo** — toda automação de browser passa a ser exclusiva do Chrome via BLOCO 0-X, que já usa um perfil isolado (`ChromeDebugKarzen\Profile 3`) e nunca precisa tocar em nenhuma janela pessoal do Felipe.
 
-PASSO 3: Minimizar a janela do Edge automaticamente via Win32 API
-         → Add-Type -TypeDefinition @"
-           using System;
-           using System.Runtime.InteropServices;
-           public class Win32ApiCDP {
-               [DllImport("user32.dll")]
-               public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-           }
-           "@
-         → $procs = Get-Process msedge -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
-         → foreach ($p in $procs) { [Win32ApiCDP]::ShowWindow($p.MainWindowHandle, 6) | Out-Null }
-         → (SW_MINIMIZE = 6 — minimiza sem fechar)
+**Se um site algum dia só funcionar no Edge (motivo técnico real, não preferência):** parar e perguntar ao Felipe antes de reviver qualquer parte deste procedimento — não reativar por conta própria.
 
-PASSO 4: Conectar via CDP e navegar
-         → Node.js:
-           const { chromium } = require('playwright');
-           const browser = await chromium.connectOverCDP('http://localhost:9222');
-           const context = browser.contexts()[0];
-           const page = await context.newPage();
-           await page.goto('URL_DESEJADA', { waitUntil: 'domcontentloaded', timeout: 30000 });
-           await page.waitForTimeout(4000);
-
-PASSO 5: Executar a tarefa (screenshot, leitura de texto, interação)
-         → await page.screenshot({ path: 'output.png' });
-         → Sempre fechar a página ao final: await page.close();
-         → NÃO desconectar o browser — Edge continua aberto para próximas sessões
-```
-
-**PROIBIDO:**
-- Usar perfil temporário (`--user-data-dir` apontando para pasta nova) — não tem login
-- Usar `--headless=new` com o perfil real — bloqueado pelo Edge ("Multiple targets not supported")
-- Usar `launch()` em vez de `connectOverCDP()` — abre nova janela sem login
-- Digitar credenciais de login manualmente via Playwright — Felipe não quer isso
-- Pular o PASSO 3 (minimizar) — Edge abre em primeiro plano e rouba o foco do terminal
-
-**POR QUE CDP E NÃO HEADLESS:**
-O Edge v20+ usa App-Bound Encryption para cookies — impossível decriptografar fora do processo do browser. O único jeito de aproveitar o login já existente do Felipe é conectar ao Edge real via CDP. Headless com perfil real falha com "Multiple targets not supported" porque o perfil tem múltiplas janelas salvas.
-
-**COMANDO COMPLETO VALIDADO (2026-06-18):**
-```powershell
-Add-Type -TypeDefinition @"
-using System;
-using System.Runtime.InteropServices;
-public class Win32ApiCDP {
-    [DllImport("user32.dll")]
-    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-}
-"@
-Stop-Process -Name msedge -Force -ErrorAction SilentlyContinue
-Start-Sleep -Seconds 2
-$edgeExe = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
-Start-Process -FilePath $edgeExe -ArgumentList "--remote-debugging-port=9222 --no-restore-last-session"
-Start-Sleep -Seconds 5
-$procs = Get-Process msedge -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
-foreach ($p in $procs) { [Win32ApiCDP]::ShowWindow($p.MainWindowHandle, 6) | Out-Null }
-```
-
-**Esta regra se aplica a: @aiox-master, @devops, @dev, @analyst, compositor-agent, scout-agent, publisher-agent, briefing-agent, analyst-agent-mineracao e TODOS os agentes atuais e futuros — sem exceção.**
+**Esta nota se aplica a: TODOS os agentes atuais e futuros — sem exceção.**
 
 ---
 
@@ -1337,6 +1324,43 @@ A BLOCO 0-F tentava resolver um problema parecido (revisar o que ficou pendente 
 
 ---
 
+### BLOCO 0-Z — TRAVA DE ESCRITA EM SISTEMA EXTERNO COMPARTILHADO (inegociável)
+
+**Origem (10/08/2026):** generalização do campo PRODUÇÃO da BLOCO 0-P. O BLOCO 0-P só protege delegações do @aiox-master via Skill tool — mas o mesmo risco existe quando QUALQUER agente, numa conversa normal, está prestes a recomendar tocar um sistema real que outras pessoas além do Felipe também usam (ex: a Planilha do Ads ML, que o Carlos acessa). Essa trava não existia fora do fluxo formal de delegação — foi assim que quase se autorizou o @dev a escrever numa planilha real sem spec confirmada nem procedimento de segurança testado.
+
+**Gatilho:** Qualquer agente prestes a recomendar (ou executar) uma escrita num sistema externo real, que não é exclusivo do Felipe — ele é compartilhado com outra pessoa ou processo de negócio (ex: planilha que o Carlos usa, conta de anúncios real, sistema de terceiros).
+
+```
+ANTES DE OFERECER OU AUTORIZAR ESSA ESCRITA:
+
+PASSO 1: Confirmar que existe UMA especificação por escrito, num arquivo real
+         (não só em conversa) — estrutura de colunas/campos, formato, onde vai
+         cada informação. Se não existir → PARAR, não oferecer o handoff/execução
+         ainda, voltar pro Felipe pra fechar a spec primeiro.
+
+PASSO 2: Confirmar que existe um procedimento testado (ou explicitamente aprovado
+         pelo Felipe sem teste prévio) pra fazer a escrita SEM interferir em dados
+         já existentes no sistema (ex: como criar uma aba nova sem mexer nas outras)
+
+PASSO 3: SE o sistema é visível/usado por outra pessoa além do Felipe (ex: Carlos):
+         verificar se a spec já define alguma marcação de status ("rascunho"/
+         "em validação" vs "confirmado") pra essa pessoa não confundir dado
+         ainda não aprovado com dado final — se não tiver, perguntar ao Felipe
+         antes de prosseguir
+
+PASSO 4: Só com os passos 1-3 resolvidos → prosseguir com BLOCO 0-D normalmente
+         (perguntar confirmação antes de chamar o agente que vai executar)
+```
+
+**PROIBIDO:**
+- Recomendar ou autorizar escrita em sistema externo compartilhado sem spec escrita confirmada
+- Assumir que "já foi discutido em conversa" equivale a "está especificado"
+- Pular a checagem de status/marcação quando outra pessoa além do Felipe usa o sistema
+
+**Esta regra se aplica a TODOS os agentes — sem exceção, mesmo fora do fluxo formal de delegação do @aiox-master.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.
@@ -1441,20 +1465,24 @@ PASSO 5: Continue o trabalho normalmente.
 
 ---
 
-### BLOCO 2-B — QUANDO O USUÁRIO ADIAR UMA TAREFA (obrigatório, sem exceção)
+### BLOCO 2-B — QUANDO O USUÁRIO ADIAR UMA TAREFA, OU ALGO FICAR SÓ CONVERSADO (obrigatório, sem exceção)
 
-**Gatilho:** Felipe diz que vai fazer algo "mais tarde" ou adia uma tarefa discutida.
+**Gatilho A:** Felipe diz que vai fazer algo "mais tarde" ou adia uma tarefa discutida.
+**Gatilho B (adicionado 10/08/2026):** qualquer spec, estrutura, formato ou plano é discutido em conversa (ex: colunas de uma planilha, formato de um arquivo) mas nunca chega a ser escrito num arquivo real — mesmo que ninguém tenha "adiado" nada explicitamente, ficou combinado só de boca.
 
-Palavras que ativam este bloco: "mais tarde", "depois", "agora não", "não agora", "deixa pra depois", "próxima sessão", "pode esperar", "não precisa agora", "vou ver depois".
+Palavras que ativam o Gatilho A: "mais tarde", "depois", "agora não", "não agora", "deixa pra depois", "próxima sessão", "pode esperar", "não precisa agora", "vou ver depois".
 
-**REGRA ABSOLUTA:** Toda tarefa adiada é uma pendência — e DEVE ser registrada IMEDIATAMENTE, sem esperar o "vou parar".
+**REGRA ABSOLUTA:** Toda tarefa adiada OU spec combinada só em conversa é uma pendência — e DEVE ser registrada IMEDIATAMENTE, sem esperar o "vou parar", em **dois lugares**: o caderno do projeto (`PROJETO-STATUS.md`) E a lista leve `.aiox/itens-em-aberto.md` (esta última existe pra alimentar a checagem barata da BLOCO 0-K, ver PRINCÍPIO antes da BLOCO 0-K).
 
 ```
-PASSO 1: Identificar a tarefa que foi adiada — ser específico (não genérico)
+PASSO 1: Identificar o que ficou pendente — ser específico (não genérico)
 PASSO 2: Adicionar IMEDIATAMENTE em PENDÊNCIAS ATUAIS do caderno:
          - Identificar a prioridade correta (Máxima / Normal / Pode deixar pra depois)
          - Identificar o agente responsável
          - Escrever no formato: [agente] — [tarefa] — [como avança o projeto]
+PASSO 2-B: Adicionar IMEDIATAMENTE uma linha em `.aiox/itens-em-aberto.md`:
+         - Formato: `- [DATA] [agente que registrou] — [item, em 1 linha] — [arquivo/local afetado]`
+         - Remover a linha de lá quando o item for formalizado/resolvido (não deixar acumular lixo)
 PASSO 3: Confirmar ao usuário:
          "✅ Anotei nas pendências: [tarefa em 1 linha] → [agente]"
 PASSO 4: Continuar a conversa normalmente
@@ -1464,12 +1492,13 @@ PASSO 4: Continuar a conversa normalmente
 - Continuar a conversa sem registrar primeiro
 - Registrar "quando der" ou "no final da sessão"
 - Registrar de forma genérica ("verificar ebook" em vez de "product-content-agent — escrever Guia 7 Minutos")
-- Esperar o "vou parar" para adicionar — cada adiamento é registrado NA HORA
+- Esperar o "vou parar" para adicionar — cada adiamento OU spec-só-conversada é registrada NA HORA
+- Registrar só no caderno e esquecer o `.aiox/itens-em-aberto.md` (ou vice-versa) — os dois, sempre
 
 **Por que esta regra existe:**
-"Não agora" dito pelo Felipe nunca foi registrado como pendência formal. Na próxima sessão, o Orion não sabe que aquela tarefa existe e ela desaparece para sempre.
+"Não agora" dito pelo Felipe nunca foi registrado como pendência formal. Na próxima sessão, o Orion não sabe que aquela tarefa existe e ela desaparece para sempre. O Gatilho B foi adicionado depois de um caso real (10/08/2026): a estrutura de colunas de 2 páginas novas do Google Sheets foi combinada em conversa, nunca virou arquivo, e quase foi usada por um agente sem verificação — só não aconteceu porque o Felipe perguntou antes.
 
-**Esta regra se aplica a TODOS os agentes — o agente ativo no momento do adiamento é responsável pelo registro.**
+**Esta regra se aplica a TODOS os agentes — o agente ativo no momento do adiamento ou da conversa é responsável pelo registro.**
 
 ---
 
@@ -1499,8 +1528,11 @@ PASSO 1: Mostre o resumo da sessão SEMPRE neste formato:
 ```
 
 PASSO 2 — AUDITORIA ATIVA DA SESSÃO (obrigatório — leitura integral, não busca por palavras):
+  **Esta é a auditoria completa que serve de backstop pra lista incremental `.aiox/itens-em-aberto.md`
+  usada no dia a dia pela BLOCO 0-K (ver PRINCÍPIO antes da BLOCO 0-K) — roda sempre aqui, mesmo que
+  a lista incremental esteja em dia, porque ela pode ter itens que ninguém registrou na hora.**
   2.1: Identificar o arquivo .jsonl da sessão atual:
-       → Arquivo mais recente em: C:\Users\felip\.claude\projects\C--Users-felip-projeto00\
+       → Arquivo mais recente em: C:\Users\Felipe Augusto\.claude\projects\C--Users-Felipe-Augusto-projeto00\
        → Usar: ls -t *.jsonl | head -1 (ou equivalente)
   2.2: LER A SESSÃO INTEIRA — do início ao "vou parar":
        → Não é busca por palavras-chave — é leitura completa da conversa
@@ -1528,7 +1560,8 @@ PASSO 2 — AUDITORIA ATIVA DA SESSÃO (obrigatório — leitura integral, não 
        não é só "pode adicionar ao caderno". Se ele responder resolver algum item
        agora, resolver antes de prosseguir pro PASSO 3.
   2.5: Após confirmação → adicionar itens em PENDÊNCIAS ATUAIS (os que ficaram pra
-       depois) → continuar para PASSO 3
+       depois) → sincronizar `.aiox/itens-em-aberto.md` (remover o que já foi resolvido
+       nesta auditoria, garantir que o que continua pendente está lá) → continuar para PASSO 3
 
   IMPORTANTE: Se a leitura completa (conversa + git) não encontrar nada além do que já está no caderno:
   → Informar: "🔍 Auditei a sessão inteira (conversa + git) — nada ficou fora do caderno." → continuar para PASSO 3

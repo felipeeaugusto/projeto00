@@ -1421,4 +1421,83 @@ Aplica-se a TODOS os agentes que usarem o Modo Navegador — atuais e futuros.
 
 ---
 
-*Última atualização: 2026-08-09 — Orion (@aiox-master)*
+---
+
+## CUSTOMIZAÇÃO 46 — Auditoria de handoff (BLOCO 0-K) com enforcement técnico + trava de escrita em sistema externo
+
+**Data de aprovação:** 2026-08-10
+**Problema resolvido:** A BLOCO 0-K ("auditar antes de oferecer handoff pra outro agente") dependia só de autopercepção do agente — mesmo defeito estrutural que a BLOCO 0-F tinha antes de virar BLOCO 0-Y. Confirmado em produção: o @analyst (Atlas) chegou a uma frase de distância de oferecer ao @dev escrever numa planilha real (que o Carlos também acessa) sem ter auditado nada — só não aconteceu porque o Felipe perguntou "ele sabe a configuração das 2 páginas novas?" antes. Investigação via `*elicit` (8 métodos de elicitação) achou a causa-raiz e mapeou soluções; o Felipe aprovou a convergência de 7 pontos, corrigida depois de o Red Team (método 6) revelar que 1 dos 4 ataques (hook mal calibrado gerando bloqueio falso) tinha ficado de fora da lista inicial. Durante a implementação, achado bônus: o caminho do `.jsonl` referenciado na própria BLOCO 0-K e na BLOCO 3 estava errado (`C:\Users\felip\...`, de um PC antigo — o caminho real é `C:\Users\Felipe Augusto\...`), o que pode ter contribuído pra falha. E, ao pedir uma segunda auditoria via `*elicit` antes de salvar esta customização, o Atlas achou que a lista incremental nova (`.aiox/itens-em-aberto.md`) tinha sido criada vazia, mas já devia conter os 2 itens que ficaram pendentes desta própria implementação (retrofit incompleto + hook não testado em produção real) — corrigido antes de salvar.
+**O que faz:**
+1. Corrige o caminho `.jsonl` errado (2 lugares: BLOCO 0-K e BLOCO 3).
+2. Nova seção **PRINCÍPIO** (antes da BLOCO 0-K): documenta que qualquer regra que dependa de autopercepção do agente, sem gatilho externo, tende a falhar — identifica BLOCO 0-C, 0-K, 0-L, 0-N, 0-O como afetadas.
+3. **BLOCO 0-K reescrita**: troca "reler o `.jsonl` inteiro antes de todo handoff" (caro, raramente executado de fato) por checar `.aiox/itens-em-aberto.md` (lista leve e incremental) + escrever uma linha de auditoria em formato fixo, na mesma mensagem da oferta de handoff. A auditoria completa do `.jsonl` continua obrigatória, mas só na BLOCO 3 ("vou parar"), como backstop periódico.
+4. **Hook técnico novo** (`check-handoff-audit.js`, evento `Stop`): bloqueia o fim do turno se a última mensagem do agente oferece handoff ("quer que eu chame...", como pergunta final) sem a linha de auditoria no formato exigido. Testado contra 3 cenários reais, incluindo 1 falso positivo real que foi corrigido (exigir que a oferta termine em "?" e o padrão apareça perto do final da mensagem, evitando bloquear menções/citações no meio do texto).
+5. **BLOCO 2-B estendida**: cobre não só "tarefa adiada" mas também "spec discutida em conversa e nunca formalizada em arquivo" — com passo novo de registrar isso em `.aiox/itens-em-aberto.md` na hora.
+6. **BLOCO 0-Z nova**: generaliza o campo PRODUÇÃO da BLOCO 0-P (antes só valia pra delegações do @aiox-master via Skill tool) pra qualquer agente — antes de recomendar/autorizar escrita num sistema externo compartilhado (ex: planilha que o Carlos também usa), exige spec escrita confirmada + procedimento de segurança testado + marcação de status pra quem mais usa o sistema.
+7. Retrofit técnico completo de BLOCO 0-C, 0-N, 0-O, 0-L (mesmo padrão da 0-K) fica registrado como pendência em aberto, não resolvida nesta rodada.
+**Onde implementar:** `.claude/CLAUDE.md` (PRINCÍPIO novo antes da BLOCO 0-K; BLOCO 0-K reescrita; referências cruzadas em 0-C/0-N/0-O/0-L; BLOCO 2-B estendida; BLOCO 3 com referência ao backstop; BLOCO 0-Z nova, após a BLOCO 0-Y) + `.aiox/itens-em-aberto.md` (novo) + `.claude/hooks/check-handoff-audit.js` (novo) + `.claude/settings.json` (hook registrado no evento `Stop`)
+**Regra:**
+```
+PRINCÍPIO: regra que dependa só do agente perceber sozinho que está prestes a
+escrever uma frase, sem gatilho externo ou artefato visível, tende a falhar.
+Correção estrutural: saída visível obrigatória + checagem incremental barata +
+hook técnico como reforço (não única camada) + falha segura (bloqueia e
+pergunta ao Felipe se a checagem não puder rodar).
+
+BLOCO 0-K (nova mecânica):
+  Antes de qualquer "quer que eu chame o [agente]?":
+    1. Checar .aiox/itens-em-aberto.md (não o .jsonl inteiro)
+    2. Escrever, na mesma mensagem: "🔍 Auditoria: lista checada, N itens em
+       aberto (referência: .aiox/itens-em-aberto.md)"
+    3. Hook check-handoff-audit.js bloqueia (Stop, exit 2) se a mensagem
+       oferece handoff sem essa linha
+  Backstop: auditoria completa do .jsonl continua obrigatória na BLOCO 3
+  ("vou parar") — pega o que a lista incremental deixar passar.
+
+BLOCO 2-B (gatilho novo, B): spec/formato/decisão discutida em conversa e não
+formalizada em arquivo → registrar IMEDIATAMENTE em .aiox/itens-em-aberto.md,
+mesmo padrão do gatilho A (tarefa adiada) — os dois no caderno E na lista.
+
+BLOCO 0-Z (nova): antes de recomendar/autorizar escrita em sistema externo
+compartilhado (não exclusivo do Felipe) → exigir spec escrita confirmada +
+procedimento de segurança testado + marcação de status se outra pessoa usa
+o sistema. Sem isso, PARAR e voltar pro Felipe antes de qualquer handoff.
+
+Aplica-se a TODOS os agentes atuais e futuros, de todos os squads — sem exceção.
+```
+
+---
+
+---
+
+## CUSTOMIZAÇÃO 47 — Fim do Edge para automação + fix do foco roubado no Chrome pessoal do Felipe
+
+**Data de aprovação:** 2026-08-10
+**Problema resolvido:** Durante o trabalho do @dev (teste de criação de aba no Google Sheets, via Modo Navegador), a rotina `minimizeChrome()` (documentada em `modo-navegador-browser-access.md`, chamada em todo script que usa `bringToFront()`) minimizou à força o **Chrome pessoal do Felipe** (com WhatsApp aberto), tirando o foco do trabalho dele sem aviso nenhum. Causa: a rotina resolvia quais janelas minimizar via `Get-Process chrome | Where MainWindowHandle -ne Zero` — sem filtrar pela automação, isso pega **qualquer janela do Chrome em execução no PC**. Felipe classificou isso como inegociável: "tirar o foco do meu trabalho não pode acontecer". Investigação (via `*elicit`) achou um problema análogo, **mais grave**, na BLOCO 0-V (Playwright com Edge, sites que exigem login) — o PASSO 1 dela roda `Stop-Process -Name msedge -Force`, sem filtro nenhum, matando qualquer janela do Edge em execução (não só minimiza, **fecha de verdade**, com risco real de perda de trabalho não salvo). Isso acontecia porque o BLOCO 0-V usa o perfil real do Edge do Felipe (sem pasta isolada, diferente do Chrome), então tecnicamente não dá pra distinguir "Edge da automação" de "Edge pessoal" nesse fluxo. Em vez de criar um perfil isolado pro Edge (que exigiria login manual numa segunda conta), o Felipe decidiu eliminar o uso do Edge para automação por completo — todo o trabalho de automação de browser (inclusive sites que exigem login) passa a ser exclusivo do Chrome via BLOCO 0-X ("Modo Navegador"), que já usa perfil isolado (`ChromeDebugKarzen\Profile 3`) e nunca toca em nada pessoal do Felipe.
+**O que faz:**
+1. **BLOCO 0-V descontinuada** no `CLAUDE.md` — nota explicando o motivo (mesmo padrão da substituição BLOCO 0-F → 0-Y), mantida só como registro histórico, nunca mais deve ser usada.
+2. **Nova Regra 3 na BLOCO 0-U**: princípio permanente — nenhum script pode resolver uma janela de browser (Chrome/Edge) por nome de processo sozinho (`Get-Process <nome>`); sempre via `CommandLine` filtrado por um marcador exclusivo da automação (`Get-CimInstance Win32_Process` + `ChromeDebugKarzen`), correlacionando com `Get-Process -Id <pid>` só pra pegar o `MainWindowHandle` quando necessário.
+3. **`minimizeChrome()` corrigida** em `modo-navegador-browser-access.md`, aplicando a técnica acima — testada ao vivo (10/08/2026): o filtro antigo achou 2 janelas do Chrome (a da automação e uma segunda, real, alheia a ela); o filtro novo achou só 1 (a correta).
+**Onde implementar:** `.claude/CLAUDE.md` (BLOCO 0-V descontinuada; BLOCO 0-U com Regra 3 nova) + `.aiox-core/development/tasks/modo-navegador-browser-access.md` (`minimizeChrome()` reescrita + nota do incidente)
+**Regra:**
+```
+BLOCO 0-V: DESCONTINUADA. Toda automação de browser é exclusiva do Chrome
+(BLOCO 0-X). Se algum site algum dia só funcionar em Edge, parar e perguntar
+ao Felipe antes de reviver qualquer parte deste procedimento.
+
+BLOCO 0-U, Regra 3 — princípio permanente:
+❌ PROIBIDO: Get-Process chrome | Where MainWindowHandle -ne Zero
+   (pega QUALQUER janela desse browser, inclusive pessoal)
+✅ OBRIGATÓRIO:
+   $pids = (Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" |
+            Where-Object { $_.CommandLine -match 'ChromeDebugKarzen' }).ProcessId
+   $procs = Get-Process -Id $pids -ErrorAction SilentlyContinue |
+            Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
+
+Aplica-se a TODOS os agentes atuais e futuros que escreverem ou executarem
+qualquer script que manipule janelas de browser — sem exceção.
+```
+
+---
+
+*Última atualização: 2026-08-10 — Orion (@aiox-master)*
