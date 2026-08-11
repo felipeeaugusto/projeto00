@@ -2,10 +2,19 @@
 // .aiox-core/development/tasks/modo-navegador-browser-access.md,
 // secao "Uso de bringToFront() -- regra obrigatoria".
 //
-// Minimiza TODAS as janelas do Chrome existentes no momento (nao uma fixa) e
-// VERIFICA de verdade que funcionou (IsIconic), nao so a ausencia de erro.
+// Minimiza TODAS as janelas *da automacao* existentes no momento (nao uma fixa,
+// mas tambem nunca uma janela de Chrome alheia -- ver filtro por CommandLine
+// abaixo) e VERIFICA de verdade que funcionou (IsIconic), nao so a ausencia de erro.
 // Usar sempre dentro do mesmo script que chamou bringToFront(), no finally,
 // antes de process.exit() -- nunca como comando separado depois.
+//
+// Correcao critica (11/08/2026): esta funcao ficou 3 dias com a versao antiga,
+// sem filtro (Get-Process chrome puro), porque o fix documentado em 10/08/2026
+// nunca foi copiado pra este arquivo real -- causou 2 incidentes reais de foco
+// roubado no Chrome pessoal do Felipe. Ver Camada 3 (secao do .md agora aponta
+// pra este arquivo em vez de duplicar o codigo) e o teste de comportamento em
+// minimize-chrome.test.js, que existe exatamente pra nunca mais depender de
+// alguem lembrar de sincronizar doc com codigo.
 
 const { execSync } = require('child_process');
 const fs = require('fs');
@@ -26,7 +35,8 @@ public class Win32MinForce {
 '@
 $SW_FORCEMINIMIZE = 11
 for ($i = 0; $i -lt 15; $i++) {
-  $procs = Get-Process chrome -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
+  $pids = (Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" | Where-Object { $_.CommandLine -match 'ChromeDebugKarzen' }).ProcessId
+  $procs = Get-Process -Id $pids -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
   $allMinimized = $true
   foreach ($p in $procs) {
     if (-not [Win32MinForce]::IsIconic($p.MainWindowHandle)) {

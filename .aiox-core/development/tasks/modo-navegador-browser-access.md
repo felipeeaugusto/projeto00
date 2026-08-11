@@ -139,54 +139,13 @@ Algumas ações (`page.screenshot()` em aba minimizada, alguns cliques em painé
 
 **Bug adicional descoberto:** mesmo colocando os dois passos dentro do mesmo script Node (`bringToFront()` seguido de um `ShowWindow(SW_MINIMIZE)` único), a janela ainda pode aparecer — porque o `bringToFront()` do Playwright é assíncrono e o Windows pode elevar a janela pro primeiro plano **depois** que o minimize já rodou (race condition). Um único `ShowWindow` não é suficiente.
 
-**Solução validada (versão final, corrigida em 05/08/2026 após investigação com timestamps — ver seção "Investigação a fundo" abaixo):** todo script que usa `bringToFront()` DEVE, antes de `process.exit()`, chamar uma rotina que minimiza e **verifica de verdade se funcionou** (via `IsIconic`, não só ausência de erro). Módulo de referência (`minimize-chrome.js`):
+**Solução validada (versão final, corrigida em 05/08/2026 após investigação com timestamps — ver seção "Investigação a fundo" abaixo):** todo script que usa `bringToFront()` DEVE, antes de `process.exit()`, chamar uma rotina que minimiza e **verifica de verdade se funcionou** (via `IsIconic`, não só ausência de erro).
 
-**⚠️ Correção crítica (10/08/2026) — incidente real de foco roubado do Felipe:** a versão anterior desta rotina resolvia as janelas a minimizar via `Get-Process chrome | Where MainWindowHandle -ne Zero`, sem filtrar pela automação. Isso pega **qualquer janela do Chrome em execução no PC** — inclusive uma janela pessoal do Felipe, sem nenhuma relação com a automação. Aconteceu de verdade: o Chrome pessoal do Felipe (com WhatsApp aberto) foi minimizado à força no meio de uma automação, tirando o foco do trabalho dele sem aviso nenhum — declarado por ele como algo inegociável: "tirar o foco do meu trabalho não pode acontecer". Confirmado ao vivo (10/08/2026): rodando o filtro antigo contra o Chrome real da sessão, ele achou **2 janelas** (a da automação **e uma segunda, totalmente alheia à automação**) — a versão corrigida abaixo, testada no mesmo momento, achou só **1** (a correta). Correção: resolver os processos via `Get-CimInstance Win32_Process` filtrado por `CommandLine -match 'ChromeDebugKarzen'` primeiro (só esse método expõe `CommandLine`; `Get-Process` sozinho não tem essa propriedade), pegar os `ProcessId` resultantes, e só então usar `Get-Process -Id <esses PIDs>` pra obter o `MainWindowHandle` (que só existe no objeto do `Get-Process`, não no WMI/CIM) — mesma técnica documentada na BLOCO 0-U (Regra 3) do `CLAUDE.md`.
+**Módulo persistido (não parafrasear nem duplicar o código aqui — ver nota abaixo sobre por quê):** `.aiox-core/development/scripts/modo-navegador/minimize-chrome.js` — qualquer script novo importa direto de lá (`require('./minimize-chrome.js').minimizeChrome()`).
 
-```javascript
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+**⚠️ Correção crítica (10/08/2026, só efetivamente aplicada no arquivo real em 11/08/2026) — incidente real de foco roubado do Felipe, 2 vezes:** a versão antiga desta rotina resolvia as janelas a minimizar via `Get-Process chrome | Where MainWindowHandle -ne Zero`, sem filtrar pela automação. Isso pega **qualquer janela do Chrome em execução no PC** — inclusive uma janela pessoal do Felipe, sem nenhuma relação com a automação. Aconteceu de verdade duas vezes: em 10/08/2026 (Chrome pessoal com WhatsApp aberto) e de novo em 11/08/2026, porque a correção descrita abaixo foi escrita nesta doc em 10/08 mas **nunca chegou a ser copiada pro arquivo `.js` real** — ficou 1 dia inteiro documentada e não aplicada, e o bug se repetiu exatamente pela mesma causa. Correção: resolver os processos via `Get-CimInstance Win32_Process` filtrado por `CommandLine -match 'ChromeDebugKarzen'` primeiro (só esse método expõe `CommandLine`; `Get-Process` sozinho não tem essa propriedade), pegar os `ProcessId` resultantes, e só então usar `Get-Process -Id <esses PIDs>` pra obter o `MainWindowHandle` (que só existe no objeto do `Get-Process`, não no WMI/CIM) — mesma técnica documentada na BLOCO 0-U (Regra 3) do `CLAUDE.md`. O arquivo real já reflete essa correção — conferir lá, não aqui, se precisar ver o código exato.
 
-function minimizeChrome() {
-  const psScript = `
-Add-Type -TypeDefinition @'
-using System;
-using System.Runtime.InteropServices;
-public class Win32MinForce {
-    [DllImport("user32.dll")]
-    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-    [DllImport("user32.dll")]
-    public static extern bool IsIconic(IntPtr hWnd);
-}
-'@
-$SW_FORCEMINIMIZE = 11
-for ($i = 0; $i -lt 15; $i++) {
-  $pids = (Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" | Where-Object { $_.CommandLine -match 'ChromeDebugKarzen' }).ProcessId
-  $procs = Get-Process -Id $pids -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero }
-  $allMinimized = $true
-  foreach ($p in $procs) {
-    if (-not [Win32MinForce]::IsIconic($p.MainWindowHandle)) {
-      [Win32MinForce]::ShowWindow($p.MainWindowHandle, $SW_FORCEMINIMIZE) | Out-Null
-      $allMinimized = $false
-    }
-  }
-  if ($allMinimized) { break }
-  Start-Sleep -Milliseconds 200
-}
-`;
-  const tmpFile = path.join(os.tmpdir(), `minimize-chrome-${Date.now()}-${Math.random().toString(36).slice(2)}.ps1`);
-  fs.writeFileSync(tmpFile, psScript);
-  try {
-    execSync(`powershell -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "${tmpFile}"`, { stdio: 'pipe' });
-  } finally {
-    fs.unlinkSync(tmpFile);
-  }
-}
-
-module.exports = { minimizeChrome };
-```
+**Por que esta doc parou de conter o código inteiro (11/08/2026):** enquanto o código ficava duplicado aqui E no arquivo `.js`, um fix podia ser escrito num lugar e esquecido no outro — foi exatamente isso que causou o incidente de 11/08. A partir de agora só existe 1 lugar com o código de verdade (`minimize-chrome.js`); esta doc só explica o histórico e o porquê. Reforço adicional: `.aiox-core/development/scripts/modo-navegador/minimize-chrome.test.js` testa o comportamento real da função (nunca toca uma janela de Chrome que não seja da automação), então mesmo um bug novo — não só este já conhecido — tem uma chance real de ser pego antes de virar incidente.
 
 **Bug real encontrado (06/08/2026): faltava `-WindowStyle Hidden` na chamada `execSync`.** Sem essa flag, todo `minimizeChrome()` (chamado no `finally` de praticamente todo script do Modo Navegador) abre um processo `powershell.exe` visível por uma fração de segundo antes de fechar sozinho. A janela em si nunca chega a ser percebida (nasce e morre rápido demais pra renderizar), mas o Windows já reage à criação da janela e pode roubar o foco de **qualquer outra janela do usuário** (não só do Chrome) — sintoma relatado pelo Felipe como "o foco muda do nada" na tela em que ele estava trabalhando, sem nenhuma janela visível para explicar. Ocorreu repetidamente numa sessão com muitas chamadas de script seguidas (cada uma dispara um `minimizeChrome()`). Corrigido adicionando `-WindowStyle Hidden` direto na invocação do `powershell.exe` (mesmo princípio já usado no lançamento do vigia via `Start-Process -WindowStyle Hidden`, só que aqui a flag precisa ir para o `powershell.exe` em si, já que a chamada é via `execSync`/shell, não via `Start-Process`).
 
