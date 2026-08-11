@@ -61,12 +61,16 @@ Pra cada MLB encontrado de um SKU (Passo A):
 
 **Planilha:** "Planilha do Ads ML" (`https://docs.google.com/spreadsheets/d/1JI5kUj-F2D946GtH4U3REkryCqpXvacmFlKrn2QFdm8/`)
 
+**Ordem de escrita obrigatória (decidido com o Felipe em 11/08/2026):** as linhas 2-91 e as 4 linhas isoladas 106, 107, 111 e 114 (dentro do intervalo 94-121, que também não passaram pelo método validado) precisam ser reprocessadas pelo método validado (Passo A/B/C) **antes** de qualquer escrita nas páginas do Google Sheets. Só depois disso entram os dados das linhas 92-144 (as 4 isoladas entram junto com o primeiro lote, não com o 92-144).
+
+**"Título de catálogo" (coluna presente nas 2 páginas abaixo):** o título exato do produto como aparece na aba "Anúncios Patrocinados" do Mercado Livre, achado durante a busca por "MLB"+número no Passo B — **não** é o título da planilha de origem do Felipe. Motivo: Carlos e a moça do Ads não sabem buscar por MLB+número, então precisam do título exato do ML pra identificar o produto sem essa técnica. Não existe coluna "Título" (do texto livre da planilha de origem) em nenhuma das duas páginas — removida a pedido do Felipe em 11/08/2026.
+
 **3ª página — nome exato da aba: `Prioridade - Fora de Ads`**
-Colunas: `SKU | MLB(s) | Título | Depósito (un) | FULL (un)`
+Colunas: `SKU | MLB(s) | Título de catálogo | Depósito (un) | FULL (un)`
 Conteúdo: produtos ativos com status "Sem Campanha" (Passo B) — pra entrega ao Carlos e ao gerente de conta do Mercado Ads.
 
 **4ª página — nome exato da aba: `Mapeamento Completo da Planilha`**
-Colunas: `SKU | MLB(s) conhecidos | Status (Ativo/Pausado/Sem estoque) | Status em Ads (Ativa/Pausada/Sem Campanha)`
+Colunas: `SKU | MLB(s) conhecidos | Título de catálogo | Status (Ativo/Pausado/Sem estoque) | Status em Ads (Ativa/Pausada/Sem Campanha)`
 Conteúdo: todos os SKUs mapeados, sem exceção.
 
 **Marcação de validação (obrigatória nas 2 páginas):** aviso fixo destacado no topo da página (célula/linha mesclada, formatação chamativa — cor de fundo diferente, negrito), em linguagem simples pra qualquer pessoa entender (o Carlos vê isso, não conhece o processo interno): `⚠️ Dados em validação — aguardando confirmação final` até o Felipe aprovar o lote, depois atualizado pra `✅ Dados confirmados`. **Nunca usar essa marcação como nome da aba** — só um aviso dentro da página.
