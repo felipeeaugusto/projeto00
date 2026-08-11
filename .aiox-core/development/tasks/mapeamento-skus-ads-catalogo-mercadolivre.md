@@ -71,11 +71,18 @@ Conteúdo: todos os SKUs mapeados, sem exceção.
 
 **Marcação de validação (obrigatória nas 2 páginas):** aviso fixo destacado no topo da página (célula/linha mesclada, formatação chamativa — cor de fundo diferente, negrito), em linguagem simples pra qualquer pessoa entender (o Carlos vê isso, não conhece o processo interno): `⚠️ Dados em validação — aguardando confirmação final` até o Felipe aprovar o lote, depois atualizado pra `✅ Dados confirmados`. **Nunca usar essa marcação como nome da aba** — só um aviso dentro da página.
 
-**Procedimento seguro de criação de aba nova (validado em 10/08/2026):**
-1. No Google Sheets, clicar no botão **"+"** no canto inferior esquerdo (ou clique direito numa aba existente → **"Inserir planilha"**) — cria uma aba nova em branco, sem tocar nas existentes
-2. Renomear a aba imediatamente (duplo clique no nome da aba) pro nome definitivo — nunca deixar como "Página N" genérico
+**Procedimento seguro de criação de aba nova (validado de verdade em 10/08/2026, com teste real na planilha real):**
+
+Correção sobre a versão anterior: clique direito numa aba **não** tem a opção "Inserir planilha" (o menu de contexto real de uma aba é: Excluir, Duplicar, Copiar para, Renomear, Alterar cor, Proteger página, Ocultar página, Ver comentários, Desvincular formulário, Mover). O botão certo foi achado via accessibility tree do Playwright (`page.getByRole('button', { name: 'Adicionar página' })`), não por CSS selector — o `aria-label` é **"Adicionar página"**.
+
+1. Clicar no botão com `aria-label="Adicionar página"` (fica perto do canto inferior esquerdo, junto da lista de abas) — cria uma aba nova em branco (nome genérico tipo "Página3"), sem tocar nas existentes
+2. Renomear a aba imediatamente: `dblclick()` no nome da aba → `Control+A` → digitar o nome definitivo → `Enter`
 3. Nunca usar ações em massa que afetem "todas as planilhas" durante esse processo
-4. Confirmar visualmente que as abas existentes (inclusive as que o Felipe já criou manualmente) continuam intactas antes de prosseguir
+4. Confirmar visualmente/via leitura (`page.locator('.docs-sheet-tab-name').allTextContents()`) que as abas existentes continuam intactas antes de prosseguir
+
+**Como apagar uma aba (usado no teste, útil se precisar desfazer algo):** clique direito na aba → item de menu "Excluir" (`page.getByRole('menuitem', { name: /excluir/i })`) → confirmar no diálogo se aparecer.
+
+**Teste real executado (10/08/2026):** abas antes = `["Produtos em Ads Atualmente", "Produtos Perdendo Catálogo em Ads"]` → clicou em "Adicionar página" → apareceu "Página3", as 2 originais continuaram intactas → renomeou pra "TESTE-apagar" → apagou via Excluir → estado final voltou exatamente igual ao original. Ciclo completo confirmado seguro.
 
 ---
 
