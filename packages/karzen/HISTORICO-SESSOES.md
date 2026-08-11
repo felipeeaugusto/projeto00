@@ -20,6 +20,27 @@
 
 ---
 
+### SESSÃO — 29/07/2026
+
+**O QUE FOI FEITO:**
+- @analyst desenhou uma rotina semanal completa pra evitar burnout (Segunda-Quinta, Plano de Contingência pra saída tardia, Sexta, Sábado, Domingo), com 3 achados críticos: meta de sono não fecha (6h55 real vs 8h desejado), o bloco de almoço tem dois propósitos conflitantes (descanso vs estudo de AIOX), e a saída tardia é frequente — não exceção
+- @analyst publicou um artifact visual (página HTML) com a rotina organizada por categorias (trabalho / rotina pessoal / saúde / sono / relacionamento / fé)
+- Fechado o framework "Fixo x Maleável": fronteiras pessoais (entrada, saída-alvo, almoço real, exercício, sono) são fixas; conteúdo de trabalho (incluindo Ads e estudo de AIOX) é maleável e pode ser deslocado por demanda urgente sem culpa — conteúdo completo salvo em `ROTINA-FELIPE.md`
+- Aplicado o framework a um caso real (quinta-feira 30/07): promoção de agosto no ML com a Julya absorvida pelo bloco maleável sem problema; fisioterapia nova (13:20-14:30, terça/quinta, ~2,5 semanas restantes) virou compromisso fixo, colidindo com a sugestão anterior de estudar AIOX nesses mesmos dias — sugerido mover pra segunda/quarta enquanto durar a fisio
+- Registrada pendência nova: Felipe vai passar a cuidar também do Ads da Karzen na Shopee (pedido de Gabriel, irmão do Carlos), reunião ainda sem data — ver PENDÊNCIAS ATUAIS
+
+**O QUE O FELIPE PEDIU:**
+- Ajuda pra organizar a rotina diária/semanal dado o volume de horas extras na Karzen, a falta de exercício, sono insuficiente (6h55, dormindo depois de 23h30 e acordando 5h25) e o risco de burnout
+- Uma versão organizada em página (artifact) da rotina, e depois uma versão em tabela no terminal
+- Confirmou que bater o ponto deixando 30min do intervalo de almoço "faltando" vira hora extra de verdade
+- Aplicar o framework a um dia real (quinta-feira 30/07): promoção de agosto no ML pela manhã, fisioterapia nova às terças/quintas, saída até 19h10, igreja às 19h30
+- Avisou sobre uma pendência de trabalho nova: vai passar a cuidar do Ads da Shopee também, a pedido do Gabriel (irmão do Carlos) — reunião ainda sem data
+- Autorizou registrar a pendência do Ads da Shopee no caderno e criar um arquivo separado (`ROTINA-FELIPE.md`) pra não perder as decisões da rotina pessoal
+
+**PAROU EM:** Rotina desenhada e decisões parcialmente tomadas; ainda faltam 3 decisões pessoais em aberto (sono 7h vs 8h; dias de exercício; dias de estudo AIOX/Shopee Ads agora que terça/quinta têm fisio) — ver `ROTINA-FELIPE.md` | Agente ativo: analyst
+
+---
+
 ### SESSÃO — 02/07/2026
 
 **O QUE FOI FEITO:**

@@ -48,24 +48,30 @@
 
 > Sessões mais antigas em `HISTORICO-SESSOES.md`.
 
-### SESSÃO — 29/07/2026
+### SESSÃO — 10/08/2026
 
 **O QUE FOI FEITO:**
-- @analyst desenhou uma rotina semanal completa pra evitar burnout (Segunda-Quinta, Plano de Contingência pra saída tardia, Sexta, Sábado, Domingo), com 3 achados críticos: meta de sono não fecha (6h55 real vs 8h desejado), o bloco de almoço tem dois propósitos conflitantes (descanso vs estudo de AIOX), e a saída tardia é frequente — não exceção
-- @analyst publicou um artifact visual (página HTML) com a rotina organizada por categorias (trabalho / rotina pessoal / saúde / sono / relacionamento / fé)
-- Fechado o framework "Fixo x Maleável": fronteiras pessoais (entrada, saída-alvo, almoço real, exercício, sono) são fixas; conteúdo de trabalho (incluindo Ads e estudo de AIOX) é maleável e pode ser deslocado por demanda urgente sem culpa — conteúdo completo salvo em `ROTINA-FELIPE.md`
-- Aplicado o framework a um caso real (quinta-feira 30/07): promoção de agosto no ML com a Julya absorvida pelo bloco maleável sem problema; fisioterapia nova (13:20-14:30, terça/quinta, ~2,5 semanas restantes) virou compromisso fixo, colidindo com a sugestão anterior de estudar AIOX nesses mesmos dias — sugerido mover pra segunda/quarta enquanto durar a fisio
-- Registrada pendência nova: Felipe vai passar a cuidar também do Ads da Karzen na Shopee (pedido de Gabriel, irmão do Carlos), reunião ainda sem data — ver PENDÊNCIAS ATUAIS
+- Validado o método de mapeamento SKU x Mercado Ads (Passo A/B/C) — busca direta por "MLB"+número na Anúncios Patrocinados confirmada confiável, com 3 estados possíveis (Ativa/Pausada/Sem Campanha) — documentado em `.aiox-core/development/tasks/mapeamento-skus-ads-catalogo-mercadolivre.md` (novo arquivo)
+- Processados 40 produtos no total (2 lotes de 20, linhas 94-121 e 122-144), achando 11 "Sem Campanha" (produtos ativos fora de Ads) — ainda não escritos no Google Sheets, falta autorização do Felipe
+- Corrigido bug real: a regra de "próxima linha a processar" pulava as ~90 linhas que o Felipe já tinha marcado de azul manualmente, deixando elas fora do método validado — regra corrigida pra nunca pular azul, só cores novas por-SKU. **Ainda em aberto:** um erro de execução fez o 2º lote continuar da linha 122 em vez de recomeçar da linha 2 como combinado — as linhas 2-91 ainda não foram reprocessadas (88 de 144 linhas totais ainda pendentes)
+- Testado de verdade (com Felipe presente) o procedimento de criar aba nova no Google Sheets — botão certo é `aria-label="Adicionar página"` (achado via accessibility tree), ciclo criar→renomear→apagar validado, abas do Felipe nunca tocadas
+- Investigado e corrigido um incidente real de foco roubado: `minimizeChrome()` minimizava qualquer janela do Chrome (inclusive pessoal do Felipe, com WhatsApp aberto) por falta de filtro — corrigido pra filtrar só a automação via `CommandLine` (técnica CIM+PID). BLOCO 0-V (automação via Edge) descontinuada por ter o mesmo problema, mais grave (fechava em vez de minimizar) — toda automação de browser agora é exclusiva do Chrome (BLOCO 0-X)
+- Identificado e corrigido bug estrutural na BLOCO 0-K (auditoria antes de handoff): dependia só de memória, sem gatilho externo — trocada por checagem incremental (`.aiox/itens-em-aberto.md`) + hook técnico (`check-handoff-audit.js`, evento Stop) + backstop periódico na BLOCO 3. Nova BLOCO 0-Z exige spec escrita + procedimento testado antes de qualquer escrita em sistema externo compartilhado
+- Limpeza no caderno: removida a frente da agência do primo (projeto encerrado), removido o caso dos 939 estoque/9 casos especiais (a pedido do Felipe), removida uma pendência desatualizada sobre fix de foco que já tinha sido implementado em 07/08 e nunca marcado como concluído
+- Testado `launchPersistentContext()` do Playwright como alternativa ao Modo Navegador (perfil descartável, nunca tocou em nada real) — não recomendado migrar, não resolve nenhum problema real do método atual
+- Registrada pendência de prioridade máxima pro @aiox-master: boa parte das ~30 regras do `CLAUDE.md` depende só de memória do agente, sem reforço técnico — mapeado via `*elicit` que ~20-25 delas têm algum tipo de checagem mecânica possível (não só as 5 originalmente identificadas), mais um mecanismo de "recalcular do dado real, nunca confiar em memória" pra decisões operacionais (tipo qual linha processar). Estimativa honesta: mais de um dia de trabalho focado, não horas — explicitamente NÃO fazer isso no fim de uma sessão cansativa
 
 **O QUE O FELIPE PEDIU:**
-- Ajuda pra organizar a rotina diária/semanal dado o volume de horas extras na Karzen, a falta de exercício, sono insuficiente (6h55, dormindo depois de 23h30 e acordando 5h25) e o risco de burnout
-- Uma versão organizada em página (artifact) da rotina, e depois uma versão em tabela no terminal
-- Confirmou que bater o ponto deixando 30min do intervalo de almoço "faltando" vira hora extra de verdade
-- Aplicar o framework a um dia real (quinta-feira 30/07): promoção de agosto no ML pela manhã, fisioterapia nova às terças/quintas, saída até 19h10, igreja às 19h30
-- Avisou sobre uma pendência de trabalho nova: vai passar a cuidar do Ads da Shopee também, a pedido do Gabriel (irmão do Carlos) — reunião ainda sem data
-- Autorizou registrar a pendência do Ads da Shopee no caderno e criar um arquivo separado (`ROTINA-FELIPE.md`) pra não perder as decisões da rotina pessoal
+- Continuar o mapeamento de SKUs a partir de onde parou, aplicando o método validado
+- Investigar por que o `minimizeChrome()` roubou o foco do Chrome pessoal dele durante uma automação, e corrigir isso "de forma que nunca mais aconteça"
+- Avaliar se o Edge deveria continuar sendo usado pra automação, dado o mesmo tipo de risco — decidiu eliminar o uso do Edge por completo, migrar tudo pro Chrome
+- Remover do caderno a pendência dos 939 estoque/9 casos especiais, e toda a frente da agência do primo (projeto encerrado)
+- Testar `launchPersistentContext` como alternativa ao Modo Navegador (pediu explicitamente o teste, não só avaliação teórica)
+- Uma investigação profunda (`*elicit`) sobre por que as regras novas do `CLAUDE.md` não estão sendo seguidas de forma confiável, e se existe uma solução permanente — várias rodadas de pergunta e resposta até concordar que não existe solução 100% perfeita, automatizada ou não, mas que dá pra reduzir bastante o problema com hooks + recalcular do dado real + checkpoint humano
+- Nunca mais ser respondido em inglês — incidente real hoje motivou registrar isso como regra permanente e prioritária
+- "Vou parar" — sessão longa e cansativa, desde sexta-feira sem desligar o PC
 
-**PAROU EM:** Rotina desenhada e decisões parcialmente tomadas; ainda faltam 3 decisões pessoais em aberto (sono 7h vs 8h; dias de exercício; dias de estudo AIOX/Shopee Ads agora que terça/quinta têm fisio) — ver `ROTINA-FELIPE.md` | Agente ativo: analyst
+**PAROU EM:** Mapeamento de SKUs — 40 de ~736 produtos processados (56 com o método validado, 88 ainda pendentes, a maioria linhas 2-91 que precisam ser reprocessadas desde o início). Escrita real nas 2 páginas novas do Google Sheets ainda não autorizada. Pendência de prioridade máxima registrada pro @aiox-master (confiabilidade das regras do CLAUDE.md) — não iniciada, fica pra próxima sessão fresca | Agente ativo: dev
 
 ---
 
