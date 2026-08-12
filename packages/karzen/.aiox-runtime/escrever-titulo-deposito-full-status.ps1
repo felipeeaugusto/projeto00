@@ -30,14 +30,22 @@ function Get-PropPremium($objetoPai) {
     return $null
 }
 
+# "Sem estoque" no Depósito ou FULL vira "-" na planilha final (decidido com o Felipe,
+# 12/08/2026) -- so se aplica a esses 2 campos, nao ao Status do Produto.
+function Normalizar-SemEstoque([string]$valor, [string]$campo) {
+    if ($campo -ne 'deposito' -and $campo -ne 'full') { return $valor }
+    if ($valor -match '(?i)^sem estoque$') { return '-' }
+    return $valor
+}
+
 function Get-ValorUnico($classico, $premium, [string]$campo) {
     $v1 = if ($classico) { $classico.$campo } else { $null }
     $v2 = if ($premium) { $premium.$campo } else { $null }
     if ($v1 -and $v2) {
-        if ($v1 -eq $v2) { return $v1 } else { return "$v1`n$v2" }
+        if ($v1 -eq $v2) { return (Normalizar-SemEstoque $v1 $campo) } else { return "$(Normalizar-SemEstoque $v1 $campo)`n$(Normalizar-SemEstoque $v2 $campo)" }
     }
-    if ($v1) { return $v1 }
-    if ($v2) { return $v2 }
+    if ($v1) { return (Normalizar-SemEstoque $v1 $campo) }
+    if ($v2) { return (Normalizar-SemEstoque $v2 $campo) }
     return '-'
 }
 
