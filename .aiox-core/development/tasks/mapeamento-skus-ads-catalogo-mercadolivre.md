@@ -82,6 +82,30 @@ Pra cada MLB confirmado de um SKU (Passo A — só os que passaram na verificaç
 
 **Não confundir com a marcação histórica separada do Felipe:** o azul `RGB(66,133,244)` já usado em ~200 células da coluna Item ID é a convenção própria do Felipe pra "já verifiquei manualmente" — não reaproveitar essa cor nem esse significado no Passo C.
 
+**⚠️ Implementação automatizada — usar busca nativa do Excel, nunca um laço manual (corrigido 11/08/2026):** a primeira versão automatizada deste passo percorria a planilha célula por célula num laço manual (`for` aninhado, lendo `.Cells.Item(linha, coluna).Text` uma a uma, ~19 mil vezes por MLB) — o Felipe identificou o erro comparando com o próprio jeito que ele faz na mão: os passos 1-4 acima (Localizar e Selecionar → Localizar → Pasta de trabalho → Localizar tudo) usam a **função de busca nativa do Excel**, muito mais rápida que qualquer laço escrito por fora. Essa mesma função nativa é acessível via COM (`Range.Find` / `Range.FindNext`) — é isso que a automação deve usar, nunca reescrever a busca na mão.
+
+Padrão validado (11/08/2026, medido contra dado real — 4 MLBs de 1 produto: **249ms**, contra mais de 2 minutos do laço manual, mesmos endereços de célula encontrados nos dois métodos):
+
+```powershell
+$xlValues = -4163; $xlWhole = 1
+$primeira = $ws.Cells.Find($mlb, [Type]::Missing, $xlValues, $xlWhole, [Type]::Missing, [Type]::Missing, $false, [Type]::Missing, [Type]::Missing)
+if ($null -ne $primeira) {
+    $endereco = $primeira.Address()
+    $atual = $primeira
+    do {
+        $atual.Interior.ColorIndex = -4142   # Sem preenchimento primeiro
+        $atual.Interior.Color = $corInt      # Depois a cor do SKU
+        $atual = $ws.Cells.FindNext($atual)
+    } while ($null -ne $atual -and $atual.Address() -ne $endereco)
+}
+```
+
+`FindNext` avança pra próxima ocorrência e **dá a volta** (wrap-around) quando chega ao fim — por isso é obrigatório guardar o endereço da primeira ocorrência (`$endereco`) e parar o laço assim que `FindNext` voltar pra ele, senão gera loop infinito.
+
+**Escopo "Pasta de trabalho":** o `Range.Find` do COM busca só na planilha (`Worksheet`) em que é chamado — não existe um equivalente direto de "toda a pasta de trabalho" num único `Find`. Hoje isso não importa na prática (o arquivo de trabalho só tem 1 aba, "SEM CAMPANHA") — mas se um dia existir mais de uma aba relevante, é preciso repetir o `Find`/`FindNext` pra cada `Worksheet` da pasta, não assumir que 1 chamada cobre tudo.
+
+**Nunca introduzir cache ou índice entre produtos diferentes:** a correção acima troca só o *mecanismo* de busca (nativo em vez de laço manual) — continua buscando no dado real da planilha a cada MLB, sempre. Nenhum índice construído uma vez e reaproveitado entre produtos — isso mantém a mesma garantia de segurança que já existia (nunca usar dado "velho" de um índice desatualizado).
+
 **⚠️ Regra de "qual linha processar a seguir" — corrigida (10/08/2026):** o azul do Felipe foi marcado **antes** deste método existir — nunca passou pela determinação de status em Ads (Passo B). Pular linhas azuis faria essas linhas nunca receberem o tratamento validado. A regra correta: **pular SOMENTE células já coloridas com uma das cores novas por-grupo-de-SKU** (as cores geradas via HSL, uma por SKU, usadas desde que este método começou). Qualquer outra cor — o azul `RGB(66,133,244)`, dourado `RGB(255,217,102)`, dourado-claro `RGB(255,229,153)`, ou sem cor nenhuma — conta como "ainda não passou pelo método validado" e deve ser processada normalmente. Não precisa de nenhum tratamento especial por faixa de linha: como o Passo A busca o SKU e traz todos os MLBs do produto onde quer que estejam na planilha, e o Passo C colore com escopo "Pasta de trabalho" (planilha inteira), uma varredura sequencial simples aplicando essa regra já cobre o trabalho manual do Felipe espalhado por qualquer lugar da planilha, corrigindo/atualizando essas linhas pro método validado.
 
 ## Passo D — Escrever nas 2 páginas novas do Google Sheets
