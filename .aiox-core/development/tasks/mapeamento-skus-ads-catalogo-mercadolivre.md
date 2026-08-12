@@ -103,7 +103,11 @@ sem estoque   (ou um número de unidades)
 ```
 Ler o valor de cada uma direto desse texto.
 
-**⚠️ Normalização obrigatória na planilha final (12/08/2026):** quando o valor lido de Depósito ou de FULL for **"sem estoque"**, escrever **"-"** na célula do `Analise Oficial.xlsx` (nas 2 páginas) em vez do texto "sem estoque". Um número de unidades (ex: "1 un.", "416 un.") é escrito normalmente, sem alteração — a normalização vale só pro caso "sem estoque". Essa regra não se aplica ao Status do Produto: lá "Inativo sem estoque" continua contando como "Pausado" normalmente (ver regra abaixo).
+**⚠️ Normalizações obrigatórias na planilha final (12/08/2026), só pra Depósito e FULL — nunca pro Status do Produto:**
+- Quando o valor lido for **"sem estoque"**, escrever **"-"** na célula do `Analise Oficial.xlsx` (nas 2 páginas) em vez do texto "sem estoque".
+- Quando o valor lido for um número de unidades (ex: "1 un.", "416 un."), escrever **só o número** (`1`, `416`) — sem a palavra "un.".
+
+Essas 2 regras não se aplicam ao Status do Produto: lá "Inativo sem estoque" continua contando como "Pausado" normalmente (ver regra abaixo), e não existe conceito de "un." nesse campo.
 
 **Status do Produto (Ativo/Pausado):** é a **mesma informação** que já aparece perto de cada MLB de catálogo confirmado, na aba Anúncios (o mesmo texto usado no Passo A.1, ex: "Inativo sem estoque / Não há mais unidades à venda."). Regra de registro na célula:
 - **"Inativo sem estoque" conta como Pausado** — não é uma categoria própria.

@@ -30,11 +30,14 @@ function Get-PropPremium($objetoPai) {
     return $null
 }
 
-# "Sem estoque" no Depósito ou FULL vira "-" na planilha final (decidido com o Felipe,
-# 12/08/2026) -- so se aplica a esses 2 campos, nao ao Status do Produto.
+# Normalizacoes do Depósito/FULL na planilha final (decidido com o Felipe, 12/08/2026):
+# 1. "sem estoque" vira "-"
+# 2. "N un." vira so "N" (sem a palavra "un.")
+# So se aplica a esses 2 campos, nao ao Status do Produto.
 function Normalizar-SemEstoque([string]$valor, [string]$campo) {
     if ($campo -ne 'deposito' -and $campo -ne 'full') { return $valor }
     if ($valor -match '(?i)^sem estoque$') { return '-' }
+    if ($valor -match '^(\d+)\s*un\.?$') { return $Matches[1] }
     return $valor
 }
 
