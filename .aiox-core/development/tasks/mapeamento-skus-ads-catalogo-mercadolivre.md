@@ -10,10 +10,20 @@ Depende do procedimento de conexão documentado em `modo-navegador-browser-acces
 
 ## Passo A — Achar o SKU e a listagem completa de MLBs
 
-Reaproveitado do `analise-acos-catalogo-mercadolivre.md`, Passo 3, itens 1-2:
+**⚠️ Correção crítica (11/08/2026) — qual caixa de busca usar:** na aba **Anúncios** (favorito "Anúncios" na barra do Chrome do Modo Navegador, abre por padrão na página "Gestão de anúncios") existem **2 caixas de busca diferentes na mesma tela** — usar a errada gera resultado poluído e enganoso:
 
-1. Na aba **Anúncios** (`mercadolivre.com.br/anuncios?...`), buscar por `MLB<número>` — pode redirecionar direto pro card do produto, ou pra um card **"Family"** (ID gigante, preço em faixa agregada) — nesse caso clicar na setinha pra baixo pra expandir o card e achar o SKU ali dentro.
-2. **Assim que achar o SKU (seja direto na busca por MLB, seja dentro do card Family), pesquisar de novo por esse SKU** — sempre, sem exceção, não é condicional ao caminho usado pra achar o SKU. Isso traz a listagem completa de todos os MLBs do produto (Clássico, Premium, variações), possivelmente em múltiplos cards.
+- ✅ **Certa, usar sempre:** `input[placeholder="Buscar por título, código ou SKU"]` — busca filtrada de verdade, mostra um contador exato ("N anúncios") e, pra cada card do resultado, já escreve o texto `SKU <valor>` ao lado dos MLBs — sem precisar clicar em nada.
+- ❌ **Errada, nunca usar:** `input[placeholder="Buscar seus produtos ou vendas por título, SKU ou #"]` (classe `nav-header-sellers-search__input`, fica no topo do site) — essa é uma busca genérica que mistura o resultado de verdade com uma lista de "itens recentes" completamente aleatória (teste real: buscar a SKU de uma máquina de gelo trouxe também Climatizador, Panela elétrica, Prancha alisadora — produtos sem nenhuma relação).
+
+Passo a passo:
+
+1. Buscar, na caixa certa acima, o número que já está na coluna "Item ID" da planilha de origem — **sem** o prefixo "MLB", só o número puro.
+2. Ler o contador de resultados ("N anúncios") logo acima da lista.
+   - **0 anúncios / nenhum resultado:** o anúncio desse produto não existe mais no Mercado Livre — registrar como tal, não insistir.
+   - **1 ou mais anúncios:** o card retornado já mostra o SKU escrito (`SKU <valor>`) ao lado do(s) MLB(s) dele — ler direto da tela, sem clicar em nada.
+3. Apagar o número da caixa de busca, colar o SKU encontrado, buscar de novo — **sempre, sem exceção**, mesmo que o card já mostre "Sincronizado com #X, #Y" (essa informação é só um detalhe de por que os MLBs estão ligados — Clássico/Premium, catálogo/pai — nunca um atalho pra pular esta busca).
+4. Essa busca retorna todos os cards com aquele SKU (pode ser 1 ou mais — exemplo real validado: 2 cards, 4 MLBs no total). Cada card mostra seu próprio `SKU <valor>` ao lado dos MLBs dele.
+5. **Verificação obrigatória, pra cada card retornado:** conferir que o texto `SKU <valor>` bate exatamente com o SKU buscado — só leitura do texto já visível na tela, nenhum clique necessário. Só os MLBs de cards com o SKU confirmado entram na lista final do produto.
 
 ## Passo B — Confirmar se o produto está em Ads
 
@@ -45,13 +55,14 @@ Se a busca direta por MLB não retornar nenhum resultado, cair no plano B secund
 
 ## Passo C — Marcar o progresso na planilha (Excel)
 
-Pra cada MLB encontrado de um SKU (Passo A):
+Pra cada MLB confirmado de um SKU (Passo A — só os que passaram na verificação do item 5):
 
 1. No Excel, abrir **Localizar e Selecionar → Localizar...**
 2. Clicar em **Opções >>**
 3. Mudar o campo **"Em:"** de "Planilha" para **"Pasta de trabalho"** (busca a planilha inteira, não só a aba atual)
 4. Digitar o número do MLB → **Localizar tudo**
-5. Colorir **somente a célula do número** (não a linha inteira), usando a **mesma cor para todos os MLBs de um mesmo SKU**. Usar uma cor diferente por grupo de SKU (não é uma cor única de "verificado").
+5. Na célula do número (**só a célula**, não a linha inteira): abrir a opção de cor de preenchimento (ícone do balde) → clicar primeiro em **"Sem preenchimento"** (remove qualquer cor que já esteja lá, inclusive o azul `RGB(66,133,244)` do Felipe) → só depois aplicar a **cor definida pra esse grupo de SKU**. Nunca colorir por cima de uma cor existente sem limpar antes.
+6. **Mesma cor para todos os MLBs de um mesmo SKU**, cor diferente por grupo de SKU (não é uma cor única de "verificado").
 
 **Não confundir com a marcação histórica separada do Felipe:** o azul `RGB(66,133,244)` já usado em ~200 células da coluna Item ID é a convenção própria do Felipe pra "já verifiquei manualmente" — não reaproveitar essa cor nem esse significado no Passo C.
 
