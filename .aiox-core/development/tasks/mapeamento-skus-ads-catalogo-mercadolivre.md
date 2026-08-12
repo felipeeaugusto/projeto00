@@ -25,6 +25,25 @@ Passo a passo:
 4. Essa busca retorna todos os cards com aquele SKU (pode ser 1 ou mais — exemplo real validado: 2 cards, 4 MLBs no total). Cada card mostra seu próprio `SKU <valor>` ao lado dos MLBs dele.
 5. **Verificação obrigatória, pra cada card retornado:** conferir que o texto `SKU <valor>` bate exatamente com o SKU buscado — só leitura do texto já visível na tela, nenhum clique necessário. Só os MLBs de cards com o SKU confirmado entram na lista final do produto.
 
+## Passo A.1 — Identificar os MLBs de catálogo (Clássico/Premium) pra coluna "MLB's" (crítico, 12/08/2026)
+
+**Objetivo:** a coluna "MLB's" da planilha final leva **sempre exatamente 2 MLBs por SKU** — o primeiro MLB de catálogo Clássico e o primeiro MLB de catálogo Premium (nunca a lista inteira de MLBs sincronizados, que pode ter 4, 6, 7 ou mais e fica ilegível). "Primeiro" aqui não é sobre estar Ativo/Inativo/Ganhando/Perdendo — é só sobre **ser genuinamente um MLB de catálogo** (Clássico ou Premium), independente do resultado da disputa.
+
+**Caminho principal (checar primeiro, mais rápido):**
+
+Com o SKU já buscado (Passo A), olhar a coluna **"Status e recomendações"** de cada MLB listado. Se aparecer, de forma explícita e chamativa, uma das 3 mensagens **GANHANDO / PERDENDO / COMPARTILHANDO**, esse MLB **já é confirmado** como MLB de catálogo daquela condição (Clássico ou Premium) — não precisa abrir "Alterar" nem checar mais nada pra esse MLB. Exemplo real validado (SKU `HQ-264CVEFFX-127V`): `#4734441301` (Clássico) e `#4734430067` (Premium) mostram "PERDENDO" direto na lista.
+
+**Caminho secundário (só quando NÃO aparece G/P/C na lista — geralmente Qualidade do anúncio em 30 ou 65, que esconde o badge):**
+
+1. Pra cada MLB candidato daquela condição (Clássico ou Premium), na aba Anúncios já aberta: clicar nos **3 pontinhos ("Ações secundárias")** → achar o link **"Alterar"** → pegar o `href` → abrir numa **aba nova em segundo plano** (nunca navegar a aba de Anúncios atual pra longe) — mesmo padrão já documentado no Passo 4 do `analise-acos-catalogo-mercadolivre.md`.
+2. Ler a seção **"Concorrência no Mercado Livre"**:
+   - **Não existe a seção:** esse MLB não é catálogo. Fechar a aba, testar o próximo candidato.
+   - **A seção existe:** pode ser catálogo escondido — mas **não aceitar isso sozinho como confirmação** (ver regra obrigatória abaixo).
+3. **Regra obrigatória, não é opcional (12/08/2026):** a seção "Concorrência no Mercado Livre" pode aparecer com o anúncio ganhador e várias opções de venda de **outros vendedores**, sem nenhuma garantia de que a nossa opção esteja entre elas — não é certeza que a nossa opção de venda (Clássico ou Premium) daquele SKU vai aparecer ali. Pra confirmar que uma das opções listadas é mesmo nossa, **comparar o preço mostrado em "Concorrência no Mercado Livre" com o preço daquele MLB na aba Anúncios** (mesma aba já reusada) — só aceitar o MLB como catálogo confirmado quando os preços baterem. Se nenhuma opção listada bater com o nosso preço, tratar como "não é catálogo nosso" e testar o próximo candidato.
+4. Fechar a aba "Alterar" depois de cada checagem — nunca acumular abas, uma aberta e fechada por vez, sempre voltando pra mesma aba de Anúncios (mesmo padrão do Passo 4 do `analise-acos-catalogo-mercadolivre.md`).
+
+**O que NÃO conta como confirmação de catálogo, mesmo aparecendo sob "Concorrência no Mercado Livre":** mensagens como "Inativa", "Baixe seu preço", "Crie um vídeo", "Inativo sem estoque", "PREÇO ALTO" — só **Ganhando/Perdendo/Compartilhando** (ou preço batido, ver regra acima) confirmam catálogo. Esse foi um erro real cometido em 12/08/2026: extração automática lia "Ativa"/"Inativa" como critério, gerando resultado errado pra quase todos os SKUs de um lote inteiro — corrigido depois de conferência com o Felipe.
+
 ## Passo B — Confirmar se o produto está em Ads
 
 **Página:** Anúncios Patrocinados (bookmark "Anúncios Patrocinados": `https://ads.mercadolivre.com.br/product-ads/admin/ads?navigate_to=mercado_ads`)
