@@ -1,0 +1,52 @@
+{
+  "linha-2": {
+    "row": 2,
+    "itemId": "6894630390",
+    "sku": "HQ-HQMGI45-220V",
+    "todosMlbsSincronizados": [
+      "4734682211",
+      "6894630390",
+      "4734643617",
+      "6894656242"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": "4734682211"
+    },
+    "a2": {
+      "Premium": {
+        "mlb": "4734682211",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Máquina de gelo tipo cubos HQ Hq-hqmgi45 45kg/h",
+    "statusAds": "Ativa"
+  },
+  "linha-4": {
+    "row": 4,
+    "itemId": "4722742973",
+    "sku": "HQ-100CFX-127V",
+    "todosMlbsSincronizados": [
+      "4722742973",
+      "4722782047",
+      "4722782041",
+      "4722755255"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4722742973",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4722742973",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Freezer horizontal HQ HQ-100CFX 100L",
+    "statusAds": "Sem Campanha"
+  }
+}
