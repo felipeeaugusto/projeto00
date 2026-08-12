@@ -31,17 +31,33 @@ Passo a passo:
 
 **Método principal — busca direta por MLB (validado 4/4, 08/08/2026):**
 
-Buscar exatamente **"MLB" + número** (ex: `MLB4670660503`) na caixa de busca da página. O prefixo texto **"MLB" é obrigatório** — o número puro sozinho não funciona (confirmado por teste manual do Felipe, 08/08/2026). Não importa qual dos MLBs do produto (do Passo A) seja usado — a busca encontra a entrada de catálogo correta mesmo quando o MLB buscado é uma variação "filha".
+Buscar exatamente **"MLB" + número** (ex: `MLB4670660503`) na caixa de busca da página — placeholder exato: `Procurar por # ou título` (confirmado 11/08/2026). O prefixo texto **"MLB" é obrigatório** — o número puro sozinho não funciona (confirmado por teste manual do Felipe, 08/08/2026). Não importa qual dos MLBs do produto (do Passo A) seja usado — a busca encontra a entrada de catálogo correta mesmo quando o MLB buscado é uma variação "filha".
 
 Antes de cada busca, fechar qualquer drawer de "variações" que tenha sobrado de uma checagem anterior, clicando no botão `button[aria-label="Cerrar"]` — a tecla `Escape` **não fecha** esse drawer (causou falha real de timeout no clique da caixa de busca antes desta correção).
 
-**Resultado da busca — 3 estados confiáveis, validados (10/08/2026):**
+**⚠️ Correção crítica (11/08/2026) — a coluna "Campanha" sozinha NÃO decide o status:** ela só decide entre "tem campanha" ou "não tem campanha" — **nunca** entre Ativa e Pausada. Confirmado com 3 prints de referência do Felipe (`C:\Users\Felipe Augusto\Pictures\Processo Oficial\Em Campanha.png`, `Sem Campanha.png`, `Pausados.png`):
+
+- Quando o produto está **Ativo** e quando está **Pausado**, a coluna "Campanha" mostra a **mesma coisa**: o nome da campanha em link azul (ex: `[ML] [AVA] [PERF...]`, `Em Alta`) — visualmente idêntico nos 2 casos.
+- A única diferença visível é uma **etiqueta preta "PAUSADO"**, que aparece **perto do título do produto** (não na coluna "Campanha") — só existe quando o anúncio está pausado.
+
+**Procedimento correto de leitura do status (substitui a tabela antiga):**
+
+```
+PASSO 1: Ler a coluna "Campanha"
+  SE mostrar o texto literal "Sem Campanha" → status = Sem Campanha. PARAR AQUI.
+  SE mostrar um nome de campanha (link azul, qualquer nome) → ir pro PASSO 2
+
+PASSO 2: Checar se existe a etiqueta "PAUSADO" perto do título do produto
+  (mesma linha do resultado, junto ao título/checkbox — NÃO é a coluna "Campanha")
+  SE existir a etiqueta "PAUSADO" → status = Pausada
+  SE NÃO existir → status = Ativa
+```
 
 | Estado | O que significa |
 |---|---|
-| **Ativa** | produto em Ads, campanha rodando |
-| **Pausada** | produto em Ads, campanha parada |
-| **Sem campanha** | produto catalogado no Mercado Ads, mas nunca foi colocado numa campanha — **este é o caso de "produto ativo fora de Ads"** que interessa pra lista do Carlos e do gerente de conta ML Ads |
+| **Ativa** | produto em Ads, campanha rodando (coluna Campanha = nome da campanha, sem etiqueta "PAUSADO" no título) |
+| **Pausada** | produto em Ads, campanha parada (coluna Campanha = nome da campanha, **com** etiqueta "PAUSADO" no título) |
+| **Sem campanha** | produto catalogado no Mercado Ads, mas nunca foi colocado numa campanha (coluna Campanha = texto literal "Sem Campanha") — **este é o caso de "produto ativo fora de Ads"** que interessa pra lista do Carlos e do gerente de conta ML Ads |
 
 Os 3 estados acima são todos **resultados de busca com sucesso** — o catálogo do Mercado Ads puxa automaticamente do estoque ativo do vendedor, então a busca direta por MLB tende a sempre encontrar uma entrada, mesmo pra produtos nunca anunciados (aparecem como "Sem campanha", não como resultado vazio). Validado por experiência própria do Felipe: já viu um produto como "Sem campanha" nessa coluna e depois o colocou em Ads manualmente.
 
