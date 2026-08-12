@@ -1,0 +1,408 @@
+{
+  "HQ-426MDFF-127V": {
+    "sku": "HQ-426MDFF-127V",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "4734797275",
+      "4734808493",
+      "4734782815",
+      "4734797265"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4734782815",
+      "Premium": "4734797275"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4734782815",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4734797275",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Geladeira com freezer inverter HQ HQ-426MDFF HQ-426MDFF con capacidad de 426L"
+  },
+  "EMG70-220V": {
+    "sku": "EMG70-220V",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "6716512196",
+      "6716539200",
+      "4654564669",
+      "6716534538"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4654564669",
+      "Premium": "6716512196"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4654564669",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "6716512196",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Máquina de gelo tipo cubos EOS EMG70 220V 17.5kg/h"
+  },
+  "TVTCL-QLED55": {
+    "sku": "TVTCL-QLED55",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "4562032101",
+      "6520585686",
+      "6520624186",
+      "6520622460"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4562032101",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4562032101",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Smart TV TCL 55 Polegadas QLED 4K P7K WiFi Bluetooth Google TV HDR10+ Dolby Atmos Dolby Vision 55P7K"
+  },
+  "LCS15": {
+    "sku": "LCS15",
+    "statusAds": "Sem Campanha",
+    "todosMlbsSincronizados": [
+      "4594566887",
+      "6588111386",
+      "6593310852",
+      "4591670843"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4594566887",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4594566887",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Máquina de lavar semi-automática Colormaq hasta 15kg"
+  },
+  "HQ-140RDF-CZ-127V": {
+    "sku": "HQ-140RDF-CZ-127V",
+    "statusAds": "Sem Campanha",
+    "todosMlbsSincronizados": [
+      "6844202314",
+      "6844226556",
+      "6844226550",
+      "4712668301"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6844226556",
+      "Premium": "6844202314"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6844226556",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6844202314",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Geladeira com freezer HQ HQ con capacidad de 140L"
+  },
+  "HQ-264CVEFFX-127V": {
+    "sku": "HQ-264CVEFFX-127V",
+    "statusAds": "Sem Campanha",
+    "todosMlbsSincronizados": [
+      "4734430067",
+      "4734441301",
+      "4734391393",
+      "4734390021"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4734441301",
+      "Premium": "4734430067"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4734441301",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "4734430067",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Geladeira expositora vertical HQ HQ-264CVEFFX"
+  },
+  "MPN-01-BF-127V": {
+    "sku": "MPN-01-BF-127V",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "4719874527",
+      "4719886935",
+      "6858282012",
+      "4719860315"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4719874527",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4719874527",
+        "full": "121 un.",
+        "deposito": "301 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF"
+  },
+  "PRODT-1270": {
+    "sku": "PRODT-1270",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "3923788669",
+      "3923775777",
+      "3958548259",
+      "5059246116",
+      "5278770424",
+      "65103991480"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3923788669",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3923788669",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270"
+  },
+  "IMPC-G3110": {
+    "sku": "IMPC-G3110",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "4560946507",
+      "4560958907",
+      "6517683696",
+      "4560968027"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4560946507",
+      "Premium": "4560958907"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4560946507",
+        "full": "sem estoque",
+        "deposito": "416 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "4560958907",
+        "full": "sem estoque",
+        "deposito": "416 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Impressora multifuncional cor Canon Pixma G3110"
+  },
+  "BBX4-JBL": {
+    "sku": "BBX4-JBL",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "4561472143",
+      "4561510195",
+      "4561508609",
+      "6518628038"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6518628038",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6518628038",
+        "full": null,
+        "deposito": "62 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Alto-falante JBL Boombox 4 black JBLBOOMBOX4BLKBR portátil com bluetooth waterproof"
+  },
+  "SLKM-BIV": {
+    "sku": "SLKM-BIV",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "4682948797",
+      "4683210039",
+      "4683197331",
+      "4682937151"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": "4682948797"
+    },
+    "a2": {
+      "Premium": {
+        "mlb": "4682948797",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Starlink Mini omnidirecional"
+  },
+  "MSAMOLED-49": {
+    "sku": "MSAMOLED-49",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "6057784296",
+      "6058262732",
+      "4367394365",
+      "6057626042"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6057784296",
+      "Premium": "4367394365"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6057784296",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4367394365",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Monitor Gamer Samsung com tela de 49\" 240Hz e resolução DQHD"
+  },
+  "TVSAM-32": {
+    "sku": "TVSAM-32",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "6434268826",
+      "6434269178",
+      "4519160395",
+      "4519135747"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6434268826",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6434268826",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Smart Tv Samsung 32 Ls32h5000fgxzd Hd Led Wifi Hdmi 110/220v"
+  },
+  "PCX26000": {
+    "sku": "PCX26000",
+    "statusAds": "Sem Campanha",
+    "todosMlbsSincronizados": [
+      "4366395951",
+      "6055202104",
+      "6055202100",
+      "6055201854"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4366395951",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4366395951",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Alto-falante Philco Amplificada Pcx26000 Pcx26000 portátil"
+  },
+  "BAF45A-220V": {
+    "sku": "BAF45A-220V",
+    "statusAds": "Sem Campanha",
+    "todosMlbsSincronizados": [
+      "4632339143",
+      "4632375815",
+      "4632362307",
+      "4632375805"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4632339143",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4632339143",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Air fryer Britânia BAF45A"
+  },
+  "PGR21PI-127V": {
+    "sku": "PGR21PI-127V",
+    "statusAds": "Ativa",
+    "todosMlbsSincronizados": [
+      "3566803125",
+      "3566777787",
+      "3566520771",
+      "3566571775"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3566803125",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3566803125",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Sanduicheira elétrica Philco Sanduicheira Philco PGR21PI Maxx Clean"
+  }
+}
