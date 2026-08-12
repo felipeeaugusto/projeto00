@@ -88,9 +88,36 @@ Se a busca direta por MLB não retornar nenhum resultado, cair no plano B secund
 3. **Parar assim que achar o primeiro match** — não precisa checar as variações de todos os candidatos da lista.
 4. Se **nenhum** candidato bater, registrar como **"não encontrado com os métodos disponíveis"** — nunca registrar como "não está em Ads" com certeza. Um resultado vazio na busca por nome/marca não é prova de ausência: o Mercado Livre pode catalogar o produto sob um título completamente diferente do usado pelo vendedor (caso real: SKU `SCG-MR-BIV`, catalogado como "Ga.ma Italy PRIMO II BIVOLT C" — só descoberto ao abrir as variações de um candidato de título aparentemente não relacionado). Mesmo tratamento dado ao caso "não checável" do `analise-acos-catalogo-mercadolivre.md` (Passo 3, item 1): separar "eu sei que não está" de "eu não consegui saber".
 
+## Passo A.2 — Capturar Título de catálogo, Depósito/FULL e Status do Produto (12/08/2026)
+
+Essas 3 informações vêm dos MLBs de catálogo já confirmados no Passo A.1 (Clássico e/ou Premium):
+
+**Título de catálogo:** buscar `MLB<número>` na aba **Anúncios Patrocinados** (mesma página do Passo B) — o bloco `CATÁLOGO` do resultado mostra `#MLB<outro número, pode ser diferente do buscado> ORIGEM: PRÓPRIO`, seguido do **título exato** numa linha própria, antes de "Ver variações". Esse título é o que vai na coluna "Título de catálogo" — usar **quebra de linha dentro da célula** (`WrapText = true`) pra caber o texto sem precisar alargar a coluna.
+
+**Depósito (un) e FULL (un):** vêm da aba **Anúncios** (Gestão de anúncios, mesma busca do Passo A/A.1) — no bloco de cada MLB, logo depois da descrição "Sincronizado" (quando existir) e antes do preço, aparecem as linhas:
+```
+Full:
+sem estoque   (ou um número de unidades)
+Depósito:
+sem estoque   (ou um número de unidades)
+```
+Ler o valor de cada uma direto desse texto.
+
+**Status do Produto (Ativo/Pausado):** é a **mesma informação** que já aparece perto de cada MLB de catálogo confirmado, na aba Anúncios (o mesmo texto usado no Passo A.1, ex: "Inativo sem estoque / Não há mais unidades à venda."). Regra de registro na célula:
+- **"Inativo sem estoque" conta como Pausado** — não é uma categoria própria.
+- Quando o SKU tem os 2 MLBs de catálogo (Clássico e Premium) com status diferentes entre si, escrever na célula sempre o que está **Ativo primeiro, Pausado depois**, com quebra de linha, ex:
+  ```
+  Ativo
+  Pausado
+  ```
+  (referenciando implicitamente Clássico/Premium pela ordem em que aparecem na coluna "MLB's" ao lado — mesma linha da planilha)
+- Se só 1 MLB de catálogo foi confirmado, ou os 2 têm o mesmo status, escrever só esse status uma vez.
+
 ## Passo C — Marcar o progresso na planilha (Excel)
 
-Pra cada MLB confirmado de um SKU (Passo A — só os que passaram na verificação do item 5):
+**⚠️ Escopo corrigido (12/08/2026):** colorir **TODOS os MLBs sincronizados encontrados no Passo A** (a lista completa, depois de rolar a página inteira) — não só os 1-2 MLBs de catálogo confirmados no Passo A.1. O filtro de catálogo vale **somente** pra decidir o que entra na coluna "MLB's" da planilha final (Passo D) — a coloração na planilha de origem serve pra marcar "esta célula já foi processada pelo método validado", e isso vale pra qualquer MLB que apareça na busca do SKU, de catálogo ou não.
+
+Pra cada MLB sincronizado encontrado de um SKU (Passo A):
 
 1. No Excel, abrir **Localizar e Selecionar → Localizar...**
 2. Clicar em **Opções >>**
