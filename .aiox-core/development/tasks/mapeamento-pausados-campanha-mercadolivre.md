@@ -37,26 +37,50 @@ Em Alta                        https://ads.mercadolivre.com.br/product-ads/admin
    ```
    (a etiqueta `PAUSADO` só aparece quando o produto está pausado — mesmo padrão da aba Anúncios Patrocinados fora de campanha, Passo B do `mapeamento-skus-ads-catalogo-mercadolivre.md`)
 
-**⚠️ Essa página NÃO mostra o SKU.** Diferente da aba Anúncios (Gestão de anúncios), a página de Anúncios Patrocinados dentro da campanha não tem a informação `SKU <valor>` nenhuma vez no texto — é preciso buscar o MLB encontrado aqui na aba Anúncios pra descobrir o SKU (mesmo padrão reverso já usado nas linhas 2, 4, 25-91: buscar o número puro do MLB, ler `SKU <valor>` do card retornado).
+**⛔ ERRO CRÍTICO JÁ COMETIDO — NUNCA usar o `#MLB<numero>` do topo do bloco `CATÁLOGO` pra buscar o SKU (corrigido 12/08/2026):** esse número é só o MLB **representante/catálogo** do produto na campanha — não é necessariamente buscável na aba Anúncios, e mesmo quando é, pode não ser o MLB certo. **O procedimento correto e obrigatório é:**
 
-**⚠️ Nem todo MLB pausado é buscável direto na aba Anúncios.** Caso real: `#MLB25543184` (Aspirador Philco PAS1450C, pausado em `[ML] [BAIXA PERFORMANCE]`) retornou **0 anúncios** ao buscar o número puro (com ou sem prefixo `MLB`) na aba Anúncios — provavelmente uma variação "não se pode mostrar" sem card próprio acessível (mesmo caso-limite já documentado no `analise-acos-catalogo-mercadolivre.md`, Passo 3). Tratar como "não verificável" quando isso acontecer, não insistir.
+1. Clicar em **"Ver variações"** do produto pausado (abre um painel/drawer)
+2. **Rolar a página inteira** com o drawer aberto — o painel pode ter poucas variações (2) ou muitas (6+ visto em produção), e não carrega tudo de uma vez
+3. O drawer lista cada variação real, no formato:
+   ```
+   MLB<numero>
 
-## Passo B — Qualidade e Experiência (novo, 12/08/2026)
+   [C ou P] Ganhando no catálogo   (ou "Perdendo", "Compartilhando" — quando explícito)
+   <Título da variação>
+
+   R$ <preço>
+
+   [ou: SINCRONIZADO COM O CATÁLOGO / Anúncio patrocinado desativado — quando é copia sincronizada]
+   ```
+   Já vem com o status de catálogo explícito às vezes (achado útil — evita ter que checar "Alterar" depois)
+4. Pegar o **primeiro MLB** da lista do drawer — esse sim é buscável na aba Anúncios (`Buscar por título, código ou SKU`, número puro, sem prefixo) pra achar o `SKU <valor>`
+5. Rebuscar pelo SKU encontrado (Passo A do outro doc) — a busca traz **todos os MLBs sincronizados daquele SKU especificamente**, que pode ser só uma fração do total de MLBs do drawer
+
+**⚠️ Um produto pausado na campanha pode conter MAIS DE 1 SKU diferente** (não é sempre "1 produto = 1 SKU com variações de sincronização"). Caso real validado (`[ML] [AVA] [PERFORMANCE]`, produto "Sanduicheira elétrica Kian Panini Linea Eletro", 6 MLBs no drawer): eram **3 SKUs diferentes** (`SPANK-R-127V`, `SPANK-R-220V`, `SPANK-127V` — cor/voltagem diferentes), cada um com 2 MLBs sincronizados entre si. Pra identificar todos os SKUs de um produto: buscar cada MLB do drawer que ainda não caiu em nenhum SKU já identificado (a busca por SKU já cruza automaticamente com "Sincronizado com #X" pra saber quais MLBs pertencem ao mesmo SKU — não precisa verificar manualmente contra a lista da campanha de novo, isso já está implícito na resposta da busca por SKU).
+
+**⚠️ MLB "SINCRONIZADO COM O CATÁLOGO" que não mostra GANHANDO/PERDENDO próprio não significa que não é catálogo** — pode ser o "anúncio pai"/cópia sincronizada do mesmo catálogo. Caso real: `#MLB6929868116` não mostrava G/P/C, mas o link "Alterar" dele redirecionava pra `itemId=MLB4754046783` (o outro MLB do mesmo SKU, que MOSTRAVA "PERDENDO") — confirma que são o mesmo catálogo, um só, não dois catálogos diferentes. Usar o método já documentado (Passo A.1 do outro doc, caminho 1/2) pra confirmar — nunca assumir que "não mostra status" = "não é catálogo".
+
+**⚠️ Nem todo MLB é buscável direto na aba Anúncios pelo número puro.** Caso real: `#MLB25543184` (Aspirador Philco PAS1450C) retornou **0 anúncios**. Isso é raro quando se usa o MLB certo (o da variação, dentro do drawer) — o erro mais comum é ter usado o MLB errado (representante do topo, ver acima). Se mesmo pegando o MLB certo do drawer a busca falhar, tratar como "não verificável" e não insistir (mesmo caso-limite documentado no `analise-acos-catalogo-mercadolivre.md`, Passo 3).
+
+## Passo B — Qualidade e Experiência (validado 12/08/2026)
 
 Essas 2 informações aparecem na aba **Anúncios** (Gestão de anúncios), colunas da própria tabela — cabeçalho real da tabela: `Anúncio | Preço | Condições | Você recebe | Métricas últ. 7 dias | Qualidade | Experiência | Status e recomendações`.
 
-No texto puro da página (`innerText`), o valor de cada MLB aparece assim, logo antes do status de catálogo:
+**⚠️ Regra de exibição na planilha (decidido com o Felipe, 12/08/2026): só escrever o número quando ele for ≤ 65.** Acima de 65, escrever **"-"** (não interessa pro Carlos — o objetivo é flagar só os problemáticos). Vale igual pra Qualidade e pra Experiência, cada uma na sua própria coluna.
+
+No texto puro da página (`innerText`), quando o MLB está **Ativo** e o valor é baixo o suficiente pra aparecer como número, o padrão é:
 ```
 <numero Qualidade>
-<subtítulo Qualidade, ex: "3 objetivos">
-<numero Experiência>
-<subtítulo Experiência, ex: "Com problemas">
+<subtítulo Qualidade, ex: "3 objetivos" / "4 objetivos" / "1 objetivo">
+<numero Experiência — pode nao aparecer, ver abaixo>
+<subtítulo Experiência, ex: "Com problemas" / "Sem calcular">
 
 <GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR — se houver>
 ```
-Exemplo real validado (SKU `MPN-01-BF-127V`, MLB `#4719874527`): Qualidade = `67` (subtítulo "3 objetivos"), Experiência = `75` (subtítulo "Com problemas"), status = `PERDENDO`.
 
-**Ainda não validado em lote:** só 1 exemplo conferido até agora. Antes de rodar em produção, confirmar o regex de extração contra pelo menos 3-4 produtos diferentes (subtítulos podem variar — "Excelente", "Com problemas", outros ainda não vistos) pra não quebrar em casos com texto diferente de "3 objetivos"/"Com problemas".
+**Experiência frequentemente NÃO mostra número — só um rótulo qualitativo** (`"Muito bem!"`, `"BOA"` — confirmado também na seção "Concorrência no Mercado Livre" da página "Alterar", que usa a mesma escala: BOA/etc.) quando o valor está bom. Nesses casos, como não há número visível, aplicar a regra do "-" mesmo sem confirmar o valor exato — um rótulo qualitativo positivo é evidência suficiente de que está acima do limite de 65. Exemplos reais confirmados com número visível: `63`+"4 objetivos" e `75`+"Com problemas" (SKU `MPN-01-BF-127V`, `#4719874527`); `63`+"4 objetivos" e `75`+"Com problemas" (SKU `SPANK-R-127V`, `#6936133254`).
+
+**MLBs Inativos/Pausados no Status do Produto não mostram os 2 números separados** — só um resumo único (ex: `69 / Inativa`, `74 / Inativo sem estoque`). Isso é esperado: quando não confirmado, ambas as colunas ficam "-" pela regra normal de "sem dado disponível".
 
 ## Passo C — Cruzar com o restante do mapeamento
 
@@ -73,8 +97,10 @@ Depois de achar o SKU (Passo A + busca reversa), reaproveitar integralmente:
 - **Status na Campanha:** sempre "Pausado" (é o filtro usado pra montar essa planilha).
 - **Organização visual:** igual às 2 páginas do `Analise Oficial.xlsx` — banner de validação mesclado, cabeçalho, linhas de dado/espaçador alternadas, larguras de coluna fixas por coluna (não o padrão "8.43 default" — usar largura proporcional ao conteúdo esperado de cada coluna).
 
-## Pendências antes de rodar em produção completa
+**⚠️ Bug real de formatação — nunca setar `Interior.Color` direto via COM pra recriar banner/cabeçalho do zero (12/08/2026):** ao criar a estrutura da `Pausados em Campanha - Karzen.xlsx` do zero (banner + cabeçalho), setar `.Interior.Color = 16777215` (branco) via PowerShell/COM aplica automaticamente `Interior.Pattern = xlPatternSolid` (preenchimento sólido) — só que o `Analise Oficial.xlsx` (aprovado pelo Felipe) usa `Interior.Pattern = xlPatternNone` (**sem preenchimento**) nessas mesmas células, mesmo com `Interior.Color` igual. A diferença visual: preenchimento sólido branco **esconde as linhas de grade** da célula, fazendo ela parecer um "buraco branco" destacado — sem preenchimento, as linhas de grade aparecem por trás e a célula se mistura ao resto da planilha. **Correção obrigatória:** nunca recriar banner/cabeçalho do zero setando cor manualmente — sempre copiar o range já formatado do `Analise Oficial.xlsx` (`Range.Copy` entre workbooks, linhas 1-4) e só sobrescrever o texto depois. Pra planilhas com mais colunas que o Oficial (13), estender o padrão copiando o último par coluna-de-dado + coluna-espaçadora repetidamente pra direita.
 
-1. Validar o regex de Qualidade/Experiência contra mais exemplos (só 1 confirmado)
-2. Decidir o que fazer quando um MLB pausado não é buscável na aba Anúncios (caso `#MLB25543184`) — registrar como "não verificável" e seguir, ou tentar via "Alterar"?
-3. Confirmar se "N variações" (agrupamento por produto-campanha) precisa de um passo específico de detecção, ou se cada MLB pausado já vem individualmente e o agrupamento só acontece quando 2+ SKUs diferentes compartilham o mesmo "Título" na campanha
+## Pendências resolvidas em produção (12/08/2026)
+
+1. ~~Validar o regex de Qualidade/Experiência contra mais exemplos~~ — RESOLVIDO: validado contra 6+ exemplos reais, ver Passo B acima (regra do "≤65 mostra número, senão '-'")
+2. ~~Decidir o que fazer quando um MLB pausado não é buscável~~ — RESOLVIDO: o erro original era usar o MLB errado (representante de catálogo, não o da variação dentro do drawer) — usando o MLB certo, a busca praticamente sempre funciona; se mesmo assim falhar, tratar como "não verificável"
+3. ~~Confirmar lógica de agrupamento "N variações"~~ — RESOLVIDO: um produto pausado na campanha pode conter múltiplos SKUs diferentes (não só variações sincronizadas do mesmo SKU) — cada SKU descoberto dentro do drawer vira sua própria linha na planilha final, com "Título na Campanha" mesclado entre elas
