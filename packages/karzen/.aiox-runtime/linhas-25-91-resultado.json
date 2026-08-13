@@ -1,0 +1,1536 @@
+{
+  "linha-25": {
+    "row": 25,
+    "itemId": "6858282012",
+    "sku": "MPN-01-BF-127V",
+    "todosMlbsSincronizados": [
+      "4719874527",
+      "4719886935",
+      "6858282012",
+      "4719860315"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4719874527",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4719874527",
+        "full": "121 un.",
+        "deposito": "301 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF",
+    "statusAds": "Ativa"
+  },
+  "linha-26": {
+    "row": 26,
+    "itemId": "6822624026",
+    "sku": "P32CRB",
+    "todosMlbsSincronizados": [
+      "4701003563",
+      "6822624026",
+      "6822585656",
+      "4701016495"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4701016495",
+      "Premium": "6822585656"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4701016495",
+        "full": null,
+        "deposito": "236 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6822585656",
+        "full": null,
+        "deposito": "236 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Smart Tv 32 Philco Roku Tv Dolby Áudio Hdr10 P32crb",
+    "statusAds": "Ativa"
+  },
+  "linha-27": {
+    "row": 27,
+    "itemId": "6087456966",
+    "sku": "MC-JU-03",
+    "todosMlbsSincronizados": [
+      "6087456966",
+      "6087431886",
+      "6625396362",
+      "6625396358"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6087456966",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6087456966",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Modelador de cachos de barril Mondial by Juliette Qu4tro Elementos MC-JU-02 MC-JU-02",
+    "statusAds": "Ativa"
+  },
+  "linha-28": {
+    "row": 28,
+    "itemId": "4670665821",
+    "sku": "ESG-MG-BIV",
+    "todosMlbsSincronizados": [
+      "4670665821",
+      "6754501096",
+      "4670653685",
+      "6754501088"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": "6754501096"
+    },
+    "a2": {
+      "Premium": {
+        "mlb": "6754501096",
+        "full": "168 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Escova secadora/alisadora/modeladora GA.MA Italy HDCBR0000000577",
+    "statusAds": "Ativa"
+  },
+  "linha-29": {
+    "row": 29,
+    "itemId": "4363150692",
+    "sku": "BAS1295P-127V",
+    "todosMlbsSincronizados": [
+      "4363150692",
+      "4363099400",
+      "6739045862",
+      "6739045854"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4363150692",
+      "Premium": "6739045862"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4363150692",
+        "full": "168 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6739045862",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Aspirador Britânia BAS1295P 1L",
+    "statusAds": "Ativa"
+  },
+  "linha-30": {
+    "row": 30,
+    "itemId": "4712944469",
+    "sku": "HQ-100CEVPVFFI-127V",
+    "todosMlbsSincronizados": [
+      "4712944469",
+      "6844645444",
+      "6844655584",
+      "6844778312"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4712944469",
+      "Premium": "6844645444"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4712944469",
+        "full": null,
+        "deposito": "70 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6844645444",
+        "full": null,
+        "deposito": "70 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Geladeira expositora HQ HQ-100CEVPVFFI",
+    "statusAds": "Ativa"
+  },
+  "linha-31": {
+    "row": 31,
+    "itemId": "4639770999",
+    "sku": "GTW20INOX-127V",
+    "todosMlbsSincronizados": [
+      "4639442015",
+      "4639770999",
+      "6680571138",
+      "4639758729"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4639770999",
+      "Premium": "4639442015"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4639770999",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "4639442015",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Aspirador é industrial Tambor Wap GTW Inox 20 20L GTW INOX 20",
+    "statusAds": "Ativa"
+  },
+  "linha-32": {
+    "row": 32,
+    "itemId": "4749860381",
+    "sku": "TVSEMP-43",
+    "todosMlbsSincronizados": [
+      "6922849626",
+      "6922870044",
+      "6922871026",
+      "4749860381"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6922870044",
+      "Premium": "6922849626"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6922870044",
+        "full": null,
+        "deposito": "120 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6922849626",
+        "full": null,
+        "deposito": "120 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Smart TV Semp 43 Polegadas LED Full HD S42 WiFi Bluetooth Google TV 2 HDMI HDR10 Dolby Audio 43S42",
+    "statusAds": "Ativa"
+  },
+  "linha-33": {
+    "row": 33,
+    "itemId": "4701016495",
+    "sku": "P32CRB",
+    "duplicado": true
+  },
+  "linha-34": {
+    "row": 34,
+    "itemId": "6057626042",
+    "sku": "MSAMOLED-49",
+    "todosMlbsSincronizados": [
+      "6057784296",
+      "6058262732",
+      "4367394365",
+      "6057626042"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6057784296",
+      "Premium": "4367394365"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6057784296",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4367394365",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Monitor Gamer Samsung com tela de 49\" 240Hz e resolução DQHD",
+    "statusAds": "Ativa"
+  },
+  "linha-35": {
+    "row": 35,
+    "itemId": "4334317341",
+    "sku": "HQ-AP10500FW1-127V",
+    "todosMlbsSincronizados": [
+      "4334317341",
+      "5983677794",
+      "5983677548",
+      "4334292941"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4334317341",
+      "Premium": "4334292941"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4334317341",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4334292941",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "HQ AP10500FW",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-36": {
+    "row": 36,
+    "itemId": "5304006664",
+    "sku": "CXBEATBOX-2000",
+    "todosMlbsSincronizados": [
+      "5304006664",
+      "5303954904",
+      "4659782701",
+      "4659744995"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4659782701",
+      "Premium": "5304006664"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4659782701",
+        "full": null,
+        "deposito": "51 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "5304006664",
+        "full": "sem estoque",
+        "deposito": "51 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Alto-falante Bomber LifeStyle BeatBox 2000 1.92.074 portátil com bluetooth",
+    "statusAds": "Ativa"
+  },
+  "linha-37": {
+    "row": 37,
+    "itemId": "6518628038",
+    "sku": "BBX4-JBL",
+    "todosMlbsSincronizados": [
+      "4561472143",
+      "4561510195",
+      "4561508609",
+      "6518628038"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6518628038",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6518628038",
+        "full": null,
+        "deposito": "62 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Alto-falante JBL Boombox 4 black JBLBOOMBOX4BLKBR portátil com bluetooth waterproof",
+    "statusAds": "Ativa"
+  },
+  "linha-38": {
+    "row": 38,
+    "itemId": "4498997473",
+    "sku": "JBLQ-360",
+    "todosMlbsSincronizados": [
+      "4497768467",
+      "4498997473",
+      "6312578938",
+      "4498172789"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4497768467",
+      "Premium": "4498997473"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4497768467",
+        "full": "sem estoque",
+        "deposito": "5 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "4498997473",
+        "full": "sem estoque",
+        "deposito": "5 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Headset over-ear gamer sem fio JBL Quantum Series Quantum 360 JBLQTUM360",
+    "statusAds": "Ativa"
+  },
+  "linha-39": {
+    "row": 39,
+    "itemId": "4692202865",
+    "sku": "WAPS-220V",
+    "todosMlbsSincronizados": [
+      "4692202865",
+      "4692202867",
+      "4690637523",
+      "4690640063"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": "4692202865"
+    },
+    "a2": {
+      "Premium": {
+        "mlb": "4692202865",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Aspirador Vertical Wap Home Power Speed 3L FW006008",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-40": {
+    "row": 40,
+    "itemId": "4641434309",
+    "erro": "ANUNCIO_NAO_ENCONTRADO"
+  },
+  "linha-41": {
+    "row": 41,
+    "itemId": "5983677794",
+    "sku": "HQ-AP10500FW1-127V",
+    "duplicado": true
+  },
+  "linha-42": {
+    "row": 42,
+    "itemId": "6520143516",
+    "sku": "TVSEMP-50S62",
+    "todosMlbsSincronizados": [
+      "4561968353",
+      "6520144610",
+      "6520144606",
+      "6520143516"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4561968353",
+      "Premium": "6520144610"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4561968353",
+        "full": "1 un.",
+        "deposito": "34 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6520144610",
+        "full": "1 un.",
+        "deposito": "34 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Smart TV Semp 50 Polegadas LED HVA 4K S62 WiFi Bluetooth Google TV 3 HDMI HDR10+ Dolby Audio 50S62",
+    "statusAds": "Ativa"
+  },
+  "linha-43": {
+    "row": 43,
+    "itemId": "6682756226",
+    "sku": "PCT04I-BIV",
+    "todosMlbsSincronizados": [
+      "6682756226",
+      "6682756222",
+      "4657704295",
+      "4657704291"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": "6682756226"
+    },
+    "a2": {
+      "Premium": {
+        "mlb": "6682756226",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Fogão cooktop com alimentação gás - Philco PCT04I - 4 queimadores",
+    "statusAds": "Ativa"
+  },
+  "linha-44": {
+    "row": 44,
+    "itemId": "3612598695",
+    "sku": "MO-01-21-W-127V",
+    "todosMlbsSincronizados": [
+      "3612578019",
+      "3612598695",
+      "4432574595",
+      "4432380057"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3612578019",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3612578019",
+        "full": null,
+        "deposito": "294 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Micro-ondas Mondial Linha Branca MO-01-21 21L",
+    "statusAds": "Ativa"
+  },
+  "linha-45": {
+    "row": 45,
+    "itemId": "4317713473",
+    "sku": "PAN-B-127V",
+    "todosMlbsSincronizados": [
+      "4317752487",
+      "5954468868",
+      "4317713473",
+      "4317817207"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4317752487",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4317752487",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Panificadora Britânia Multipane",
+    "statusAds": "Ativa"
+  },
+  "linha-46": {
+    "row": 46,
+    "itemId": "6517683696",
+    "sku": "IMPC-G3110",
+    "todosMlbsSincronizados": [
+      "4560946507",
+      "4560958907",
+      "6517683696",
+      "4560968027"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4560946507",
+      "Premium": "4560958907"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4560946507",
+        "full": null,
+        "deposito": "416 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "4560958907",
+        "full": null,
+        "deposito": "416 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Impressora multifuncional cor Canon Pixma G3110",
+    "statusAds": "Ativa"
+  },
+  "linha-47": {
+    "row": 47,
+    "itemId": "6844202314",
+    "sku": "HQ-140RDF-CZ-127V",
+    "todosMlbsSincronizados": [
+      "6844202314",
+      "6844226556",
+      "6844226550",
+      "4712668301"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6844226556",
+      "Premium": "6844202314"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6844226556",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6844202314",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Geladeira com freezer HQ HQ con capacidad de 140L",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-48": {
+    "row": 48,
+    "itemId": "4659782701",
+    "sku": "CXBEATBOX-2000",
+    "duplicado": true
+  },
+  "linha-49": {
+    "row": 49,
+    "itemId": "4722782047",
+    "sku": "HQ-100CFX-127V",
+    "todosMlbsSincronizados": [
+      "4722742973",
+      "4722782047",
+      "4722782041",
+      "4722755255"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4722742973",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4722742973",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Freezer horizontal HQ HQ-100CFX 100L",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-50": {
+    "row": 50,
+    "itemId": "6894656242",
+    "sku": "HQ-HQMGI45-220V",
+    "todosMlbsSincronizados": [
+      "4734682211",
+      "6894630390",
+      "4734643617",
+      "6894656242"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": "4734682211"
+    },
+    "a2": {
+      "Premium": {
+        "mlb": "4734682211",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Máquina de gelo tipo cubos HQ Hq-hqmgi45 45kg/h",
+    "statusAds": "Ativa"
+  },
+  "linha-51": {
+    "row": 51,
+    "itemId": "5223312412",
+    "sku": "SCT-TI-127V",
+    "todosMlbsSincronizados": [
+      "5223312412",
+      "3934594883",
+      "3853660257",
+      "3853698843",
+      "3960022303",
+      "5267651330"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "5223312412",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "5223312412",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Secador de cabelo TaiffDiamante Tourmaline Íon Cerâmica 2100",
+    "statusAds": "Ativa"
+  },
+  "linha-52": {
+    "row": 52,
+    "itemId": "6955068406",
+    "sku": "SAMCRYST-65",
+    "todosMlbsSincronizados": [
+      "6955041722",
+      "6955068406",
+      "6955043180",
+      "4771508967"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6955041722",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6955041722",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Smart Tv Samsung Led 65 Lh65befh4ggxzd Led Crystal Processor 4k Uhd Tizen 110v/220v",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-53": {
+    "row": 53,
+    "itemId": "6799911904",
+    "sku": "PFH105B-220V",
+    "todosMlbsSincronizados": [
+      "6799911904",
+      "6800174752",
+      "4692033477",
+      "6800173330"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6799911904",
+      "Premium": "6800174752"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6799911904",
+        "full": "sem estoque",
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6800174752",
+        "full": "sem estoque",
+        "deposito": "1 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Freezer Philco Freezer PFH105B 99L",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-54": {
+    "row": 54,
+    "itemId": "5270366166",
+    "erro": "ANUNCIO_NAO_ENCONTRADO"
+  },
+  "linha-55": {
+    "row": 55,
+    "itemId": "4374902993",
+    "sku": "D800",
+    "todosMlbsSincronizados": [
+      "4374902993",
+      "6079651188",
+      "4374889867",
+      "4374838875"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": "4374902993"
+    },
+    "a2": {
+      "Premium": {
+        "mlb": "4374902993",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Cadeira de rodas Dellamed D800 para peso de até 120 Kg",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-56": {
+    "row": 56,
+    "itemId": "4771508967",
+    "sku": "SAMCRYST-65",
+    "duplicado": true
+  },
+  "linha-57": {
+    "row": 57,
+    "itemId": "4734797275",
+    "sku": "HQ-426MDFF-127V",
+    "todosMlbsSincronizados": [
+      "4734797275",
+      "4734808493",
+      "4734782815",
+      "4734797265"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4734782815",
+      "Premium": "4734797275"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4734782815",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4734797275",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Geladeira com freezer inverter HQ HQ-426MDFF HQ-426MDFF con capacidad de 426L",
+    "statusAds": "Ativa"
+  },
+  "linha-58": {
+    "row": 58,
+    "itemId": "4024809085",
+    "sku": "ECOCLEANLITE-220V",
+    "todosMlbsSincronizados": [
+      "4024796635",
+      "4024809085",
+      "4024757589",
+      "4024831099"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4024757589",
+      "Premium": "4024796635"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4024757589",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4024796635",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Lava aspirador Tambor IPC Ecoclean Lite 18L 18L AA118-127",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-59": {
+    "row": 59,
+    "itemId": "4484718899",
+    "sku": "TVSAM-43",
+    "todosMlbsSincronizados": [
+      "4484796429",
+      "4484718899",
+      "6712897822",
+      "6733267870",
+      "6712897810",
+      "4786797457",
+      "6978372362",
+      "4484758197"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6712897822",
+      "Premium": "4484796429"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6712897822",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4484796429",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Smart Tv Samsung 43 Ls43f6000fgxzd Full Hd Led 110v/220v",
+    "statusAds": "Ativa"
+  },
+  "linha-60": {
+    "row": 60,
+    "itemId": "4329007775",
+    "sku": "SGK-127V",
+    "todosMlbsSincronizados": [
+      "4329106605",
+      "4329007775"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4329106605",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4329106605",
+        "full": "sem estoque",
+        "deposito": "4.332 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Sanduicheira elétrica Kian ELETRO ANTIADERENTE PÃO CARNE MISTO 23259",
+    "statusAds": "Ativa"
+  },
+  "linha-61": {
+    "row": 61,
+    "itemId": "4275644727",
+    "sku": "VP-07-127V",
+    "todosMlbsSincronizados": [
+      "4275754587",
+      "5856768544",
+      "4275597913",
+      "4275644727"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4275754587",
+      "Premium": "4275597913"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4275754587",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4275597913",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Aspirador Mondial Vip Care VP-07 2L",
+    "statusAds": "Ativa"
+  },
+  "linha-62": {
+    "row": 62,
+    "itemId": "6253614288",
+    "sku": "XL5T",
+    "todosMlbsSincronizados": [
+      "6253614288",
+      "6253640832",
+      "6253718004",
+      "6253524126"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6253614288",
+      "Premium": "6253640832"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6253614288",
+        "full": null,
+        "deposito": "22 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6253640832",
+        "full": null,
+        "deposito": "22 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Alto-falante LG Xboom XL5T XL5T.ABRALLK portátil com bluetooth",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-63": {
+    "row": 63,
+    "itemId": "4683197331",
+    "sku": "SLKM-BIV",
+    "todosMlbsSincronizados": [
+      "4682948797",
+      "4683210039",
+      "4683197331",
+      "4682937151"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": "4682948797"
+    },
+    "a2": {
+      "Premium": {
+        "mlb": "4682948797",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Starlink Mini omnidirecional",
+    "statusAds": "Ativa"
+  },
+  "linha-64": {
+    "row": 64,
+    "itemId": "5419408290",
+    "erro": "ANUNCIO_NAO_ENCONTRADO"
+  },
+  "linha-65": {
+    "row": 65,
+    "itemId": "6822585656",
+    "sku": "P32CRB",
+    "duplicado": true
+  },
+  "linha-66": {
+    "row": 66,
+    "itemId": "6279141864",
+    "sku": "TVSEMP-32",
+    "todosMlbsSincronizados": [
+      "6279310350",
+      "6279492002",
+      "6279466156",
+      "6279141864"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6279310350",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6279310350",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Smart TV Semp 32 Polegadas LED HD S42 WiFi Bluetooth Google TV 2 HDMI HDR10 Dolby Audio 32S42",
+    "statusAds": "Ativa"
+  },
+  "linha-67": {
+    "row": 67,
+    "itemId": "5310942356",
+    "sku": "SCUNIQ-DUO",
+    "todosMlbsSincronizados": [
+      "3932307247",
+      "5310968478",
+      "3932406335",
+      "5310942356"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3932307247",
+      "Premium": "5310968478"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3932307247",
+        "full": "24 un.",
+        "deposito": "118 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "5310968478",
+        "full": "24 un.",
+        "deposito": "118 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Secador de cabelo Taiff Unique Duo",
+    "statusAds": "Ativa"
+  },
+  "linha-68": {
+    "row": 68,
+    "itemId": "6714259000",
+    "sku": "WL4000-220V",
+    "todosMlbsSincronizados": [
+      "4984216839",
+      "6714259004",
+      "4984216837",
+      "6714259000",
+      "6680162274",
+      "6680162264"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4984216839",
+      "Premium": "6714259004"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4984216839",
+        "full": "88 un.",
+        "deposito": "179 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6714259004",
+        "full": "88 un.",
+        "deposito": "179 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Lavadora de alta pressão Wap Profissional WL4000",
+    "statusAds": "Ativa"
+  },
+  "linha-69": {
+    "row": 69,
+    "itemId": "5742568558",
+    "sku": "GTW12INOX-220V",
+    "todosMlbsSincronizados": [
+      "5742607202",
+      "5742670954",
+      "5742568558",
+      "5742696738"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "5742607202",
+      "Premium": "5742568558"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "5742607202",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "5742568558",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Aspirador Tambor Wap GTW Inox 12 12L GTW INOX",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-70": {
+    "row": 70,
+    "itemId": "5948222524",
+    "sku": "BAF40A-127V",
+    "todosMlbsSincronizados": [
+      "5948210078",
+      "5948222524",
+      "5948235462",
+      "4314143747"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4314143747",
+      "Premium": "5948210078"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4314143747",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "5948210078",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Air fryer Britânia BAF40A 063801125",
+    "statusAds": "Ativa"
+  },
+  "linha-71": {
+    "row": 71,
+    "itemId": "6680162264",
+    "sku": "WL4000-220V",
+    "duplicado": true
+  },
+  "linha-72": {
+    "row": 72,
+    "itemId": "6714258578",
+    "sku": "WL4000-127V",
+    "todosMlbsSincronizados": [
+      "5000383363",
+      "6714234786",
+      "6714258578",
+      "5000740711",
+      "6680136190",
+      "6680123398"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "5000383363",
+      "Premium": "6714234786"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "5000383363",
+        "full": null,
+        "deposito": "194 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "6714234786",
+        "full": null,
+        "deposito": "194 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Lavadora de alta pressão Wap Profissional WL4000",
+    "statusAds": "Ativa"
+  },
+  "linha-73": {
+    "row": 73,
+    "itemId": "4749892881",
+    "sku": "STARLINK-V4",
+    "todosMlbsSincronizados": [
+      "4749893485",
+      "6922944672",
+      "4749892881",
+      "4749893481"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6922944672",
+      "Premium": "4749893485"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6922944672",
+        "full": "235 un.",
+        "deposito": "23 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "4749893485",
+        "full": "235 un.",
+        "deposito": "23 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Starlink 2534008BR",
+    "statusAds": "Ativa"
+  },
+  "linha-74": {
+    "row": 74,
+    "itemId": "5334261644",
+    "sku": "CX450-TROLLEY",
+    "todosMlbsSincronizados": [
+      "5334261644",
+      "4009007607",
+      "3935394697"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4009007607",
+      "Premium": "5334261644"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4009007607",
+        "full": null,
+        "deposito": "44 un.",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "5334261644",
+        "full": null,
+        "deposito": "44 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Alto-falante Bomber Lifestyle Caixa Som Bluetooth Led TROLLEY 450",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-75": {
+    "row": 75,
+    "itemId": "6908546780",
+    "sku": "P-JU-03",
+    "todosMlbsSincronizados": [
+      "6908546780",
+      "6908559646",
+      "4741778985",
+      "4741767715"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6908546780",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6908546780",
+        "full": "70 un.",
+        "deposito": "188 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Chapinha de cabelo Mondial by Juliette Qu4tro Elementos P-JU-03",
+    "statusAds": "Ativa"
+  },
+  "linha-76": {
+    "row": 76,
+    "itemId": "4277217107",
+    "sku": "CKESSTC-ITA5Q",
+    "todosMlbsSincronizados": [
+      "4277217107",
+      "4277230155",
+      "4277230093",
+      "4277204327"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": null
+    },
+    "a2": {}
+  },
+  "linha-77": {
+    "row": 77,
+    "itemId": "4511528639",
+    "sku": "BB-PLUS",
+    "todosMlbsSincronizados": [
+      "4511528639",
+      "6729960374",
+      "4660073283",
+      "4480116621"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6729960374",
+      "Premium": "4511528639"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6729960374",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4511528639",
+        "full": "10 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Alto-falante Bomber BomberBass Plus portátil com bluetooth waterproof",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-78": {
+    "row": 78,
+    "itemId": "4690640063",
+    "sku": "WAPS-220V",
+    "duplicado": true
+  },
+  "linha-79": {
+    "row": 79,
+    "itemId": "4281260269",
+    "sku": "FPDFI-127V",
+    "todosMlbsSincronizados": [
+      "4281286209",
+      "5880465758",
+      "4281286513",
+      "4281260269"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4281286209",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4281286209",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Fritadeira elétrica Philco Deep Fry Inox 53801033 1.8L",
+    "statusAds": "Ativa"
+  },
+  "linha-80": {
+    "row": 80,
+    "itemId": "6312578938",
+    "sku": "FPDFI-127V",
+    "duplicado": true
+  },
+  "linha-81": {
+    "row": 81,
+    "itemId": "4640799397",
+    "sku": "PAF65A-127V",
+    "todosMlbsSincronizados": [
+      "4640811141",
+      "4657712323",
+      "4640799397",
+      "4657712317"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4640811141",
+      "Premium": "4657712323"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4640811141",
+        "full": "114 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "4657712323",
+        "full": "114 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Air fryer Philco Air Fryer PAF65A de 6.5L",
+    "statusAds": "Ativa"
+  },
+  "linha-82": {
+    "row": 82,
+    "itemId": "6087755582",
+    "sku": "CE-07-220V",
+    "todosMlbsSincronizados": [
+      "6087755582",
+      "4379898881"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6087755582",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6087755582",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Chaleira elétrica Mondial Pratic Hot CE-07 1L",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-83": {
+    "row": 83,
+    "itemId": "6844645444",
+    "sku": "HQ-100CEVPVFFI-127V",
+    "duplicado": true
+  },
+  "linha-84": {
+    "row": 84,
+    "itemId": "4471876024",
+    "sku": "ESJU-01",
+    "todosMlbsSincronizados": [
+      "4471963902",
+      "4471876024",
+      "4658352173",
+      "4658361043"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4471963902",
+      "Premium": "4658352173"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4471963902",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "4658352173",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": null,
+    "statusAds": "Ativa"
+  },
+  "linha-85": {
+    "row": 85,
+    "itemId": "6420795406",
+    "sku": "SAMQLED-43",
+    "todosMlbsSincronizados": [
+      "4510838697",
+      "6420795406",
+      "6420757668",
+      "6420782470"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": null,
+      "Premium": "4510838697"
+    },
+    "a2": {
+      "Premium": {
+        "mlb": "4510838697",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Samsung Smart Tv 43 Qled Full Hd Q5f 2025, Xbox Cloud Gaming, Canais Gratuitos, Hdr, Som Em Movimento Virtual",
+    "statusAds": "Sem Campanha"
+  },
+  "linha-86": {
+    "row": 86,
+    "itemId": "6682756222",
+    "sku": "PCT04I-BIV",
+    "duplicado": true
+  },
+  "linha-87": {
+    "row": 87,
+    "itemId": "4660077355",
+    "erro": "ANUNCIO_NAO_ENCONTRADO"
+  },
+  "linha-88": {
+    "row": 88,
+    "itemId": "3969996181",
+    "sku": "PAS400V-127V",
+    "todosMlbsSincronizados": [
+      "3969810323",
+      "3969996181",
+      "6724782878",
+      "4658494729"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3969810323",
+      "Premium": "6724782878"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3969810323",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      },
+      "Premium": {
+        "mlb": "6724782878",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado"
+      }
+    },
+    "tituloCatalogo": "Aspirador Vertical, De mão Philco Domestica PAS4000V 2L 54902065",
+    "statusAds": "Ativa"
+  },
+  "linha-89": {
+    "row": 89,
+    "itemId": "5532032636",
+    "erro": "ANUNCIO_NAO_ENCONTRADO"
+  },
+  "linha-90": {
+    "row": 90,
+    "itemId": "4719886935",
+    "sku": "MPN-01-BF-127V",
+    "duplicado": true
+  },
+  "linha-91": {
+    "row": 91,
+    "itemId": "3930160015",
+    "sku": "CAD-MARTINELLI",
+    "todosMlbsSincronizados": [
+      "3930160015",
+      "3930185829"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3930160015",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3930160015",
+        "full": null,
+        "deposito": "6 un.",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Cadeira de escritório Maxprint Office Martinelli",
+    "statusAds": "Sem Campanha"
+  }
+}

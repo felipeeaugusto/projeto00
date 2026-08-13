@@ -37,7 +37,7 @@ function Get-PropPremium($objetoPai) {
 function Normalizar-SemEstoque([string]$valor, [string]$campo) {
     if ($campo -ne 'deposito' -and $campo -ne 'full') { return $valor }
     if ($valor -match '(?i)^sem estoque$') { return '-' }
-    if ($valor -match '^(\d+)\s*un\.?$') { return $Matches[1] }
+    if ($valor -match '^([\d\.]+)\s*un\.?$') { return ($Matches[1] -replace '\.', '') }
     return $valor
 }
 

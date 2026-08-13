@@ -109,6 +109,8 @@ Ler o valor de cada uma direto desse texto.
 
 Essas 2 regras não se aplicam ao Status do Produto: lá "Inativo sem estoque" continua contando como "Pausado" normalmente (ver regra abaixo), e não existe conceito de "un." nesse campo.
 
+**⚠️ Cuidado com número com separador de milhar (12/08/2026):** valores como "4.332 un." têm ponto como separador de milhar (padrão BR), não separador decimal. Se o número for escrito na célula do Excel via COM só removendo a palavra "un." (ex: string "4.332"), o Excel interpreta o ponto como separador decimal e o valor vira **4,332 (quatro vírgula três três dois)** — um dado errado, silenciosamente. Sempre remover também os pontos de milhar antes de escrever (`4.332` → `4332`), nunca deixar o ponto na string passada pro Excel.
+
 **Status do Produto (Ativo/Pausado):** é a **mesma informação** que já aparece perto de cada MLB de catálogo confirmado, na aba Anúncios (o mesmo texto usado no Passo A.1, ex: "Inativo sem estoque / Não há mais unidades à venda."). Regra de registro na célula:
 - **"Inativo sem estoque" conta como Pausado** — não é uma categoria própria.
 - Quando o SKU tem os 2 MLBs de catálogo (Clássico e Premium) com status diferentes entre si, escrever na célula sempre o que está **Ativo primeiro, Pausado depois**, com quebra de linha, ex:
@@ -116,8 +118,11 @@ Essas 2 regras não se aplicam ao Status do Produto: lá "Inativo sem estoque" c
   Ativo
   Pausado
   ```
-  (referenciando implicitamente Clássico/Premium pela ordem em que aparecem na coluna "MLB's" ao lado — mesma linha da planilha)
 - Se só 1 MLB de catálogo foi confirmado, ou os 2 têm o mesmo status, escrever só esse status uma vez.
+
+**⚠️ Reordenação obrigatória em cascata (decidido com o Felipe, 12/08/2026):** quando o Status do Produto de Clássico e Premium é diferente, a ordem "Ativo primeiro" vale pra **todas** as colunas da mesma linha, não só pro Status — coluna "MLB's", Depósito e FULL também passam a listar primeiro o que corresponde à condição (Clássico ou Premium) que está Ativa. Isso mantém a correspondência posição-a-posição entre as colunas: a 1ª linha de MLB's, Depósito, FULL e Status sempre descreve a mesma condição (a que está Ativa). Quando os 2 têm o mesmo status (ou só 1 existe), a ordem padrão é Clássico primeiro, Premium depois — não há ambiguidade nesse caso.
+
+**Caso raro — nenhum MLB de catálogo confirmado (12/08/2026):** às vezes nem o caminho 1 (status GANHANDO/PERDENDO/COMPARTILHANDO) nem o caminho 2 (comparação de preço) conseguem confirmar um MLB de catálogo Clássico ou Premium, mesmo com MLBs sincronizados existindo (caso real: SKU `CKESSTC-ITA5Q`, 4 MLBs sincronizados, nenhum confirmado como catálogo). Nesse caso: colunas "MLB's", "Título de catálogo", "Depósito", "FULL" e "Status do Produto" ficam todas com **"-"**; a coluna "Status em Ads" continua sendo preenchida normalmente (não depende de MLB de catálogo confirmado).
 
 ## Passo C — Marcar o progresso na planilha (Excel)
 
