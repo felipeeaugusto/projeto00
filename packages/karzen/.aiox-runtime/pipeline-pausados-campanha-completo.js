@@ -381,6 +381,41 @@ if (require.main === module) {
             const analise = await analisarSku(pageAnuncios, context, sku);
             analise.todosMlbsSincronizados.forEach(m => mlbsJaCobertos.add(m));
 
+            // Trava de seguranca (13/08/2026, pedida pelo Felipe apos auditoria do @analyst):
+            // os 2 unicos SKUs testados nesta sessao (WW2-127V, WW2-220V) tinham no maximo
+            // 2 MLBs de catalogo confirmados (1 Classico + 1 Premium). Um SKU com 3+ MLBs de
+            // catalogo e um cenario real possivel (ex: 2 anuncios Classico concorrendo entre
+            // si) mas NUNCA foi validado contra a estrutura de dados real -- para o pipeline
+            // aqui, mostra a tabela pro Felipe revisar ao vivo, e nao marca este produto como
+            // concluido (sera reprocessado do zero ao retomar, garantindo consistencia).
+            const qtdCatalogoConfirmado = Object.values(analise.mlbs).filter(d => d.statusCatalogo).length;
+            if (qtdCatalogoConfirmado >= 3) {
+              console.log(`\n\n⚠️⚠️⚠️ SKU COM ${qtdCatalogoConfirmado} MLBs DE CATÁLOGO CONFIRMADOS: ${sku} ⚠️⚠️⚠️`);
+              console.log('Cenário nunca testado nesta sessão -- pipeline parado pra revisão manual.\n');
+              const linhasTabela = Object.entries(analise.mlbs)
+                .filter(([, d]) => d.statusCatalogo)
+                .map(([mlbId, d]) => ({
+                  MLB: mlbId,
+                  Condição: d.condicao || '-',
+                  'Status Catálogo': d.statusCatalogo || '-',
+                  Depósito: d.deposito || '-',
+                  FULL: d.full || '-',
+                  Qualidade: d.qualidade || '-',
+                  Experiência: d.experiencia || '-',
+                }));
+              console.table(linhasTabela);
+
+              const arquivoAlerta = path.resolve(__dirname, 'alerta-3-catalogos.json');
+              fs.writeFileSync(arquivoAlerta, JSON.stringify({ campanha: chaveCampanha, produto: tituloProduto, sku, mlbsDetalhe: analise.mlbs }, null, 2));
+              console.log(`\n🛑 PIPELINE PARADO -- revise a tabela acima com o Felipe.`);
+              console.log(`Progresso já salvo em ${ARQUIVO_SAIDA} (este produto NÃO foi marcado como concluído -- será reprocessado do zero ao retomar).`);
+              console.log(`Detalhe completo do alerta salvo em ${arquivoAlerta}.`);
+              console.log('Depois de revisar, rode o pipeline de novo pra continuar de onde parou.');
+              await minimizeChrome().catch(() => {});
+              await browser.close().catch(() => {});
+              process.exit(1);
+            }
+
             // Determinar catalogo Classico/Premium confirmado (primeiro de cada condicao com status valido)
             const catalogo = { Classico: null, Premium: null };
             for (const [mlbId, dados] of Object.entries(analise.mlbs)) {
