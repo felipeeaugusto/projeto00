@@ -98,7 +98,7 @@ function extrairPrecoENossoPreco(textoAlterar, condicaoAlvo) {
     console.log('Opcoes com condicao/status:', JSON.stringify(opcoes));
     const catalogoConfirmado = { 'Clássico': null, 'Premium': null };
     for (const op of opcoes) {
-      if (op.status && ['GANHANDO','PERDENDO','COMPARTILHANDO'].includes(op.status) && !catalogoConfirmado[op.condicao]) {
+      if (op.status && ['GANHANDO','PERDENDO','COMPARTILHANDO','RESTRITO PARA GANHAR'].includes(op.status) && !catalogoConfirmado[op.condicao]) {
         catalogoConfirmado[op.condicao] = op.mlb;
       }
     }

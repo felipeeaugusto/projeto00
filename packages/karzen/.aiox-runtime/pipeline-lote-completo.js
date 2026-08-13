@@ -83,7 +83,7 @@ async function abrirAlterarDoMlb(page, context, mlb) {
         const opcoes = extrairOpcoesDeCatalogo(bloco, sku);
         const catalogo = { 'Clássico': null, 'Premium': null };
         for (const op of opcoes) {
-          if (op.status && ['GANHANDO','PERDENDO','COMPARTILHANDO'].includes(op.status) && !catalogo[op.condicao]) {
+          if (op.status && ['GANHANDO','PERDENDO','COMPARTILHANDO','RESTRITO PARA GANHAR'].includes(op.status) && !catalogo[op.condicao]) {
             catalogo[op.condicao] = op.mlb;
           }
         }

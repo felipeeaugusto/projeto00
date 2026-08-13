@@ -120,7 +120,7 @@ async function buscarTituloEStatusComPolling(pageAds, mlb) {
       const opcoes = extrairOpcoesDeCatalogo(bloco, sku);
       const catalogo = { 'Clássico': null, 'Premium': null };
       for (const op of opcoes) {
-        if (op.status && ['GANHANDO', 'PERDENDO', 'COMPARTILHANDO'].includes(op.status) && !catalogo[op.condicao]) catalogo[op.condicao] = op.mlb;
+        if (op.status && ['GANHANDO', 'PERDENDO', 'COMPARTILHANDO', 'RESTRITO PARA GANHAR'].includes(op.status) && !catalogo[op.condicao]) catalogo[op.condicao] = op.mlb;
       }
       for (const condicao of ['Clássico', 'Premium']) {
         if (catalogo[condicao]) continue;

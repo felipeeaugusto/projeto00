@@ -933,10 +933,25 @@
       "4277204327"
     ],
     "catalogoConfirmado": {
-      "Clássico": null,
-      "Premium": null
+      "Clássico": "4277217107",
+      "Premium": "4277230155"
     },
-    "a2": {}
+    "a2": {
+      "Clássico": {
+        "mlb": "4277217107",
+        "full": "154 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo"
+      },
+      "Premium": {
+        "mlb": "4277230155",
+        "full": "154 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo"
+      }
+    },
+    "tituloCatalogo": "Fogão cooktop - Itatiaia 3700000194 - 5 queimadores",
+    "statusAds": "Sem Campanha"
   },
   "BB-PLUS": {
     "row": 77,

@@ -32,8 +32,11 @@ function extrairOpcoesDeCatalogo(blocoTexto, skuAlvo) {
       const condMatch = opcaoTexto.match(/\b(Clássico|Premium)\b/);
       if (!condMatch) continue;
       const condicao = condMatch[1];
-      const gpcMatch = opcaoTexto.match(/\b(GANHANDO|PERDENDO|COMPARTILHANDO)\b/);
-      const status = gpcMatch ? gpcMatch[1] : null;
+      // "Restrito para ganhar" tambem conta como MLB de catalogo confirmado -- so significa
+      // que a Experiencia de compra do vendedor (ex: 30) esta baixa demais pra disputar
+      // catalogo com outros vendedores, nao que o MLB deixou de ser catalogo (12/08/2026).
+      const gpcMatch = opcaoTexto.match(/\b(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b/i);
+      const status = gpcMatch ? gpcMatch[1].toUpperCase() : null;
       const mlb = card.mlbs[mlbIdx] || null;
       resultados.push({ mlb, condicao, status });
       mlbIdx++;
