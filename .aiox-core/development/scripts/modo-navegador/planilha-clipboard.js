@@ -99,6 +99,40 @@ async function escreverLinha(page, celulaInicial, valores) {
   await escreverCelula(page, celulaInicial, linha);
 }
 
+// Mescla um range de celulas (ex: "A1:Y1"). Requer 2 cliques, nao 1 -- descoberto em
+// 13/08/2026 depois de horas de investigacao (Chrome degradado, abas duplicadas, aba
+// suja, clique por coordenada real -- nenhuma dessas hipoteses era a causa real):
+// o item "Mesclar celulas" do menu Formatar ABRE UM SUBMENU sozinho ao ser clicado
+// (nao precisa de hover). O clique nele so ABRE o submenu -- a acao de mesclar de
+// verdade fica no item filho "Mesclar todas" (nao "Mesclar tudo", nome errado usado
+// nas primeiras tentativas, que fazia o codigo nunca achar o item certo). Um script
+// que clica so no item pai "parece" funcionar (nenhum erro, nenhum timeout) mas nao
+// mescla nada -- silencioso, sem aviso nenhum.
+async function mesclarRange(page, range) {
+  await irParaCelula(page, range);
+  await page.waitForTimeout(200);
+  const menuFormatar = page.locator('#docs-format-menu, [aria-label="Formatar"]').first();
+  await menuFormatar.click({ timeout: 5000 });
+  await page.waitForTimeout(400);
+  const itemMesclar = page.locator('.goog-menuitem', { hasText: 'Mesclar células' }).first();
+  await itemMesclar.click({ timeout: 5000 }); // abre o submenu, nao mescla ainda
+  await page.waitForTimeout(400);
+  const mesclarTodas = page.locator('.goog-menuitem').filter({ hasText: /^Mesclar todas$/ }).first();
+  await mesclarTodas.click({ timeout: 5000 }); // AQUI mescla de verdade
+  await page.waitForTimeout(500);
+}
+
+// Desfaz mesclagem de um range. "Ctrl+\\" (Limpar formatacao) e mais confiavel que o
+// submenu "Mesclar celulas > Desfazer mesclagem" -- esse submenu especifico nunca
+// respondeu de forma confiavel a hover/click automatizado nesta configuracao (aba
+// em background dentro de janela minimizada), mesmo com bringToFront().
+async function desfazerMesclagem(page, range) {
+  await irParaCelula(page, range);
+  await page.waitForTimeout(200);
+  await page.keyboard.press('Control+\\');
+  await page.waitForTimeout(400);
+}
+
 module.exports = {
   esperarPlanilhaCarregar,
   irParaCelula,
@@ -106,4 +140,6 @@ module.exports = {
   escreverLinha,
   lerCelula,
   limparCelula,
+  mesclarRange,
+  desfazerMesclagem,
 };

@@ -425,6 +425,20 @@ Módulo persistido: `.aiox-core/development/scripts/modo-navegador/planilha-clip
 
 ---
 
+## Mesclar células no Google Sheets — requer 2 cliques, não 1 (crítica, 13/08/2026)
+
+**O erro que causou horas de investigação:** um script que seleciona um range e clica no item "Mesclar células" do menu Formatar **parece funcionar** — nenhum erro, nenhum timeout, nenhum aviso na tela — mas **não mescla nada**. A causa: esse item **abre um submenu sozinho ao ser clicado** (tem uma seta "►", é `aria-haspopup="true"`), ele não executa a mesclagem diretamente. A ação de mesclar de verdade só acontece no item filho do submenu, **"Mesclar todas"**.
+
+**Duas pegadinhas dentro da mesma pegadinha:**
+1. O nome certo do item filho é **"Mesclar todas"** — não "Mesclar tudo" (nome fácil de supor errado, e que faz o `locator` nunca encontrar nada).
+2. O submenu abre **sozinho com um clique simples** no item pai — não precisa (e não deve tentar) abrir via `hover()`, `mouse.move()` ou `ArrowRight` do teclado. Todas essas abordagens foram tentadas antes de se perceber que o clique simples já abria o submenu — o problema nunca foi abrir o submenu, era não completar a ação dentro dele.
+
+**Como foi descoberto:** depois de eliminar sistematicamente Chrome degradado (fechar/reabrir o processo inteiro), abas duplicadas do mesmo documento, aba "suja" de tentativas anteriores, tempo de espera insuficiente, e clique por coordenada real (mousedown/mouseup) em vez do clique abstrato do Playwright — nenhuma dessas hipóteses explicava o sintoma. A causa só apareceu ao inspecionar `.goog-menuitem:visible` **logo depois do primeiro clique**: os itens do submenu ("Mesclar todas", "Mesclar verticalmente", "Mesclar horizontalmente", "Desfazer mesclagem") já estavam visíveis, esperando um segundo clique que o código nunca dava.
+
+**Módulo persistido:** `mesclarRange(page, range)` e `desfazerMesclagem(page, range)` em `.aiox-core/development/scripts/modo-navegador/planilha-clipboard.js` — já implementam a sequência certa (2 cliques pra mesclar; `Ctrl+\` pra desfazer, mais confiável que o submenu "Desfazer mesclagem" que tem o mesmo problema de responsividade a hover). Qualquer script novo que precise mesclar/desmesclar células no Sheets deve importar dali, não reescrever a lógica.
+
+---
+
 ## Achar URLs de favoritos do Chrome (crítica, 08/08/2026)
 
 **Método obrigatório: ler o arquivo de perfil do Chrome direto do disco — nunca abrir `chrome://bookmarks` como página navegada.**
