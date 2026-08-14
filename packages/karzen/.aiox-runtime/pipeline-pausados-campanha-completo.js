@@ -511,8 +511,21 @@ async function analisarSku(pageAnuncios, context, sku) {
         } else {
           const blocoConc = resultado.texto.slice(idxConc);
           const opcoes = extrairOpcoesConcorrencia(blocoConc);
-          const precosProprios = [mlbs[mlb].precoBase, mlbs[mlb].precoPromo].filter(Boolean);
-          const opcaoBatida = opcoes.find(o => o.status && precosProprios.includes(o.preco));
+          // Correcao real (14/08/2026, reportada pelo Felipe): o preco "de" (precoBase)
+          // pode ser IDENTICO entre condicoes diferentes do mesmo catalogo (ex: Classico
+          // e Premium anunciados com o mesmo preco cheio antes da promocao) -- casar por
+          // ele primeiro e ambiguo, pode pegar a opcao de OUTRO MLB por coincidencia de
+          // preco. Caso real: SKU WL4000-220V, MLB #6714259004 (Premium) tem precoBase
+          // "1.399,90" IGUAL ao precoBase do MLB #4984216839 (Classico) -- o casamento
+          // antigo (precoBase OU precoPromo, primeiro que bater na ordem do texto) pegou
+          // a opcao errada (GANHANDO, que na verdade era so a coincidencia de preco "de"),
+          // quando a opcao certa era a que batia com o precoPromo (867,28, PERDENDO -- esse
+          // sim exclusivo deste MLB). Correcao: tentar casar pelo precoPromo (preco real
+          // de venda, raramente coincide entre condicoes) PRIMEIRO -- so cai pro precoBase
+          // se nao achar nada pelo promo.
+          const opcaoBatida = (mlbs[mlb].precoPromo && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoPromo))
+            || (mlbs[mlb].precoBase && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoBase))
+            || null;
 
           mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, opcoesEncontradas: opcoes, opcaoBatida: opcaoBatida || null };
           if (opcaoBatida) mlbs[mlb].statusCatalogo = opcaoBatida.status;
