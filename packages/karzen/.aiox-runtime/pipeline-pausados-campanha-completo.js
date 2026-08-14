@@ -94,6 +94,41 @@ async function acharSkuDoMlb(pageAnuncios, mlb) {
   return m ? m[1] : null;
 }
 
+// Correcao real (14/08/2026): a extracao anterior so reconhecia as 4 palavras oficiais
+// (GANHANDO/PERDENDO/COMPARTILHANDO/RESTRITO PARA GANHAR) e assumia que o status sempre
+// aparece ANTES do marcador "Opção N" -- mas o Mercado Livre usa 2 ordens diferentes:
+// "GANHANDO\n\nOpção 1\n...\nR$ 900" (status antes) quando o anuncio esta competindo de
+// verdade, e "Opção 1\n...\nR$ 349,90\nInativa" (status DEPOIS do preco, dentro da propria
+// opcao) quando o anuncio esta inativo/pausado. Caso real: SKU MCT-32MM-BIV, MLBs
+// #5923065708/#5923142884, ambos com Concorrencia confirmada mas status "Inativa" nunca
+// capturado por isso. Essa funcao cobre as 2 ordens e aceita qualquer palavra de status
+// (nao so as 4 oficiais) -- quem decide se e catalogo e o casamento por preco, nao o
+// texto do status em si.
+function extrairOpcoesConcorrencia(blocoConc) {
+  const marcadores = [...blocoConc.matchAll(/Opção\s*\d+/g)];
+  const opcoes = [];
+  for (let i = 0; i < marcadores.length; i++) {
+    const inicioOpcao = marcadores[i].index;
+    const fimOpcao = marcadores[i + 1] ? marcadores[i + 1].index : blocoConc.length;
+    const segmento = blocoConc.slice(inicioOpcao, fimOpcao);
+    const precoMatch = segmento.match(/R\$\s*\n?\s*([\d.,]+)/);
+    if (!precoMatch) continue;
+
+    // Status DEPOIS do preco, dentro do proprio segmento (ex: "Inativa")
+    const restoAposPreco = segmento.slice(precoMatch.index + precoMatch[0].length);
+    const statusDepoisMatch = restoAposPreco.match(/^\s*\n?\s*([A-ZÀ-Úa-zà-ú][^\n]{0,40})/);
+    const statusDepois = statusDepoisMatch ? statusDepoisMatch[1].trim() : null;
+
+    // Status ANTES do marcador "Opção N" (ex: "GANHANDO\n\nOpção 1")
+    const antesTexto = blocoConc.slice(Math.max(0, inicioOpcao - 60), inicioOpcao);
+    const statusAntesMatch = antesTexto.match(/\b(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b\s*$/);
+    const statusAntes = statusAntesMatch ? statusAntesMatch[1] : null;
+
+    opcoes.push({ preco: precoMatch[1], status: statusAntes || statusDepois || null });
+  }
+  return opcoes;
+}
+
 // REGRA VALIDADA (13/08/2026, adicionar também ao Passo A.1 de
 // mapeamento-skus-ads-catalogo-mercadolivre.md): os N MLBs no cabeçalho de um card
 // correspondem, EM ORDEM, aos N blocos de dados que seguem -- 1º MLB do cabeçalho →
@@ -174,7 +209,15 @@ async function analisarSku(pageAnuncios, context, sku) {
       const precoBaseMatch = blocoMlb.match(/R\$\s*\n?\s*([\d.,]+)/);
       const precoPromoMatch = blocoMlb.match(/em promoção a R\$\s*\n?\s*([\d.,]+)/);
       const inativo = /Inativo sem estoque/.test(blocoMlb);
-      const statusMatch = blocoMlb.match(/\b(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b/i);
+      // Correcao real (14/08/2026): regex era case-insensitive (/i), o que casava a
+      // palavra "ganhando" minuscula dentro de frases comuns como "Voce esta ganhando
+      // com outra opcao de venda" (mensagem de MLB SEM status explicito) como se fosse
+      // o badge oficial "GANHANDO" (sempre maiusculo de verdade). Isso fez o MLB pular
+      // a checagem via Alterar+preco que deveria ter rodado. Caso real: SKU MCT-19MM-BIV,
+      // MLB #5923239572 foi classificado errado como "GANHANDO explicito" sem nunca ter
+      // status de verdade. Correcao: case-sensitive -- o badge real e sempre maiusculo,
+      // frases comuns usam minuscula, entao nao ha ambiguidade real.
+      const statusMatch = blocoMlb.match(/\b(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b/);
       const condMatch = blocoMlb.match(/\b(Clássico|Premium)\b/);
       const qualMatch = blocoMlb.match(/Analisar métricas de desempenho\s*\n\s*(\d+)\s*\n\s*([^\n]+)/);
       const expMatch = blocoMlb.match(/Analisar métricas de desempenho\s*\n\s*\d+\s*\n\s*[^\n]+\s*\n\s*(\d+|--)\s*\n\s*([^\n]+)/);
@@ -221,10 +264,9 @@ async function analisarSku(pageAnuncios, context, sku) {
           mlbs[mlb].viaAlterar = { ehPai: true, temCompetindo, temConcorrencia };
         } else {
           const blocoConc = resultado.texto.slice(idxConc);
-          const opcoes = [...blocoConc.matchAll(/\b(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b[\s\S]{0,150}?R\$\s*\n?\s*([\d.,]+)/g)]
-            .map(mm => ({ status: mm[1].toUpperCase(), preco: mm[2] }));
+          const opcoes = extrairOpcoesConcorrencia(blocoConc);
           const precosProprios = [mlbs[mlb].precoBase, mlbs[mlb].precoPromo].filter(Boolean);
-          const opcaoBatida = opcoes.find(o => precosProprios.includes(o.preco));
+          const opcaoBatida = opcoes.find(o => o.status && precosProprios.includes(o.preco));
 
           mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, opcoesEncontradas: opcoes, opcaoBatida: opcaoBatida || null };
           if (opcaoBatida) mlbs[mlb].statusCatalogo = opcaoBatida.status;
