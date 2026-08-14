@@ -12,6 +12,21 @@ const URL_ANUNCIOS = 'https://vendedores.mercadolivre.com.br/anuncios#menu-user'
 const SELETOR_BUSCA = 'input[placeholder="Buscar por título, código ou SKU"]';
 const ARQUIVO_SAIDA = path.resolve(__dirname, 'pausados-campanha-resultado.json');
 
+// Correcao real (14/08/2026): descoberto durante o teste da SKU PROSB-3000 -- em algum
+// ponto do fluxo (provavelmente uma consequencia colateral de cliques repetidos no menu
+// de "Acoes secundarias"/Alterar), o menu lateral do site (`nav-sidebar-app`) pode
+// expandir sozinho e passar a interceptar cliques na caixa de busca ("... subtree
+// intercepts pointer events"), quebrando toda checagem seguinte. Protecao defensiva:
+// checar e fechar o menu lateral ANTES de cada clique na caixa de busca.
+async function fecharSidebarSeAberta(page) {
+  const expandida = await page.locator('.nav-sidebar-app.nav-sidebar--expanded').count().catch(() => 0);
+  if (expandida > 0) {
+    await page.keyboard.press('Escape').catch(() => {});
+    await page.mouse.click(600, 150).catch(() => {}); // clique em area neutra, longe do sidebar
+    await page.waitForTimeout(500);
+  }
+}
+
 const CAMPANHAS = [
   { nome: '[ML] [AVA] [PERFORMANCE]', url: 'https://ads.mercadolivre.com.br/product-ads/admin/campaigns/357312967/dashboard?navigate_to=mercado_ads' },
   { nome: '[ML] [BAIXA PERFORMANCE]', url: 'https://ads.mercadolivre.com.br/product-ads/admin/campaigns/358247429/dashboard?navigate_to=mercado_ads' },
@@ -55,6 +70,32 @@ async function rolarPagina(page, maxTentativas = 40, intervaloMs = 600) {
       semCrescerSeguidas = 0;
     }
     alturaAnterior = alturaAtual;
+  }
+}
+
+// Item 4 do checklist (14/08/2026) -- "ID Family": um agrupamento colapsado que aparece
+// quando várias variações de um SKU compartilham um "Product ID" externo do Mercado
+// Livre (número de 16 dígitos, ex: #3688504835686264 -- não bate no padrão normal de
+// MLB #\d{7,11}, e não tem linha "SKU <valor>" própria, mostra preço em FAIXA em vez de
+// preço único: "R$ 239,90 a R$ 279"). Cada card assim tem um botão com
+// aria-label="Expandir anúncios" que, quando clicado, revela sub-cards com os MLBs reais
+// escondidos dentro -- cada um desses sub-cards já vem no formato normal (SKU própria,
+// preço único, 1 MLB por card) que `extrairCards`/`analisarSku` já sabem processar sem
+// nenhuma mudança. Caso real validado: SKU PROSB-3000 (2 grupos ID Family, 6 MLBs reais
+// escondidos dentro deles, revelados só depois de expandir).
+//
+// Descoberta real (14/08/2026): o botão MANTÉM o aria-label "Expandir anúncios" mesmo
+// depois de já expandido (não muda pra "Recolher anúncios") -- por isso NUNCA usar um
+// loop que re-checa a contagem esperando ela diminuir (trava pra sempre, ou pior, fica
+// clicando no mesmo botão repetidas vezes alternando expandir/recolher). A forma correta
+// e validada: contar quantos existem UMA VEZ no início, e clicar em cada índice
+// exatamente 1 vez (usando `.nth(i)`), sem re-checar a contagem depois.
+async function expandirTodosIdFamily(page) {
+  const botoesExpandir = page.locator('button[aria-label="Expandir anúncios"]');
+  const qtdInicial = await botoesExpandir.count();
+  for (let i = 0; i < qtdInicial; i++) {
+    await botoesExpandir.nth(i).click({ timeout: 10000 }).catch(() => {});
+    await page.waitForTimeout(1800);
   }
 }
 
@@ -173,6 +214,7 @@ async function abrirAlterarPorIndice(pageAnuncios, indice) {
 async function acharSkuDoMlb(pageAnuncios, mlb) {
   const fecharDrawer = pageAnuncios.locator('button[aria-label="Cerrar"]');
   if (await fecharDrawer.count() > 0) { await fecharDrawer.first().click().catch(() => {}); await pageAnuncios.waitForTimeout(400); }
+  await fecharSidebarSeAberta(pageAnuncios);
   const campo = pageAnuncios.locator(SELETOR_BUSCA).first();
   await campo.click();
   await campo.fill('');
@@ -261,12 +303,18 @@ function extrairOpcoesConcorrencia(blocoConc) {
 // "Sincronizado com".
 async function analisarSku(pageAnuncios, context, sku) {
   async function buscarERolar() {
+    await fecharSidebarSeAberta(pageAnuncios);
     const campo = pageAnuncios.locator(SELETOR_BUSCA).first();
     await campo.click();
     await campo.fill('');
     await campo.fill(sku);
     await pageAnuncios.keyboard.press('Enter');
     await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarBuscaSkuCarregada });
+    await rolarPagina(pageAnuncios, 40);
+    // Item 4 do checklist: expandir todo "ID Family" colapsado ANTES de ler o texto --
+    // a expansao revela novo conteudo (sub-cards com MLBs reais), entao rola de novo
+    // depois pra garantir que tudo o que foi revelado tambem esta visivel/carregado.
+    await expandirTodosIdFamily(pageAnuncios);
     await rolarPagina(pageAnuncios, 40);
     await pageAnuncios.mouse.wheel(0, -20000);
     const texto = await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarBuscaSkuCarregada });
