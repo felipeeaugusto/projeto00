@@ -29,8 +29,33 @@ function lerJsonSeguro(caminho, padrao) {
   try { return JSON.parse(texto); } catch { return padrao; }
 }
 
-async function rolarPagina(page, vezes = 10) {
-  for (let i = 0; i < vezes; i++) { await page.mouse.wheel(0, 1200); await page.waitForTimeout(600); }
+// Correção real (14/08/2026, item 1 do checklist de correção pedido pelo Felipe/@analyst):
+// a versão anterior rolava um número FIXO de vezes (`vezes`) -- isso não é a mesma coisa
+// que "rolar até esgotar de verdade". O Felipe confirmou que a listagem é infinite-scroll
+// real (sem paginação por botão), então o critério certo é rolar até a altura do conteúdo
+// da página PARAR DE CRESCER (mesmo princípio da REGRA GERAL de paciência, aplicado à
+// rolagem em vez de à leitura de conteúdo). O parâmetro `maxTentativas` deixa de ser "quantas
+// vezes rolar" e passa a ser só um teto de segurança (nunca roda pra sempre) -- na prática,
+// pra páginas pequenas (2-4 cards) o loop já para bem antes desse teto, então os valores
+// antigos passados nas chamadas (10, 14, 16...) continuam funcionando sem precisar editar
+// cada chamada, só que agora como teto, não como contagem exata.
+async function rolarPagina(page, maxTentativas = 40, intervaloMs = 600) {
+  let alturaAnterior = -1;
+  let semCrescerSeguidas = 0;
+  for (let i = 0; i < maxTentativas; i++) {
+    await page.mouse.wheel(0, 1200);
+    await page.waitForTimeout(intervaloMs);
+    const alturaAtual = await page.evaluate(() => document.body.scrollHeight).catch(() => -1);
+    if (alturaAtual === alturaAnterior) {
+      semCrescerSeguidas++;
+      // 3 medições seguidas sem crescer = considera esgotado -- evita parar cedo demais
+      // por causa de um unico "engasgo" de rede entre 2 medições.
+      if (semCrescerSeguidas >= 3) break;
+    } else {
+      semCrescerSeguidas = 0;
+    }
+    alturaAnterior = alturaAtual;
+  }
 }
 
 // REGRA GERAL (14/08/2026, aplicada no PROCESSO INTEIRO, não em pontos isolados --
@@ -42,17 +67,43 @@ async function rolarPagina(page, vezes = 10) {
 // Usada agora em TODOS os pontos do processo que antes tinham tempo fixo: busca de SKU,
 // busca reversa de MLB, filtro Pausados, abrir Ver variações, carregar campanha, abrir
 // Alterar (menu e conteúdo).
-async function esperarTextoEstabilizar(page, maxTentativas = 8, intervaloMs = 1000) {
+//
+// Correção real (14/08/2026, item 2 do checklist): "texto parou de mudar" sozinho NÃO
+// prova que o conteúdo real carregou -- um estado intermediário (ex: "0 anúncios" antes
+// do AJAX popular, ou COMPETINDO renderizado mas a seção Concorrência ainda não) pode
+// ficar parado tempo suficiente pra passar como "estável" sem estar completo. Caso real:
+// SKU WL4000-220V voltou vazio numa rodada; MLB #5000383363 (WL4000-127V) leu
+// temCompetindo=true e temConcorrencia=false ao mesmo tempo -- combinação logicamente
+// impossível se a pagina tivesse carregado de verdade. Correção: aceita um `validarConteudo`
+// opcional (callback) que checa marcadores estruturais especificos, ALÉM da estabilidade
+// de texto -- só aceita como "carregado" quando as 2 condições baterem juntas.
+async function esperarTextoEstabilizar(page, opcoes = {}) {
+  const { maxTentativas = 8, intervaloMs = 1000, validarConteudo = () => true } = opcoes;
   let anterior = null;
   for (let t = 0; t < maxTentativas; t++) {
     const atual = await page.locator('body').innerText();
-    if (anterior !== null && atual === anterior && !atual.includes('A página está carregando') && atual.length > 200) {
+    const textoEstavel = anterior !== null && atual === anterior && !atual.includes('A página está carregando') && atual.length > 200;
+    if (textoEstavel && validarConteudo(atual)) {
       return atual;
     }
     anterior = atual;
     await page.waitForTimeout(intervaloMs);
   }
   return anterior;
+}
+
+// Validadores de conteúdo reutilizáveis (item 2 do checklist) -- cada um confirma um
+// marcador estrutural específico, além da estabilidade genérica de texto.
+function validarBuscaSkuCarregada(texto) {
+  if (!texto.includes('Filtrar e ordenar')) return false;
+  return /\d+\s+an[uú]ncios?/i.test(texto);
+}
+
+function validarPaginaAlterarCarregada(texto) {
+  // Nunca aceitar COMPETINDO sem a seção de Concorrência -- combinação contraditória
+  // que indica renderização parcial (caso real: MLB #5000383363, SKU WL4000-127V).
+  if (texto.includes('COMPETINDO') && !texto.includes('Concorrência no Mercado Livre')) return false;
+  return true;
 }
 
 // Correção real (13/08/2026): a versão anterior localizava a linha do MLB via
@@ -113,8 +164,9 @@ async function abrirAlterarPorIndice(pageAnuncios, indice) {
   // ler a pagina "COMPETINDO" ja renderizado mas a secao "Concorrencia no Mercado Livre"
   // ainda nao (texto inconsistente: temCompetindo=true, temConcorrencia=false, ao mesmo
   // tempo). Caso real: SKU WL4000-127V, MLB #5000383363. Correcao: esperar o texto da
-  // pagina estabilizar (2 leituras seguidas identicas) antes de ler de verdade.
-  const texto = await esperarTextoEstabilizar(pageAnuncios);
+  // pagina estabilizar E confirmar consistencia estrutural (item 2 do checklist) antes
+  // de ler de verdade.
+  const texto = await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarPaginaAlterarCarregada });
   return { url: pageAnuncios.url(), texto };
 }
 
@@ -126,7 +178,7 @@ async function acharSkuDoMlb(pageAnuncios, mlb) {
   await campo.fill('');
   await campo.fill(mlb);
   await pageAnuncios.keyboard.press('Enter');
-  const texto = await esperarTextoEstabilizar(pageAnuncios);
+  const texto = await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarBuscaSkuCarregada });
   const idxSku = texto.indexOf('SKU ');
   if (idxSku === -1) return null;
   const m = texto.slice(idxSku, idxSku + 60).match(/SKU\s+(\S+)/);
@@ -148,10 +200,25 @@ async function acharSkuDoMlb(pageAnuncios, mlb) {
 // mostra a condicao direto: "Clássico e Frete grátis\nR$\n1.200\nInativa", sem numeracao.
 // Caso real: SKU WL4000-220V, MLB #6680162274 (Concorrencia confirmada, mas
 // extrairOpcoesConcorrencia() achava 0 "Opção N" porque nao existia nenhum rotulo).
+// Correcao real (14/08/2026, item 3 do checklist): a regex aceitava qualquer texto na
+// linha seguinte ao preco como "status", sem validar se faz sentido. Caso real: MLB
+// #5000740711 (SKU WL4000-127V) capturou "Nível de visitas:" (um rotulo de interface,
+// nao um status) como se fosse status valido. Lista de rejeicao pra descartar capturas
+// obviamente erradas -- texto terminando em ":" (rotulo de campo) ou frases conhecidas
+// que nao sao status.
+const FRASES_NAO_STATUS = [/:$/, /^Outras opções de venda$/i, /^Nível de visitas$/i, /^Experiência de compra$/i];
+function pareceStatusValido(texto) {
+  if (!texto) return false;
+  const limpo = texto.trim();
+  if (!limpo) return false;
+  return !FRASES_NAO_STATUS.some(re => re.test(limpo));
+}
+
 function extrairOpcaoUnicaSemRotulo(blocoConc) {
   const m = blocoConc.match(/(Clássico|Premium)\s+e\s+Frete\s+grátis\s*\n?\s*R\$\s*\n?\s*([\d.,]+)\s*\n?\s*([^\n]{0,40})/);
   if (!m) return [];
-  return [{ preco: m[2], status: m[3].trim() || null, condicaoDaOpcao: m[1] }];
+  const statusBruto = m[3].trim();
+  return [{ preco: m[2], status: pareceStatusValido(statusBruto) ? statusBruto : null, condicaoDaOpcao: m[1] }];
 }
 
 function extrairOpcoesConcorrencia(blocoConc) {
@@ -165,10 +232,12 @@ function extrairOpcoesConcorrencia(blocoConc) {
     const precoMatch = segmento.match(/R\$\s*\n?\s*([\d.,]+)/);
     if (!precoMatch) continue;
 
-    // Status DEPOIS do preco, dentro do proprio segmento (ex: "Inativa")
+    // Status DEPOIS do preco, dentro do proprio segmento (ex: "Inativa"). Mesma guarda
+    // do item 3 do checklist -- rejeita capturas obvias de nao-status (rotulos de campo).
     const restoAposPreco = segmento.slice(precoMatch.index + precoMatch[0].length);
     const statusDepoisMatch = restoAposPreco.match(/^\s*\n?\s*([A-ZÀ-Úa-zà-ú][^\n]{0,40})/);
-    const statusDepois = statusDepoisMatch ? statusDepoisMatch[1].trim() : null;
+    const statusDepoisBruto = statusDepoisMatch ? statusDepoisMatch[1].trim() : null;
+    const statusDepois = pareceStatusValido(statusDepoisBruto) ? statusDepoisBruto : null;
 
     // Status ANTES do marcador "Opção N" (ex: "GANHANDO\n\nOpção 1")
     const antesTexto = blocoConc.slice(Math.max(0, inicioOpcao - 60), inicioOpcao);
@@ -197,10 +266,10 @@ async function analisarSku(pageAnuncios, context, sku) {
     await campo.fill('');
     await campo.fill(sku);
     await pageAnuncios.keyboard.press('Enter');
-    await esperarTextoEstabilizar(pageAnuncios);
-    await rolarPagina(pageAnuncios, 14);
+    await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarBuscaSkuCarregada });
+    await rolarPagina(pageAnuncios, 40);
     await pageAnuncios.mouse.wheel(0, -20000);
-    const texto = await esperarTextoEstabilizar(pageAnuncios);
+    const texto = await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarBuscaSkuCarregada });
     const idxFiltrar = texto.indexOf('Filtrar e ordenar');
     const idxRodape = texto.indexOf('Você recebeu');
     return texto.slice(idxFiltrar, idxRodape !== -1 ? idxRodape : idxFiltrar + 12000);
