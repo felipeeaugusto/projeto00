@@ -8,6 +8,8 @@ Mapear todos os produtos **pausados dentro de cada Campanha de Mercado Ads** (n�
 
 Depende do procedimento de conexão `modo-navegador-browser-access.md` e reaproveita Passo A/A.1/A.2 do `mapeamento-skus-ads-catalogo-mercadolivre.md` (mesma lógica de confirmação de catálogo Clássico/Premium, incluindo GANHANDO/PERDENDO/COMPARTILHANDO/RESTRITO PARA GANHAR).
 
+**⚠️ REGRA GERAL OBRIGATÓRIA (14/08/2026) — paciência e confirmação de carregamento, nunca tempo fixo curto:** válida pra todo este documento e pro `mapeamento-skus-ads-catalogo-mercadolivre.md` — ver texto completo da regra lá (seção logo após o Propósito). Resumo: nunca confiar num `waitForTimeout` fixo curto como garantia de que algo carregou (menu, página, listagem) — sempre confirmar que o elemento esperado apareceu de verdade, e se não apareceu na primeira tentativa, esperar mais e tentar de novo antes de concluir "não existe". Trabalho seguro com dado real vale mais que trabalho rápido.
+
 ## Escopo — 7 Campanhas ativas
 
 ```
