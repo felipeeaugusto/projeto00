@@ -9,7 +9,7 @@
     "mlbs": {
       "3959996911": {
         "full": null,
-        "deposito": "15 un.",
+        "deposito": "14 un.",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
@@ -24,8 +24,8 @@
         }
       },
       "5069271006": {
-        "full": "158 un.",
-        "deposito": "15 un.",
+        "full": "146 un.",
+        "deposito": "14 un.",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": "GANHANDO",
@@ -36,8 +36,8 @@
         "viaAlterar": null
       },
       "5069321996": {
-        "full": "158 un.",
-        "deposito": "15 un.",
+        "full": "146 un.",
+        "deposito": "14 un.",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
@@ -53,7 +53,7 @@
       },
       "5267650986": {
         "full": null,
-        "deposito": "15 un.",
+        "deposito": "14 un.",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
@@ -94,7 +94,7 @@
     ],
     "mlbs": {
       "5923189512": {
-        "full": "127 un.",
+        "full": "126 un.",
         "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
@@ -106,7 +106,7 @@
         "viaAlterar": null
       },
       "5923239572": {
-        "full": "127 un.",
+        "full": "126 un.",
         "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "condicao": "Premium",
@@ -144,7 +144,7 @@
         }
       },
       "4298624551": {
-        "full": "127 un.",
+        "full": "126 un.",
         "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
@@ -160,7 +160,7 @@
         }
       },
       "5923073522": {
-        "full": "127 un.",
+        "full": "126 un.",
         "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "condicao": "Premium",

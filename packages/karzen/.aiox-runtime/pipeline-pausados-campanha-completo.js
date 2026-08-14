@@ -154,9 +154,20 @@ async function esperarTextoEstabilizar(page, opcoes = {}) {
 
 // Validadores de conteúdo reutilizáveis (item 2 do checklist) -- cada um confirma um
 // marcador estrutural específico, além da estabilidade genérica de texto.
-function validarBuscaSkuCarregada(texto) {
+//
+// Correcao real (14/08/2026, achado durante o reprocessamento real da campanha
+// [ML] [BAIXA PERFORMANCE]): os 2 marcadores genericos abaixo ("Filtrar e ordenar" +
+// contador de anuncios) sao verdadeiros pro resultado de QUALQUER busca -- inclusive
+// uma busca ANTIGA que ainda esteja na tela, se a busca nova nao tiver disparado de
+// verdade (caso real confirmado: um `.fill()+Enter` que nao atualizou a pagina, MLB
+// 6174001096 retornou o SKU de outro produto completamente diferente). Agora exige
+// tambem que o TERMO BUSCADO (MLB ou SKU) apareca no texto -- fecha o buraco de aceitar
+// conteudo desatualizado como se fosse o resultado da busca atual.
+function validarBuscaSkuCarregada(texto, termoBuscado) {
   if (!texto.includes('Filtrar e ordenar')) return false;
-  return /\d+\s+an[uú]ncios?/i.test(texto);
+  if (!/\d+\s+an[uú]ncios?/i.test(texto)) return false;
+  if (termoBuscado && !texto.includes(termoBuscado)) return false;
+  return true;
 }
 
 function validarPaginaAlterarCarregada(texto) {
@@ -230,7 +241,17 @@ async function abrirAlterarPorIndice(pageAnuncios, indice) {
   return { url: pageAnuncios.url(), texto };
 }
 
-async function acharSkuDoMlb(pageAnuncios, mlb) {
+// Correcao real (14/08/2026, achado durante o reprocessamento real da campanha
+// [ML] [BAIXA PERFORMANCE]): a busca reversa MLB->SKU nao confirmava que a busca NOVA
+// realmente disparou antes de ler o resultado -- se o `.fill()+Enter` nao atualizasse
+// a pagina de verdade (caso real confirmado via diagnostico isolado), o codigo aceitava
+// conteudo de uma busca ANTERIOR como se fosse o resultado do MLB pedido, retornando o
+// SKU errado silenciosamente. Correcao: `validarBuscaSkuCarregada` agora exige que o
+// MLB buscado apareca no texto (ver comentario na definicao da funcao); alem disso,
+// defesa redundante aqui -- se mesmo assim o texto final nao contiver o MLB, tenta a
+// busca de novo UMA vez do zero antes de desistir (cobre o caso em que o `.fill()+Enter`
+// falhou silenciosamente em disparar a busca, onde so esperar mais nao ajuda).
+async function tentarBuscarMlb(pageAnuncios, mlb) {
   const fecharDrawer = pageAnuncios.locator('button[aria-label="Cerrar"]');
   if (await fecharDrawer.count() > 0) { await fecharDrawer.first().click().catch(() => {}); await pageAnuncios.waitForTimeout(400); }
   await fecharSidebarSeAberta(pageAnuncios);
@@ -239,7 +260,15 @@ async function acharSkuDoMlb(pageAnuncios, mlb) {
   await campo.fill('');
   await campo.fill(mlb);
   await pageAnuncios.keyboard.press('Enter');
-  const texto = await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarBuscaSkuCarregada });
+  return esperarTextoEstabilizar(pageAnuncios, { validarConteudo: (texto) => validarBuscaSkuCarregada(texto, mlb) });
+}
+
+async function acharSkuDoMlb(pageAnuncios, mlb) {
+  let texto = await tentarBuscarMlb(pageAnuncios, mlb);
+  if (!texto.includes(mlb)) {
+    texto = await tentarBuscarMlb(pageAnuncios, mlb); // re-busca do zero, uma vez
+    if (!texto.includes(mlb)) return null;
+  }
   const idxSku = texto.indexOf('SKU ');
   if (idxSku === -1) return null;
   const m = texto.slice(idxSku, idxSku + 60).match(/SKU\s+(\S+)/);
@@ -330,14 +359,30 @@ function extrairOpcoesConcorrencia(blocoConc) {
 // que só ocorre no início de cada bloco de preço/condição, nunca dentro de uma menção
 // "Sincronizado com".
 async function analisarSku(pageAnuncios, context, sku) {
-  async function buscarERolar() {
+  // Correcao real (14/08/2026, item 3 da validacao do @analyst sobre o bug de busca
+  // reversa MLB->SKU): mesma fragilidade existia aqui -- se a busca inicial pelo SKU
+  // nao disparasse de verdade, o resto do fluxo (rolagem, expansao de ID Family,
+  // leitura final) rodaria sobre a pagina ERRADA (de uma busca anterior). Consequencia
+  // aqui e mais branda que em acharSkuDoMlb (o filtro `cards.filter(c => c.skuValor ===
+  // sku)` mais abaixo evitaria atribuir dado errado), mas ainda pode gerar um resultado
+  // vazio silencioso (parece "SKU sem MLBs" quando na verdade a busca nunca atualizou).
+  // Correcao: exigir que o SKU buscado apareca no texto antes de aceitar a busca inicial
+  // como carregada, com 1 retry (busca do zero) se nao bater.
+  async function realizarBuscaInicial() {
     await fecharSidebarSeAberta(pageAnuncios);
     const campo = pageAnuncios.locator(SELETOR_BUSCA).first();
     await campo.click();
     await campo.fill('');
     await campo.fill(sku);
     await pageAnuncios.keyboard.press('Enter');
-    await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarBuscaSkuCarregada });
+    return esperarTextoEstabilizar(pageAnuncios, { validarConteudo: (texto) => validarBuscaSkuCarregada(texto, sku) });
+  }
+
+  async function buscarERolar() {
+    let textoInicial = await realizarBuscaInicial();
+    if (!textoInicial.includes(sku)) {
+      textoInicial = await realizarBuscaInicial(); // re-busca do zero, uma vez
+    }
     await rolarPagina(pageAnuncios, 40);
     // Item 4 do checklist: expandir todo "ID Family" colapsado ANTES de ler o texto --
     // a expansao revela novo conteudo (sub-cards com MLBs reais), entao rola de novo
@@ -345,7 +390,7 @@ async function analisarSku(pageAnuncios, context, sku) {
     await expandirTodosIdFamily(pageAnuncios);
     await rolarPagina(pageAnuncios, 40);
     await pageAnuncios.mouse.wheel(0, -20000);
-    const texto = await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarBuscaSkuCarregada });
+    const texto = await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: (texto) => validarBuscaSkuCarregada(texto, sku) });
     const idxFiltrar = texto.indexOf('Filtrar e ordenar');
     const idxRodape = texto.indexOf('Você recebeu');
     return texto.slice(idxFiltrar, idxRodape !== -1 ? idxRodape : idxFiltrar + 12000);
@@ -601,6 +646,24 @@ if (require.main === module) {
   let browser;
   let resultados = lerJsonSeguro(ARQUIVO_SAIDA, {});
 
+  // Filtro de campanha (14/08/2026, pedido real do Felipe): permite rodar o pipeline
+  // contra 1 campanha so (`node pipeline-pausados-campanha-completo.js "[ML] [NOME]"`)
+  // em vez das 7 de uma vez -- primeiro teste real do fluxo completo (varrer campanha ->
+  // achar pausados -> analisar cada um) numa campanha real, sem duplicar a logica de
+  // varredura numa copia separada (reusa exatamente o codigo ja validado).
+  // Quando um filtro e passado, ativa automaticamente o MODO CAUTELOSO: qualquer
+  // erro/anomalia num produto INTERROMPE a execucao inteira pra revisao manual, em vez
+  // de logar e continuar pro proximo produto (comportamento padrao, pensado pra lotes
+  // grandes onde 1 produto com problema nao deve travar os outros 90+).
+  const campanhaFiltro = process.argv[2] || null;
+  const CAMPANHAS_A_RODAR = campanhaFiltro ? CAMPANHAS.filter(c => c.nome === campanhaFiltro) : CAMPANHAS;
+  const modoCauteloso = !!campanhaFiltro;
+  if (campanhaFiltro && CAMPANHAS_A_RODAR.length === 0) {
+    console.error(`Campanha "${campanhaFiltro}" não encontrada. Disponíveis:\n${CAMPANHAS.map(c => `  - ${c.nome}`).join('\n')}`);
+    process.exit(1);
+  }
+  if (modoCauteloso) console.log(`⚠️ MODO CAUTELOSO ativo (campanha única: "${campanhaFiltro}") — qualquer erro/anomalia interrompe a execução inteira.`);
+
   try {
     browser = await chromium.connectOverCDP('http://localhost:9222');
     const context = browser.contexts()[0];
@@ -608,7 +671,7 @@ if (require.main === module) {
     if (!pageAnuncios) pageAnuncios = await openBackgroundPage(browser, context, URL_ANUNCIOS);
     await esperarTextoEstabilizar(pageAnuncios);
 
-    for (const campanha of CAMPANHAS) {
+    for (const campanha of CAMPANHAS_A_RODAR) {
       const chaveCampanha = campanha.nome;
       if (!resultados[chaveCampanha]) resultados[chaveCampanha] = {};
 
@@ -727,7 +790,11 @@ if (require.main === module) {
               console.log(`Progresso já salvo em ${ARQUIVO_SAIDA} (este produto NÃO foi marcado como concluído -- será reprocessado do zero ao retomar).`);
               console.log(`Detalhe completo do alerta salvo em ${arquivoAlerta}.`);
               console.log('Depois de revisar, rode o pipeline de novo pra continuar de onde parou.');
-              await minimizeChrome().catch(() => {});
+              // Correcao real (14/08/2026): minimizeChrome() e SINCRONA (execSync por
+              // baixo), nao retorna Promise -- encadear `.catch()` nela sempre quebrava
+              // com "Cannot read properties of undefined (reading 'catch')" (nunca
+              // exercitado antes porque essa trava nunca disparou nesta sessao).
+              try { minimizeChrome(); } catch {}
               await browser.close().catch(() => {});
               process.exit(1);
             }
@@ -769,23 +836,67 @@ if (require.main === module) {
           await pageCampanha.keyboard.press('Escape').catch(() => {});
           await pageCampanha.waitForTimeout(600);
         } catch (errProduto) {
-          console.log(`  ERRO no produto "${tituloProduto}": ${errProduto.message}`);
           resultados[chaveCampanha][chaveProduto] = { titulo: tituloProduto, erro: errProduto.message };
           fs.writeFileSync(ARQUIVO_SAIDA, JSON.stringify(resultados, null, 2));
+          if (modoCauteloso) {
+            console.log(`\n🛑 MODO CAUTELOSO: erro/anomalia no produto "${tituloProduto}" — parando a execução inteira pra revisão manual.`);
+            console.log(`Erro: ${errProduto.message}`);
+            throw errProduto; // propaga pro catch geral, interrompe tudo
+          }
+          console.log(`  ERRO no produto "${tituloProduto}": ${errProduto.message}`);
           // Mesmo em erro, tentar fechar qualquer drawer que tenha ficado aberto
           await pageCampanha.keyboard.press('Escape').catch(() => {});
           await pageCampanha.waitForTimeout(600);
         }
       }
 
-      await pageCampanha.close();
+      // Em modo cauteloso, o Felipe pediu pra deixar a aba da campanha aberta ao final
+      // (junto com Anúncios e a aba de publicidade) -- não fechar aqui.
+      if (!modoCauteloso) {
+        await pageCampanha.close();
+      }
     }
 
     console.log('\n\n########## TODAS AS CAMPANHAS PROCESSADAS ##########');
   } catch (err) {
     console.error('ERRO GERAL:', err.message, err.stack);
   } finally {
-    if (browser) { await minimizeChrome(); await browser.close(); }
+    if (browser) {
+      if (modoCauteloso) {
+        // Gerenciamento de abas pedido pelo Felipe (14/08/2026): ao final do modo
+        // cauteloso, deixar SOMENTE 3 abas abertas -- Anúncios, a campanha filtrada, e
+        // qualquer aba de "publicidade" (painel geral de Ads) já existente. Fecha
+        // qualquer outra aba, inclusive campanhas de outras execuções e leaks de sessões
+        // anteriores (openBackgroundPage sem fechar em erro -- ver .aiox/itens-em-aberto.md).
+        // NUNCA chama browser.close() aqui -- isso mataria o processo do Chrome inteiro
+        // (não é um "fechar aba", é fechar o browser todo via CDP), o que fecharia as
+        // 3 abas que o Felipe pediu pra manter.
+        try {
+          const context = browser.contexts()[0];
+          const urlsOutrasCampanhas = CAMPANHAS
+            .filter(c => c.nome !== campanhaFiltro)
+            .map(c => c.url);
+          for (const p of context.pages()) {
+            const url = p.url();
+            const ehAnuncios = url.includes('vendedores.mercadolivre.com.br/anuncios');
+            const ehCampanhaAlvo = CAMPANHAS_A_RODAR[0] && url.includes(CAMPANHAS_A_RODAR[0].url.split('?')[0]);
+            const ehOutraCampanha = urlsOutrasCampanhas.some(u => url.includes(u.split('?')[0]));
+            const ehAds = url.includes('ads.mercadolivre.com.br');
+            const mantemComoPublicidade = ehAds && !ehCampanhaAlvo && !ehOutraCampanha;
+            if (!ehAnuncios && !ehCampanhaAlvo && !mantemComoPublicidade) {
+              await p.close().catch(() => {});
+            }
+          }
+        } catch (errFechar) {
+          console.log(`Aviso: falha ao limpar abas extras: ${errFechar.message}`);
+        }
+        // minimizeChrome() e sincrona (execSync), nao retorna Promise -- nao encadear .catch().
+        try { minimizeChrome(); } catch {}
+      } else {
+        await minimizeChrome();
+        await browser.close();
+      }
+    }
   }
   process.exit(0);
 })();
