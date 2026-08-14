@@ -10,6 +10,8 @@ Depende do procedimento de conexão `modo-navegador-browser-access.md` e reaprov
 
 **⚠️ REGRA GERAL OBRIGATÓRIA (14/08/2026, reforçada 14/08/2026) — paciência e confirmação de carregamento, nunca tempo fixo curto, aplicada no PROCESSO INTEIRO:** válida pra todo este documento e pro `mapeamento-skus-ads-catalogo-mercadolivre.md` — ver texto completo da regra lá (seção logo após o Propósito). Resumo: nunca confiar num `waitForTimeout` fixo curto como garantia de que algo carregou (menu, página, listagem, drawer) — sempre confirmar que o texto da página estabilizou de verdade (2 leituras seguidas idênticas) antes de ler o conteúdo, e se não apareceu na primeira tentativa, esperar mais e tentar de novo antes de concluir "não existe". **Isso vale pra todo ponto do processo, não só onde um bug já apareceu antes** — corrigir só o ponto onde o bug foi visto e deixar o resto com tempo fixo é o mesmo erro, só adiado (foi exatamente isso que gerou uma segunda rodada de bugs de timing depois da primeira correção). Trabalho seguro com dado real vale mais que trabalho rápido.
 
+**⚠️ "ID Family" (14/08/2026):** alguns SKUs têm MLBs escondidos dentro de um agrupamento colapsado ("ID Family", número de 16 dígitos, sem SKU própria, preço em faixa) — ver procedimento completo de detecção e expansão em `mapeamento-skus-ads-catalogo-mercadolivre.md` (Passo A, item 7). Vale igual pros produtos pausados em campanha — nunca assumir que a lista de MLBs de um SKU está completa sem checar/expandir isso primeiro.
+
 ## Escopo — 7 Campanhas ativas
 
 ```
