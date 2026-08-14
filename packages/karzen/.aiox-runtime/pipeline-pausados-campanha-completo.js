@@ -86,16 +86,35 @@ async function rolarPagina(page, maxTentativas = 40, intervaloMs = 600) {
 //
 // Descoberta real (14/08/2026): o botão MANTÉM o aria-label "Expandir anúncios" mesmo
 // depois de já expandido (não muda pra "Recolher anúncios") -- por isso NUNCA usar um
-// loop que re-checa a contagem esperando ela diminuir (trava pra sempre, ou pior, fica
-// clicando no mesmo botão repetidas vezes alternando expandir/recolher). A forma correta
-// e validada: contar quantos existem UMA VEZ no início, e clicar em cada índice
-// exatamente 1 vez (usando `.nth(i)`), sem re-checar a contagem depois.
+// loop que re-checa a contagem esperando ela DIMINUIR (trava pra sempre, ou pior, fica
+// clicando no mesmo botão repetidas vezes alternando expandir/recolher).
+//
+// Correção real (14/08/2026, item 1 da validação do @analyst sobre a correção do bug de
+// índice): a versão anterior contava os botões UMA VEZ e clicava em cada índice UMA VEZ,
+// assumindo que nenhum "ID Family" pode conter outro "ID Family" aninhado dentro dele.
+// Nunca visto na prática, mas nunca descartado -- se expandir um grupo revelar um NOVO
+// botão "Expandir anúncios" (grupo dentro de grupo), esse clique nunca aconteceria e os
+// MLBs escondidos lá dentro nem apareceriam no texto (pior que o bug de índice: MLBs
+// sumindo silenciosamente). Correção: repetir rodadas -- em cada rodada, reconta quantos
+// botões existem AGORA; se a contagem cresceu desde a última rodada, clica só nos ÍNDICES
+// NOVOS (de `qtdJaClicada` até `qtdAtual - 1`) -- nunca reclica nos que já foram clicados
+// antes (o aria-label não muda, então reclicar neles os RECOLHERIA por engano). Repete até
+// uma rodada não achar nenhum índice novo, com teto de segurança de 10 rodadas.
 async function expandirTodosIdFamily(page) {
-  const botoesExpandir = page.locator('button[aria-label="Expandir anúncios"]');
-  const qtdInicial = await botoesExpandir.count();
-  for (let i = 0; i < qtdInicial; i++) {
-    await botoesExpandir.nth(i).click({ timeout: 10000 }).catch(() => {});
-    await page.waitForTimeout(1800);
+  let qtdJaClicada = 0;
+  for (let rodada = 0; rodada < 10; rodada++) {
+    const botoesExpandir = page.locator('button[aria-label="Expandir anúncios"]');
+    const qtdAtual = await botoesExpandir.count();
+    if (qtdAtual <= qtdJaClicada) break; // nenhum botão novo nesta rodada -- esgotado
+
+    for (let i = qtdJaClicada; i < qtdAtual; i++) {
+      await botoesExpandir.nth(i).click({ timeout: 10000 }).catch(() => {});
+      await page.waitForTimeout(1800);
+    }
+    qtdJaClicada = qtdAtual;
+    // Conteúdo revelado pode estar fora da viewport atual -- rola antes da próxima
+    // rodada recontar, senão um grupo aninhado que só carrega ao rolar nunca é visto.
+    await rolarPagina(page, 10);
   }
 }
 
@@ -379,6 +398,18 @@ async function analisarSku(pageAnuncios, context, sku) {
   // cabecalhos de grupo ID Family, pra manter os indices dos MLBs reais corretos.
   const ordemMlbsGlobal = construirOrdemBotoes(linhas, cards);
 
+  // Item 3 da validação do @analyst (14/08/2026): autocheck de runtime -- compara o
+  // total calculado a partir do TEXTO (`ordemMlbsGlobal.length`, já conta reais + null)
+  // contra a contagem real de botões "Ações secundárias" no DOM, no MESMO estado de
+  // página (já expandido/rolado por `buscarERolar`). Se não baterem, os índices podem
+  // estar deslocados por algum caso não previsto (ex: uma linha "#numero" isolada que
+  // não corresponde a nenhum botão, ou vice-versa) -- só avisa no console, não trava o
+  // pipeline, pra virar sinal visível em vez de bug silencioso numa próxima ocorrência.
+  const qtdBotoesReal = await pageAnuncios.locator('button[aria-label="Ações secundárias"]').count().catch(() => -1);
+  if (qtdBotoesReal !== -1 && qtdBotoesReal !== ordemMlbsGlobal.length) {
+    console.log(`⚠️ Divergência de contagem de botões pro SKU ${sku}: calculado ${ordemMlbsGlobal.length}, DOM real ${qtdBotoesReal} — índices podem estar deslocados`);
+  }
+
   for (let ci = 0; ci < cards.length; ci++) {
     const card = cards[ci];
     if (card.skuValor !== sku) continue; // só processa dados detalhados do SKU buscado
@@ -406,6 +437,23 @@ async function analisarSku(pageAnuncios, context, sku) {
 
       const precoBaseMatch = blocoMlb.match(/R\$\s*\n?\s*([\d.,]+)/);
       const precoPromoMatch = blocoMlb.match(/em promoção a R\$\s*\n?\s*([\d.,]+)/);
+
+      // Item 2 da validação do @analyst (14/08/2026, mitigação -- não é prova, é uma
+      // camada extra de defesa): hoje a única distinção entre um cabeçalho de grupo "ID
+      // Family" (que deve ser ignorado) e um MLB real é o comprimento do número
+      // (`/^#\d{7,11}$/` em extrairCards) -- baseado em 1 caso real só (PROSB-3000, 16
+      // dígitos), não é uma invariante confirmada do Mercado Livre (ver
+      // .aiox/itens-em-aberto.md). Se este "MLB" não tem preço único reconhecível E o
+      // bloco mostra preço em FAIXA ("R$ X a R$ Y", marcador de card colapsado de "ID
+      // Family"), é suspeito de ser na verdade um cabeçalho de grupo cujo número
+      // coincidentemente caiu no range de 7-11 dígitos -- avisa e pula em vez de
+      // processar como MLB normal.
+      const PADRAO_PRECO_FAIXA = /R\$\s*\n?\s*[\d.,]+\s*\n?\s*a\s*\n?\s*R\$\s*\n?\s*[\d.,]+/;
+      if (!precoBaseMatch && PADRAO_PRECO_FAIXA.test(blocoMlb || janelaCardTexto)) {
+        console.log(`⚠️ MLB ${mlb} (SKU ${sku}) suspeito: sem preço único reconhecível e associado a preço em FAIXA -- pode ser cabeçalho de grupo "ID Family" com 7-11 dígitos. Pulando este item.`);
+        continue;
+      }
+
       const inativo = /Inativo sem estoque/.test(blocoMlb);
       // Correcao real (14/08/2026): regex era case-insensitive (/i), o que casava a
       // palavra "ganhando" minuscula dentro de frases comuns como "Voce esta ganhando
