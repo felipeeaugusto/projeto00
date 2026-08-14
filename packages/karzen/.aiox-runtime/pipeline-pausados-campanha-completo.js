@@ -118,8 +118,20 @@ async function acharSkuDoMlb(pageAnuncios, mlb) {
 // capturado por isso. Essa funcao cobre as 2 ordens e aceita qualquer palavra de status
 // (nao so as 4 oficiais) -- quem decide se e catalogo e o casamento por preco, nao o
 // texto do status em si.
+// Correcao real (14/08/2026): quando o anuncio tem SO 1 opcao de venda (sem Classico
+// E Premium concorrendo, so um dos dois), o Mercado Livre nao usa o rotulo "Opção N" --
+// mostra a condicao direto: "Clássico e Frete grátis\nR$\n1.200\nInativa", sem numeracao.
+// Caso real: SKU WL4000-220V, MLB #6680162274 (Concorrencia confirmada, mas
+// extrairOpcoesConcorrencia() achava 0 "Opção N" porque nao existia nenhum rotulo).
+function extrairOpcaoUnicaSemRotulo(blocoConc) {
+  const m = blocoConc.match(/(Clássico|Premium)\s+e\s+Frete\s+grátis\s*\n?\s*R\$\s*\n?\s*([\d.,]+)\s*\n?\s*([^\n]{0,40})/);
+  if (!m) return [];
+  return [{ preco: m[2], status: m[3].trim() || null, condicaoDaOpcao: m[1] }];
+}
+
 function extrairOpcoesConcorrencia(blocoConc) {
   const marcadores = [...blocoConc.matchAll(/Opção\s*\d+/g)];
+  if (marcadores.length === 0) return extrairOpcaoUnicaSemRotulo(blocoConc);
   const opcoes = [];
   for (let i = 0; i < marcadores.length; i++) {
     const inicioOpcao = marcadores[i].index;
