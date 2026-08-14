@@ -86,10 +86,27 @@ async function abrirAlterarPorIndice(pageAnuncios, indice) {
   }
   await itemAlterar.click();
   await pageAnuncios.waitForLoadState('load', { timeout: 15000 }).catch(() => {});
-  await pageAnuncios.waitForTimeout(1500);
-
-  const texto = await pageAnuncios.locator('body').innerText();
+  // Correcao real (14/08/2026): mesma regra de paciencia, agora aplicada ao CONTEUDO
+  // da pagina de destino (nao so ao menu) -- um waitForTimeout fixo apos navegar deixava
+  // ler a pagina "COMPETINDO" ja renderizado mas a secao "Concorrencia no Mercado Livre"
+  // ainda nao (texto inconsistente: temCompetindo=true, temConcorrencia=false, ao mesmo
+  // tempo). Caso real: SKU WL4000-127V, MLB #5000383363. Correcao: esperar o texto da
+  // pagina estabilizar (2 leituras seguidas identicas) antes de ler de verdade.
+  const texto = await esperarTextoEstabilizar(pageAnuncios);
   return { url: pageAnuncios.url(), texto };
+}
+
+async function esperarTextoEstabilizar(page, maxTentativas = 8, intervaloMs = 1000) {
+  let anterior = null;
+  for (let t = 0; t < maxTentativas; t++) {
+    const atual = await page.locator('body').innerText();
+    if (anterior !== null && atual === anterior && !atual.includes('A página está carregando')) {
+      return atual;
+    }
+    anterior = atual;
+    await page.waitForTimeout(intervaloMs);
+  }
+  return anterior;
 }
 
 async function acharSkuDoMlb(pageAnuncios, mlb) {
