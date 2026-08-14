@@ -33,6 +33,28 @@ async function rolarPagina(page, vezes = 10) {
   for (let i = 0; i < vezes; i++) { await page.mouse.wheel(0, 1200); await page.waitForTimeout(600); }
 }
 
+// REGRA GERAL (14/08/2026, aplicada no PROCESSO INTEIRO, não em pontos isolados --
+// ver mapeamento-skus-ads-catalogo-mercadolivre.md): nunca confiar que um tempo fixo
+// (waitForTimeout) significa "a página/ação terminou de carregar". Toda ação que
+// dispara alguma mudança na tela (busca, clique em filtro, clique em "Ver variações",
+// navegação) usa esta função em vez de um waitForTimeout isolado -- espera o texto da
+// página parar de mudar entre 2 leituras seguidas antes de considerar pronta pra ler.
+// Usada agora em TODOS os pontos do processo que antes tinham tempo fixo: busca de SKU,
+// busca reversa de MLB, filtro Pausados, abrir Ver variações, carregar campanha, abrir
+// Alterar (menu e conteúdo).
+async function esperarTextoEstabilizar(page, maxTentativas = 8, intervaloMs = 1000) {
+  let anterior = null;
+  for (let t = 0; t < maxTentativas; t++) {
+    const atual = await page.locator('body').innerText();
+    if (anterior !== null && atual === anterior && !atual.includes('A página está carregando') && atual.length > 200) {
+      return atual;
+    }
+    anterior = atual;
+    await page.waitForTimeout(intervaloMs);
+  }
+  return anterior;
+}
+
 // Correção real (13/08/2026): a versão anterior localizava a linha do MLB via
 // `ancestor::div[contains(@class,"sll-list-grid-row__main-row")]).first()` -- o eixo
 // XPath ancestor:: retorna em ordem de documento (do mais externo pro mais interno),
@@ -96,19 +118,6 @@ async function abrirAlterarPorIndice(pageAnuncios, indice) {
   return { url: pageAnuncios.url(), texto };
 }
 
-async function esperarTextoEstabilizar(page, maxTentativas = 8, intervaloMs = 1000) {
-  let anterior = null;
-  for (let t = 0; t < maxTentativas; t++) {
-    const atual = await page.locator('body').innerText();
-    if (anterior !== null && atual === anterior && !atual.includes('A página está carregando')) {
-      return atual;
-    }
-    anterior = atual;
-    await page.waitForTimeout(intervaloMs);
-  }
-  return anterior;
-}
-
 async function acharSkuDoMlb(pageAnuncios, mlb) {
   const fecharDrawer = pageAnuncios.locator('button[aria-label="Cerrar"]');
   if (await fecharDrawer.count() > 0) { await fecharDrawer.first().click().catch(() => {}); await pageAnuncios.waitForTimeout(400); }
@@ -117,8 +126,7 @@ async function acharSkuDoMlb(pageAnuncios, mlb) {
   await campo.fill('');
   await campo.fill(mlb);
   await pageAnuncios.keyboard.press('Enter');
-  await pageAnuncios.waitForTimeout(2800);
-  const texto = await pageAnuncios.locator('body').innerText();
+  const texto = await esperarTextoEstabilizar(pageAnuncios);
   const idxSku = texto.indexOf('SKU ');
   if (idxSku === -1) return null;
   const m = texto.slice(idxSku, idxSku + 60).match(/SKU\s+(\S+)/);
@@ -189,11 +197,10 @@ async function analisarSku(pageAnuncios, context, sku) {
     await campo.fill('');
     await campo.fill(sku);
     await pageAnuncios.keyboard.press('Enter');
-    await pageAnuncios.waitForTimeout(3000);
+    await esperarTextoEstabilizar(pageAnuncios);
     await rolarPagina(pageAnuncios, 14);
     await pageAnuncios.mouse.wheel(0, -20000);
-    await pageAnuncios.waitForTimeout(500);
-    const texto = await pageAnuncios.locator('body').innerText();
+    const texto = await esperarTextoEstabilizar(pageAnuncios);
     const idxFiltrar = texto.indexOf('Filtrar e ordenar');
     const idxRodape = texto.indexOf('Você recebeu');
     return texto.slice(idxFiltrar, idxRodape !== -1 ? idxRodape : idxFiltrar + 12000);
@@ -321,7 +328,7 @@ async function analisarSku(pageAnuncios, context, sku) {
       // Sempre volta pra aba de Anúncios limpa antes do próximo uso -- clicar em
       // "Alterar" navega a MESMA aba (não abre guia nova, ver nota em abrirAlterarPorIndice)
       await pageAnuncios.goto(URL_ANUNCIOS).catch(() => {});
-      await pageAnuncios.waitForTimeout(1000);
+      await esperarTextoEstabilizar(pageAnuncios);
     }
   }
 
@@ -367,7 +374,7 @@ if (require.main === module) {
     const context = browser.contexts()[0];
     let pageAnuncios = context.pages().find((p) => p.url().includes('vendedores.mercadolivre.com.br/anuncios'));
     if (!pageAnuncios) pageAnuncios = await openBackgroundPage(browser, context, URL_ANUNCIOS);
-    await pageAnuncios.waitForTimeout(1500);
+    await esperarTextoEstabilizar(pageAnuncios);
 
     for (const campanha of CAMPANHAS) {
       const chaveCampanha = campanha.nome;
@@ -376,22 +383,17 @@ if (require.main === module) {
       console.log(`\n\n########## CAMPANHA: ${campanha.nome} ##########`);
       const pageCampanha = await openBackgroundPage(browser, context, campanha.url);
 
-      let texto = '';
-      for (let t = 0; t < 10; t++) {
-        await pageCampanha.waitForTimeout(1500);
-        texto = await pageCampanha.locator('body').innerText();
-        if (texto.length > 500) break;
-      }
+      let texto = await esperarTextoEstabilizar(pageCampanha);
       await rolarPagina(pageCampanha, 10);
-      await pageCampanha.waitForTimeout(1500);
+      texto = await esperarTextoEstabilizar(pageCampanha);
 
       const botaoPausados = pageCampanha.getByText('Pausados', { exact: true }).first();
       await botaoPausados.waitFor({ state: 'visible', timeout: 15000 }).catch(() => {});
       if (await botaoPausados.count() > 0) {
         await botaoPausados.click();
-        await pageCampanha.waitForTimeout(4000);
+        await esperarTextoEstabilizar(pageCampanha);
         await rolarPagina(pageCampanha, 14);
-        await pageCampanha.waitForTimeout(1500);
+        await esperarTextoEstabilizar(pageCampanha);
       }
 
       texto = await pageCampanha.locator('body').innerText();
@@ -439,16 +441,13 @@ if (require.main === module) {
           const elTitulo = pageCampanha.getByText(tituloProduto, { exact: true }).first();
           await elTitulo.waitFor({ state: 'visible', timeout: 10000 });
           await elTitulo.scrollIntoViewIfNeeded();
-          await pageCampanha.waitForTimeout(800);
 
           const linkVerVariacoes = elTitulo.locator('xpath=following::*[normalize-space(text())="Ver variações"][1]');
-          if (await linkVerVariacoes.count() === 0) { console.log('  Link Ver variacoes nao encontrado -- pulando'); continue; }
+          const apareceuLink = await esperarElementoComCalma(linkVerVariacoes);
+          if (!apareceuLink) { console.log('  Link Ver variacoes nao encontrado -- pulando'); continue; }
           await linkVerVariacoes.click();
-          await pageCampanha.waitForTimeout(2500);
           await rolarPagina(pageCampanha, 10);
-          await pageCampanha.waitForTimeout(1000);
-
-          const textoDrawer = await pageCampanha.locator('body').innerText();
+          const textoDrawer = await esperarTextoEstabilizar(pageCampanha);
           const idxTituloDrawer = textoDrawer.lastIndexOf(tituloProduto);
           const mlbsNoDrawer = [...new Set((textoDrawer.slice(idxTituloDrawer).match(/MLB\d{7,11}/g) || []).map(m => m.replace('MLB','')))];
           console.log(`  MLBs no drawer: ${mlbsNoDrawer.length} -- ${mlbsNoDrawer.join(', ')}`);
