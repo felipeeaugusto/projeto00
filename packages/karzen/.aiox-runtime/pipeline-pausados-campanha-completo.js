@@ -267,7 +267,16 @@ async function acharSkuDoMlb(pageAnuncios, mlb) {
 // nao um status) como se fosse status valido. Lista de rejeicao pra descartar capturas
 // obviamente erradas -- texto terminando em ":" (rotulo de campo) ou frases conhecidas
 // que nao sao status.
-const FRASES_NAO_STATUS = [/:$/, /^Outras opções de venda$/i, /^Nível de visitas$/i, /^Experiência de compra$/i];
+// Correcao real (14/08/2026, item 1 da validacao do @analyst sobre a lacuna do casamento
+// de preco): entradas de "Outras opcoes de venda" (referencia ao proprio anuncio irmao,
+// ex: "Clássico e Frete grátis") sao capturadas por extrairOpcoesConcorrencia() como se
+// fossem "status" -- mas nao sao status de competicao real, sao so um rotulo de condicao.
+// Foi exatamente uma entrada dessas ("Clássico e Frete grátis R$1.399,90") que causou o
+// bug original reportado pelo Felipe: o preco dela coincidiu com o precoBase do MLB
+// #6714259004 e foi usada como se fosse o status catalogo dele. Rejeitar aqui faz essas
+// entradas virarem status:null, o que ja exclui elas de `opcoes.find(o => o.status && ...)`
+// em analisarSku -- sem precisar mudar mais nada.
+const FRASES_NAO_STATUS = [/:$/, /^Outras opções de venda$/i, /^Nível de visitas$/i, /^Experiência de compra$/i, /^(Clássico|Premium)\s+e\s+Frete\s+grátis$/i];
 function pareceStatusValido(texto) {
   if (!texto) return false;
   const limpo = texto.trim();
@@ -526,6 +535,20 @@ async function analisarSku(pageAnuncios, context, sku) {
           const opcaoBatida = (mlbs[mlb].precoPromo && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoPromo))
             || (mlbs[mlb].precoBase && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoBase))
             || null;
+
+          // Item 2 da validacao do @analyst (14/08/2026): mesmo depois de excluir "Outras
+          // opcoes de venda" (item 1 acima), 2 opcoes com status REAL (GANHANDO/PERDENDO/
+          // etc.) ainda podem, em teoria, compartilhar o mesmo preco (ex: precoPromo
+          // coincidindo entre condicoes por algum motivo) -- `.find()` sempre resolve pra
+          // uma resposta, silenciosamente, mesmo quando ha mais de 1 candidato valido.
+          // Autocheck: se mais de 1 opcao com status real tem o mesmo preco escolhido,
+          // avisa (nao trava) -- mesmo padrao ja usado no autocheck de indice de botao.
+          if (opcaoBatida) {
+            const qtdMesmoPreco = opcoes.filter(o => o.status && o.preco === opcaoBatida.preco).length;
+            if (qtdMesmoPreco > 1) {
+              console.log(`⚠️ Preço ${opcaoBatida.preco} ambíguo pro MLB ${mlb} — ${qtdMesmoPreco} opções com esse preço e status real, pegou a primeira ("${opcaoBatida.status}")`);
+            }
+          }
 
           mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, opcoesEncontradas: opcoes, opcaoBatida: opcaoBatida || null };
           if (opcaoBatida) mlbs[mlb].statusCatalogo = opcaoBatida.status;

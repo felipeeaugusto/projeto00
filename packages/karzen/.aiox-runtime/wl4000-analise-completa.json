@@ -10,7 +10,7 @@
     ],
     "mlbs": {
       "4984216839": {
-        "full": "75 un.",
+        "full": "74 un.",
         "deposito": "179 un.",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
@@ -22,7 +22,7 @@
         "viaAlterar": null
       },
       "6714259004": {
-        "full": "75 un.",
+        "full": "74 un.",
         "deposito": "179 un.",
         "statusProduto": "Ativo",
         "condicao": "Premium",
@@ -46,11 +46,11 @@
             },
             {
               "preco": "1.399,90",
-              "status": "Premium e Frete grátis"
+              "status": null
             },
             {
               "preco": "1.399,90",
-              "status": "Clássico e Frete grátis"
+              "status": null
             }
           ],
           "opcaoBatida": {
@@ -60,7 +60,7 @@
         }
       },
       "4984216837": {
-        "full": "75 un.",
+        "full": "74 un.",
         "deposito": "179 un.",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
@@ -76,7 +76,7 @@
         }
       },
       "6714259000": {
-        "full": "75 un.",
+        "full": "74 un.",
         "deposito": "179 un.",
         "statusProduto": "Ativo",
         "condicao": "Premium",
@@ -153,11 +153,11 @@
           },
           {
             "preco": "1.399,90",
-            "status": "Premium e Frete grátis"
+            "status": null
           },
           {
             "preco": "1.399,90",
-            "status": "Clássico e Frete grátis"
+            "status": null
           }
         ],
         "opcaoBatida": {
@@ -238,11 +238,11 @@
             },
             {
               "preco": "1.300",
-              "status": "Premium e Frete grátis"
+              "status": null
             },
             {
               "preco": "1.149,90",
-              "status": "Clássico e Frete grátis"
+              "status": null
             }
           ],
           "opcaoBatida": {
@@ -276,11 +276,11 @@
             },
             {
               "preco": "1.300",
-              "status": "Premium e Frete grátis"
+              "status": null
             },
             {
               "preco": "1.149,90",
-              "status": "Clássico e Frete grátis"
+              "status": null
             }
           ],
           "opcaoBatida": {
@@ -383,11 +383,11 @@
           },
           {
             "preco": "1.300",
-            "status": "Premium e Frete grátis"
+            "status": null
           },
           {
             "preco": "1.149,90",
-            "status": "Clássico e Frete grátis"
+            "status": null
           }
         ],
         "opcaoBatida": {
@@ -411,11 +411,11 @@
           },
           {
             "preco": "1.300",
-            "status": "Premium e Frete grátis"
+            "status": null
           },
           {
             "preco": "1.149,90",
-            "status": "Clássico e Frete grátis"
+            "status": null
           }
         ],
         "opcaoBatida": {
