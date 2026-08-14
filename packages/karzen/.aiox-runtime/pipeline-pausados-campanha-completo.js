@@ -341,15 +341,46 @@ async function analisarSku(pageAnuncios, context, sku) {
     return { linhas, cards };
   }
 
+  // Correcao real (14/08/2026) -- indice de botao errado apos expandir "ID Family":
+  // `ordemMlbsGlobal` so incluia MLBs reais, mas cada card "ID Family" (agrupamento
+  // colapsado, ver expandirTodosIdFamily) TAMBEM tem seu proprio botao "Acoes
+  // secundarias" no DOM (pra acoes no nivel do grupo inteiro) -- esse botao continua
+  // existindo mesmo depois de expandido. Como esse botao nunca era contado, todo indice
+  // calculado a partir do 1o grupo em diante ficava deslocado, clicando no botao errado.
+  // Caso real confirmado (SKU PROSB-3000, mapeamento indice->item_id real validado 1 a
+  // 1): 8 botoes no DOM pra 6 MLBs reais -- os 2 extras sao os cabecalhos dos 2 grupos
+  // ID Family, um logo ANTES dos MLBs do proprio grupo.
+  //
+  // Correcao: escanear TODA linha "#numero" (qualquer tamanho, nao so 7-11 digitos) na
+  // ordem em que aparecem no texto -- cada uma corresponde a exatamente 1 botao "Acoes
+  // secundarias" no DOM. As que SAO MLB real (ja capturadas em `cards`) entram com o
+  // proprio numero; as que NAO sao (cabecalhos de grupo ID Family, 12+ digitos, sem
+  // "SKU" propria) entram como `null` -- ocupando o slot de indice sem nunca ser
+  // retornadas por `.indexOf(mlb)`, preservando o deslocamento correto pros MLBs reais
+  // que vem depois.
+  function construirOrdemBotoes(linhas, cards) {
+    const linhasRealMlb = new Set();
+    for (const card of cards) {
+      for (let li = card.linhaHeaderIdx; li < card.linhaSkuIdx; li++) linhasRealMlb.add(li);
+    }
+    const ordem = [];
+    for (let i = 0; i < linhas.length; i++) {
+      if (/^#\d+$/.test(linhas[i].trim())) {
+        ordem.push(linhasRealMlb.has(i) ? linhas[i].trim().replace('#', '') : null);
+      }
+    }
+    return ordem;
+  }
+
   const blocoBruto = await buscarERolar();
   const { linhas, cards } = extrairCards(blocoBruto);
   const mlbs = {};
-  const ordemMlbsGlobal = []; // ordem visual/DOM de TODOS os cards retornados -- usada
-                               // como índice do botão de 3 pontinhos (bug 1 corrigido)
+  // Ordem real dos botoes "Acoes secundarias" no DOM -- inclui `null` nas posicoes dos
+  // cabecalhos de grupo ID Family, pra manter os indices dos MLBs reais corretos.
+  const ordemMlbsGlobal = construirOrdemBotoes(linhas, cards);
 
   for (let ci = 0; ci < cards.length; ci++) {
     const card = cards[ci];
-    card.mlbsHeader.forEach(mlb => ordemMlbsGlobal.push(mlb));
     if (card.skuValor !== sku) continue; // só processa dados detalhados do SKU buscado
 
     const janelaCardTexto = linhas.slice(card.linhaSkuIdx, card.linhaSkuIdx + 30).join('\n');
