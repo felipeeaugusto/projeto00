@@ -53,6 +53,22 @@ async function rolarPagina(page, vezes = 10) {
 // href pra abrir via "abrir link em nova guia" nesse menu específico. Documentado como
 // desvio consciente da instrução original do Felipe (que pedia sempre nova guia) por
 // impossibilidade técnica -- reportar isso de volta antes de considerar resolvido.
+// Correcao real (14/08/2026, regra geral de paciencia -- ver mapeamento-skus...md):
+// um waitForTimeout fixo, mesmo de 1.5s, as vezes nao e suficiente (conexao lenta,
+// cache do Chrome, pagina muito cheia) -- fazendo o item "Alterar" parecer ausente
+// quando na verdade so ainda nao carregou. Caso real: MLB #5923053118 (SKU
+// MCT-32MM-BIV) falhou com "nao encontrou botao ou item Alterar" numa rodada e
+// funcionou normalmente em outra, mesma pagina, mesmo indice -- prova que era timing,
+// nao ausencia real. Correcao: polling ate 8s (checando a cada 1s) em vez de um unico
+// tempo fixo curto, so desistindo de verdade se realmente nao aparecer apos esperar.
+async function esperarElementoComCalma(locator, maxTentativas = 8, intervaloMs = 1000) {
+  for (let t = 0; t < maxTentativas; t++) {
+    if (await locator.count() > 0) return true;
+    await locator.page().waitForTimeout(intervaloMs);
+  }
+  return false;
+}
+
 async function abrirAlterarPorIndice(pageAnuncios, indice) {
   const botoes = pageAnuncios.locator('button[aria-label="Ações secundárias"]');
   const qtd = await botoes.count();
@@ -61,12 +77,10 @@ async function abrirAlterarPorIndice(pageAnuncios, indice) {
   await botaoAlvo.scrollIntoViewIfNeeded();
   await pageAnuncios.waitForTimeout(400);
   await botaoAlvo.click();
-  // Delay essencial (13/08/2026): queries mais rápidas que ~1.5s retornam 0 elementos
-  // "Alterar" por timing, não por ausência real -- confirmado em investigação real.
-  await pageAnuncios.waitForTimeout(1500);
 
   const itemAlterar = pageAnuncios.locator('*').filter({ hasText: /^Alterar$/ }).last();
-  if (await itemAlterar.count() === 0) {
+  const apareceu = await esperarElementoComCalma(itemAlterar);
+  if (!apareceu) {
     await pageAnuncios.keyboard.press('Escape').catch(() => {});
     return null;
   }
