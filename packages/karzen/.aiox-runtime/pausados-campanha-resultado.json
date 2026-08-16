@@ -2679,271 +2679,6 @@
         }
       }
     },
-    "Air fryer Philco PAF55A": {
-      "titulo": "Air fryer Philco PAF55A",
-      "mlbsNoDrawer": [
-        "6680008648",
-        "6680021202",
-        "6680007372",
-        "6680007364",
-        "4657267299",
-        "4657244743",
-        "4657192869",
-        "4657115829"
-      ],
-      "skus": {
-        "PAF55A-220V": {
-          "sku": "PAF55A-220V",
-          "todosMlbsSincronizados": [
-            "6680008648",
-            "6680021202",
-            "4657244743",
-            "4657267299"
-          ],
-          "catalogoClassico": "6680008648",
-          "catalogoPremium": "4657244743",
-          "deposito": "-",
-          "full": "55",
-          "qualidade": "63",
-          "experiencia": "-",
-          "statusProduto": "Ativo",
-          "statusCatalogoViaAlterar": [
-            {
-              "mlb": "6680021202",
-              "ehPai": true,
-              "temCompetindo": false,
-              "temConcorrencia": false
-            },
-            {
-              "mlb": "4657244743",
-              "ehPai": false,
-              "temCompetindo": true,
-              "temConcorrencia": true,
-              "opcoesEncontradas": [
-                {
-                  "preco": "700",
-                  "status": "Inativa",
-                  "condicaoDaOpcao": "Premium"
-                }
-              ],
-              "opcaoBatida": {
-                "preco": "700",
-                "status": "Inativa",
-                "condicaoDaOpcao": "Premium"
-              }
-            },
-            {
-              "mlb": "4657267299",
-              "ehPai": true,
-              "temCompetindo": false,
-              "temConcorrencia": false
-            }
-          ],
-          "mlbsDetalhe": {
-            "6680008648": {
-              "full": "55 un.",
-              "deposito": null,
-              "statusProduto": "Ativo",
-              "condicao": "Clássico",
-              "statusCatalogo": "GANHANDO",
-              "qualidade": "63",
-              "experiencia": null,
-              "precoBase": "600",
-              "precoPromo": "402,44",
-              "viaAlterar": null
-            },
-            "6680021202": {
-              "full": "55 un.",
-              "deposito": null,
-              "statusProduto": "Ativo",
-              "condicao": "Clássico",
-              "statusCatalogo": null,
-              "qualidade": "81",
-              "experiencia": null,
-              "precoBase": "600",
-              "precoPromo": "402,44",
-              "viaAlterar": {
-                "ehPai": true,
-                "temCompetindo": false,
-                "temConcorrencia": false
-              }
-            },
-            "4657244743": {
-              "full": null,
-              "deposito": "sem estoque",
-              "statusProduto": "Pausado",
-              "condicao": "Premium",
-              "statusCatalogo": "Inativa",
-              "qualidade": null,
-              "experiencia": null,
-              "precoBase": "700",
-              "precoPromo": "431,73",
-              "viaAlterar": {
-                "ehPai": false,
-                "temCompetindo": true,
-                "temConcorrencia": true,
-                "opcoesEncontradas": [
-                  {
-                    "preco": "700",
-                    "status": "Inativa",
-                    "condicaoDaOpcao": "Premium"
-                  }
-                ],
-                "opcaoBatida": {
-                  "preco": "700",
-                  "status": "Inativa",
-                  "condicaoDaOpcao": "Premium"
-                }
-              }
-            },
-            "4657267299": {
-              "full": null,
-              "deposito": "sem estoque",
-              "statusProduto": "Pausado",
-              "condicao": "Premium",
-              "statusCatalogo": null,
-              "qualidade": null,
-              "experiencia": null,
-              "precoBase": "700",
-              "precoPromo": "431,73",
-              "viaAlterar": {
-                "ehPai": true,
-                "temCompetindo": false,
-                "temConcorrencia": false
-              }
-            }
-          }
-        },
-        "PAF55A-127V": {
-          "sku": "PAF55A-127V",
-          "todosMlbsSincronizados": [
-            "6680007372",
-            "6680007364",
-            "6721328616",
-            "4657164397"
-          ],
-          "catalogoClassico": "6680007372",
-          "catalogoPremium": null,
-          "deposito": "-",
-          "full": "-",
-          "qualidade": "-",
-          "experiencia": "-",
-          "statusProduto": "Pausado",
-          "statusCatalogoViaAlterar": [
-            {
-              "mlb": "6680007372",
-              "ehPai": false,
-              "temCompetindo": true,
-              "temConcorrencia": true,
-              "opcoesEncontradas": [
-                {
-                  "preco": "600",
-                  "status": "Inativa",
-                  "condicaoDaOpcao": "Clássico"
-                }
-              ],
-              "opcaoBatida": {
-                "preco": "600",
-                "status": "Inativa",
-                "condicaoDaOpcao": "Clássico"
-              }
-            },
-            {
-              "mlb": "6680007364",
-              "ehPai": true,
-              "temCompetindo": false,
-              "temConcorrencia": false
-            },
-            {
-              "mlb": "6721328616",
-              "ehPai": true,
-              "temCompetindo": false,
-              "temConcorrencia": false
-            },
-            {
-              "mlb": "4657164397",
-              "erro": "nao encontrou botao ou item Alterar"
-            }
-          ],
-          "mlbsDetalhe": {
-            "6680007372": {
-              "full": null,
-              "deposito": "sem estoque",
-              "statusProduto": "Pausado",
-              "condicao": "Clássico",
-              "statusCatalogo": "Inativa",
-              "qualidade": null,
-              "experiencia": null,
-              "precoBase": "600",
-              "precoPromo": null,
-              "viaAlterar": {
-                "ehPai": false,
-                "temCompetindo": true,
-                "temConcorrencia": true,
-                "opcoesEncontradas": [
-                  {
-                    "preco": "600",
-                    "status": "Inativa",
-                    "condicaoDaOpcao": "Clássico"
-                  }
-                ],
-                "opcaoBatida": {
-                  "preco": "600",
-                  "status": "Inativa",
-                  "condicaoDaOpcao": "Clássico"
-                }
-              }
-            },
-            "6680007364": {
-              "full": null,
-              "deposito": "sem estoque",
-              "statusProduto": "Pausado",
-              "condicao": "Clássico",
-              "statusCatalogo": null,
-              "qualidade": null,
-              "experiencia": null,
-              "precoBase": "600",
-              "precoPromo": null,
-              "viaAlterar": {
-                "ehPai": true,
-                "temCompetindo": false,
-                "temConcorrencia": false
-              }
-            },
-            "6721328616": {
-              "full": null,
-              "deposito": "sem estoque",
-              "statusProduto": "Pausado",
-              "condicao": "Premium",
-              "statusCatalogo": null,
-              "qualidade": null,
-              "experiencia": null,
-              "precoBase": "700",
-              "precoPromo": null,
-              "viaAlterar": {
-                "ehPai": true,
-                "temCompetindo": false,
-                "temConcorrencia": false
-              }
-            },
-            "4657164397": {
-              "full": null,
-              "deposito": "sem estoque",
-              "statusProduto": "Ativo",
-              "condicao": "Premium",
-              "statusCatalogo": null,
-              "qualidade": null,
-              "experiencia": null,
-              "precoBase": "690",
-              "precoPromo": null,
-              "viaAlterar": {
-                "erro": "nao encontrou botao ou item Alterar"
-              }
-            }
-          }
-        }
-      }
-    },
     "Mixer Philco PMX1000 PMX1000": {
       "titulo": "Mixer Philco PMX1000 PMX1000",
       "mlbsNoDrawer": [
@@ -3237,6 +2972,523 @@
         }
       }
     },
+    "Air fryer Philco PAF55A": {
+      "titulo": "Air fryer Philco PAF55A",
+      "mlbsNoDrawer": [
+        "6680008648",
+        "6680021202",
+        "6680007372",
+        "6680007364",
+        "4657267299",
+        "4657244743",
+        "4657192869",
+        "4657115829"
+      ],
+      "skus": {
+        "PAF55A-220V": {
+          "sku": "PAF55A-220V",
+          "todosMlbsSincronizados": [
+            "6680008648",
+            "6680021202",
+            "4657244743",
+            "4657267299"
+          ],
+          "catalogoClassico": "6680008648",
+          "catalogoPremium": "4657244743",
+          "deposito": "-",
+          "full": "55",
+          "qualidade": "63",
+          "experiencia": "-",
+          "statusProduto": "Ativo",
+          "statusCatalogoViaAlterar": [
+            {
+              "mlb": "6680021202",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            },
+            {
+              "mlb": "4657244743",
+              "ehPai": false,
+              "temCompetindo": true,
+              "temConcorrencia": true,
+              "opcoesEncontradas": [
+                {
+                  "preco": "700",
+                  "status": "Inativa",
+                  "condicaoDaOpcao": "Premium"
+                }
+              ],
+              "opcaoBatida": {
+                "preco": "700",
+                "status": "Inativa",
+                "condicaoDaOpcao": "Premium"
+              }
+            },
+            {
+              "mlb": "4657267299",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            }
+          ],
+          "mlbsDetalhe": {
+            "6680008648": {
+              "full": "55 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": "GANHANDO",
+              "qualidade": "63",
+              "experiencia": null,
+              "precoBase": "600",
+              "precoPromo": "402,44",
+              "viaAlterar": null
+            },
+            "6680021202": {
+              "full": "55 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": "81",
+              "experiencia": null,
+              "precoBase": "600",
+              "precoPromo": "402,44",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            },
+            "4657244743": {
+              "full": null,
+              "deposito": "sem estoque",
+              "statusProduto": "Pausado",
+              "condicao": "Premium",
+              "statusCatalogo": "Inativa",
+              "qualidade": null,
+              "experiencia": null,
+              "precoBase": "700",
+              "precoPromo": "431,73",
+              "viaAlterar": {
+                "ehPai": false,
+                "temCompetindo": true,
+                "temConcorrencia": true,
+                "opcoesEncontradas": [
+                  {
+                    "preco": "700",
+                    "status": "Inativa",
+                    "condicaoDaOpcao": "Premium"
+                  }
+                ],
+                "opcaoBatida": {
+                  "preco": "700",
+                  "status": "Inativa",
+                  "condicaoDaOpcao": "Premium"
+                }
+              }
+            },
+            "4657267299": {
+              "full": null,
+              "deposito": "sem estoque",
+              "statusProduto": "Pausado",
+              "condicao": "Premium",
+              "statusCatalogo": null,
+              "qualidade": null,
+              "experiencia": null,
+              "precoBase": "700",
+              "precoPromo": "431,73",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            }
+          }
+        },
+        "PAF55A-127V": {
+          "sku": "PAF55A-127V",
+          "todosMlbsSincronizados": [
+            "6680007372",
+            "6680007364",
+            "6721328616",
+            "4657164397"
+          ],
+          "catalogoClassico": "6680007372",
+          "catalogoPremium": null,
+          "deposito": "-",
+          "full": "-",
+          "qualidade": "-",
+          "experiencia": "-",
+          "statusProduto": "Pausado",
+          "statusCatalogoViaAlterar": [
+            {
+              "mlb": "6680007372",
+              "ehPai": false,
+              "temCompetindo": true,
+              "temConcorrencia": true,
+              "opcoesEncontradas": [
+                {
+                  "preco": "600",
+                  "status": "Inativa",
+                  "condicaoDaOpcao": "Clássico"
+                }
+              ],
+              "opcaoBatida": {
+                "preco": "600",
+                "status": "Inativa",
+                "condicaoDaOpcao": "Clássico"
+              }
+            },
+            {
+              "mlb": "6680007364",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            },
+            {
+              "mlb": "6721328616",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            },
+            {
+              "mlb": "4657164397",
+              "erro": "nao encontrou botao ou item Alterar"
+            }
+          ],
+          "mlbsDetalhe": {
+            "6680007372": {
+              "full": null,
+              "deposito": "sem estoque",
+              "statusProduto": "Pausado",
+              "condicao": "Clássico",
+              "statusCatalogo": "Inativa",
+              "qualidade": null,
+              "experiencia": null,
+              "precoBase": "600",
+              "precoPromo": null,
+              "viaAlterar": {
+                "ehPai": false,
+                "temCompetindo": true,
+                "temConcorrencia": true,
+                "opcoesEncontradas": [
+                  {
+                    "preco": "600",
+                    "status": "Inativa",
+                    "condicaoDaOpcao": "Clássico"
+                  }
+                ],
+                "opcaoBatida": {
+                  "preco": "600",
+                  "status": "Inativa",
+                  "condicaoDaOpcao": "Clássico"
+                }
+              }
+            },
+            "6680007364": {
+              "full": null,
+              "deposito": "sem estoque",
+              "statusProduto": "Pausado",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": null,
+              "experiencia": null,
+              "precoBase": "600",
+              "precoPromo": null,
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            },
+            "6721328616": {
+              "full": null,
+              "deposito": "sem estoque",
+              "statusProduto": "Pausado",
+              "condicao": "Premium",
+              "statusCatalogo": null,
+              "qualidade": null,
+              "experiencia": null,
+              "precoBase": "700",
+              "precoPromo": null,
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            },
+            "4657164397": {
+              "full": null,
+              "deposito": "sem estoque",
+              "statusProduto": "Ativo",
+              "condicao": "Premium",
+              "statusCatalogo": null,
+              "qualidade": null,
+              "experiencia": null,
+              "precoBase": "690",
+              "precoPromo": null,
+              "viaAlterar": {
+                "erro": "nao encontrou botao ou item Alterar"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Secador de cabelo GA.MA Italy PRIMO II BIVOLT C": {
+      "titulo": "Secador de cabelo GA.MA Italy PRIMO II BIVOLT C",
+      "mlbsNoDrawer": [
+        "6754529246",
+        "4670672195",
+        "4670803311",
+        "4670660503"
+      ],
+      "skus": {
+        "SCG-MR-BIV": {
+          "sku": "SCG-MR-BIV",
+          "todosMlbsSincronizados": [
+            "4670672195",
+            "6754529246",
+            "4670660503",
+            "4670803311"
+          ],
+          "catalogoClassico": "4670672195",
+          "catalogoPremium": "6754529246",
+          "deposito": "-",
+          "full": "16",
+          "qualidade": "-",
+          "experiencia": "-",
+          "statusProduto": "Ativo",
+          "statusCatalogoViaAlterar": [
+            {
+              "mlb": "6754529246",
+              "ehPai": false,
+              "temCompetindo": true,
+              "temConcorrencia": true,
+              "opcoesEncontradas": [
+                {
+                  "preco": "380",
+                  "status": "GANHANDO"
+                },
+                {
+                  "preco": "245,15",
+                  "status": "PERDENDO"
+                },
+                {
+                  "preco": "380",
+                  "status": null
+                },
+                {
+                  "preco": "400",
+                  "status": null
+                }
+              ],
+              "opcaoBatida": {
+                "preco": "245,15",
+                "status": "PERDENDO"
+              }
+            },
+            {
+              "mlb": "4670660503",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            },
+            {
+              "mlb": "4670803311",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            }
+          ],
+          "mlbsDetalhe": {
+            "4670672195": {
+              "full": "16 un.",
+              "deposito": "sem estoque",
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": "GANHANDO",
+              "qualidade": "71",
+              "experiencia": null,
+              "precoBase": "380",
+              "precoPromo": "179",
+              "viaAlterar": null
+            },
+            "6754529246": {
+              "full": "16 un.",
+              "deposito": "sem estoque",
+              "statusProduto": "Ativo",
+              "condicao": "Premium",
+              "statusCatalogo": "PERDENDO",
+              "qualidade": "71",
+              "experiencia": null,
+              "precoBase": "400",
+              "precoPromo": "245,15",
+              "viaAlterar": {
+                "ehPai": false,
+                "temCompetindo": true,
+                "temConcorrencia": true,
+                "opcoesEncontradas": [
+                  {
+                    "preco": "380",
+                    "status": "GANHANDO"
+                  },
+                  {
+                    "preco": "245,15",
+                    "status": "PERDENDO"
+                  },
+                  {
+                    "preco": "380",
+                    "status": null
+                  },
+                  {
+                    "preco": "400",
+                    "status": null
+                  }
+                ],
+                "opcaoBatida": {
+                  "preco": "245,15",
+                  "status": "PERDENDO"
+                }
+              }
+            },
+            "4670660503": {
+              "full": "16 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": "93",
+              "experiencia": null,
+              "precoBase": "380",
+              "precoPromo": "179",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            },
+            "4670803311": {
+              "full": "16 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Premium",
+              "statusCatalogo": null,
+              "qualidade": "93",
+              "experiencia": null,
+              "precoBase": "400",
+              "precoPromo": "245,15",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "Secador de cabelo GA.MA ItalyKeration BECHD0000003014": {
+      "titulo": "Secador de cabelo GA.MA ItalyKeration BECHD0000003014",
+      "mlbsNoDrawer": [
+        "6754674964",
+        "4670646181",
+        "6754667316",
+        "6754175514"
+      ],
+      "skus": {
+        "SCG-4D-BIV": {
+          "sku": "SCG-4D-BIV",
+          "todosMlbsSincronizados": [
+            "4670646181",
+            "6754175514",
+            "6754667316",
+            "6754674964"
+          ],
+          "catalogoClassico": "4670646181",
+          "catalogoPremium": "6754674964",
+          "deposito": "-",
+          "full": "431",
+          "qualidade": "63",
+          "experiencia": "30",
+          "statusProduto": "Ativo",
+          "statusCatalogoViaAlterar": [
+            {
+              "mlb": "6754175514",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            },
+            {
+              "mlb": "6754667316",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            }
+          ],
+          "mlbsDetalhe": {
+            "4670646181": {
+              "full": "431 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": "PERDENDO",
+              "qualidade": "63",
+              "experiencia": "30",
+              "precoBase": "570",
+              "precoPromo": "375,84",
+              "viaAlterar": null
+            },
+            "6754175514": {
+              "full": "431 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": "81",
+              "experiencia": "30",
+              "precoBase": "570",
+              "precoPromo": "375,84",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            },
+            "6754667316": {
+              "full": null,
+              "deposito": "1 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Premium",
+              "statusCatalogo": null,
+              "qualidade": "93",
+              "experiencia": null,
+              "precoBase": "590",
+              "precoPromo": "456,47",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            },
+            "6754674964": {
+              "full": null,
+              "deposito": "1 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Premium",
+              "statusCatalogo": "PERDENDO",
+              "qualidade": "72",
+              "experiencia": null,
+              "precoBase": "590",
+              "precoPromo": "456,47",
+              "viaAlterar": null
+            }
+          }
+        }
+      }
+    },
     "Air fryer Philco NA PAF11B": {
       "titulo": "Air fryer Philco NA PAF11B",
       "mlbsNoDrawer": [
@@ -3349,7 +3601,7 @@
           "catalogoClassico": "6679980126",
           "catalogoPremium": "4639440143",
           "deposito": "-",
-          "full": "52",
+          "full": "51",
           "qualidade": "-",
           "experiencia": "-",
           "statusProduto": "Ativo",
@@ -3397,12 +3649,12 @@
           ],
           "mlbsDetalhe": {
             "4639440143": {
-              "full": "52 un.",
+              "full": "51 un.",
               "deposito": null,
               "statusProduto": "Ativo",
               "condicao": "Premium",
               "statusCatalogo": "PERDENDO",
-              "qualidade": "71",
+              "qualidade": "76",
               "experiencia": null,
               "precoBase": "700",
               "precoPromo": "562,90",
@@ -3435,19 +3687,19 @@
               }
             },
             "6679980126": {
-              "full": "52 un.",
+              "full": "51 un.",
               "deposito": null,
               "statusProduto": "Ativo",
               "condicao": "Clássico",
               "statusCatalogo": "GANHANDO",
-              "qualidade": "71",
+              "qualidade": "76",
               "experiencia": null,
               "precoBase": "700",
-              "precoPromo": "524,71",
+              "precoPromo": "479",
               "viaAlterar": null
             },
             "6679980110": {
-              "full": "52 un.",
+              "full": "51 un.",
               "deposito": null,
               "statusProduto": "Ativo",
               "condicao": "Clássico",
@@ -3455,7 +3707,7 @@
               "qualidade": "93",
               "experiencia": null,
               "precoBase": "700",
-              "precoPromo": "524,71",
+              "precoPromo": "479",
               "viaAlterar": {
                 "ehPai": true,
                 "temCompetindo": false,
@@ -3463,7 +3715,7 @@
               }
             },
             "6680542590": {
-              "full": "52 un.",
+              "full": "51 un.",
               "deposito": null,
               "statusProduto": "Ativo",
               "condicao": "Premium",
@@ -3472,6 +3724,139 @@
               "experiencia": null,
               "precoBase": "700",
               "precoPromo": "562,90",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "Escova secadora/alisadora/volumizadora/modeladora Taiff Gloss": {
+      "titulo": "Escova secadora/alisadora/volumizadora/modeladora Taiff Gloss",
+      "mlbsNoDrawer": [
+        "5922237248",
+        "5922172884",
+        "5922211540",
+        "5922060040"
+      ],
+      "skus": {
+        "ESGROSE-BIV": {
+          "sku": "ESGROSE-BIV",
+          "todosMlbsSincronizados": [
+            "5922172884",
+            "5922237248",
+            "5922060040",
+            "5922211540"
+          ],
+          "catalogoClassico": "5922172884",
+          "catalogoPremium": null,
+          "deposito": "265",
+          "full": "-",
+          "qualidade": "34",
+          "experiencia": "-",
+          "statusProduto": "Ativo",
+          "statusCatalogoViaAlterar": [
+            {
+              "mlb": "5922172884",
+              "ehPai": false,
+              "temCompetindo": true,
+              "temConcorrencia": true,
+              "opcoesEncontradas": [
+                {
+                  "preco": "217,90",
+                  "status": "PERDENDO",
+                  "condicaoDaOpcao": "Clássico"
+                }
+              ],
+              "opcaoBatida": {
+                "preco": "217,90",
+                "status": "PERDENDO",
+                "condicaoDaOpcao": "Clássico"
+              }
+            },
+            {
+              "mlb": "5922060040",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            },
+            {
+              "mlb": "5922211540",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            }
+          ],
+          "mlbsDetalhe": {
+            "5922172884": {
+              "full": null,
+              "deposito": "265 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": "PERDENDO",
+              "qualidade": "34",
+              "experiencia": "75",
+              "precoBase": "356,42",
+              "precoPromo": "217,90",
+              "viaAlterar": {
+                "ehPai": false,
+                "temCompetindo": true,
+                "temConcorrencia": true,
+                "opcoesEncontradas": [
+                  {
+                    "preco": "217,90",
+                    "status": "PERDENDO",
+                    "condicaoDaOpcao": "Clássico"
+                  }
+                ],
+                "opcaoBatida": {
+                  "preco": "217,90",
+                  "status": "PERDENDO",
+                  "condicaoDaOpcao": "Clássico"
+                }
+              }
+            },
+            "5922237248": {
+              "full": "551 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": "GANHANDO",
+              "qualidade": "70",
+              "experiencia": "75",
+              "precoBase": "249,99",
+              "precoPromo": "176,42",
+              "viaAlterar": null
+            },
+            "5922060040": {
+              "full": null,
+              "deposito": "265 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": "31",
+              "experiencia": "75",
+              "precoBase": "356,42",
+              "precoPromo": "217,90",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            },
+            "5922211540": {
+              "full": "551 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": "81",
+              "experiencia": "75",
+              "precoBase": "249,99",
+              "precoPromo": "176,42",
               "viaAlterar": {
                 "ehPai": true,
                 "temCompetindo": false,
@@ -3689,105 +4074,6 @@
         }
       }
     },
-    "Secador de cabelo GA.MA ItalyKeration BECHD0000003014": {
-      "titulo": "Secador de cabelo GA.MA ItalyKeration BECHD0000003014",
-      "mlbsNoDrawer": [
-        "6754674964",
-        "4670646181",
-        "6754667316",
-        "6754175514"
-      ],
-      "skus": {
-        "SCG-4D-BIV": {
-          "sku": "SCG-4D-BIV",
-          "todosMlbsSincronizados": [
-            "4670646181",
-            "6754175514",
-            "6754667316",
-            "6754674964"
-          ],
-          "catalogoClassico": "4670646181",
-          "catalogoPremium": "6754674964",
-          "deposito": "-",
-          "full": "432",
-          "qualidade": "63",
-          "experiencia": "30",
-          "statusProduto": "Ativo",
-          "statusCatalogoViaAlterar": [
-            {
-              "mlb": "6754175514",
-              "ehPai": true,
-              "temCompetindo": false,
-              "temConcorrencia": false
-            },
-            {
-              "mlb": "6754667316",
-              "ehPai": true,
-              "temCompetindo": false,
-              "temConcorrencia": false
-            }
-          ],
-          "mlbsDetalhe": {
-            "4670646181": {
-              "full": "432 un.",
-              "deposito": null,
-              "statusProduto": "Ativo",
-              "condicao": "Clássico",
-              "statusCatalogo": "PERDENDO",
-              "qualidade": "63",
-              "experiencia": "30",
-              "precoBase": "570",
-              "precoPromo": "375,84",
-              "viaAlterar": null
-            },
-            "6754175514": {
-              "full": "432 un.",
-              "deposito": null,
-              "statusProduto": "Ativo",
-              "condicao": "Clássico",
-              "statusCatalogo": null,
-              "qualidade": "81",
-              "experiencia": "30",
-              "precoBase": "570",
-              "precoPromo": "375,84",
-              "viaAlterar": {
-                "ehPai": true,
-                "temCompetindo": false,
-                "temConcorrencia": false
-              }
-            },
-            "6754667316": {
-              "full": null,
-              "deposito": "1 un.",
-              "statusProduto": "Ativo",
-              "condicao": "Premium",
-              "statusCatalogo": null,
-              "qualidade": "93",
-              "experiencia": null,
-              "precoBase": "590",
-              "precoPromo": "456,47",
-              "viaAlterar": {
-                "ehPai": true,
-                "temCompetindo": false,
-                "temConcorrencia": false
-              }
-            },
-            "6754674964": {
-              "full": null,
-              "deposito": "1 un.",
-              "statusProduto": "Ativo",
-              "condicao": "Premium",
-              "statusCatalogo": "PERDENDO",
-              "qualidade": "72",
-              "experiencia": null,
-              "precoBase": "590",
-              "precoPromo": "456,47",
-              "viaAlterar": null
-            }
-          }
-        }
-      }
-    },
     "Aspirador Philco PAS1450C 1L PAS1450C": {
       "titulo": "Aspirador Philco PAS1450C 1L PAS1450C",
       "mlbsNoDrawer": [
@@ -3849,129 +4135,149 @@
         }
       }
     },
-    "Escova secadora/alisadora/volumizadora/modeladora Taiff Gloss": {
-      "titulo": "Escova secadora/alisadora/volumizadora/modeladora Taiff Gloss",
+    "Monitor Gamer AOC com tela de 21.5\" 120Hz e resolução Full HD": {
+      "titulo": "Monitor Gamer AOC com tela de 21.5\" 120Hz e resolução Full HD",
       "mlbsNoDrawer": [
-        "5922237248",
-        "5922172884",
-        "5922211540",
-        "5922060040"
+        "6447582276",
+        "4526861389",
+        "4527019069",
+        "4526957753"
       ],
       "skus": {
-        "ESGROSE-BIV": {
-          "sku": "ESGROSE-BIV",
+        "AOC21-30HM": {
+          "sku": "AOC21-30HM",
           "todosMlbsSincronizados": [
-            "5922172884",
-            "5922237248",
-            "5922060040",
-            "5922211540"
+            "4526861389",
+            "6447582276",
+            "4526957753",
+            "4527019069"
           ],
-          "catalogoClassico": "5922172884",
+          "catalogoClassico": "4526861389",
           "catalogoPremium": null,
-          "deposito": "265",
+          "deposito": "246",
           "full": "-",
-          "qualidade": "34",
+          "qualidade": "-",
           "experiencia": "-",
           "statusProduto": "Ativo",
           "statusCatalogoViaAlterar": [
             {
-              "mlb": "5922172884",
+              "mlb": "6447582276",
               "ehPai": false,
               "temCompetindo": true,
               "temConcorrencia": true,
               "opcoesEncontradas": [
                 {
-                  "preco": "217,90",
-                  "status": "PERDENDO",
-                  "condicaoDaOpcao": "Clássico"
+                  "preco": "850",
+                  "status": "GANHANDO"
+                },
+                {
+                  "preco": "539,15",
+                  "status": "PERDENDO"
+                },
+                {
+                  "preco": "850",
+                  "status": null
+                },
+                {
+                  "preco": "900",
+                  "status": null
                 }
               ],
               "opcaoBatida": {
-                "preco": "217,90",
-                "status": "PERDENDO",
-                "condicaoDaOpcao": "Clássico"
+                "preco": "539,15",
+                "status": "PERDENDO"
               }
             },
             {
-              "mlb": "5922060040",
+              "mlb": "4526957753",
               "ehPai": true,
               "temCompetindo": false,
               "temConcorrencia": false
             },
             {
-              "mlb": "5922211540",
+              "mlb": "4527019069",
               "ehPai": true,
               "temCompetindo": false,
               "temConcorrencia": false
             }
           ],
           "mlbsDetalhe": {
-            "5922172884": {
+            "4526861389": {
               "full": null,
-              "deposito": "265 un.",
+              "deposito": "246 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": "GANHANDO",
+              "qualidade": "79",
+              "experiencia": null,
+              "precoBase": "850",
+              "precoPromo": "429",
+              "viaAlterar": null
+            },
+            "6447582276": {
+              "full": null,
+              "deposito": "246 un.",
               "statusProduto": "Ativo",
               "condicao": "Clássico",
               "statusCatalogo": "PERDENDO",
-              "qualidade": "34",
-              "experiencia": "75",
-              "precoBase": "356,42",
-              "precoPromo": "217,90",
+              "qualidade": "79",
+              "experiencia": null,
+              "precoBase": "900",
+              "precoPromo": "539,15",
               "viaAlterar": {
                 "ehPai": false,
                 "temCompetindo": true,
                 "temConcorrencia": true,
                 "opcoesEncontradas": [
                   {
-                    "preco": "217,90",
-                    "status": "PERDENDO",
-                    "condicaoDaOpcao": "Clássico"
+                    "preco": "850",
+                    "status": "GANHANDO"
+                  },
+                  {
+                    "preco": "539,15",
+                    "status": "PERDENDO"
+                  },
+                  {
+                    "preco": "850",
+                    "status": null
+                  },
+                  {
+                    "preco": "900",
+                    "status": null
                   }
                 ],
                 "opcaoBatida": {
-                  "preco": "217,90",
-                  "status": "PERDENDO",
-                  "condicaoDaOpcao": "Clássico"
+                  "preco": "539,15",
+                  "status": "PERDENDO"
                 }
               }
             },
-            "5922237248": {
-              "full": "555 un.",
-              "deposito": null,
-              "statusProduto": "Ativo",
-              "condicao": "Clássico",
-              "statusCatalogo": "GANHANDO",
-              "qualidade": "70",
-              "experiencia": "75",
-              "precoBase": "249,99",
-              "precoPromo": "176,42",
-              "viaAlterar": null
-            },
-            "5922060040": {
+            "4526957753": {
               "full": null,
-              "deposito": "265 un.",
+              "deposito": "246 un.",
               "statusProduto": "Ativo",
               "condicao": "Clássico",
               "statusCatalogo": null,
-              "qualidade": "31",
-              "experiencia": "75",
-              "precoBase": "356,42",
-              "precoPromo": "217,90",
+              "qualidade": "84",
+              "experiencia": null,
+              "precoBase": "900",
+              "precoPromo": "539,15",
               "viaAlterar": {
                 "ehPai": true,
                 "temCompetindo": false,
                 "temConcorrencia": false
               }
             },
-            "5922211540": {
-              "full": "555 un.",
-              "deposito": null,
+            "4527019069": {
+              "full": null,
+              "deposito": "246 un.",
               "statusProduto": "Ativo",
               "condicao": "Clássico",
               "statusCatalogo": null,
-              "qualidade": "81",
-              "experiencia": "75",
-              "precoBase": "249,99",
-              "precoPromo": "176,42",
+              "qualidade": "84",
+              "experiencia": null,
+              "precoBase": "850",
+              "precoPromo": "429",
               "viaAlterar": {
                 "ehPai": true,
                 "temCompetindo": false,
@@ -3982,10 +4288,172 @@
         }
       }
     },
-    "Monitor Gamer AOC com tela de 21.5\" 120Hz e resolução Full HD": {
-      "titulo": "Monitor Gamer AOC com tela de 21.5\" 120Hz e resolução Full HD",
-      "mlbsNoDrawer": [],
-      "skus": {}
+    "Chapinha de cabelo Taiff Elegance Cerâmica Taiff Super Mini": {
+      "titulo": "Chapinha de cabelo Taiff Elegance Cerâmica Taiff Super Mini",
+      "mlbsNoDrawer": [
+        "5247646674",
+        "5247697354"
+      ],
+      "skus": {
+        "CHTMINI-BIV": {
+          "sku": "CHTMINI-BIV",
+          "todosMlbsSincronizados": [
+            "5247646674",
+            "5247671694",
+            "5247671690",
+            "4658272945",
+            "5247697354",
+            "4658260865"
+          ],
+          "catalogoClassico": "5247646674",
+          "catalogoPremium": "4658272945",
+          "deposito": "-",
+          "full": "110",
+          "qualidade": "-",
+          "experiencia": "-",
+          "statusProduto": "Ativo",
+          "statusCatalogoViaAlterar": [
+            {
+              "mlb": "5247671694",
+              "ehPai": false,
+              "temCompetindo": true,
+              "temConcorrencia": true,
+              "opcoesEncontradas": [
+                {
+                  "preco": "174,58",
+                  "status": "PERDENDO",
+                  "condicaoDaOpcao": "Clássico"
+                }
+              ],
+              "opcaoBatida": {
+                "preco": "174,58",
+                "status": "PERDENDO",
+                "condicaoDaOpcao": "Clássico"
+              }
+            },
+            {
+              "mlb": "5247671690",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            },
+            {
+              "mlb": "5247697354",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            },
+            {
+              "mlb": "4658260865",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            }
+          ],
+          "mlbsDetalhe": {
+            "5247646674": {
+              "full": "110 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": "GANHANDO",
+              "qualidade": "69",
+              "experiencia": null,
+              "precoBase": "269,99",
+              "precoPromo": "155,83",
+              "viaAlterar": null
+            },
+            "5247671694": {
+              "full": null,
+              "deposito": "169 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": "PERDENDO",
+              "qualidade": "34",
+              "experiencia": null,
+              "precoBase": "190,99",
+              "precoPromo": "174,58",
+              "viaAlterar": {
+                "ehPai": false,
+                "temCompetindo": true,
+                "temConcorrencia": true,
+                "opcoesEncontradas": [
+                  {
+                    "preco": "174,58",
+                    "status": "PERDENDO",
+                    "condicaoDaOpcao": "Clássico"
+                  }
+                ],
+                "opcaoBatida": {
+                  "preco": "174,58",
+                  "status": "PERDENDO",
+                  "condicaoDaOpcao": "Clássico"
+                }
+              }
+            },
+            "5247671690": {
+              "full": null,
+              "deposito": "169 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": "79",
+              "experiencia": null,
+              "precoBase": "190,99",
+              "precoPromo": "174,58",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            },
+            "4658272945": {
+              "full": null,
+              "deposito": "169 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Premium",
+              "statusCatalogo": "GANHANDO",
+              "qualidade": "78",
+              "experiencia": null,
+              "precoBase": "210",
+              "precoPromo": "187,47",
+              "viaAlterar": null
+            },
+            "5247697354": {
+              "full": "110 un.",
+              "deposito": null,
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": "81",
+              "experiencia": null,
+              "precoBase": "269,99",
+              "precoPromo": "155,83",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            },
+            "4658260865": {
+              "full": null,
+              "deposito": "169 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Premium",
+              "statusCatalogo": null,
+              "qualidade": "93",
+              "experiencia": null,
+              "precoBase": "210",
+              "precoPromo": "187,47",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
+            }
+          }
+        }
+      }
     }
   },
   "[ML] [CONTROLE ACOS]": {
