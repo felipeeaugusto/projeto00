@@ -538,10 +538,30 @@ async function analisarSku(pageAnuncios, context, sku) {
       posicoes.push({ inicio: m.index, condicao: m[1] });
     }
 
+    // Correcao real (16/08/2026, achado pelo Atlas via *elicit): quando o card so tem 1 MLB
+    // (ou e o ultimo do card) e nao existe um 2o marcador de preco na regiao, `fimBloco` caia
+    // em `regiaoTexto.length` -- ou seja, blocoMlb corria SEM LIMITE ate o fim de toda a
+    // regiao, que pode conter o bloco inteiro de metricas/badge/titulo do PROXIMO card real
+    // (o titulo sempre aparece 2x logo antes do "#MLB" do proximo card -- ver REGRA VALIDADA
+    // de 13/08 sobre a ordem MLB->bloco). Caso real confirmado: MLB #5247646674 (SKU
+    // CHTMINI-BIV, anuncio "Sincronizado" -- card de 1 MLB so, sem 2o marcador de preco)
+    // capturou o "GANHANDO" de um produto vizinho em vez do proprio "RESTRITO PARA GANHAR".
+    // Correcao: usar "Selecionar anúncio\n{titulo}\n{titulo repetido}" (padrao confirmado em
+    // 2 capturas ao vivo distintas, sempre logo antes do #MLB do PROXIMO card real) como
+    // limite ADICIONAL de corte -- so entra em jogo quando nao ha 2o marcador de preco pra
+    // fechar o bloco (regra validada de 13/08 sobre nunca delimitar via #\d+ continua intacta,
+    // esse limite nao usa "#numero").
+    const limiteProximoCard = /Selecionar anúncio\n([^\n]+)\n\1(?=\n|$)/;
+
     for (let bi = 0; bi < card.mlbsHeader.length; bi++) {
       const mlb = card.mlbsHeader[bi];
       const inicioBloco = posicoes[bi] ? posicoes[bi].inicio : null;
-      const fimBloco = posicoes[bi + 1] ? posicoes[bi + 1].inicio : regiaoTexto.length;
+      let fimBloco = posicoes[bi + 1] ? posicoes[bi + 1].inicio : regiaoTexto.length;
+      const blocoEraSemLimite = fimBloco === regiaoTexto.length; // sem 2o marcador de preco pra fechar
+      if (inicioBloco !== null && blocoEraSemLimite) {
+        const limiteMatch = regiaoTexto.slice(inicioBloco).match(limiteProximoCard);
+        if (limiteMatch) fimBloco = inicioBloco + limiteMatch.index;
+      }
       const blocoMlb = inicioBloco !== null ? regiaoTexto.slice(inicioBloco, fimBloco) : '';
 
       const precoBaseMatch = blocoMlb.match(/R\$\s*\n?\s*([\d.,]+)/);

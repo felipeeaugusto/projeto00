@@ -29,7 +29,7 @@
       "qualidade": null,
       "experiencia": null,
       "precoBase": "279",
-      "precoPromo": "210,48",
+      "precoPromo": "216,99",
       "viaAlterar": {
         "erro": "nao encontrou botao ou item Alterar"
       }
@@ -59,7 +59,7 @@
       "qualidade": "86",
       "experiencia": "75",
       "precoBase": "279",
-      "precoPromo": "210,48",
+      "precoPromo": "216,99",
       "viaAlterar": {
         "ehPai": true,
         "temCompetindo": false,

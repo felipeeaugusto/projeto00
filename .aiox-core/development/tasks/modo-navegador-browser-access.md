@@ -8,6 +8,8 @@ Este é o procedimento referenciado pelo gatilho **"Modo Navegador"** (ver CLAUD
 
 Validado em 04/08/2026 (projeto Karzen, leitura de anúncios no Mercado Livre). Serve para **qualquer site**, não é exclusivo do Mercado Livre — só a URL de destino muda.
 
+**⚠️ Ao automatizar busca/pesquisa em qualquer site (não só Mercado Livre) — cuidado com sites que têm mais de 1 campo de busca na mesma tela** (ex: um campo de busca global no cabeçalho do site + um campo de busca específico dentro da página). Usar um seletor genérico demais pode pegar o campo errado silenciosamente, sem nenhum erro, gerando dado contaminado. Ver o caso real documentado em `mapeamento-skus-ads-catalogo-mercadolivre.md` (Passo A) — e nunca reimplementar do zero um seletor de busca que já existe validado num pipeline de produção (ex: `pipeline-pausados-campanha-completo.js`, constante `SELETOR_BUSCA`); sempre importar/reusar.
+
 ---
 
 ## Pré-requisito obrigatório
