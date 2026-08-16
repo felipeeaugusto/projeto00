@@ -1363,6 +1363,8 @@ PASSO 4: Só com os passos 1-3 resolvidos → prosseguir com BLOCO 0-D normalmen
 
 ### BLOCO 0-AA — NUNCA REIMPLEMENTAR SELETOR/LÓGICA DE AUTOMAÇÃO JÁ VALIDADA EM PRODUÇÃO (inegociável)
 
+**⚠️ Reforçada por hook técnico (16/08/2026):** `.claude/hooks/check-selector-reuse.js` (evento `PreToolUse`, matcher `Edit|Write|NotebookEdit`) bloqueia a criação/edição de um script `.js` que declare um seletor de busca/input solto (ex: `input[placeholder...`, `input[type="search"...`) sem referenciar `SELETOR_BUSCA` nem importar um pipeline de produção já validado. Testado contra 4 cenários (bloquear seletor solto sem reuso / não bloquear import correto / não bloquear arquivo sem relação com automação / não bloquear edição incremental num arquivo que já tem o import em outro trecho) — mesmo padrão de rigor do `check-handoff-audit.js` da BLOCO 0-K. Ver PRINCÍPIO acima (antes da BLOCO 0-K) pra entender por que isso deixou de depender só de texto.
+
 **Gatilho:** Qualquer agente prestes a escrever um script novo de automação de browser (Modo Navegador) — seja um script de diagnóstico rápido/descartável durante uma investigação, seja um script permanente.
 
 **REGRA ABSOLUTA:** Se já existe um pipeline de produção validado que interage com o mesmo site/tela (ex: `pipeline-pausados-campanha-completo.js`), o script novo DEVE importar/reusar os seletores e funções já validados desse pipeline — NUNCA reescrever a lógica de busca/interação do zero, mesmo que pareça mais rápido no momento.

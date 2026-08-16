@@ -1477,7 +1477,8 @@ Aplica-se a TODOS os agentes atuais e futuros, de todos os squads — sem exceç
 2. **BLOCO 0-AB nova:** antes de criar um documento novo de processo/procedimento parecido com um já existente que tenha uma regra crítica documentada, sempre perguntar ao Felipe se deve aplicar/referenciar a mesma regra — nunca decidir sozinho.
 3. Reforçados 3 documentos existentes com a regra "campo certo vs errado" + nota da causa raiz real: `mapeamento-skus-ads-catalogo-mercadolivre.md`, `mapeamento-pausados-campanha-mercadolivre.md`, `modo-navegador-browser-access.md`.
 4. Revertida a correção de código feita em cima da premissa falsa (MLB "Sincronizado" forçado a sempre passar por Alterar); mantida a correção do limite por título no `blocoMlb` (proteção real e independente).
-**Onde implementar:** `.claude/CLAUDE.md` (BLOCO 0-AA e BLOCO 0-AB novas, entre BLOCO 0-Z e BLOCO 1) + `.aiox-core/development/tasks/mapeamento-skus-ads-catalogo-mercadolivre.md` + `.aiox-core/development/tasks/mapeamento-pausados-campanha-mercadolivre.md` + `.aiox-core/development/tasks/modo-navegador-browser-access.md` + `packages/karzen/.aiox-runtime/pipeline-pausados-campanha-completo.js` (reversão)
+5. **Reforço técnico adicional (mesmo dia, a pedido do Felipe após ele questionar se a regra escrita sozinha seria suficiente):** hook novo `check-selector-reuse.js` (evento `PreToolUse`, matcher `Edit|Write|NotebookEdit`) bloqueia Write/Edit de script `.js` que declare seletor de busca/input solto sem referenciar `SELETOR_BUSCA`/pipeline validado. Testado contra 4 cenários reais (bloquear seletor solto / não bloquear import correto / não bloquear arquivo sem relação com automação / não bloquear edição incremental com import já existente no arquivo).
+**Onde implementar:** `.claude/CLAUDE.md` (BLOCO 0-AA e BLOCO 0-AB novas, entre BLOCO 0-Z e BLOCO 1) + `.aiox-core/development/tasks/mapeamento-skus-ads-catalogo-mercadolivre.md` + `.aiox-core/development/tasks/mapeamento-pausados-campanha-mercadolivre.md` + `.aiox-core/development/tasks/modo-navegador-browser-access.md` + `packages/karzen/.aiox-runtime/pipeline-pausados-campanha-completo.js` (reversão) + `.claude/hooks/check-selector-reuse.js` (novo) + `.claude/settings.json` (hook registrado no evento `PreToolUse`)
 **Regra:**
 ```
 BLOCO 0-AA: antes de escrever script novo de automação de browser — verificar se
@@ -1485,6 +1486,8 @@ já existe pipeline de produção validado pro mesmo site/tela. Se existe, impor
 as constantes/funções já validadas (ex: SELETOR_BUSCA, analisarSku), nunca
 reescrever seletor do zero. Se resultado de script novo diverge de pipeline já
 validado, o script novo é suspeito primeiro.
+Reforço técnico: check-selector-reuse.js bloqueia (PreToolUse, exit 1) Write/Edit
+de .js com seletor de busca/input solto sem referência a SELETOR_BUSCA/pipeline.
 
 BLOCO 0-AB: antes de finalizar documento novo parecido com um já existente que
 tenha regra crítica documentada — perguntar ao Felipe se aplica a mesma regra,

@@ -30,6 +30,10 @@
           {
             "type": "command",
             "command": "node .claude/hooks/check-agent-scope.js"
+          },
+          {
+            "type": "command",
+            "command": "node .claude/hooks/check-selector-reuse.js"
           }
         ]
       },
