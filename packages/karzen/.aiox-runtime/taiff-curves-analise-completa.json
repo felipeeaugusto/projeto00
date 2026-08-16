@@ -9,11 +9,11 @@
     "mlbs": {
       "3959996911": {
         "full": null,
-        "deposito": "14 un.",
-        "statusProduto": "Ativo",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
         "condicao": "Clássico",
         "statusCatalogo": null,
-        "qualidade": "92",
+        "qualidade": null,
         "experiencia": null,
         "precoBase": "299,90",
         "precoPromo": "173",
@@ -24,24 +24,40 @@
         }
       },
       "5069271006": {
-        "full": "146 un.",
-        "deposito": "14 un.",
-        "statusProduto": "Ativo",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
         "condicao": "Clássico",
-        "statusCatalogo": "GANHANDO",
-        "qualidade": "92",
+        "statusCatalogo": "Inativa",
+        "qualidade": null,
         "experiencia": null,
         "precoBase": "299,90",
         "precoPromo": "187,73",
-        "viaAlterar": null
+        "viaAlterar": {
+          "ehPai": false,
+          "temCompetindo": true,
+          "temConcorrencia": true,
+          "opcoesEncontradas": [
+            {
+              "preco": "299,90",
+              "status": "Inativa",
+              "condicaoDaOpcao": "Clássico"
+            }
+          ],
+          "opcaoBatida": {
+            "preco": "299,90",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Clássico"
+          }
+        }
       },
       "5069321996": {
-        "full": "146 un.",
-        "deposito": "14 un.",
-        "statusProduto": "Ativo",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
         "condicao": "Clássico",
         "statusCatalogo": null,
-        "qualidade": "87",
+        "qualidade": null,
         "experiencia": null,
         "precoBase": "299,90",
         "precoPromo": "187,73",
@@ -53,7 +69,7 @@
       },
       "5267650986": {
         "full": null,
-        "deposito": "14 un.",
+        "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
@@ -67,6 +83,24 @@
       }
     },
     "statusCatalogoViaAlterar": [
+      {
+        "mlb": "5069271006",
+        "ehPai": false,
+        "temCompetindo": true,
+        "temConcorrencia": true,
+        "opcoesEncontradas": [
+          {
+            "preco": "299,90",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Clássico"
+          }
+        ],
+        "opcaoBatida": {
+          "preco": "299,90",
+          "status": "Inativa",
+          "condicaoDaOpcao": "Clássico"
+        }
+      },
       {
         "mlb": "3959996911",
         "ehPai": true,
@@ -94,8 +128,8 @@
     ],
     "mlbs": {
       "5923189512": {
-        "full": "126 un.",
-        "deposito": "sem estoque",
+        "full": "89 un.",
+        "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": "GANHANDO",
@@ -106,8 +140,8 @@
         "viaAlterar": null
       },
       "5923239572": {
-        "full": "126 un.",
-        "deposito": "sem estoque",
+        "full": "89 un.",
+        "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Premium",
         "statusCatalogo": "PERDENDO",
@@ -144,8 +178,8 @@
         }
       },
       "4298624551": {
-        "full": "126 un.",
-        "deposito": "sem estoque",
+        "full": "89 un.",
+        "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
@@ -160,8 +194,8 @@
         }
       },
       "5923073522": {
-        "full": "126 un.",
-        "deposito": "sem estoque",
+        "full": "89 un.",
+        "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Premium",
         "statusCatalogo": null,
@@ -229,7 +263,7 @@
     "mlbs": {
       "5923065708": {
         "full": "sem estoque",
-        "deposito": "1 un.",
+        "deposito": null,
         "statusProduto": "Pausado",
         "condicao": "Premium",
         "statusCatalogo": "Inativa",
@@ -267,7 +301,7 @@
       },
       "5923142884": {
         "full": "sem estoque",
-        "deposito": "1 un.",
+        "deposito": null,
         "statusProduto": "Pausado",
         "condicao": "Clássico",
         "statusCatalogo": "Inativa",
@@ -305,7 +339,7 @@
       },
       "5923053118": {
         "full": "sem estoque",
-        "deposito": "1 un.",
+        "deposito": null,
         "statusProduto": "Pausado",
         "condicao": "Premium",
         "statusCatalogo": null,
@@ -321,7 +355,7 @@
       },
       "5923142882": {
         "full": "sem estoque",
-        "deposito": "1 un.",
+        "deposito": null,
         "statusProduto": "Pausado",
         "condicao": "Clássico",
         "statusCatalogo": null,

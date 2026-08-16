@@ -9,12 +9,12 @@
   ],
   "mlbs": {
     "4935566078": {
-      "full": "1.930 un.",
-      "deposito": "2.107 un.",
+      "full": "1.876 un.",
+      "deposito": "2.102 un.",
       "statusProduto": "Ativo",
       "condicao": "Clássico",
       "statusCatalogo": "GANHANDO",
-      "qualidade": "77",
+      "qualidade": "84",
       "experiencia": null,
       "precoBase": "239,90",
       "precoPromo": "201,88",
@@ -22,7 +22,7 @@
     },
     "5267746592": {
       "full": null,
-      "deposito": "2.107 un.",
+      "deposito": "2.102 un.",
       "statusProduto": "Ativo",
       "condicao": "Clássico",
       "statusCatalogo": null,
@@ -35,8 +35,8 @@
       }
     },
     "4935589470": {
-      "full": "1.930 un.",
-      "deposito": "2.107 un.",
+      "full": "1.876 un.",
+      "deposito": "2.102 un.",
       "statusProduto": "Ativo",
       "condicao": "Clássico",
       "statusCatalogo": null,
@@ -52,7 +52,7 @@
     },
     "5267746586": {
       "full": null,
-      "deposito": "2.107 un.",
+      "deposito": "2.102 un.",
       "statusProduto": "Ativo",
       "condicao": "Clássico",
       "statusCatalogo": null,
@@ -68,7 +68,7 @@
     },
     "4935613452": {
       "full": "sem estoque",
-      "deposito": "2.107 un.",
+      "deposito": null,
       "statusProduto": "Pausado",
       "condicao": "Clássico",
       "statusCatalogo": "Inativa",
@@ -96,7 +96,7 @@
     },
     "4935565074": {
       "full": "sem estoque",
-      "deposito": "2.107 un.",
+      "deposito": null,
       "statusProduto": "Pausado",
       "condicao": "Clássico",
       "statusCatalogo": null,

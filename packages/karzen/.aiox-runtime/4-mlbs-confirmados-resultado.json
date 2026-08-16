@@ -1,0 +1,506 @@
+{
+  "FP100-220V": {
+    "todosMlbsSincronizados": [
+      "4315960981",
+      "5950992184"
+    ],
+    "mlbs": {
+      "4315960981": {
+        "full": "384 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "condicao": "Clássico",
+        "statusCatalogo": "RESTRITO PARA GANHAR",
+        "qualidade": "59",
+        "experiencia": "30",
+        "precoBase": "78,99",
+        "precoPromo": null,
+        "viaAlterar": null
+      },
+      "5950992184": {
+        "full": "384 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "condicao": "Clássico",
+        "statusCatalogo": null,
+        "qualidade": "60",
+        "experiencia": "30",
+        "precoBase": "78,99",
+        "precoPromo": null,
+        "viaAlterar": {
+          "ehPai": true,
+          "temCompetindo": false,
+          "temConcorrencia": false
+        }
+      }
+    },
+    "statusCatalogoViaAlterar": [
+      {
+        "mlb": "5950992184",
+        "ehPai": true,
+        "temCompetindo": false,
+        "temConcorrencia": false
+      }
+    ]
+  },
+  "DG-01-220V": {
+    "todosMlbsSincronizados": [
+      "5575436474",
+      "5575547886",
+      "5575599232",
+      "5575547632",
+      "5575374388",
+      "5575560284"
+    ],
+    "mlbs": {
+      "5575436474": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "condicao": "Clássico",
+        "statusCatalogo": "Inativa",
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "289,90",
+        "precoPromo": null,
+        "viaAlterar": {
+          "ehPai": false,
+          "temCompetindo": true,
+          "temConcorrencia": true,
+          "opcoesEncontradas": [
+            {
+              "preco": "289,90",
+              "status": "Inativa",
+              "condicaoDaOpcao": "Clássico"
+            }
+          ],
+          "opcaoBatida": {
+            "preco": "289,90",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Clássico"
+          }
+        }
+      },
+      "5575547886": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "condicao": "Premium",
+        "statusCatalogo": "Inativa",
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "299,90",
+        "precoPromo": null,
+        "viaAlterar": {
+          "ehPai": false,
+          "temCompetindo": true,
+          "temConcorrencia": true,
+          "opcoesEncontradas": [
+            {
+              "preco": "299,90",
+              "status": "Inativa",
+              "condicaoDaOpcao": "Premium"
+            }
+          ],
+          "opcaoBatida": {
+            "preco": "299,90",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Premium"
+          }
+        }
+      },
+      "5575599232": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "condicao": "Clássico",
+        "statusCatalogo": null,
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "289,90",
+        "precoPromo": null,
+        "viaAlterar": {
+          "erro": "nao encontrou botao ou item Alterar"
+        }
+      },
+      "5575547632": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "condicao": "Clássico",
+        "statusCatalogo": null,
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "289,90",
+        "precoPromo": null,
+        "viaAlterar": {
+          "ehPai": true,
+          "temCompetindo": false,
+          "temConcorrencia": false
+        }
+      },
+      "5575374388": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "condicao": "Premium",
+        "statusCatalogo": null,
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "299,90",
+        "precoPromo": null,
+        "viaAlterar": {
+          "ehPai": true,
+          "temCompetindo": false,
+          "temConcorrencia": false
+        }
+      },
+      "5575560284": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "condicao": "Clássico",
+        "statusCatalogo": null,
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "289,90",
+        "precoPromo": null,
+        "viaAlterar": {
+          "ehPai": true,
+          "temCompetindo": false,
+          "temConcorrencia": false
+        }
+      }
+    },
+    "statusCatalogoViaAlterar": [
+      {
+        "mlb": "5575436474",
+        "ehPai": false,
+        "temCompetindo": true,
+        "temConcorrencia": true,
+        "opcoesEncontradas": [
+          {
+            "preco": "289,90",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Clássico"
+          }
+        ],
+        "opcaoBatida": {
+          "preco": "289,90",
+          "status": "Inativa",
+          "condicaoDaOpcao": "Clássico"
+        }
+      },
+      {
+        "mlb": "5575547886",
+        "ehPai": false,
+        "temCompetindo": true,
+        "temConcorrencia": true,
+        "opcoesEncontradas": [
+          {
+            "preco": "299,90",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Premium"
+          }
+        ],
+        "opcaoBatida": {
+          "preco": "299,90",
+          "status": "Inativa",
+          "condicaoDaOpcao": "Premium"
+        }
+      },
+      {
+        "mlb": "5575599232",
+        "erro": "nao encontrou botao ou item Alterar"
+      },
+      {
+        "mlb": "5575547632",
+        "ehPai": true,
+        "temCompetindo": false,
+        "temConcorrencia": false
+      },
+      {
+        "mlb": "5575374388",
+        "ehPai": true,
+        "temCompetindo": false,
+        "temConcorrencia": false
+      },
+      {
+        "mlb": "5575560284",
+        "ehPai": true,
+        "temCompetindo": false,
+        "temConcorrencia": false
+      }
+    ]
+  },
+  "PAF55A-127V": {
+    "todosMlbsSincronizados": [
+      "6680007372",
+      "6680007364",
+      "6721328616",
+      "4657164397"
+    ],
+    "mlbs": {
+      "6680007372": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "condicao": "Clássico",
+        "statusCatalogo": "Inativa",
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "600",
+        "precoPromo": null,
+        "viaAlterar": {
+          "ehPai": false,
+          "temCompetindo": true,
+          "temConcorrencia": true,
+          "opcoesEncontradas": [
+            {
+              "preco": "600",
+              "status": "Inativa",
+              "condicaoDaOpcao": "Clássico"
+            }
+          ],
+          "opcaoBatida": {
+            "preco": "600",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Clássico"
+          }
+        }
+      },
+      "6680007364": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "condicao": "Clássico",
+        "statusCatalogo": null,
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "600",
+        "precoPromo": null,
+        "viaAlterar": {
+          "ehPai": true,
+          "temCompetindo": false,
+          "temConcorrencia": false
+        }
+      },
+      "6721328616": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "condicao": "Premium",
+        "statusCatalogo": null,
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "700",
+        "precoPromo": null,
+        "viaAlterar": {
+          "ehPai": true,
+          "temCompetindo": false,
+          "temConcorrencia": false
+        }
+      },
+      "4657164397": {
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "condicao": "Premium",
+        "statusCatalogo": null,
+        "qualidade": null,
+        "experiencia": null,
+        "precoBase": "690",
+        "precoPromo": null,
+        "viaAlterar": {
+          "erro": "nao encontrou botao ou item Alterar"
+        }
+      }
+    },
+    "statusCatalogoViaAlterar": [
+      {
+        "mlb": "6680007372",
+        "ehPai": false,
+        "temCompetindo": true,
+        "temConcorrencia": true,
+        "opcoesEncontradas": [
+          {
+            "preco": "600",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Clássico"
+          }
+        ],
+        "opcaoBatida": {
+          "preco": "600",
+          "status": "Inativa",
+          "condicaoDaOpcao": "Clássico"
+        }
+      },
+      {
+        "mlb": "6680007364",
+        "ehPai": true,
+        "temCompetindo": false,
+        "temConcorrencia": false
+      },
+      {
+        "mlb": "6721328616",
+        "ehPai": true,
+        "temCompetindo": false,
+        "temConcorrencia": false
+      },
+      {
+        "mlb": "4657164397",
+        "erro": "nao encontrou botao ou item Alterar"
+      }
+    ]
+  },
+  "CHTMINI-BIV": {
+    "todosMlbsSincronizados": [
+      "5247646674",
+      "5247671694",
+      "5247671690",
+      "4658272945",
+      "5247697354",
+      "4658260865"
+    ],
+    "mlbs": {
+      "5247646674": {
+        "full": "120 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "condicao": "Clássico",
+        "statusCatalogo": "GANHANDO",
+        "qualidade": "69",
+        "experiencia": null,
+        "precoBase": "269,99",
+        "precoPromo": "155,83",
+        "viaAlterar": null
+      },
+      "5247671694": {
+        "full": null,
+        "deposito": "169 un.",
+        "statusProduto": "Ativo",
+        "condicao": "Clássico",
+        "statusCatalogo": "PERDENDO",
+        "qualidade": "34",
+        "experiencia": null,
+        "precoBase": "190,99",
+        "precoPromo": "174,58",
+        "viaAlterar": {
+          "ehPai": false,
+          "temCompetindo": true,
+          "temConcorrencia": true,
+          "opcoesEncontradas": [
+            {
+              "preco": "174,58",
+              "status": "PERDENDO",
+              "condicaoDaOpcao": "Clássico"
+            }
+          ],
+          "opcaoBatida": {
+            "preco": "174,58",
+            "status": "PERDENDO",
+            "condicaoDaOpcao": "Clássico"
+          }
+        }
+      },
+      "5247671690": {
+        "full": null,
+        "deposito": "169 un.",
+        "statusProduto": "Ativo",
+        "condicao": "Clássico",
+        "statusCatalogo": null,
+        "qualidade": "79",
+        "experiencia": null,
+        "precoBase": "190,99",
+        "precoPromo": "174,58",
+        "viaAlterar": {
+          "ehPai": true,
+          "temCompetindo": false,
+          "temConcorrencia": false
+        }
+      },
+      "4658272945": {
+        "full": null,
+        "deposito": "169 un.",
+        "statusProduto": "Ativo",
+        "condicao": "Premium",
+        "statusCatalogo": "GANHANDO",
+        "qualidade": "78",
+        "experiencia": null,
+        "precoBase": "210",
+        "precoPromo": "187,47",
+        "viaAlterar": null
+      },
+      "5247697354": {
+        "full": "120 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "condicao": "Clássico",
+        "statusCatalogo": null,
+        "qualidade": "81",
+        "experiencia": null,
+        "precoBase": "269,99",
+        "precoPromo": "155,83",
+        "viaAlterar": {
+          "ehPai": true,
+          "temCompetindo": false,
+          "temConcorrencia": false
+        }
+      },
+      "4658260865": {
+        "full": null,
+        "deposito": "169 un.",
+        "statusProduto": "Ativo",
+        "condicao": "Premium",
+        "statusCatalogo": null,
+        "qualidade": "93",
+        "experiencia": null,
+        "precoBase": "210",
+        "precoPromo": "187,47",
+        "viaAlterar": {
+          "ehPai": true,
+          "temCompetindo": false,
+          "temConcorrencia": false
+        }
+      }
+    },
+    "statusCatalogoViaAlterar": [
+      {
+        "mlb": "5247671694",
+        "ehPai": false,
+        "temCompetindo": true,
+        "temConcorrencia": true,
+        "opcoesEncontradas": [
+          {
+            "preco": "174,58",
+            "status": "PERDENDO",
+            "condicaoDaOpcao": "Clássico"
+          }
+        ],
+        "opcaoBatida": {
+          "preco": "174,58",
+          "status": "PERDENDO",
+          "condicaoDaOpcao": "Clássico"
+        }
+      },
+      {
+        "mlb": "5247671690",
+        "ehPai": true,
+        "temCompetindo": false,
+        "temConcorrencia": false
+      },
+      {
+        "mlb": "5247697354",
+        "ehPai": true,
+        "temCompetindo": false,
+        "temConcorrencia": false
+      },
+      {
+        "mlb": "4658260865",
+        "ehPai": true,
+        "temCompetindo": false,
+        "temConcorrencia": false
+      }
+    ]
+  }
+}

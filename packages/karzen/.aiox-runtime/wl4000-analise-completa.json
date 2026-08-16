@@ -10,8 +10,8 @@
     ],
     "mlbs": {
       "4984216839": {
-        "full": "72 un.",
-        "deposito": "179 un.",
+        "full": "47 un.",
+        "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": "GANHANDO",
@@ -22,8 +22,8 @@
         "viaAlterar": null
       },
       "6714259004": {
-        "full": "72 un.",
-        "deposito": "179 un.",
+        "full": "47 un.",
+        "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Premium",
         "statusCatalogo": "PERDENDO",
@@ -60,8 +60,8 @@
         }
       },
       "4984216837": {
-        "full": "73 un.",
-        "deposito": "179 un.",
+        "full": "47 un.",
+        "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
@@ -76,8 +76,8 @@
         }
       },
       "6714259000": {
-        "full": "73 un.",
-        "deposito": "179 un.",
+        "full": "47 un.",
+        "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Premium",
         "statusCatalogo": null,
@@ -215,7 +215,7 @@
     "mlbs": {
       "5000383363": {
         "full": null,
-        "deposito": "191 un.",
+        "deposito": "190 un.",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": "GANHANDO",
@@ -253,7 +253,7 @@
       },
       "6714234786": {
         "full": null,
-        "deposito": "191 un.",
+        "deposito": "190 un.",
         "statusProduto": "Ativo",
         "condicao": "Premium",
         "statusCatalogo": "PERDENDO",
@@ -291,7 +291,7 @@
       },
       "5000740711": {
         "full": null,
-        "deposito": "191 un.",
+        "deposito": "190 un.",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
@@ -307,7 +307,7 @@
       },
       "6714258578": {
         "full": null,
-        "deposito": "191 un.",
+        "deposito": "190 un.",
         "statusProduto": "Ativo",
         "condicao": "Premium",
         "statusCatalogo": null,
@@ -323,7 +323,7 @@
       },
       "6680136190": {
         "full": "sem estoque",
-        "deposito": "sem estoque",
+        "deposito": null,
         "statusProduto": "Pausado",
         "condicao": "Clássico",
         "statusCatalogo": "Inativa",
@@ -351,7 +351,7 @@
       },
       "6680123398": {
         "full": "sem estoque",
-        "deposito": "sem estoque",
+        "deposito": null,
         "statusProduto": "Pausado",
         "condicao": "Clássico",
         "statusCatalogo": null,

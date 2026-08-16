@@ -260,6 +260,19 @@ async function tentarBuscarMlb(pageAnuncios, mlb) {
   await campo.fill('');
   await campo.fill(mlb);
   await pageAnuncios.keyboard.press('Enter');
+  await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: (texto) => validarBuscaSkuCarregada(texto, mlb) });
+  // Correcao real (16/08/2026, achado pelo Felipe na validacao manual): essa busca nunca
+  // expandia "ID Family" -- se o MLB buscado estivesse escondido dentro de um Card
+  // colapsado, o numero dele nem aparece no texto ate expandir, entao a validacao de
+  // termo (item anterior) SEMPRE falhava pra esse caso, mesmo com retry. Caso real
+  // confirmado: MLB #5948136650 (produto "Mixer Philco PMX1000") -- o Felipe expandiu
+  // manualmente o ID Family e achou o SKU real (PMX1000-220V) sem problema. `buscarERolar`
+  // (usada pra buscar por SKU) ja fazia isso certo; essa funcao (busca reversa MLB->SKU)
+  // ficou incompleta. Custo aceito: quando nao ha ID Family, expandirTodosIdFamily sai
+  // rapido (contagem de botoes e 0, quebra na primeira checagem).
+  await rolarPagina(pageAnuncios, 40);
+  await expandirTodosIdFamily(pageAnuncios);
+  await rolarPagina(pageAnuncios, 40);
   return esperarTextoEstabilizar(pageAnuncios, { validarConteudo: (texto) => validarBuscaSkuCarregada(texto, mlb) });
 }
 
@@ -305,7 +318,11 @@ async function acharSkuDoMlb(pageAnuncios, mlb) {
 // #6714259004 e foi usada como se fosse o status catalogo dele. Rejeitar aqui faz essas
 // entradas virarem status:null, o que ja exclui elas de `opcoes.find(o => o.status && ...)`
 // em analisarSku -- sem precisar mudar mais nada.
-const FRASES_NAO_STATUS = [/:$/, /^Outras opções de venda$/i, /^Nível de visitas$/i, /^Experiência de compra$/i, /^(Clássico|Premium)\s+e\s+Frete\s+grátis$/i];
+// Correcao real (16/08/2026): "Pagamento sem juros"/"Frete grátis"/"Envios com
+// coleta"/"Envios no mesmo dia" sao rotulos de forma de pagamento/entrega que sempre
+// aparecem logo apos o preco na secao Concorrencia -- nunca sao status real. Caso real:
+// MLB #5247671694 (SKU CHTMINI-BIV) capturou "Pagamento sem juros" como se fosse status.
+const FRASES_NAO_STATUS = [/:$/, /^Outras opções de venda$/i, /^Nível de visitas$/i, /^Experiência de compra$/i, /^(Clássico|Premium)\s+e\s+Frete\s+grátis$/i, /^Pagamento sem juros$/i, /^Frete grátis$/i, /^Envios com coleta$/i, /^Envios no mesmo dia$/i];
 function pareceStatusValido(texto) {
   if (!texto) return false;
   const limpo = texto.trim();
@@ -313,11 +330,36 @@ function pareceStatusValido(texto) {
   return !FRASES_NAO_STATUS.some(re => re.test(limpo));
 }
 
+// Correcao real (16/08/2026, achado pelo Felipe na validacao manual): quando a
+// Concorrencia mostra "anuncio ganhador vs nosso anuncio perdendo" sem numeracao "Opção
+// N", pode ter "Nível de visitas:\n(Mínimo|Máximo)\n" entre a condicao e o preco -- ex:
+// "Clássico e Frete grátis\nNível de visitas:\nMínimo\nR$174,58". O regex antigo exigia
+// o preco logo depois da condicao, sem texto no meio, e nunca batia nesse caso. Caso
+// real confirmado: MLB #5247671694 (SKU CHTMINI-BIV). Correcao: grupo opcional especifico
+// pra esse texto -- nao generico o suficiente pra aceitar qualquer coisa, so o padrao
+// real ja confirmado. Indices dos grupos capturados nao mudam (m[1]=condicao, m[2]=preco,
+// m[3]=status).
+//
+// Correcao real (16/08/2026, achado direto no texto ao vivo, nao so na transcricao do
+// Felipe): confirmei que o texto real desse mesmo caso (MLB #5247671694) tem "PERDENDO"
+// ANTES da condicao ("PERDENDO\n\nClássico e Frete grátis..."), e o texto logo APOS o
+// preco e "Pagamento sem juros" (rotulo de forma de pagamento, nao status). Essa funcao
+// so olhava DEPOIS do preco -- nunca verificava se havia um status explicito ANTES,
+// diferente de extrairOpcoesConcorrencia (que ja faz essa checagem "antes" pro formato
+// numerado). Correcao: mesma logica de prioridade aqui -- status antes tem prioridade
+// sobre status depois.
 function extrairOpcaoUnicaSemRotulo(blocoConc) {
-  const m = blocoConc.match(/(Clássico|Premium)\s+e\s+Frete\s+grátis\s*\n?\s*R\$\s*\n?\s*([\d.,]+)\s*\n?\s*([^\n]{0,40})/);
+  const m = blocoConc.match(/(Clássico|Premium)\s+e\s+Frete\s+grátis\s*\n?\s*(?:Nível de visitas:\s*\n?\s*(?:Mínimo|Máximo)\s*\n?\s*)?R\$\s*\n?\s*([\d.,]+)\s*\n?\s*([^\n]{0,40})/);
   if (!m) return [];
-  const statusBruto = m[3].trim();
-  return [{ preco: m[2], status: pareceStatusValido(statusBruto) ? statusBruto : null, condicaoDaOpcao: m[1] }];
+
+  const antesTexto = blocoConc.slice(Math.max(0, m.index - 60), m.index);
+  const statusAntesMatch = antesTexto.match(/\b(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b\s*$/);
+  const statusAntes = statusAntesMatch ? statusAntesMatch[1] : null;
+
+  const statusDepoisBruto = m[3].trim();
+  const statusDepois = pareceStatusValido(statusDepoisBruto) ? statusDepoisBruto : null;
+
+  return [{ preco: m[2], status: statusAntes || statusDepois || null, condicaoDaOpcao: m[1] }];
 }
 
 function extrairOpcoesConcorrencia(blocoConc) {
@@ -476,7 +518,20 @@ async function analisarSku(pageAnuncios, context, sku) {
     const fimRegiao = proximoCard ? proximoCard.linhaHeaderIdx : linhas.length;
     const regiaoTexto = linhas.slice(card.linhaSkuIdx, fimRegiao).join('\n');
 
-    const marcadorBloco = /R\$\s*\n?\s*[\d.,]+\nem promoção a R\$\s*\n?\s*[\d.,]+\n(Clássico|Premium)/g;
+    // Correcao real (16/08/2026, achado pelo Felipe na validacao manual): anuncios sem
+    // promocao ativa (preco unico, so "R$ X\n(Clássico|Premium)", sem a linha "em promoção
+    // a R$ Y") nunca batiam nesse regex -- o bloco desse MLB nunca era delimitado, perdendo
+    // preco, condicao E status explicito (ex: "RESTRITO PARA GANHAR", que estava logo ali
+    // no texto, so fora do recorte). Caso real confirmado: MLB #4315960981 (SKU
+    // FP100-220V). Correcao: tornar a linha "em promoção a R$ Y" opcional -- a ancora de
+    // seguranca da REGRA VALIDADA de 13/08 (nunca usar #\d+ generico) continua intacta,
+    // porque o que garante que esse regex nunca bate em lugar errado e a adjacencia final
+    // "(Clássico|Premium)" logo depois de um "R$", nao a presenca da linha de promocao.
+    // Bonus: fecha tambem um risco latente -- card com MLBs COM e SEM promocao misturados
+    // podia dessincronizar o casamento por indice posicional (posicoes[bi]), atribuindo
+    // preco de um MLB a outro por engano. Agora todo MLB gera uma entrada em `posicoes`,
+    // mantendo os indices sempre alinhados.
+    const marcadorBloco = /R\$\s*\n?\s*[\d.,]+\n(?:em promoção a R\$\s*\n?\s*[\d.,]+\n)?(Clássico|Premium)/g;
     const posicoes = [];
     let m;
     while ((m = marcadorBloco.exec(regiaoTexto)) !== null) {
