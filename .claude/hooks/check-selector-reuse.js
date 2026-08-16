@@ -22,19 +22,39 @@
  *   — nem no trecho novo, nem no arquivo em disco (pro caso de Edit incremental) —
  *   bloqueia (exit 1) e pede pro agente importar/reusar em vez de reimplementar.
  *
- * IMPORTANTE — calibração inicial, mesmo aviso do check-handoff-audit.js:
- *   os padrões abaixo são a primeira versão, testados contra 3 cenários manuais
- *   (bloquear seletor solto / não bloquear import correto / não bloquear arquivo
- *   sem relação com automação de browser) — ainda não testado em uso real de
- *   produção, risco de falso positivo/negativo não descoberto ainda.
+ * IMPORTANTE — calibração 2 (16/08/2026, achado do @analyst via *elicit):
+ *   a 1ª versão só detectava seletor no formato de atributo (`input[placeholder...`,
+ *   `input[type="search"...`). Testado ao vivo pelo Atlas: um script usando o MESMO
+ *   campo errado por CLASSE CSS (`.nav-header-sellers-search__input`, exatamente a
+ *   classe já documentada em mapeamento-skus-ads-catalogo-mercadolivre.md) passava
+ *   batido, sem ser bloqueado. Corrigido com `CLASSE_CAMPO_ERRADO_PATTERN` -- um
+ *   padrão específico e literal pra essa classe já conhecida como errada (não uma
+ *   generalização pra "qualquer seletor CSS", que geraria falso positivo em código
+ *   sem relação nenhuma com essa automação).
+ *   Re-testado contra os 4 cenários originais + o cenário novo da classe CSS -- os
+ *   5 continuam se comportando como esperado (ver PASSO 3 da validação).
+ *
+ *   Decisão consciente, não implementada: `page.getByPlaceholder(...)` (método
+ *   semântico do Playwright) também acharia o campo sem usar `input[placeholder`,
+ *   mas cobrir isso de forma genérica arriscaria falso positivo em scripts de
+ *   automação de OUTROS sites/projetos que nada têm a ver com Mercado Livre (esse
+ *   hook roda pra qualquer `.js` do repo, não só Karzen). Não existe regex que cubra
+ *   toda a superfície de seletores possíveis do Playwright (getByRole, getByTestId,
+ *   XPath, seletor montado por concatenação de string, etc.) -- esse hook é uma
+ *   camada de defesa contra o padrão de erro já visto na prática, não uma garantia
+ *   absoluta. Mesma filosofia já documentada no PRINCÍPIO do CLAUDE.md (antes da
+ *   BLOCO 0-K): reforço técnico complementa a regra escrita, não a substitui.
  */
 
 'use strict';
 
 const fs = require('fs');
 
-// ─── Padrão de seletor de busca/input declarado "solto" no texto ───────────
+// ─── Padrão de seletor de busca/input declarado "solto" no texto (atributo) ─
 const SELETOR_SOLTO_PATTERN = /input\[\s*(type\s*=\s*["']search["']|placeholder)/i;
+
+// ─── Classe CSS do campo ERRADO já documentado (mesmo campo, sintaxe diferente) ─
+const CLASSE_CAMPO_ERRADO_PATTERN = /nav-header-sellers-search__input/i;
 
 // ─── Sinal de que o script é automação de browser (Playwright) ─────────────
 const PLAYWRIGHT_PATTERN = /\.locator\(|page\.locator|chromium\.connectOverCDP/i;
@@ -67,8 +87,10 @@ process.stdin.on('end', () => {
   // Trecho novo sendo escrito (Write: conteúdo inteiro; Edit: só o pedaço trocado)
   const novoTrecho = toolName === 'write' ? (toolInput.content || '') : (toolInput.new_string || '');
 
-  if (!PLAYWRIGHT_PATTERN.test(novoTrecho) || !SELETOR_SOLTO_PATTERN.test(novoTrecho)) {
-    process.exit(0); // não é automação de browser, ou não declara seletor de busca/input
+  const declaraSeletorSuspeito = SELETOR_SOLTO_PATTERN.test(novoTrecho) || CLASSE_CAMPO_ERRADO_PATTERN.test(novoTrecho);
+
+  if (!PLAYWRIGHT_PATTERN.test(novoTrecho) || !declaraSeletorSuspeito) {
+    process.exit(0); // não é automação de browser, ou não declara seletor de busca/input suspeito
   }
 
   if (REUSO_VALIDADO_PATTERN.test(novoTrecho)) {
@@ -92,7 +114,8 @@ process.stdin.on('end', () => {
 
   process.stderr.write(
     'BLOCO 0-AA: este script declara um seletor de busca/input solto ' +
-    '(ex: input[placeholder..., input[type="search"...) sem referenciar SELETOR_BUSCA ' +
+    '(ex: input[placeholder..., input[type="search"..., ou a classe nav-header-sellers-search__input) ' +
+    'sem referenciar SELETOR_BUSCA ' +
     'nem importar um pipeline de produção já validado (ex: pipeline-pausados-campanha-completo.js). ' +
     'Antes de continuar: verifique se já existe um pipeline validado pro mesmo site/tela e ' +
     'importe/reuse a constante/função existente em vez de reimplementar o seletor do zero. ' +
