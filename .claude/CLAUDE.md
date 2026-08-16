@@ -1361,6 +1361,86 @@ PASSO 4: Só com os passos 1-3 resolvidos → prosseguir com BLOCO 0-D normalmen
 
 ---
 
+### BLOCO 0-AA — NUNCA REIMPLEMENTAR SELETOR/LÓGICA DE AUTOMAÇÃO JÁ VALIDADA EM PRODUÇÃO (inegociável)
+
+**Gatilho:** Qualquer agente prestes a escrever um script novo de automação de browser (Modo Navegador) — seja um script de diagnóstico rápido/descartável durante uma investigação, seja um script permanente.
+
+**REGRA ABSOLUTA:** Se já existe um pipeline de produção validado que interage com o mesmo site/tela (ex: `pipeline-pausados-campanha-completo.js`), o script novo DEVE importar/reusar os seletores e funções já validados desse pipeline — NUNCA reescrever a lógica de busca/interação do zero, mesmo que pareça mais rápido no momento.
+
+```
+ANTES DE ESCREVER QUALQUER SCRIPT NOVO DE AUTOMAÇÃO DE BROWSER:
+
+PASSO 1: Verificar se já existe um pipeline de produção que interage com o mesmo
+         site/tela/elemento (ex: busca, login, navegação)
+
+PASSO 2: SE existe → importar (`require()`) as constantes/funções já validadas
+         desse pipeline (ex: `SELETOR_BUSCA`, `analisarSku`) — NUNCA redeclarar
+         um seletor novo por conta própria, nem em script "rápido" ou "só pra
+         testar uma coisa"
+
+PASSO 3: SE não existe pipeline de produção equivalente → escrever o seletor novo
+         é permitido, mas documentar o resultado validado no doc de processo
+         correspondente antes de considerar a tarefa concluída (ver BLOCO 0-AB)
+
+PASSO 4: Se o resultado de um script novo CONTRADIZ o resultado de um pipeline já
+         validado e rodando em produção → o script novo é o suspeito número 1,
+         não o pipeline. Investigar o próprio script antes de assumir que o
+         pipeline está errado.
+```
+
+**PROIBIDO:**
+- Escrever um seletor de busca/interação novo quando já existe um validado num pipeline de produção
+- Usar seletores genéricos "pra pegar rápido" (ex: `input[placeholder*="Buscar"]`) quando o seletor específico já está documentado/validado em outro lugar
+- Confiar mais no resultado de um script novo, escrito na hora, do que no resultado de um pipeline já testado e rodando — sem investigar a divergência primeiro
+
+**O ERRO QUE GEROU ESTA REGRA (16/08/2026):** durante uma investigação ao vivo de um suposto bug no pipeline `pipeline-pausados-campanha-completo.js`, o @dev escreveu vários scripts de diagnóstico ad-hoc, reimplementando a lógica de busca do zero em vez de importar `SELETOR_BUSCA` do próprio pipeline. Pelo menos um desses scripts usou um seletor genérico (`input[type="search"], input[placeholder*="Buscar"]`) que bateu no campo de busca ERRADO da tela do Mercado Livre (o campo global do topo do site, que só abre um dropdown de sugestão, em vez do campo certo dentro da página, que filtra de verdade) — gerando dado contaminado (chegou a mostrar "3.016 anúncios" de uma lista sem filtro nenhum) que pareceu confirmar um bug que nunca existiu. O pipeline real sempre usou o seletor certo. O erro consumiu horas de investigação e só foi descoberto porque o Felipe mandou 3 screenshots do processo manual dele confirmando o dado certo.
+
+```
+❌ ERRADO: escrever `const campo = page.locator('input[placeholder*="Buscar"]').first()`
+   num script novo de diagnóstico, "só pra testar rápido"
+
+✅ CORRETO: `const { SELETOR_BUSCA } = require('./pipeline-pausados-campanha-completo.js')`
+   e usar essa constante já validada
+```
+
+**Esta regra se aplica a TODOS os agentes atuais e futuros que escreverem qualquer script de automação de browser, incluindo scripts de diagnóstico descartáveis durante investigações sob pressão de tempo.**
+
+---
+
+### BLOCO 0-AB — PERGUNTAR ANTES DE APLICAR REGRA DE DOCUMENTO EM DOCUMENTO NOVO PARECIDO (inegociável)
+
+**Gatilho:** Qualquer agente prestes a criar um documento novo de processo/procedimento parecido com um já existente que tenha uma regra crítica documentada (ex: documentação de automação de browser, busca em site, qualquer procedimento com "jeito certo vs jeito errado" já validado).
+
+**REGRA ABSOLUTA:** Nunca decidir sozinho se uma regra crítica já documentada em outro lugar deve ser replicada/referenciada no documento novo — sempre perguntar ao Felipe primeiro.
+
+```
+ANTES DE FINALIZAR QUALQUER DOCUMENTO NOVO PARECIDO COM UM JÁ EXISTENTE:
+
+PASSO 1: Identificar se existe algum documento já existente, parecido em
+         propósito/escopo, que tenha uma regra crítica documentada (ex:
+         "campo certo vs campo errado", "jeito validado vs jeito que falhou antes")
+
+PASSO 2: SE existe → perguntar ao Felipe:
+         "O documento novo [nome] é parecido com [documento existente], que tem
+         a regra [resumo da regra]. Quer que eu aplique/referencie essa mesma
+         regra no documento novo?"
+
+PASSO 3: AGUARDAR confirmação do Felipe — nunca aplicar nem omitir por conta própria
+
+PASSO 4: SE não existe documento parecido → seguir normalmente, sem essa pergunta
+```
+
+**PROIBIDO:**
+- Decidir sozinho que uma regra crítica de outro documento "obviamente" se aplica ou não ao documento novo
+- Pular essa pergunta achando que já é óbvio pro Felipe
+- Aplicar a regra sem perguntar, mesmo com boa intenção
+
+**O ERRO QUE GEROU ESTA REGRA (16/08/2026):** ligado ao mesmo incidente da BLOCO 0-AA — a regra "campo certo vs campo errado" já estava documentada desde 11/08/2026 em `mapeamento-skus-ads-catalogo-mercadolivre.md`, mas não foi consultada nem replicada quando documentos/scripts novos relacionados foram criados depois. O Felipe pediu explicitamente que, daqui pra frente, nenhum agente decida sozinho se uma regra crítica já validada se aplica a um documento novo — sempre perguntar.
+
+**Esta regra se aplica a TODOS os agentes atuais e futuros que criarem qualquer documento novo de processo/procedimento.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.

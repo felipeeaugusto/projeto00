@@ -1468,6 +1468,33 @@ Aplica-se a TODOS os agentes atuais e futuros, de todos os squads — sem exceç
 
 ---
 
+## CUSTOMIZAÇÃO 48 — BLOCO 0-AA (nunca reimplementar seletor já validado) + BLOCO 0-AB (perguntar antes de replicar regra em documento novo)
+
+**Data de aprovação:** 2026-08-16
+**Problema resolvido:** Durante uma investigação ao vivo de um suposto bug no pipeline `pipeline-pausados-campanha-completo.js` (projeto Karzen), o @dev escreveu vários scripts de diagnóstico ad-hoc, reimplementando a lógica de busca do zero em vez de importar `SELETOR_BUSCA` do próprio pipeline já validado. Pelo menos um desses scripts usou um seletor genérico (`input[type="search"], input[placeholder*="Buscar"]`) que bateu no campo de busca ERRADO da tela "Gestão de anúncios" do Mercado Livre (o campo global do topo do site, que só abre um dropdown de sugestão, em vez do campo certo dentro da página, que filtra de verdade) — gerando dado contaminado (chegou a mostrar "3.016 anúncios" de uma lista sem filtro nenhum, em vez dos 6 esperados) que pareceu confirmar um bug que nunca existiu. O pipeline real sempre usou o seletor certo (confirmado no histórico do git). A mesma regra "campo certo vs campo errado" já estava documentada desde 11/08/2026 em `mapeamento-skus-ads-catalogo-mercadolivre.md`, mas não foi consultada antes de escrever os scripts novos. O erro consumiu horas de investigação, gerou 2 correções desnecessárias no pipeline (1 revertida, 1 mantida por ser proteção válida independente) e só foi descoberto porque o Felipe mandou 3 screenshots do processo manual dele confirmando o dado certo.
+**O que faz:**
+1. **BLOCO 0-AA nova:** nenhum script novo de automação de browser (nem descartável/diagnóstico) pode reimplementar seletores/lógica já validados num pipeline de produção existente — sempre importar/reusar a constante/função já validada. Se um script novo contradiz um pipeline já validado, o script novo é o suspeito, não o pipeline.
+2. **BLOCO 0-AB nova:** antes de criar um documento novo de processo/procedimento parecido com um já existente que tenha uma regra crítica documentada, sempre perguntar ao Felipe se deve aplicar/referenciar a mesma regra — nunca decidir sozinho.
+3. Reforçados 3 documentos existentes com a regra "campo certo vs errado" + nota da causa raiz real: `mapeamento-skus-ads-catalogo-mercadolivre.md`, `mapeamento-pausados-campanha-mercadolivre.md`, `modo-navegador-browser-access.md`.
+4. Revertida a correção de código feita em cima da premissa falsa (MLB "Sincronizado" forçado a sempre passar por Alterar); mantida a correção do limite por título no `blocoMlb` (proteção real e independente).
+**Onde implementar:** `.claude/CLAUDE.md` (BLOCO 0-AA e BLOCO 0-AB novas, entre BLOCO 0-Z e BLOCO 1) + `.aiox-core/development/tasks/mapeamento-skus-ads-catalogo-mercadolivre.md` + `.aiox-core/development/tasks/mapeamento-pausados-campanha-mercadolivre.md` + `.aiox-core/development/tasks/modo-navegador-browser-access.md` + `packages/karzen/.aiox-runtime/pipeline-pausados-campanha-completo.js` (reversão)
+**Regra:**
+```
+BLOCO 0-AA: antes de escrever script novo de automação de browser — verificar se
+já existe pipeline de produção validado pro mesmo site/tela. Se existe, importar
+as constantes/funções já validadas (ex: SELETOR_BUSCA, analisarSku), nunca
+reescrever seletor do zero. Se resultado de script novo diverge de pipeline já
+validado, o script novo é suspeito primeiro.
+
+BLOCO 0-AB: antes de finalizar documento novo parecido com um já existente que
+tenha regra crítica documentada — perguntar ao Felipe se aplica a mesma regra,
+nunca decidir sozinho.
+
+Aplica-se a TODOS os agentes atuais e futuros.
+```
+
+---
+
 ---
 
 ## CUSTOMIZAÇÃO 47 — Fim do Edge para automação + fix do foco roubado no Chrome pessoal do Felipe
