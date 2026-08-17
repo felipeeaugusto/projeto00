@@ -2260,7 +2260,7 @@
             },
             "5538004876": {
               "full": null,
-              "deposito": "272 un.",
+              "deposito": "776 un.",
               "statusProduto": "Ativo",
               "condicao": "Premium",
               "statusCatalogo": "PERDENDO",
@@ -3691,7 +3691,7 @@
               "deposito": null,
               "statusProduto": "Ativo",
               "condicao": "Clássico",
-              "statusCatalogo": "GANHANDO",
+              "statusCatalogo": "COMPARTILHANDO",
               "qualidade": "76",
               "experiencia": null,
               "precoBase": "700",
