@@ -4147,130 +4147,64 @@
         "AOC21-30HM": {
           "sku": "AOC21-30HM",
           "todosMlbsSincronizados": [
-            "4526861389",
             "6447582276",
-            "4526957753",
-            "4527019069"
+            "4526861389",
+            "4527019069",
+            "4526957753"
           ],
-          "catalogoClassico": "4526861389",
+          "catalogoClassico": "6447582276",
           "catalogoPremium": null,
-          "deposito": "234",
+          "deposito": "231",
           "full": "-",
           "qualidade": "-",
           "experiencia": "-",
           "statusProduto": "Ativo",
           "statusCatalogoViaAlterar": [
             {
-              "mlb": "6447582276",
-              "ehPai": false,
-              "temCompetindo": true,
-              "temConcorrencia": true,
-              "opcoesEncontradas": [
-                {
-                  "preco": "850",
-                  "status": "GANHANDO"
-                },
-                {
-                  "preco": "539,15",
-                  "status": "PERDENDO"
-                },
-                {
-                  "preco": "850",
-                  "status": null
-                },
-                {
-                  "preco": "900",
-                  "status": null
-                }
-              ],
-              "opcaoBatida": {
-                "preco": "539,15",
-                "status": "PERDENDO"
-              }
-            },
-            {
-              "mlb": "4526957753",
-              "ehPai": true,
-              "temCompetindo": false,
-              "temConcorrencia": false
+              "mlb": "4526861389",
+              "erro": "nao encontrou botao ou item Alterar"
             },
             {
               "mlb": "4527019069",
               "ehPai": true,
               "temCompetindo": false,
               "temConcorrencia": false
+            },
+            {
+              "mlb": "4526957753",
+              "erro": "nao encontrou botao ou item Alterar"
             }
           ],
           "mlbsDetalhe": {
-            "4526861389": {
-              "full": null,
-              "deposito": "234 un.",
-              "statusProduto": "Ativo",
-              "condicao": "Clássico",
-              "statusCatalogo": "GANHANDO",
-              "qualidade": "79",
-              "experiencia": null,
-              "precoBase": "850",
-              "precoPromo": "429",
-              "viaAlterar": null
-            },
             "6447582276": {
               "full": null,
-              "deposito": "234 un.",
+              "deposito": "231 un.",
               "statusProduto": "Ativo",
               "condicao": "Clássico",
               "statusCatalogo": "PERDENDO",
-              "qualidade": "79",
-              "experiencia": null,
-              "precoBase": "900",
-              "precoPromo": "539,15",
-              "viaAlterar": {
-                "ehPai": false,
-                "temCompetindo": true,
-                "temConcorrencia": true,
-                "opcoesEncontradas": [
-                  {
-                    "preco": "850",
-                    "status": "GANHANDO"
-                  },
-                  {
-                    "preco": "539,15",
-                    "status": "PERDENDO"
-                  },
-                  {
-                    "preco": "850",
-                    "status": null
-                  },
-                  {
-                    "preco": "900",
-                    "status": null
-                  }
-                ],
-                "opcaoBatida": {
-                  "preco": "539,15",
-                  "status": "PERDENDO"
-                }
-              }
-            },
-            "4526957753": {
-              "full": null,
-              "deposito": "234 un.",
-              "statusProduto": "Ativo",
-              "condicao": "Clássico",
-              "statusCatalogo": null,
               "qualidade": "84",
               "experiencia": null,
               "precoBase": "900",
               "precoPromo": "539,15",
+              "viaAlterar": null
+            },
+            "4526861389": {
+              "full": null,
+              "deposito": "231 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": null,
+              "experiencia": null,
+              "precoBase": "850",
+              "precoPromo": "429",
               "viaAlterar": {
-                "ehPai": true,
-                "temCompetindo": false,
-                "temConcorrencia": false
+                "erro": "nao encontrou botao ou item Alterar"
               }
             },
             "4527019069": {
               "full": null,
-              "deposito": "234 un.",
+              "deposito": "231 un.",
               "statusProduto": "Ativo",
               "condicao": "Clássico",
               "statusCatalogo": null,
@@ -4282,6 +4216,20 @@
                 "ehPai": true,
                 "temCompetindo": false,
                 "temConcorrencia": false
+              }
+            },
+            "4526957753": {
+              "full": null,
+              "deposito": "231 un.",
+              "statusProduto": "Ativo",
+              "condicao": "Clássico",
+              "statusCatalogo": null,
+              "qualidade": null,
+              "experiencia": null,
+              "precoBase": "900",
+              "precoPromo": "539,15",
+              "viaAlterar": {
+                "erro": "nao encontrou botao ou item Alterar"
               }
             }
           }
