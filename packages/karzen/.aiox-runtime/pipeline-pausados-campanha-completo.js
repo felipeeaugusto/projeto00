@@ -390,6 +390,27 @@ function extrairOpcoesConcorrencia(blocoConc) {
   return opcoes;
 }
 
+// Correcao real (16/08/2026, achado pelo Felipe na validacao manual, investigado ao vivo
+// pelo @analyst via *elicit): existe um 3o formato de "Concorrencia no Mercado Livre",
+// diferente dos 2 que extrairOpcoesConcorrencia/extrairOpcaoUnicaSemRotulo ja cobrem --
+// comparacao unica contra 1 concorrente externo, mostrada COLAPSADA por padrao (so o
+// badge + um texto generico tipo "Melhore o preco..."), sem nenhuma "Opção N" nem o
+// padrao "Clássico e Frete grátis". Precisa clicar no cabecalho da secao pra expandir e
+// revelar a tabela real ("Características | Média de outros anúncios | Seu anúncio").
+// Caso real confirmado: MLB #4935565074 (SKU PROSB-3000), badge "PREÇO ALTO" -- o
+// pipeline classificava esse MLB como "pai" (sem catalogo) so por a palavra "COMPETINDO"
+// nao aparecer, quando na verdade "COMPETINDO" e um badge de pagina DIFERENTE (aparece
+// perto do titulo do anuncio, no formato "Opção N"), nao tem nada a ver com este formato.
+// O badge deste formato (ex: "PREÇO ALTO") vem logo apos "Concorrência no Mercado
+// Livre\n\n" -- usado como o proprio statusCatalogo (mesma logica ja usada pros outros 2
+// formatos: o texto literal do badge/status real, nao uma lista fechada de palavras).
+function extrairBadgeConcorrenciaColapsada(blocoConc) {
+  const m = blocoConc.match(/Concorrência no Mercado Livre\s*\n+\s*([^\n]+)\s*\n/);
+  if (!m) return null;
+  const badge = m[1].trim();
+  return pareceStatusValido(badge) ? badge : null;
+}
+
 // REGRA VALIDADA (13/08/2026, adicionar também ao Passo A.1 de
 // mapeamento-skus-ads-catalogo-mercadolivre.md): os N MLBs no cabeçalho de um card
 // correspondem, EM ORDEM, aos N blocos de dados que seguem -- 1º MLB do cabeçalho →
@@ -635,43 +656,75 @@ async function analisarSku(pageAnuncios, context, sku) {
         const idxConc = resultado.texto.indexOf('Concorrência no Mercado Livre');
         const temConcorrencia = idxConc !== -1;
 
-        if (!temCompetindo || !temConcorrencia) {
+        // Correcao real (16/08/2026, achado pelo Felipe + investigado pelo @analyst):
+        // "COMPETINDO" e so o badge de 1 dos 3 formatos de Concorrencia (o formato "Opção
+        // N", que aparece perto do titulo, nao dentro da secao) -- exigir essa palavra
+        // pra decidir "e catalogo?" deixava passar batido o formato colapsado (badge tipo
+        // "PREÇO ALTO", ver extrairBadgeConcorrenciaColapsada). A secao "Concorrência no
+        // Mercado Livre" existir (temConcorrencia) ja e o sinal real de catalogo, sozinho.
+        if (!temConcorrencia) {
           mlbs[mlb].viaAlterar = { ehPai: true, temCompetindo, temConcorrencia };
         } else {
           const blocoConc = resultado.texto.slice(idxConc);
           const opcoes = extrairOpcoesConcorrencia(blocoConc);
-          // Correcao real (14/08/2026, reportada pelo Felipe): o preco "de" (precoBase)
-          // pode ser IDENTICO entre condicoes diferentes do mesmo catalogo (ex: Classico
-          // e Premium anunciados com o mesmo preco cheio antes da promocao) -- casar por
-          // ele primeiro e ambiguo, pode pegar a opcao de OUTRO MLB por coincidencia de
-          // preco. Caso real: SKU WL4000-220V, MLB #6714259004 (Premium) tem precoBase
-          // "1.399,90" IGUAL ao precoBase do MLB #4984216839 (Classico) -- o casamento
-          // antigo (precoBase OU precoPromo, primeiro que bater na ordem do texto) pegou
-          // a opcao errada (GANHANDO, que na verdade era so a coincidencia de preco "de"),
-          // quando a opcao certa era a que batia com o precoPromo (867,28, PERDENDO -- esse
-          // sim exclusivo deste MLB). Correcao: tentar casar pelo precoPromo (preco real
-          // de venda, raramente coincide entre condicoes) PRIMEIRO -- so cai pro precoBase
-          // se nao achar nada pelo promo.
-          const opcaoBatida = (mlbs[mlb].precoPromo && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoPromo))
-            || (mlbs[mlb].precoBase && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoBase))
-            || null;
+          const opcoesComStatus = opcoes.filter(o => o.status);
 
-          // Item 2 da validacao do @analyst (14/08/2026): mesmo depois de excluir "Outras
-          // opcoes de venda" (item 1 acima), 2 opcoes com status REAL (GANHANDO/PERDENDO/
-          // etc.) ainda podem, em teoria, compartilhar o mesmo preco (ex: precoPromo
-          // coincidindo entre condicoes por algum motivo) -- `.find()` sempre resolve pra
-          // uma resposta, silenciosamente, mesmo quando ha mais de 1 candidato valido.
-          // Autocheck: se mais de 1 opcao com status real tem o mesmo preco escolhido,
-          // avisa (nao trava) -- mesmo padrao ja usado no autocheck de indice de botao.
-          if (opcaoBatida) {
-            const qtdMesmoPreco = opcoes.filter(o => o.status && o.preco === opcaoBatida.preco).length;
-            if (qtdMesmoPreco > 1) {
-              console.log(`⚠️ Preço ${opcaoBatida.preco} ambíguo pro MLB ${mlb} — ${qtdMesmoPreco} opções com esse preço e status real, pegou a primeira ("${opcaoBatida.status}")`);
+          // Correcao real (16/08/2026): quando nenhuma das 2 extracoes de formato
+          // conhecido (Opção N / sem rotulo) acha nenhuma opcao com status, mesmo com
+          // temConcorrencia:true, e o 3o formato -- colapsado por padrao, precisa clicar
+          // no cabecalho da secao pra expandir antes de conseguir ler o badge real.
+          if (opcoesComStatus.length === 0) {
+            await pageAnuncios.locator('*').filter({ hasText: 'Concorrência no Mercado Livre' }).last()
+              .click({ timeout: 5000 }).catch(() => {});
+            const textoExpandido = await esperarTextoEstabilizar(pageAnuncios, {
+              validarConteudo: (t) => t.includes('Competitividade'),
+            });
+            const idxConc2 = textoExpandido.indexOf('Concorrência no Mercado Livre');
+            const blocoConc2 = idxConc2 !== -1 ? textoExpandido.slice(idxConc2) : blocoConc;
+            const badge = extrairBadgeConcorrenciaColapsada(blocoConc2);
+
+            if (badge) {
+              mlbs[mlb].statusCatalogo = badge;
+              mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, formatoColapsado: true, badge };
+            } else {
+              // Nunca presumir "pai" silenciosamente quando ha concorrencia confirmada --
+              // vira aviso visivel em vez de dado errado sem ninguem perceber.
+              mlbs[mlb].viaAlterar = { erro: 'concorrencia confirmada mas nao foi possivel extrair status apos expandir', temConcorrencia };
             }
-          }
+          } else {
+            // Correcao real (14/08/2026, reportada pelo Felipe): o preco "de" (precoBase)
+            // pode ser IDENTICO entre condicoes diferentes do mesmo catalogo (ex: Classico
+            // e Premium anunciados com o mesmo preco cheio antes da promocao) -- casar por
+            // ele primeiro e ambiguo, pode pegar a opcao de OUTRO MLB por coincidencia de
+            // preco. Caso real: SKU WL4000-220V, MLB #6714259004 (Premium) tem precoBase
+            // "1.399,90" IGUAL ao precoBase do MLB #4984216839 (Classico) -- o casamento
+            // antigo (precoBase OU precoPromo, primeiro que bater na ordem do texto) pegou
+            // a opcao errada (GANHANDO, que na verdade era so a coincidencia de preco "de"),
+            // quando a opcao certa era a que batia com o precoPromo (867,28, PERDENDO -- esse
+            // sim exclusivo deste MLB). Correcao: tentar casar pelo precoPromo (preco real
+            // de venda, raramente coincide entre condicoes) PRIMEIRO -- so cai pro precoBase
+            // se nao achar nada pelo promo.
+            const opcaoBatida = (mlbs[mlb].precoPromo && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoPromo))
+              || (mlbs[mlb].precoBase && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoBase))
+              || null;
 
-          mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, opcoesEncontradas: opcoes, opcaoBatida: opcaoBatida || null };
-          if (opcaoBatida) mlbs[mlb].statusCatalogo = opcaoBatida.status;
+            // Item 2 da validacao do @analyst (14/08/2026): mesmo depois de excluir "Outras
+            // opcoes de venda" (item 1 acima), 2 opcoes com status REAL (GANHANDO/PERDENDO/
+            // etc.) ainda podem, em teoria, compartilhar o mesmo preco (ex: precoPromo
+            // coincidindo entre condicoes por algum motivo) -- `.find()` sempre resolve pra
+            // uma resposta, silenciosamente, mesmo quando ha mais de 1 candidato valido.
+            // Autocheck: se mais de 1 opcao com status real tem o mesmo preco escolhido,
+            // avisa (nao trava) -- mesmo padrao ja usado no autocheck de indice de botao.
+            if (opcaoBatida) {
+              const qtdMesmoPreco = opcoes.filter(o => o.status && o.preco === opcaoBatida.preco).length;
+              if (qtdMesmoPreco > 1) {
+                console.log(`⚠️ Preço ${opcaoBatida.preco} ambíguo pro MLB ${mlb} — ${qtdMesmoPreco} opções com esse preço e status real, pegou a primeira ("${opcaoBatida.status}")`);
+              }
+            }
+
+            mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, opcoesEncontradas: opcoes, opcaoBatida: opcaoBatida || null };
+            if (opcaoBatida) mlbs[mlb].statusCatalogo = opcaoBatida.status;
+          }
         }
       }
     } catch (errMlb) {

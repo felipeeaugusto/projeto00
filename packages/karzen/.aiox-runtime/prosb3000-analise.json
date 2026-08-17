@@ -99,15 +99,17 @@
       "deposito": null,
       "statusProduto": "Pausado",
       "condicao": "Clássico",
-      "statusCatalogo": null,
+      "statusCatalogo": "PREÇO ALTO",
       "qualidade": null,
       "experiencia": null,
       "precoBase": "269,79",
       "precoPromo": "216,99",
       "viaAlterar": {
-        "ehPai": true,
+        "ehPai": false,
         "temCompetindo": false,
-        "temConcorrencia": true
+        "temConcorrencia": true,
+        "formatoColapsado": true,
+        "badge": "PREÇO ALTO"
       }
     }
   },
@@ -148,9 +150,11 @@
     },
     {
       "mlb": "4935565074",
-      "ehPai": true,
+      "ehPai": false,
       "temCompetindo": false,
-      "temConcorrencia": true
+      "temConcorrencia": true,
+      "formatoColapsado": true,
+      "badge": "PREÇO ALTO"
     }
   ]
 }
