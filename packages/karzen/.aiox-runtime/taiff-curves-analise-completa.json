@@ -9,11 +9,11 @@
     "mlbs": {
       "3959996911": {
         "full": null,
-        "deposito": "sem estoque",
-        "statusProduto": "Pausado",
+        "deposito": "3 un.",
+        "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
-        "qualidade": null,
+        "qualidade": "92",
         "experiencia": null,
         "precoBase": "299,90",
         "precoPromo": "173",
@@ -25,39 +25,23 @@
       },
       "5069271006": {
         "full": "sem estoque",
-        "deposito": "sem estoque",
-        "statusProduto": "Pausado",
+        "deposito": "3 un.",
+        "statusProduto": "Ativo",
         "condicao": "Clássico",
-        "statusCatalogo": "Inativa",
-        "qualidade": null,
+        "statusCatalogo": "GANHANDO",
+        "qualidade": "80",
         "experiencia": null,
         "precoBase": "299,90",
         "precoPromo": "187,73",
-        "viaAlterar": {
-          "ehPai": false,
-          "temCompetindo": true,
-          "temConcorrencia": true,
-          "opcoesEncontradas": [
-            {
-              "preco": "299,90",
-              "status": "Inativa",
-              "condicaoDaOpcao": "Clássico"
-            }
-          ],
-          "opcaoBatida": {
-            "preco": "299,90",
-            "status": "Inativa",
-            "condicaoDaOpcao": "Clássico"
-          }
-        }
+        "viaAlterar": null
       },
       "5069321996": {
         "full": "sem estoque",
-        "deposito": "sem estoque",
-        "statusProduto": "Pausado",
+        "deposito": "3 un.",
+        "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
-        "qualidade": null,
+        "qualidade": "87",
         "experiencia": null,
         "precoBase": "299,90",
         "precoPromo": "187,73",
@@ -69,7 +53,7 @@
       },
       "5267650986": {
         "full": null,
-        "deposito": "sem estoque",
+        "deposito": "3 un.",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
@@ -83,24 +67,6 @@
       }
     },
     "statusCatalogoViaAlterar": [
-      {
-        "mlb": "5069271006",
-        "ehPai": false,
-        "temCompetindo": true,
-        "temConcorrencia": true,
-        "opcoesEncontradas": [
-          {
-            "preco": "299,90",
-            "status": "Inativa",
-            "condicaoDaOpcao": "Clássico"
-          }
-        ],
-        "opcaoBatida": {
-          "preco": "299,90",
-          "status": "Inativa",
-          "condicaoDaOpcao": "Clássico"
-        }
-      },
       {
         "mlb": "3959996911",
         "ehPai": true,
