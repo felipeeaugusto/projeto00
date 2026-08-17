@@ -9,11 +9,11 @@
     "mlbs": {
       "3959996911": {
         "full": null,
-        "deposito": "3 un.",
-        "statusProduto": "Ativo",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
         "condicao": "Clássico",
         "statusCatalogo": null,
-        "qualidade": "92",
+        "qualidade": null,
         "experiencia": null,
         "precoBase": "299,90",
         "precoPromo": "173",
@@ -25,23 +25,39 @@
       },
       "5069271006": {
         "full": "sem estoque",
-        "deposito": "3 un.",
-        "statusProduto": "Ativo",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
         "condicao": "Clássico",
-        "statusCatalogo": "GANHANDO",
-        "qualidade": "80",
+        "statusCatalogo": "Inativo",
+        "qualidade": null,
         "experiencia": null,
         "precoBase": "299,90",
         "precoPromo": "187,73",
-        "viaAlterar": null
+        "viaAlterar": {
+          "ehPai": false,
+          "temCompetindo": true,
+          "temConcorrencia": true,
+          "opcoesEncontradas": [
+            {
+              "preco": "299,90",
+              "status": "Inativa",
+              "condicaoDaOpcao": "Clássico"
+            }
+          ],
+          "opcaoBatida": {
+            "preco": "299,90",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Clássico"
+          }
+        }
       },
       "5069321996": {
         "full": "sem estoque",
-        "deposito": "3 un.",
-        "statusProduto": "Ativo",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
         "condicao": "Clássico",
         "statusCatalogo": null,
-        "qualidade": "87",
+        "qualidade": null,
         "experiencia": null,
         "precoBase": "299,90",
         "precoPromo": "187,73",
@@ -53,7 +69,7 @@
       },
       "5267650986": {
         "full": null,
-        "deposito": "3 un.",
+        "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "condicao": "Clássico",
         "statusCatalogo": null,
@@ -62,11 +78,29 @@
         "precoBase": "299,90",
         "precoPromo": "173",
         "viaAlterar": {
-          "erro": "nao encontrou botao ou item Alterar"
+          "erro": "nao foi possivel abrir a pagina de Alterar"
         }
       }
     },
     "statusCatalogoViaAlterar": [
+      {
+        "mlb": "5069271006",
+        "ehPai": false,
+        "temCompetindo": true,
+        "temConcorrencia": true,
+        "opcoesEncontradas": [
+          {
+            "preco": "299,90",
+            "status": "Inativa",
+            "condicaoDaOpcao": "Clássico"
+          }
+        ],
+        "opcaoBatida": {
+          "preco": "299,90",
+          "status": "Inativa",
+          "condicaoDaOpcao": "Clássico"
+        }
+      },
       {
         "mlb": "3959996911",
         "ehPai": true,
@@ -81,7 +115,7 @@
       },
       {
         "mlb": "5267650986",
-        "erro": "nao encontrou botao ou item Alterar"
+        "erro": "nao foi possivel abrir a pagina de Alterar"
       }
     ]
   },
@@ -94,7 +128,7 @@
     ],
     "mlbs": {
       "5923189512": {
-        "full": "67 un.",
+        "full": "55 un.",
         "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Clássico",
@@ -103,10 +137,36 @@
         "experiencia": null,
         "precoBase": "378,99",
         "precoPromo": "180",
-        "viaAlterar": null
+        "viaAlterar": {
+          "ehPai": false,
+          "temCompetindo": true,
+          "temConcorrencia": true,
+          "opcoesEncontradas": [
+            {
+              "preco": "378,99",
+              "status": "GANHANDO"
+            },
+            {
+              "preco": "234,39",
+              "status": "PERDENDO"
+            },
+            {
+              "preco": "378,99",
+              "status": null
+            },
+            {
+              "preco": "315,64",
+              "status": null
+            }
+          ],
+          "opcaoBatida": {
+            "preco": "378,99",
+            "status": "GANHANDO"
+          }
+        }
       },
       "5923239572": {
-        "full": "67 un.",
+        "full": "55 un.",
         "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Premium",
@@ -144,7 +204,7 @@
         }
       },
       "4298624551": {
-        "full": "67 un.",
+        "full": "56 un.",
         "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Clássico",
@@ -160,7 +220,7 @@
         }
       },
       "5923073522": {
-        "full": "67 un.",
+        "full": "56 un.",
         "deposito": null,
         "statusProduto": "Ativo",
         "condicao": "Premium",
@@ -177,6 +237,34 @@
       }
     },
     "statusCatalogoViaAlterar": [
+      {
+        "mlb": "5923189512",
+        "ehPai": false,
+        "temCompetindo": true,
+        "temConcorrencia": true,
+        "opcoesEncontradas": [
+          {
+            "preco": "378,99",
+            "status": "GANHANDO"
+          },
+          {
+            "preco": "234,39",
+            "status": "PERDENDO"
+          },
+          {
+            "preco": "378,99",
+            "status": null
+          },
+          {
+            "preco": "315,64",
+            "status": null
+          }
+        ],
+        "opcaoBatida": {
+          "preco": "378,99",
+          "status": "GANHANDO"
+        }
+      },
       {
         "mlb": "5923239572",
         "ehPai": false,
@@ -232,7 +320,7 @@
         "deposito": null,
         "statusProduto": "Pausado",
         "condicao": "Premium",
-        "statusCatalogo": "Inativa",
+        "statusCatalogo": "Inativo",
         "qualidade": null,
         "experiencia": null,
         "precoBase": "359,90",
@@ -270,7 +358,7 @@
         "deposito": null,
         "statusProduto": "Pausado",
         "condicao": "Clássico",
-        "statusCatalogo": "Inativa",
+        "statusCatalogo": "Inativo",
         "qualidade": null,
         "experiencia": null,
         "precoBase": "349,90",

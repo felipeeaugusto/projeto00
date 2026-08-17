@@ -213,32 +213,46 @@ async function esperarElementoComCalma(locator, maxTentativas = 8, intervaloMs =
   return false;
 }
 
-async function abrirAlterarPorIndice(pageAnuncios, indice) {
-  const botoes = pageAnuncios.locator('button[aria-label="Ações secundárias"]');
-  const qtd = await botoes.count();
-  if (indice >= qtd) return null;
-  const botaoAlvo = botoes.nth(indice);
-  await botaoAlvo.scrollIntoViewIfNeeded();
-  await pageAnuncios.waitForTimeout(400);
-  await botaoAlvo.click();
-
-  const itemAlterar = pageAnuncios.locator('*').filter({ hasText: /^Alterar$/ }).last();
-  const apareceu = await esperarElementoComCalma(itemAlterar);
-  if (!apareceu) {
-    await pageAnuncios.keyboard.press('Escape').catch(() => {});
+// Correcao real (17/08/2026, achado pelo Felipe + investigado pelo @analyst via *elicit):
+// a versao anterior desta funcao (abrirAlterarPorIndice, removida) clicava no menu "Acoes
+// secundarias" + item "Alterar", navegando a MESMA aba de Anuncios pra dentro da tela de
+// EDICAO do anuncio -- sem nunca abrir separado nem fechar depois. Felipe considerou isso
+// um risco serio (a tela "Alterar" edita um anuncio real de producao; ficar repetidamente
+// navegando pra dentro dela na mesma aba usada pro resto do processo, sem isolamento,
+// aumenta a exposicao a qualquer interacao inesperada). Investigacao ao vivo do @analyst
+// revelou que a suposicao antiga ("impossivel abrir em aba nova, o item nao e um <a href>
+// de verdade") estava ERRADA -- o item "Alterar" e um link real:
+// <a href="https://www.mercadolivre.com.br/syi/core/modify?itemId=MLB{numero}">.
+// Esta funcao substitui a antiga inteira: monta essa URL direto (sem precisar clicar em
+// nenhum menu por posicao/indice -- elimina tambem a classe de bug "indice de botao
+// errado", causa real do erro do MLB AOC21-30HM/4526861389 mais cedo hoje), abre numa aba
+// SEPARADA via openBackgroundPage (mesmo padrao ja validado no projeto pro "Modo
+// Navegador"), le o texto, e SEMPRE fecha essa aba antes de retornar (bloco finally, roda
+// mesmo em erro) -- a aba principal de Anuncios nunca e tocada/navegada.
+// Correcao real (17/08/2026): a versao anterior fechava a aba num `finally` interno,
+// mas o fluxo que le o formato "colapsado" (ver mais abaixo, extrairBadgeConcorrenciaColapsada)
+// precisa CLICAR na secao pra expandir e reler DEPOIS de receber o resultado desta funcao
+// -- ou seja, precisa da pagina ainda ABERTA. Por isso esta funcao devolve a `page` viva
+// junto do texto (em vez de fechar sozinha) -- quem chama e responsavel por fechar, DEPOIS
+// de terminar toda interacao (incluindo o clique de expandir), num finally no site de
+// chamada. So fecha aqui dentro no caminho de FALHA (quando nunca vai ser usada mesmo).
+async function abrirAlterarPorMlb(context, mlb) {
+  const browser = context.browser();
+  const urlAlterar = `https://www.mercadolivre.com.br/syi/core/modify?itemId=MLB${mlb}`;
+  const pageAlterar = await openBackgroundPage(browser, context, urlAlterar);
+  await pageAlterar.waitForLoadState('load', { timeout: 15000 }).catch(() => {});
+  // Mesma regra de paciencia de sempre (14/08/2026): esperar o texto estabilizar E
+  // confirmar consistencia estrutural antes de ler de verdade.
+  const texto = await esperarTextoEstabilizar(pageAlterar, { validarConteudo: validarPaginaAlterarCarregada });
+  // Marcador que sempre aparece numa pagina de Alterar carregada de verdade (visto em
+  // toda captura real de hoje) -- se nao aparecer, a URL nao levou pra onde devia (ex:
+  // MLB sem essa tela disponivel, mesmo padrao do caso AOC21-30HM/4526861389) e nao da
+  // pra confiar no conteudo.
+  if (!texto || !texto.includes('Estoque no depósito')) {
+    await pageAlterar.close().catch(() => {});
     return null;
   }
-  await itemAlterar.click();
-  await pageAnuncios.waitForLoadState('load', { timeout: 15000 }).catch(() => {});
-  // Correcao real (14/08/2026): mesma regra de paciencia, agora aplicada ao CONTEUDO
-  // da pagina de destino (nao so ao menu) -- um waitForTimeout fixo apos navegar deixava
-  // ler a pagina "COMPETINDO" ja renderizado mas a secao "Concorrencia no Mercado Livre"
-  // ainda nao (texto inconsistente: temCompetindo=true, temConcorrencia=false, ao mesmo
-  // tempo). Caso real: SKU WL4000-127V, MLB #5000383363. Correcao: esperar o texto da
-  // pagina estabilizar E confirmar consistencia estrutural (item 2 do checklist) antes
-  // de ler de verdade.
-  const texto = await esperarTextoEstabilizar(pageAnuncios, { validarConteudo: validarPaginaAlterarCarregada });
-  return { url: pageAnuncios.url(), texto };
+  return { page: pageAlterar, url: pageAlterar.url(), texto };
 }
 
 // Correcao real (14/08/2026, achado durante o reprocessamento real da campanha
@@ -322,7 +336,7 @@ async function acharSkuDoMlb(pageAnuncios, mlb) {
 // coleta"/"Envios no mesmo dia" sao rotulos de forma de pagamento/entrega que sempre
 // aparecem logo apos o preco na secao Concorrencia -- nunca sao status real. Caso real:
 // MLB #5247671694 (SKU CHTMINI-BIV) capturou "Pagamento sem juros" como se fosse status.
-const FRASES_NAO_STATUS = [/:$/, /^Outras opções de venda$/i, /^Nível de visitas$/i, /^Experiência de compra$/i, /^(Clássico|Premium)\s+e\s+Frete\s+grátis$/i, /^Pagamento sem juros$/i, /^Frete grátis$/i, /^Envios com coleta$/i, /^Envios no mesmo dia$/i];
+const FRASES_NAO_STATUS = [/:$/, /^Outras opções de venda$/i, /^Nível de visitas$/i, /^Experiência de compra$/i, /^(Clássico|Premium)\s+e\s+(?:Frete\s+grátis|Envio por conta do comprador)$/i, /^Pagamento sem juros$/i, /^Frete grátis$/i, /^Envios com coleta$/i, /^Envios no mesmo dia$/i];
 function pareceStatusValido(texto) {
   if (!texto) return false;
   const limpo = texto.trim();
@@ -348,8 +362,22 @@ function pareceStatusValido(texto) {
 // diferente de extrairOpcoesConcorrencia (que ja faz essa checagem "antes" pro formato
 // numerado). Correcao: mesma logica de prioridade aqui -- status antes tem prioridade
 // sobre status depois.
+// Correcao real (17/08/2026, achado na regressao apos trocar o mecanismo de Alterar):
+// o regex so reconhecia "e Frete grátis" como sufixo de condicao -- mas o Mercado Livre
+// tambem usa "e Envio por conta do comprador" pro mesmo formato (mesma estrutura, so a
+// forma de envio muda). Caso real confirmado: MLB #4315960981 (SKU FP100-220V), texto
+// real "Clássico e Envio por conta do comprador\n...\nR$\n78,99\n..." -- nunca batia,
+// opcoesComStatus.length ficava 0 por engano, e o MLB caia (errado) no fallback de
+// "formato colapsado".
 function extrairOpcaoUnicaSemRotulo(blocoConc) {
-  const m = blocoConc.match(/(Clássico|Premium)\s+e\s+Frete\s+grátis\s*\n?\s*(?:Nível de visitas:\s*\n?\s*(?:Mínimo|Máximo)\s*\n?\s*)?R\$\s*\n?\s*([\d.,]+)\s*\n?\s*([^\n]{0,40})/);
+  // Correcao real (17/08/2026, achado ao vivo -- MLB #6722040752/PAF15B-220V): so
+  // aceitava "Nível de visitas: Mínimo" ou "Máximo" -- "Médio" (3o valor real, nunca visto
+  // antes) fazia o grupo opcional falhar em consumir a linha, quebrando o match inteiro
+  // (nada casava, blocoConc caia no fallback de clicar-pra-expandir, que troca a secao
+  // inteira por "Experiência de compra" e destroi o texto da comparacao que ja estava
+  // certo). Confirmado ao vivo: badge estava la, estavel, em 3 leituras seguidas
+  // (COMPARTILHANDO) -- o problema era so nao reconhecer "Médio".
+  const m = blocoConc.match(/(Clássico|Premium)\s+e\s+(?:Frete\s+grátis|Envio por conta do comprador)\s*\n?\s*(?:Nível de visitas:\s*\n?\s*(?:Mínimo|Médio|Máximo)\s*\n?\s*)?R\$\s*\n?\s*([\d.,]+)\s*\n?\s*([^\n]{0,40})/);
   if (!m) return [];
 
   const antesTexto = blocoConc.slice(Math.max(0, m.index - 60), m.index);
@@ -408,6 +436,19 @@ function extrairBadgeConcorrenciaColapsada(blocoConc) {
   const m = blocoConc.match(/Concorrência no Mercado Livre\s*\n+\s*([^\n]+)\s*\n/);
   if (!m) return null;
   const badge = m[1].trim();
+  // Correcao real (17/08/2026, achado na regressao apos trocar o mecanismo de Alterar):
+  // a primeira linha apos o cabecalho "Concorrência no Mercado Livre" NEM SEMPRE e o
+  // badge -- varios formatos tem uma frase introdutoria generica ANTES do badge de
+  // verdade (ex: "Outros vendedores oferecem melhores condições de venda.", "Você
+  // oferece condições de venda semelhantes às de outros vendedores."). Casos reais
+  // confirmados: MLB #4315960981 (FP100-220V) e #6722040752 (PAF15B-220V) -- essas
+  // frases viraram "statusCatalogo" por engano. pareceStatusValido() sozinho nao pegava
+  // isso (lista de bloqueio so cobre frases ja vistas antes, cresceria pra sempre).
+  // Todos os badges reais confirmados hoje (GANHANDO, PERDENDO, COMPARTILHANDO,
+  // RESTRITO PARA GANHAR, PREÇO ALTO) sao sempre TODO EM MAIUSCULA -- exigir isso
+  // rejeita qualquer frase descritiva (sempre com minuscula e pontuacao) de forma
+  // estrutural, sem precisar listar cada frase nova conforme aparece.
+  if (!/^[A-ZÀ-Ú\s]+$/.test(badge)) return null;
   return pareceStatusValido(badge) ? badge : null;
 }
 
@@ -638,19 +679,35 @@ async function analisarSku(pageAnuncios, context, sku) {
   // Caminho 2, corrigido (bug 3): checa TODO MLB sem status explícito via Alterar,
   // não só o primeiro do SKU inteiro -- e usa casamento de preço (regra nova) pra
   // extrair o status real, não só um binário catálogo/pai.
-  const mlbsSemStatus = todosMlbs.filter(mlb => mlbs[mlb] && !mlbs[mlb].statusCatalogo);
+  //
+  // Correcao real (17/08/2026, achado pelo Felipe + investigado pelo @analyst via
+  // *elicit): o badge da pagina de LISTAGEM principal (usado acima pra preencher
+  // statusCatalogo antes deste loop) pode estar desatualizado/cacheado -- confirmado
+  // em pelo menos 2 casos reais (FP100-220V: "RESTRITO PARA GANHAR" na listagem vs
+  // "PERDENDO" real no Alterar; PAF11B-220V: "GANHANDO" na listagem vs "COMPARTILHANDO"
+  // real no Alterar). Levantamento no dataset inteiro: 89,5% dos MLBs ja passavam pelo
+  // Alterar mesmo antes desta correcao (so 10,5% dependiam so da listagem) -- custo de
+  // sempre verificar e baixo. Antes so entrava aqui quem NAO tinha status da listagem;
+  // agora TODO MLB passa por aqui, e o Alterar (fonte mais confiavel) sempre tem a
+  // ultima palavra sobre o status final.
+  const mlbsSemStatus = todosMlbs.filter(mlb => mlbs[mlb]);
   for (const mlb of mlbsSemStatus) {
-    const indiceGlobal = ordemMlbsGlobal.indexOf(mlb);
-    if (indiceGlobal === -1) continue;
-
+    // Correcao real (17/08/2026): nao precisa mais de indice de botao nem de re-buscar
+    // a listagem antes -- abrirAlterarPorMlb abre por URL direta, numa aba separada, sem
+    // depender do estado da pagina de listagem. `resultado.page` (se existir) so e
+    // fechada no finally, DEPOIS de qualquer interacao extra (ex: clique de expandir).
+    let resultado = null;
     try {
-      // Re-busca do zero garante que os botões de 3 pontinhos na tela batem com o
-      // índice calculado (a página de Alterar anterior pode ter navegado a aba pra longe)
-      await buscarERolar();
-      const resultado = await abrirAlterarPorIndice(pageAnuncios, indiceGlobal);
+      resultado = await abrirAlterarPorMlb(context, mlb);
 
       if (!resultado) {
-        mlbs[mlb].viaAlterar = { erro: 'nao encontrou botao ou item Alterar' };
+        mlbs[mlb].viaAlterar = { erro: 'nao foi possivel abrir a pagina de Alterar' };
+        // Correcao real (17/08/2026): ja provamos que o badge da listagem pode estar
+        // errado (ver comentario acima) -- sem conseguir confirmar via Alterar, nao faz
+        // sentido deixar esse valor nao confiavel sobrevivendo escondido. Mesma filosofia
+        // ja aplicada ao caso AOC21-30HM (sem confirmacao = fica de fora da planilha,
+        // decisao do Felipe): limpa o status em vez de manter o da listagem.
+        mlbs[mlb].statusCatalogo = null;
       } else {
         const temCompetindo = resultado.texto.includes('COMPETINDO');
         const idxConc = resultado.texto.indexOf('Concorrência no Mercado Livre');
@@ -673,10 +730,12 @@ async function analisarSku(pageAnuncios, context, sku) {
           // conhecido (Opção N / sem rotulo) acha nenhuma opcao com status, mesmo com
           // temConcorrencia:true, e o 3o formato -- colapsado por padrao, precisa clicar
           // no cabecalho da secao pra expandir antes de conseguir ler o badge real.
+          // Correcao real (17/08/2026): esse clique agora acontece na aba SEPARADA
+          // (`resultado.page`), nao mais na aba de Anuncios.
           if (opcoesComStatus.length === 0) {
-            await pageAnuncios.locator('*').filter({ hasText: 'Concorrência no Mercado Livre' }).last()
+            await resultado.page.locator('*').filter({ hasText: 'Concorrência no Mercado Livre' }).last()
               .click({ timeout: 5000 }).catch(() => {});
-            const textoExpandido = await esperarTextoEstabilizar(pageAnuncios, {
+            const textoExpandido = await esperarTextoEstabilizar(resultado.page, {
               validarConteudo: (t) => t.includes('Competitividade'),
             });
             const idxConc2 = textoExpandido.indexOf('Concorrência no Mercado Livre');
@@ -698,6 +757,12 @@ async function analisarSku(pageAnuncios, context, sku) {
               // Nunca presumir "pai" silenciosamente quando ha concorrencia confirmada --
               // vira aviso visivel em vez de dado errado sem ninguem perceber.
               mlbs[mlb].viaAlterar = { erro: 'concorrencia confirmada mas nao foi possivel extrair status apos expandir', temConcorrencia };
+              // Correcao real (17/08/2026): sem conseguir extrair um badge valido do
+              // Alterar, o valor que sobraria em mlbs[mlb].statusCatalogo seria o da
+              // pagina de LISTAGEM (nunca limpo nesse caminho) -- ja provamos hoje que
+              // esse valor pode estar errado (FP100-220V, PAF11B-220V). Mesma filosofia
+              // de "sem confirmacao = fica de fora" ja aplicada ao caso AOC21-30HM.
+              mlbs[mlb].statusCatalogo = null;
             }
           } else {
             // Correcao real (14/08/2026, reportada pelo Felipe): o preco "de" (precoBase)
@@ -731,17 +796,27 @@ async function analisarSku(pageAnuncios, context, sku) {
             }
 
             mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, opcoesEncontradas: opcoes, opcaoBatida: opcaoBatida || null };
-            if (opcaoBatida) mlbs[mlb].statusCatalogo = opcaoBatida.status;
+            // Correcao real (17/08/2026, achado pelo @analyst via *elicit): a regra
+            // "Pausado -> Inativo" (ver comentario na linha ~695, formato colapsado)
+            // so cobria aquele 1 caminho -- este aqui (formatos "Opção N" e "sem
+            // rotulo", que convergem no mesmo opcaoBatida) nao tinha a mesma protecao.
+            // Replicando a mesma logica pra fechar o buraco.
+            if (opcaoBatida) {
+              mlbs[mlb].statusCatalogo = mlbs[mlb].statusProduto === 'Pausado' ? 'Inativo' : opcaoBatida.status;
+            }
           }
         }
       }
     } catch (errMlb) {
       mlbs[mlb].viaAlterar = { erro: errMlb.message };
     } finally {
-      // Sempre volta pra aba de Anúncios limpa antes do próximo uso -- clicar em
-      // "Alterar" navega a MESMA aba (não abre guia nova, ver nota em abrirAlterarPorIndice)
-      await pageAnuncios.goto(URL_ANUNCIOS).catch(() => {});
-      await esperarTextoEstabilizar(pageAnuncios);
+      // Correcao real (17/08/2026): a pagina de Alterar agora e sempre uma aba SEPARADA
+      // (ver abrirAlterarPorMlb) -- fecha ela aqui, sempre, depois de qualquer interacao
+      // (incluindo o clique de expandir do formato colapsado). A aba de Anuncios nunca e
+      // tocada/navegada por esse fluxo inteiro, entao nao precisa mais "voltar" pra ela.
+      if (resultado && resultado.page) {
+        await resultado.page.close().catch(() => {});
+      }
     }
   }
 
@@ -775,6 +850,11 @@ module.exports = {
   normalizarNumeroOuTraco,
   normalizarQualExp,
   URL_ANUNCIOS,
+  abrirAlterarPorMlb,
+  extrairOpcoesConcorrencia,
+  extrairBadgeConcorrenciaColapsada,
+  esperarTextoEstabilizar,
+  tentarBuscarMlb,
 };
 
 if (require.main === module) {
