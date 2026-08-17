@@ -684,7 +684,15 @@ async function analisarSku(pageAnuncios, context, sku) {
             const badge = extrairBadgeConcorrenciaColapsada(blocoConc2);
 
             if (badge) {
-              mlbs[mlb].statusCatalogo = badge;
+              // Correcao real (17/08/2026, pedido explicito do Felipe): a coluna Status
+              // Catalogo so mostra o badge de concorrencia real (GANHANDO/PERDENDO/etc)
+              // quando o anuncio esta ATIVO o suficiente pra competir de verdade. Se o
+              // anuncio ja esta Pausado, ele nao esta "ativo pra mostrar GANHANDO/PERDENDO/
+              // COMPARTILHANDO" -- o badge colapsado (ex: "PREÇO ALTO") pode ficar visivel
+              // na pagina mesmo assim, mas nao reflete competicao real acontecendo agora.
+              // Caso real: MLB #4935565074 (SKU PROSB-3000), Pausado, badge "PREÇO ALTO"
+              // -- Felipe confirmou que o certo e "Inativo", nao o texto do badge.
+              mlbs[mlb].statusCatalogo = mlbs[mlb].statusProduto === 'Pausado' ? 'Inativo' : badge;
               mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, formatoColapsado: true, badge };
             } else {
               // Nunca presumir "pai" silenciosamente quando ha concorrencia confirmada --

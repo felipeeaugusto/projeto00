@@ -10,7 +10,7 @@
   "mlbs": {
     "4935566078": {
       "full": "1.876 un.",
-      "deposito": "2.102 un.",
+      "deposito": "2.105 un.",
       "statusProduto": "Ativo",
       "condicao": "Clássico",
       "statusCatalogo": "GANHANDO",
@@ -22,7 +22,7 @@
     },
     "5267746592": {
       "full": null,
-      "deposito": "2.102 un.",
+      "deposito": "2.105 un.",
       "statusProduto": "Ativo",
       "condicao": "Clássico",
       "statusCatalogo": null,
@@ -36,7 +36,7 @@
     },
     "4935589470": {
       "full": "1.876 un.",
-      "deposito": "2.102 un.",
+      "deposito": "2.105 un.",
       "statusProduto": "Ativo",
       "condicao": "Clássico",
       "statusCatalogo": null,
@@ -52,7 +52,7 @@
     },
     "5267746586": {
       "full": null,
-      "deposito": "2.102 un.",
+      "deposito": "2.105 un.",
       "statusProduto": "Ativo",
       "condicao": "Clássico",
       "statusCatalogo": null,
@@ -99,7 +99,7 @@
       "deposito": null,
       "statusProduto": "Pausado",
       "condicao": "Clássico",
-      "statusCatalogo": "PREÇO ALTO",
+      "statusCatalogo": "Inativo",
       "qualidade": null,
       "experiencia": null,
       "precoBase": "269,79",
