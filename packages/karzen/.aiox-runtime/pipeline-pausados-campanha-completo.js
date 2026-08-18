@@ -763,8 +763,56 @@ async function analisarSku(pageAnuncios, context, sku) {
               // referencia interna) -- mesmo padrao ja usado pra Pausado->Inativo, mas
               // aqui e badge->status normalizado, nao status_do_produto->status_catalogo.
               const badgeNormalizado = badge === 'PREÇO ALTO' ? 'PERDENDO' : badge;
-              mlbs[mlb].statusCatalogo = mlbs[mlb].statusProduto === 'Pausado' ? 'Inativo' : badgeNormalizado;
-              mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, formatoColapsado: true, badge };
+
+              // Salvaguarda de dupla-leitura (17/08/2026, achado pelo @analyst via *elicit):
+              // os 2 erros reais de dado confirmados hoje (WAF-127V MLB #4690623743 --
+              // catalogo fantasma sem causa raiz confirmada -- e BAS1295P-127V MLB
+              // #6739045854 -- badge PRECO ALTO nao normalizado) vieram exatamente deste
+              // caminho (formatoColapsado), 100% de correlacao (2 de 2). E o caminho mais
+              // raro (precisa clicar pra expandir) e o mais fragil confirmado ate agora.
+              // Releitura ao vivo independente (aba nova, do zero) do mesmo MLB antes de
+              // aceitar como final -- se baterem, confirma; se divergirem, nunca escolher
+              // qual esta certa (mesma filosofia "sem confirmacao = fica de fora" do caso
+              // AOC21-30HM) -- vira erro/pendencia visivel em vez de dado errado silencioso.
+              let badgeConfirmado = badgeNormalizado;
+              let segundaLeituraOk = true;
+              let resultado2 = null;
+              try {
+                resultado2 = await abrirAlterarPorMlb(context, mlb);
+                if (resultado2) {
+                  const idxConc3 = resultado2.texto.indexOf('Concorrência no Mercado Livre');
+                  if (idxConc3 !== -1) {
+                    await resultado2.page.locator('*').filter({ hasText: 'Concorrência no Mercado Livre' }).last()
+                      .click({ timeout: 5000 }).catch(() => {});
+                    const textoExpandido2 = await esperarTextoEstabilizar(resultado2.page, {
+                      validarConteudo: (t) => t.includes('Competitividade'),
+                    });
+                    const idxConc4 = textoExpandido2.indexOf('Concorrência no Mercado Livre');
+                    const blocoConc4 = idxConc4 !== -1 ? textoExpandido2.slice(idxConc4) : '';
+                    const badge2 = extrairBadgeConcorrenciaColapsada(blocoConc4);
+                    const badge2Normalizado = badge2 === 'PREÇO ALTO' ? 'PERDENDO' : badge2;
+                    segundaLeituraOk = badge2 !== null && badge2Normalizado === badgeNormalizado;
+                  } else {
+                    segundaLeituraOk = false; // 2a leitura nao achou nem a secao de Concorrencia
+                  }
+                } else {
+                  segundaLeituraOk = false; // 2a leitura nao conseguiu nem abrir o Alterar
+                }
+              } catch {
+                segundaLeituraOk = false;
+              } finally {
+                if (resultado2 && resultado2.page) await resultado2.page.close().catch(() => {});
+              }
+
+              if (!segundaLeituraOk) {
+                console.log(`⚠️ Dupla-leitura divergiu pro MLB ${mlb} (formatoColapsado, badge 1a leitura: "${badge}") -- sem confirmacao, fica de fora da planilha.`);
+                mlbs[mlb].statusCatalogo = null;
+                mlbs[mlb].viaAlterar = { erro: 'dupla-leitura divergiu no formato colapsado', temConcorrencia, badgePrimeiraLeitura: badge };
+                continue;
+              }
+
+              mlbs[mlb].statusCatalogo = mlbs[mlb].statusProduto === 'Pausado' ? 'Inativo' : badgeConfirmado;
+              mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, formatoColapsado: true, badge, dupleReleituraConfirmada: true };
             } else {
               // Nunca presumir "pai" silenciosamente quando ha concorrencia confirmada --
               // vira aviso visivel em vez de dado errado sem ninguem perceber.
