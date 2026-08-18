@@ -448,7 +448,20 @@ function extrairBadgeConcorrenciaColapsada(blocoConc) {
   // RESTRITO PARA GANHAR, PREÇO ALTO) sao sempre TODO EM MAIUSCULA -- exigir isso
   // rejeita qualquer frase descritiva (sempre com minuscula e pontuacao) de forma
   // estrutural, sem precisar listar cada frase nova conforme aparece.
-  if (!/^[A-ZÀ-Ú\s]+$/.test(badge)) return null;
+  if (!/^[A-ZÀ-Ú\s]+$/.test(badge)) {
+    // Correcao real (18/08/2026, achado no piloto do reprocessamento completo, SKU
+    // CKESSTC-ITA5Q, MLBs #4277217107/#4277230155): quando o vendedor esta impedido de
+    // disputar por Experiencia de compra ruim, ESTA pagina especifica (Alterar, formato
+    // colapsado) mostra uma frase narrativa em vez do badge maiusculo "RESTRITO PARA
+    // GANHAR" -- confirmado ao vivo: "Você não pode ganhar porque tem experiência de
+    // compra ruim." Mesma situacao ja documentada (mapeamento-skus-ads-catalogo-
+    // mercadolivre.md, Passo A.1 -- "'Restrito para ganhar' significa que o MLB é de
+    // catálogo, mas está impedido de disputar... porque a Experiência de compra do
+    // vendedor está baixa"), so que nesta tela especifica ela aparece em texto corrido,
+    // nao como badge maiusculo isolado.
+    if (/você não pode ganhar/i.test(badge)) return 'RESTRITO PARA GANHAR';
+    return null;
+  }
   return pareceStatusValido(badge) ? badge : null;
 }
 
