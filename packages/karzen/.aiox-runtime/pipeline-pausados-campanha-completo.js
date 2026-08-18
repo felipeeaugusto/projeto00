@@ -751,7 +751,19 @@ async function analisarSku(pageAnuncios, context, sku) {
               // na pagina mesmo assim, mas nao reflete competicao real acontecendo agora.
               // Caso real: MLB #4935565074 (SKU PROSB-3000), Pausado, badge "PREÇO ALTO"
               // -- Felipe confirmou que o certo e "Inativo", nao o texto do badge.
-              mlbs[mlb].statusCatalogo = mlbs[mlb].statusProduto === 'Pausado' ? 'Inativo' : badge;
+              //
+              // Correcao real (17/08/2026, achado pelo Felipe -- MLB #6739045854, SKU
+              // BAS1295P-127V): "PREÇO ALTO" NAO e uma categoria propria paralela a
+              // GANHANDO/PERDENDO/COMPARTILHANDO -- e um badge que so aparece quando o
+              // anuncio esta PERDENDO especificamente por causa do preco. Confirmado ao
+              // vivo, expandindo a secao: "Preço competitivo: R$134" vs "Seu anúncio:
+              // R$190,83", "Competitividade: Alta" (mercado) vs "Baixa" (nosso anuncio) --
+              // inequivocamente perdendo, so com um rotulo diferente. Normaliza pra
+              // "PERDENDO" (badge original preservado em viaAlterar.badge, so como
+              // referencia interna) -- mesmo padrao ja usado pra Pausado->Inativo, mas
+              // aqui e badge->status normalizado, nao status_do_produto->status_catalogo.
+              const badgeNormalizado = badge === 'PREÇO ALTO' ? 'PERDENDO' : badge;
+              mlbs[mlb].statusCatalogo = mlbs[mlb].statusProduto === 'Pausado' ? 'Inativo' : badgeNormalizado;
               mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, formatoColapsado: true, badge };
             } else {
               // Nunca presumir "pai" silenciosamente quando ha concorrencia confirmada --
@@ -855,6 +867,9 @@ module.exports = {
   extrairBadgeConcorrenciaColapsada,
   esperarTextoEstabilizar,
   tentarBuscarMlb,
+  rolarPagina,
+  esperarElementoComCalma,
+  CAMPANHAS,
 };
 
 if (require.main === module) {
@@ -959,7 +974,19 @@ if (require.main === module) {
           await linkVerVariacoes.click();
           await rolarPagina(pageCampanha, 10);
           const textoDrawer = await esperarTextoEstabilizar(pageCampanha);
-          const idxTituloDrawer = textoDrawer.lastIndexOf(tituloProduto);
+          // Correcao real (17/08/2026, achado ao vivo -- produto "Smart Tv 32 Philco Roku
+          // Tv Dolby Áudio Hdr10 P32crb"): o titulo do produto se repete 1x por LINHA da
+          // tabela de variacoes do drawer (coluna "Título da variação"). Pra titulos longos
+          // essa repeticao vem truncada (nao bate exato), entao lastIndexOf(tituloProduto)
+          // sempre achava so o cabecalho do drawer (unica ocorrencia exata) -- mas pra um
+          // titulo curto o suficiente pra NAO truncar na linha, lastIndexOf achava a ULTIMA
+          // linha da tabela em vez do cabecalho, cortando o texto depois de todos os MLBs
+          // (sobrava so o rodape da pagina, 0 MLBs encontrados). Ancorar em "Título da
+          // variação" (cabecalho da coluna, aparece 1x so, logo antes das linhas) e
+          // confiavel independente do tamanho do titulo -- fallback pro comportamento antigo
+          // se esse marcador nao aparecer por algum motivo.
+          const idxCabecalhoTabela = textoDrawer.indexOf('Título da variação');
+          const idxTituloDrawer = idxCabecalhoTabela !== -1 ? idxCabecalhoTabela : textoDrawer.lastIndexOf(tituloProduto);
           const mlbsNoDrawer = [...new Set((textoDrawer.slice(idxTituloDrawer).match(/MLB\d{7,11}/g) || []).map(m => m.replace('MLB','')))];
           console.log(`  MLBs no drawer: ${mlbsNoDrawer.length} -- ${mlbsNoDrawer.join(', ')}`);
 
