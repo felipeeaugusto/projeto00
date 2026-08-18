@@ -64,19 +64,46 @@ function salvarJson(caminho, dados) {
 // (pipeline-lote-25-91.js, buscarTituloEStatusComPolling) trocando polling com tempo fixo
 // por esperarTextoEstabilizar, conforme REGRA GERAL OBRIGATÓRIA do documento.
 async function buscarTituloEStatusEmAds(pageAds, mlb) {
+  // Correção real (18/08/2026, achada no piloto 145-170): a página de Ads é reusada pra
+  // TODA a rodada (nunca aberta de novo por MLB) -- sem exigir que o texto tenha MUDADO
+  // do estado anterior, esperarTextoEstabilizar podia aceitar o resultado da busca
+  // ANTERIOR (que também contém "CATÁLOGO") como se fosse o resultado da busca atual,
+  // se a nova busca ainda não tivesse atualizado o DOM na hora da checagem. Mesma classe
+  // de bug já documentada em analisarSku/acharSkuDoMlb (exigir que o termo buscado
+  // apareça) -- aqui não dá pra exigir o MLB buscado literalmente (o bloco CATÁLOGO pode
+  // mostrar um #MLB diferente do buscado, comportamento normal documentado no Passo A.2),
+  // então a defesa é exigir que o texto tenha mudado do estado imediatamente anterior.
+  // Confirmado real: 3 de 4 linhas do piloto (145, 146, 148) saíram com tituloCatalogo
+  // null por causa disso; a 147 saiu certa por coincidência de timing.
   const fecharDrawer = pageAds.locator('button[aria-label="Cerrar"]');
   if (await fecharDrawer.count() > 0) {
     await fecharDrawer.first().click().catch(() => {});
   }
-  const campo = pageAds.locator(SELETOR_BUSCA_ADS).first();
-  await campo.click();
-  await campo.fill('');
-  await campo.fill(`MLB${mlb}`);
-  await pageAds.keyboard.press('Enter');
 
-  const texto = await esperarTextoEstabilizar(pageAds, {
-    validarConteudo: (t) => t.includes('CATÁLOGO') || t.includes('Sem Campanha'),
-  });
+  const textoAntes = await pageAds.locator('body').innerText().catch(() => '');
+
+  async function buscarUmaVez() {
+    const campo = pageAds.locator(SELETOR_BUSCA_ADS).first();
+    await campo.click();
+    await campo.fill('');
+    await campo.fill(`MLB${mlb}`);
+    await pageAds.keyboard.press('Enter');
+    return esperarTextoEstabilizar(pageAds, {
+      validarConteudo: (t) => (t.includes('CATÁLOGO') || t.includes('Sem Campanha')) && t !== textoAntes,
+    });
+  }
+
+  let texto = await buscarUmaVez();
+  if (texto === textoAntes) {
+    texto = await buscarUmaVez(); // re-busca do zero, uma vez -- mesmo padrão de analisarSku
+  }
+
+  // Mesma filosofia já usada no resto do pipeline (caso AOC21-30HM, dupla-leitura
+  // divergente): sem confirmação real de que o texto é fresco, não inventa um resultado
+  // -- fica marcado como não confiável em vez de silenciosamente errado.
+  if (texto === textoAntes || !(texto.includes('CATÁLOGO') || texto.includes('Sem Campanha'))) {
+    return { titulo: null, statusAds: null, erro: 'busca_em_ads_nao_confirmada_texto_desatualizado' };
+  }
 
   const idxCat = texto.indexOf('CATÁLOGO');
   const idxSemCampanha = texto.indexOf('Sem Campanha');
@@ -144,7 +171,7 @@ async function processarLinha(pageAnuncios, pageAds, context, itemId, linha) {
   }
 
   const mlbReferencia = classico ? classico.mlbId : premium.mlbId;
-  const { titulo, statusAds } = await buscarTituloEStatusEmAds(pageAds, mlbReferencia);
+  const { titulo, statusAds, erro: erroAds } = await buscarTituloEStatusEmAds(pageAds, mlbReferencia);
 
   const dc = classico ? mlbs[classico.mlbId] : null;
   const dp = premium ? mlbs[premium.mlbId] : null;
@@ -164,6 +191,7 @@ async function processarLinha(pageAnuncios, pageAds, context, itemId, linha) {
     },
     tituloCatalogo: titulo,
     statusAds,
+    ...(erroAds ? { erro: erroAds } : {}),
     metodoVersao: METODO_VERSAO,
     processadoEm: new Date().toISOString(),
   };
@@ -207,7 +235,13 @@ async function main() {
     for (const item of itens) {
       const chave = `linha-${item.row}`;
       const existente = resultados[chave];
-      if (existente && existente.metodoVersao === METODO_VERSAO) {
+      // Só pula se processado com o método atual E sem nenhum erro registrado -- uma
+      // linha com `erro` (mesmo "definitivo" tipo ANUNCIO_NAO_ENCONTRADO) é reprocessada
+      // de novo, nunca aceita como "feita" silenciosamente. Achado real (18/08/2026,
+      // piloto 145-170): sem essa checagem extra, linhas com tituloCatalogo/statusAds
+      // corrompidos por busca desatualizada (ver buscarTituloEStatusEmAds) ficariam
+      // presas como "já processadas" pra sempre, mesmo depois do bug corrigido.
+      if (existente && existente.metodoVersao === METODO_VERSAO && !existente.erro) {
         console.log(`[linha ${item.row}] já processada com o método atual -- pulando`);
         continue;
       }
