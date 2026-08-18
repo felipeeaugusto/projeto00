@@ -228,7 +228,13 @@ async function main() {
 
     let pageAnuncios = context.pages().find((p) => /mercadolivre\.com\.br\/anuncios#/.test(p.url()));
     if (!pageAnuncios) pageAnuncios = await openBackgroundPage(browser, context, URL_ANUNCIOS);
-    let pageAds = context.pages().find((p) => p.url().includes('ads.mercadolivre.com.br'));
+    // Correção real (18/08/2026, achada no piloto): filtro largo demais
+    // (só `.includes('ads.mercadolivre.com.br')`) pegava qualquer aba velha do domínio
+    // deixada aberta de sessões/scripts anteriores -- inclusive dashboard de campanha
+    // (`.../product-ads/admin/campaigns/.../dashboard`), que tem busca própria mas
+    // busca DENTRO daquela campanha específica, nunca mostra o bloco "CATÁLOGO". Exigir
+    // o path exato da página certa (Anúncios Patrocinados, `/product-ads/admin/ads`).
+    let pageAds = context.pages().find((p) => p.url().includes('ads.mercadolivre.com.br/product-ads/admin/ads'));
     if (!pageAds) pageAds = await openBackgroundPage(browser, context, URL_ADS);
 
     let processadosNestaRodada = 0;

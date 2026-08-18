@@ -1,0 +1,638 @@
+{
+  "linha-147": {
+    "linha": 147,
+    "itemId": "6298204420",
+    "sku": "PSC3500-127V",
+    "todosMlbsSincronizados": [
+      "6298075690",
+      "6298204420",
+      "6298255920",
+      "6298295030"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6298075690",
+      "Premium": "6298204420"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6298075690",
+        "full": "242 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": {
+        "mlb": "6298204420",
+        "full": "242 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    },
+    "tituloCatalogo": "Secador de cabelo PhilcoSecadores de Cabelo PSC3500",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T19:57:31.414Z"
+  },
+  "linha-151": {
+    "linha": 151,
+    "itemId": "4579548275",
+    "sku": "CEARAN-BW-MAX",
+    "todosMlbsSincronizados": [
+      "4579548275",
+      "6554959836"
+    ],
+    "catalogoConfirmado": null,
+    "erro": "NENHUM_MLB_DE_CATALOGO_CONFIRMADO",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:07:42.195Z"
+  },
+  "linha-152": {
+    "linha": 152,
+    "itemId": "4328821719",
+    "sku": "PPM101K-127V",
+    "todosMlbsSincronizados": [
+      "4328708493",
+      "5973173720",
+      "4328821719",
+      "5973273504"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "5973173720",
+      "Premium": "4328708493"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "5973173720",
+        "full": "45 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": {
+        "mlb": "4328708493",
+        "full": "45 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:09:14.957Z"
+  },
+  "linha-153": {
+    "linha": 153,
+    "itemId": "5929487710",
+    "sku": "P-20-BIV",
+    "todosMlbsSincronizados": [
+      "5929513268",
+      "5929513378",
+      "5929247960",
+      "5929487710"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "5929513268",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "5929513268",
+        "full": "200 un.",
+        "deposito": "550 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:10:40.623Z"
+  },
+  "linha-154": {
+    "linha": 154,
+    "itemId": "6714271760",
+    "sku": "WWL1820-220V",
+    "todosMlbsSincronizados": [
+      "6680141188",
+      "6714271760",
+      "6680166648",
+      "6714173314"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6680141188",
+      "Premium": "6714271760"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6680141188",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      "Premium": {
+        "mlb": "6714271760",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:12:15.090Z"
+  },
+  "linha-155": {
+    "linha": 155,
+    "itemId": "6512791896",
+    "sku": "APK-B-220V",
+    "todosMlbsSincronizados": [
+      "6512791896",
+      "4558922231"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6512791896",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6512791896",
+        "full": "38 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": "Aspirador Kian 3 em 1 1.2L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:13:17.341Z"
+  },
+  "linha-156": {
+    "linha": 156,
+    "itemId": "6612775230",
+    "sku": "C-34JI-15X-127V",
+    "todosMlbsSincronizados": [
+      "6612787400",
+      "6612775230"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6612787400",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6612787400",
+        "full": "sem estoque",
+        "deposito": "252 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:14:25.701Z"
+  },
+  "linha-157": {
+    "linha": 157,
+    "itemId": "6754667316",
+    "sku": "SCG-4D-BIV",
+    "todosMlbsSincronizados": [
+      "4670646181",
+      "6754175514",
+      "6754667316",
+      "6754674964"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4670646181",
+      "Premium": "6754674964"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4670646181",
+        "full": "431 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": {
+        "mlb": "6754674964",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:15:58.143Z"
+  },
+  "linha-158": {
+    "linha": 158,
+    "itemId": "4277230093",
+    "sku": "CKESSTC-ITA5Q",
+    "todosMlbsSincronizados": [
+      "4277217107",
+      "4277230155",
+      "4277204327",
+      "4277230093"
+    ],
+    "catalogoConfirmado": null,
+    "erro": "NENHUM_MLB_DE_CATALOGO_CONFIRMADO",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:17:35.031Z"
+  },
+  "linha-159": {
+    "linha": 159,
+    "itemId": "5929247960",
+    "sku": "P-20-BIV",
+    "todosMlbsSincronizados": [
+      "5929513268",
+      "5929513378",
+      "5929247960",
+      "5929487710"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "5929513268",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "5929513268",
+        "full": "200 un.",
+        "deposito": "549 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:19:09.191Z"
+  },
+  "linha-160": {
+    "linha": 160,
+    "itemId": "3969985507",
+    "sku": "BMX400P-127V",
+    "todosMlbsSincronizados": [
+      "3969889039",
+      "3969949487",
+      "3969914775",
+      "3969985507"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3969889039",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3969889039",
+        "full": "698 un.",
+        "deposito": "249 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:20:55.742Z"
+  },
+  "linha-161": {
+    "linha": 161,
+    "itemId": "4639519087",
+    "sku": "PLP2800-220V",
+    "todosMlbsSincronizados": [
+      "4639506333",
+      "4656803107",
+      "4639519087",
+      "4656803097"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4656803107",
+      "Premium": "4639506333"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4656803107",
+        "full": "sem estoque",
+        "deposito": null,
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      "Premium": {
+        "mlb": "4639506333",
+        "full": "sem estoque",
+        "deposito": null,
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:22:19.235Z"
+  },
+  "linha-162": {
+    "linha": 162,
+    "itemId": "6163878978",
+    "sku": "PG-01-RC-127V",
+    "todosMlbsSincronizados": [
+      "4417870781",
+      "6163878978"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4417870781",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4417870781",
+        "full": "124 un.",
+        "deposito": "518 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:23:20.521Z"
+  },
+  "linha-163": {
+    "linha": 163,
+    "itemId": "4719860315",
+    "sku": "MPN-01-BF-127V",
+    "todosMlbsSincronizados": [
+      "4719874527",
+      "4719886935",
+      "4719860315",
+      "6858282012"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4719874527",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4719874527",
+        "full": "120 un.",
+        "deposito": "297 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:24:44.890Z"
+  },
+  "linha-164": {
+    "linha": 164,
+    "itemId": "5059246116",
+    "sku": "PRODT-1270",
+    "todosMlbsSincronizados": [
+      "3923788669",
+      "3958548259",
+      "5059246116",
+      "3923775777",
+      "5267677900",
+      "5278770424"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3923788669",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3923788669",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:26:36.516Z"
+  },
+  "linha-165": {
+    "linha": 165,
+    "itemId": "3923788669",
+    "sku": "PRODT-1270",
+    "todosMlbsSincronizados": [
+      "3923788669",
+      "3958548259",
+      "5059246116",
+      "3923775777",
+      "5267677900",
+      "5278770424"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3923788669",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3923788669",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:28:15.992Z"
+  },
+  "linha-166": {
+    "linha": 166,
+    "itemId": "5320555604",
+    "sku": "MDTAUTO-BIV",
+    "todosMlbsSincronizados": [
+      "5320555604",
+      "5320580856",
+      "5320529718",
+      "5320683754"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "5320555604",
+      "Premium": "5320580856"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "5320555604",
+        "full": "45 un.",
+        "deposito": "28 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      "Premium": {
+        "mlb": "5320580856",
+        "full": null,
+        "deposito": "28 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:29:55.506Z"
+  },
+  "linha-167": {
+    "linha": 167,
+    "itemId": "6667286460",
+    "sku": "PAS23-BIV",
+    "todosMlbsSincronizados": [
+      "6667309696",
+      "6667322986",
+      "6667286460",
+      "6667310140"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6667309696",
+      "Premium": "6667322986"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6667309696",
+        "full": "1.184 un.",
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      "Premium": {
+        "mlb": "6667322986",
+        "full": "1.184 un.",
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:31:20.895Z"
+  },
+  "linha-168": {
+    "linha": 168,
+    "itemId": "3398212931",
+    "sku": "HC112",
+    "todosMlbsSincronizados": [
+      "4102113028",
+      "3398262943",
+      "3398212931",
+      "3398309681",
+      "3398309923",
+      "4113582727",
+      "5721342946",
+      "4140461883"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4102113028",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4102113028",
+        "full": null,
+        "deposito": "2 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:33:17.467Z"
+  },
+  "linha-169": {
+    "linha": 169,
+    "itemId": "3847452621",
+    "sku": "CINXELG-127V",
+    "todosMlbsSincronizados": [
+      "3847452621",
+      "3847416663"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3847452621",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3847452621",
+        "full": "sem estoque",
+        "deposito": null,
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:34:38.914Z"
+  },
+  "linha-170": {
+    "linha": 170,
+    "itemId": "6174091882",
+    "sku": "PAS1450C-127V",
+    "todosMlbsSincronizados": [
+      "6174001096",
+      "6174091882"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6174001096",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6174001096",
+        "full": "286 un.",
+        "deposito": "250 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:36:00.375Z"
+  }
+}
