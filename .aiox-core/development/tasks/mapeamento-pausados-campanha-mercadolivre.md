@@ -92,7 +92,7 @@ No texto puro da página (`innerText`), quando o MLB está **Ativo** e o valor �
 
 Depois de achar o SKU (Passo A + busca reversa), reaproveitar integralmente:
 - **Passo A (do outro doc)** — buscar o SKU, rolar a página inteira, achar `todosMlbsSincronizados`
-- **Passo A.1** — confirmar Catálogo Clássico/Premium (caminho 1: status GANHANDO/PERDENDO/COMPARTILHANDO/RESTRITO PARA GANHAR; caminho 2: comparação de preço via "Alterar")
+- **Passo A.1** — confirmar Catálogo Clássico/Premium (caminho 1: status GANHANDO/PERDENDO/COMPARTILHANDO/RESTRITO PARA GANHAR — sempre confirmando via "Alterar" mesmo quando a listagem já mostra badge, ver ressalva de 17-18/08/2026; caminho 2: comparação de preço via "Alterar", incluindo os 3 formatos da seção "Concorrência no Mercado Livre" e a **dupla-leitura obrigatória pro formato colapsado** — mesma regra do PREÇO ALTO/PERDENDO, aplicada aqui integralmente, essencial pros produtos pausados em campanha porque foi exatamente nesse contexto que os 2 erros reais de dado apareceram)
 - **Passo A.2** — Depósito/FULL/Status do Produto
 
 ## Passo D — Escrever na planilha (`Pausados em Campanha - Karzen.xlsx`)
