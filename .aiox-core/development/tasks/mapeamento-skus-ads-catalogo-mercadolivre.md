@@ -209,9 +209,11 @@ if ($null -ne $primeira) {
 
 **⚠️ Regra de "qual linha processar a seguir" — corrigida (10/08/2026):** o azul do Felipe foi marcado **antes** deste método existir — nunca passou pela determinação de status em Ads (Passo B). Pular linhas azuis faria essas linhas nunca receberem o tratamento validado. A regra correta: **pular SOMENTE células já coloridas com uma das cores novas por-grupo-de-SKU** (as cores geradas via HSL, uma por SKU, usadas desde que este método começou). Qualquer outra cor — o azul `RGB(66,133,244)`, dourado `RGB(255,217,102)`, dourado-claro `RGB(255,229,153)`, ou sem cor nenhuma — conta como "ainda não passou pelo método validado" e deve ser processada normalmente. Não precisa de nenhum tratamento especial por faixa de linha: como o Passo A busca o SKU e traz todos os MLBs do produto onde quer que estejam na planilha, e o Passo C colore com escopo "Pasta de trabalho" (planilha inteira), uma varredura sequencial simples aplicando essa regra já cobre o trabalho manual do Felipe espalhado por qualquer lugar da planilha, corrigindo/atualizando essas linhas pro método validado.
 
-## Passo D — Escrever nas 2 páginas novas do Google Sheets
+## Passo D — Escrever nas 2 páginas do `Analise Oficial.xlsx` (depois replicar pro Google Sheets)
 
-**Planilha:** "Planilha do Ads ML" (`https://docs.google.com/spreadsheets/d/1JI5kUj-F2D946GtH4U3REkryCqpXvacmFlKrn2QFdm8/`)
+**Correção (17-18/08/2026) — destino imediato é o Excel local, não o Google Sheets:** até esta correção, este passo descrevia o Google Sheets como destino único e imediato — isso nunca esteve certo na prática. **Destino imediato:** `Analise Oficial.xlsx` (`C:\Downloads\`), abas já existentes `Prioridade - Fora de Ads` (3ª aba do arquivo, depois de `Plan1` e `Plan2`) e `Mapeamento Completo da Planilha` (4ª aba) — confirmado em 18/08/2026 que essas 2 abas já existem de verdade nesse arquivo, já com o banner de validação e já com dado real (~40 e ~120 linhas processadas). É nelas que cada SKU processado entra, incrementalmente, à medida que é confirmado pelo método validado (Passo A/A.1/A.2/B/C).
+
+Só **depois** de todo o lote estar processado e você aprovar (banner trocado de `⚠️ Dados em validação` pra `✅ Dados confirmados`), os mesmos dados são replicados pra "Planilha do Ads ML" no Google Sheets (`https://docs.google.com/spreadsheets/d/1JI5kUj-F2D946GtH4U3REkryCqpXvacmFlKrn2QFdm8/`) — essa sim é a publicação final, compartilhada com o Carlos. O procedimento de criação de aba nova via Playwright (mais abaixo) se aplica a essa etapa final de replicação, não à escrita do dia a dia.
 
 **Ordem de escrita obrigatória (decidido com o Felipe em 11/08/2026):** as linhas 2-91 e as 4 linhas isoladas 106, 107, 111 e 114 (dentro do intervalo 94-121, que também não passaram pelo método validado) precisam ser reprocessadas pelo método validado (Passo A/B/C) **antes** de qualquer escrita nas páginas do Google Sheets. Só depois disso entram os dados das linhas 92-144 (as 4 isoladas entram junto com o primeiro lote, não com o 92-144).
 
@@ -222,10 +224,10 @@ Colunas: `SKU | MLB(s) | Título de catálogo | Depósito (un) | FULL (un)`
 Conteúdo: produtos ativos com status "Sem Campanha" (Passo B) — pra entrega ao Carlos e ao gerente de conta do Mercado Ads.
 
 **4ª página — nome exato da aba: `Mapeamento Completo da Planilha`**
-Colunas: `SKU | MLB(s) conhecidos | Título de catálogo | Status (Ativo/Pausado/Sem estoque) | Status em Ads (Ativa/Pausada/Sem Campanha)`
+Colunas (corrigido 17-18/08/2026 — a versão anterior desta lista tinha só 5 colunas, faltando Depósito e FULL; corrigido pra bater com o cabeçalho real confirmado no `Analise Oficial.xlsx`): `SKU | MLB's | Título de catálogo | Depósito (un) | FULL (un) | Status do Produto (Ativo/Pausado) | Status em Ads (Ativa/Pausada/Sem Campanha)`
 Conteúdo: todos os SKUs mapeados, sem exceção.
 
-**Marcação de validação (obrigatória nas 2 páginas):** aviso fixo destacado no topo da página (célula/linha mesclada, formatação chamativa — cor de fundo diferente, negrito), em linguagem simples pra qualquer pessoa entender (o Carlos vê isso, não conhece o processo interno): `⚠️ Dados em validação — aguardando confirmação final` até o Felipe aprovar o lote, depois atualizado pra `✅ Dados confirmados`. **Nunca usar essa marcação como nome da aba** — só um aviso dentro da página.
+**Marcação de validação (obrigatória nas 2 páginas):** aviso fixo destacado no topo da página (célula/linha mesclada, formatação chamativa — cor de fundo diferente, negrito), em linguagem simples pra qualquer pessoa entender (o Carlos vê isso, não conhece o processo interno): `⚠️ Dados em validação — aguardando confirmação final` até o Felipe aprovar o lote, depois atualizado pra `✅ Dados confirmados`. **Nunca usar essa marcação como nome da aba** — só um aviso dentro da página. **Confirmado 18/08/2026:** esse banner já está implementado de verdade nas 2 abas do `Analise Oficial.xlsx` (não é só uma intenção documentada) — quando a etapa de replicação pro Google Sheets acontecer, a mesma convenção de banner deve ser recriada lá também.
 
 **Procedimento seguro de criação de aba nova (validado de verdade em 10/08/2026, com teste real na planilha real):**
 
