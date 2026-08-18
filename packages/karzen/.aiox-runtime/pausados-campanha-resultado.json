@@ -9700,29 +9700,80 @@
           "catalogoClassico": "6512791896",
           "catalogoPremium": null,
           "deposito": "-",
-          "full": "-",
+          "full": "32",
           "qualidade": "-",
           "experiencia": "-",
           "statusProduto": "Ativo",
-          "statusCatalogoViaAlterar": null,
+          "statusCatalogoViaAlterar": [
+            {
+              "mlb": "6512791896",
+              "ehPai": false,
+              "temCompetindo": true,
+              "temConcorrencia": true,
+              "opcoesEncontradas": [
+                {
+                  "preco": "198,45",
+                  "status": "GANHANDO",
+                  "condicaoDaOpcao": "Clássico"
+                }
+              ],
+              "opcaoBatida": {
+                "preco": "198,45",
+                "status": "GANHANDO",
+                "condicaoDaOpcao": "Clássico"
+              }
+            },
+            {
+              "mlb": "4558922231",
+              "ehPai": true,
+              "temCompetindo": false,
+              "temConcorrencia": false
+            }
+          ],
           "mlbsDetalhe": {
             "6512791896": {
-              "full": null,
+              "full": "32 un.",
               "deposito": "sem estoque",
               "statusProduto": "Ativo",
               "condicao": "Clássico",
               "statusCatalogo": "GANHANDO",
               "qualidade": "86",
-              "experiencia": null
+              "experiencia": null,
+              "precoBase": "198,45",
+              "precoPromo": "163,87",
+              "viaAlterar": {
+                "ehPai": false,
+                "temCompetindo": true,
+                "temConcorrencia": true,
+                "opcoesEncontradas": [
+                  {
+                    "preco": "198,45",
+                    "status": "GANHANDO",
+                    "condicaoDaOpcao": "Clássico"
+                  }
+                ],
+                "opcaoBatida": {
+                  "preco": "198,45",
+                  "status": "GANHANDO",
+                  "condicaoDaOpcao": "Clássico"
+                }
+              }
             },
             "4558922231": {
-              "full": null,
-              "deposito": "sem estoque",
+              "full": "32 un.",
+              "deposito": null,
               "statusProduto": "Ativo",
               "condicao": "Clássico",
-              "statusCatalogo": "GANHANDO",
-              "qualidade": "86",
-              "experiencia": null
+              "statusCatalogo": null,
+              "qualidade": "81",
+              "experiencia": null,
+              "precoBase": "198,45",
+              "precoPromo": "163,87",
+              "viaAlterar": {
+                "ehPai": true,
+                "temCompetindo": false,
+                "temConcorrencia": false
+              }
             }
           }
         }
