@@ -226,7 +226,14 @@ async function main() {
     browser = await chromium.connectOverCDP('http://localhost:9222');
     const context = browser.contexts()[0];
 
-    let pageAnuncios = context.pages().find((p) => /mercadolivre\.com\.br\/anuncios#/.test(p.url()));
+    // Correção real (18/08/2026, achada mapeando ao vivo as abas do Chrome): o matcher
+    // exigia o `#` literal da URL base (`/anuncios#`) -- mas assim que a 1ª busca por SKU
+    // roda, o site troca a URL pra `/anuncios?page=1&sort=DEFAULT&search=...` (sem `#`).
+    // Isso fazia CADA rodada nova do script nunca reencontrar a aba da rodada anterior,
+    // abrindo uma aba "Anúncios" nova toda vez -- confirmado ao vivo: 15 abas de
+    // "Anúncios" acumuladas, várias com o padrão exato de buscas deste script. Corrigido
+    // pra aceitar qualquer URL de Anúncios (com ou sem busca ativa), não só a base.
+    let pageAnuncios = context.pages().find((p) => /vendedores\.mercadolivre\.com\.br\/anuncios(\?|#|$)/.test(p.url()));
     if (!pageAnuncios) pageAnuncios = await openBackgroundPage(browser, context, URL_ANUNCIOS);
     // Correção real (18/08/2026, achada no piloto): filtro largo demais
     // (só `.includes('ads.mercadolivre.com.br')`) pegava qualquer aba velha do domínio
