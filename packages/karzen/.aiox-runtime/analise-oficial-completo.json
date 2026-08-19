@@ -92,24 +92,38 @@
       "5929247960",
       "5929487710"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "5929513268",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "5929513268",
-        "full": "200 un.",
-        "deposito": "549 un.",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5929513378",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5929513268",
+        "condicao": "Clássico",
+        "full": "267 un.",
+        "deposito": "529 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
-      "Premium": null
-    },
+      {
+        "mlb": "5929513378",
+        "condicao": "Clássico",
+        "full": "267 un.",
+        "deposito": "529 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
     "tituloCatalogo": "Chapinha de cabelo Mondial Golden Rose P-20 8920-01",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:55:23.248Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:06:01.981Z"
   },
   "linha-154": {
     "linha": 154,
@@ -245,24 +259,39 @@
       "5929247960",
       "5929487710"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "5929513268",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "5929513268",
-        "full": "200 un.",
-        "deposito": "549 un.",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5929513378",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5929513268",
+        "condicao": "Clássico",
+        "full": "267 un.",
+        "deposito": "529 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
-      "Premium": null
-    },
-    "tituloCatalogo": "Chapinha de cabelo Mondial Golden Rose P-20 8920-01",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T21:02:03.367Z"
+      {
+        "mlb": "5929513378",
+        "condicao": "Clássico",
+        "full": "267 un.",
+        "deposito": "529 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:07:25.616Z"
   },
   "linha-160": {
     "linha": 160,
@@ -274,24 +303,38 @@
       "3969914775",
       "3969985507"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "3969889039",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "3969889039",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "3969949487",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3969889039",
+        "condicao": "Clássico",
         "full": "698 un.",
-        "deposito": "249 un.",
+        "deposito": "248 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
-      "Premium": null
-    },
+      {
+        "mlb": "3969949487",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "248 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
     "tituloCatalogo": "Mixer Britânia BMX400P",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T21:03:34.874Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:08:57.177Z"
   },
   "linha-161": {
     "linha": 161,
@@ -365,24 +408,38 @@
       "4719860315",
       "6858282012"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "4719874527",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "4719874527",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4719886935",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4719874527",
+        "condicao": "Clássico",
         "full": "120 un.",
-        "deposito": "297 un.",
+        "deposito": "295 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
-      "Premium": null
-    },
+      {
+        "mlb": "4719886935",
+        "condicao": "Clássico",
+        "full": "120 un.",
+        "deposito": "295 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
     "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T21:07:00.181Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:10:05.601Z"
   },
   "linha-164": {
     "linha": 164,
@@ -396,24 +453,38 @@
       "5267677900",
       "5278770424"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "3923788669",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "3923788669",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "3958548259",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3923788669",
+        "condicao": "Clássico",
         "full": "sem estoque",
         "deposito": "sem estoque",
         "statusProduto": "Pausado",
         "statusCatalogo": "Inativo"
       },
-      "Premium": null
-    },
+      {
+        "mlb": "3958548259",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
     "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T21:08:35.761Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:11:30.967Z"
   },
   "linha-165": {
     "linha": 165,
@@ -427,24 +498,39 @@
       "5267677900",
       "5278770424"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "3923788669",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "3923788669",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "3958548259",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3923788669",
+        "condicao": "Clássico",
         "full": "sem estoque",
         "deposito": "sem estoque",
         "statusProduto": "Pausado",
         "statusCatalogo": "Inativo"
       },
-      "Premium": null
-    },
-    "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-19T01:38:22.067Z"
+      {
+        "mlb": "3958548259",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:13:07.716Z"
   },
   "linha-166": {
     "linha": 166,
@@ -530,24 +616,26 @@
       "5721342946",
       "4140461883"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "4102113028",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "4102113028",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4102113028",
+        "condicao": "Clássico",
         "full": null,
         "deposito": "2 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
-      },
-      "Premium": null
-    },
+      }
+    ],
     "tituloCatalogo": "Escova de dentes elétrica sônica Multi Saúde Clean Pro HC 1 1/2 -",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T21:14:25.550Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:14:57.450Z"
   },
   "linha-169": {
     "linha": 169,
@@ -748,29 +836,28 @@
     "itemId": "4741778985",
     "sku": "P-JU-03",
     "todosMlbsSincronizados": [
-      "6908546780",
-      "4741778985",
-      "6908559646",
-      "4741767715"
+      "4741778985"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "6908546780",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
-        "mlb": "6908546780",
-        "full": "sem estoque",
-        "deposito": "193 un.",
+    "catalogoConfirmado": [
+      {
+        "mlb": "4741778985",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4741778985",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "186 un.",
         "statusProduto": "Ativo",
-        "statusCatalogo": "GANHANDO"
-      },
-      "Premium": null
-    },
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
     "tituloCatalogo": "Chapinha de cabelo Mondial by Juliette Qu4tro Elementos P-JU-03",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:52:07.076Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T22:41:17.315Z"
   },
   "linha-158": {
     "linha": 158,
@@ -1120,24 +1207,38 @@
       "4719860315",
       "6858282012"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "4719874527",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "4719874527",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4719886935",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4719874527",
+        "condicao": "Clássico",
         "full": "120 un.",
-        "deposito": "297 un.",
+        "deposito": "295 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
-      "Premium": null
-    },
+      {
+        "mlb": "4719886935",
+        "condicao": "Clássico",
+        "full": "120 un.",
+        "deposito": "295 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
     "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-19T09:33:27.604Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:04:38.029Z"
   },
   "linha-12": {
     "linha": 12,
@@ -1224,24 +1325,38 @@
       "5267677900",
       "5278770424"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "3923788669",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "3923788669",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "3958548259",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3923788669",
+        "condicao": "Clássico",
         "full": "sem estoque",
         "deposito": "sem estoque",
         "statusProduto": "Pausado",
         "statusCatalogo": "Inativo"
       },
-      "Premium": null
-    },
+      {
+        "mlb": "3958548259",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
     "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-19T09:37:28.175Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T22:38:20.964Z"
   },
   "linha-15": {
     "linha": 15,
@@ -1570,24 +1685,38 @@
       "3566777787",
       "3566571775"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "3566520771",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "3566520771",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "3566803125",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3566520771",
+        "condicao": "Clássico",
         "full": null,
         "deposito": "sem estoque",
         "statusProduto": "Pausado",
         "statusCatalogo": "Inativo"
       },
-      "Premium": null
-    },
+      {
+        "mlb": "3566803125",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
     "tituloCatalogo": "Sanduicheira elétrica Philco Sanduicheira Philco PGR21PI Maxx Clean",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-19T09:47:59.936Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T22:39:15.351Z"
   },
   "linha-25": {
     "linha": 25,
@@ -1599,23 +1728,37 @@
       "4719860315",
       "6858282012"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "4719874527",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "4719874527",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4719886935",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4719874527",
+        "condicao": "Clássico",
         "full": "120 un.",
-        "deposito": "297 un.",
+        "deposito": "295 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
-      "Premium": null
-    },
+      {
+        "mlb": "4719886935",
+        "condicao": "Clássico",
+        "full": "120 un.",
+        "deposito": "295 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
     "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-19T09:48:50.348Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T22:40:16.831Z"
   }
 }
