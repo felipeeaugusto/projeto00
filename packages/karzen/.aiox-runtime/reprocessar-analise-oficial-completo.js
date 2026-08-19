@@ -31,6 +31,9 @@ const {
 const { openBackgroundPage } = require(
   path.resolve(__dirname, '../../../.aiox-core/development/scripts/modo-navegador/abrir-aba-background.js')
 );
+const { acharAbaAnuncios, acharAbaAdsPatrocinados } = require(
+  path.resolve(__dirname, '../../../.aiox-core/development/scripts/modo-navegador/achar-abas-mercadolivre.js')
+);
 
 const METODO_VERSAO = '2026-08-18-v1';
 
@@ -42,6 +45,10 @@ const SELETOR_BUSCA_ADS = 'input[placeholder="Procurar por # ou título"]';
 const ARQUIVO_FONTE = 'C:\\Downloads\\ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1) (1).xlsx';
 const ABA_FONTE = 'SEM CAMPANHA';
 const COL_ITEM_ID = 3;
+
+const ARQUIVO_ANALISE_OFICIAL = 'C:\\Downloads\\Analise Oficial.xlsx';
+const ABA_PRIORIDADE = 'Prioridade - Fora de Ads';
+const ABA_COMPLETO = 'Mapeamento Completo da Planilha';
 
 const ARQUIVO_JSON = path.resolve(__dirname, 'analise-oficial-completo.json');
 
@@ -58,6 +65,39 @@ function lerJsonSeguro(caminho, padrao) {
 
 function salvarJson(caminho, dados) {
   fs.writeFileSync(caminho, JSON.stringify(dados, null, 2), 'utf8');
+}
+
+// Reaproveitamento de MLB já conhecido (item 2 do plano original, 18/08/2026): monta um
+// índice reverso MLB -> SKU a partir dos lotes antigos já processados (11-12/08/2026),
+// pra pular acharSkuDoMlb (Passo A: descobrir o SKU a partir do Item ID) quando o Item ID
+// já é um MLB conhecido de algum SKU. Não pula analisarSku (Passo A.1) -- ele sempre faz
+// sua própria busca por SKU, mais completa (rolagem exaustiva, ID Family), então o dado
+// de catálogo em si nunca vem "velho" do lote antigo, só o mapeamento SKU<->MLB.
+function carregarMlbsConhecidos() {
+  const indice = new Map(); // itemId (string) -> sku
+  const arquivosArray = ['lote-05-24.json']; // formato array [{itemId, sku, ...}]
+  const arquivosPorSku = ['lote-completo-final.json']; // formato objeto { sku: { todosMlbsSincronizados: [...] } }
+
+  for (const nome of arquivosArray) {
+    const caminho = path.resolve(__dirname, nome);
+    const dados = lerJsonSeguro(caminho, null);
+    if (!Array.isArray(dados)) continue;
+    for (const item of dados) {
+      if (item.itemId && item.sku) indice.set(String(item.itemId), item.sku);
+    }
+  }
+
+  for (const nome of arquivosPorSku) {
+    const caminho = path.resolve(__dirname, nome);
+    const dados = lerJsonSeguro(caminho, null);
+    if (!dados || typeof dados !== 'object') continue;
+    for (const [sku, registro] of Object.entries(dados)) {
+      const mlbs = registro.todosMlbsSincronizados || [];
+      for (const mlb of mlbs) indice.set(String(mlb), sku);
+    }
+  }
+
+  return indice;
 }
 
 // Passo A.2 (Título de catálogo) + Passo B (Status em Ads) -- upgrade da versão antiga
@@ -146,8 +186,94 @@ function listarCatalogoPorCondicao(mlbs) {
   return { classicos, premiums };
 }
 
-async function processarLinha(pageAnuncios, pageAds, context, itemId, linha) {
-  const sku = await acharSkuDoMlb(pageAnuncios, itemId);
+// Escrita real no Analise Oficial.xlsx (item 1 do plano, 18/08/2026 -- até aqui o
+// script só salvava no JSON, nunca escrevia na planilha de verdade). Regenera as 2
+// abas por completo a partir do JSON acumulado, nunca patch célula a célula.
+
+// Regra "Ativo primeiro" (documento, 12/08/2026): quando Clássico e Premium têm
+// statusProduto diferente, o Ativo entra primeiro na célula (quebra de linha) --
+// afeta MLB's, Depósito, FULL e Status do Produto juntos, mantendo correspondência
+// posição-a-posição entre as colunas.
+function montarCascata(registro) {
+  const c = registro.a2 && registro.a2['Clássico'];
+  const p = registro.a2 && registro.a2['Premium'];
+  const itens = [];
+  if (c) itens.push(c);
+  if (p) itens.push(p);
+  if (itens.length === 2 && itens[0].statusProduto !== itens[1].statusProduto) {
+    itens.sort((a, b) => (a.statusProduto === 'Ativo' ? 0 : 1) - (b.statusProduto === 'Ativo' ? 0 : 1));
+  }
+  return itens;
+}
+
+function celulaMultiLinha(itens, campo, transformar) {
+  if (itens.length === 0) return '-';
+  const valores = itens.map((it) => (transformar ? transformar(it[campo]) : (it[campo] || '-')));
+  const unicos = [...new Set(valores)];
+  return unicos.length === 1 ? unicos[0] : valores.join('\n');
+}
+
+async function regenerarAbasExcel(resultados) {
+  const ExcelJS = require('exceljs');
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.readFile(ARQUIVO_ANALISE_OFICIAL);
+
+  // Correção real (18/08/2026, achada no teste de escrita): "Mapeamento Completo da
+  // Planilha" precisa de TODOS os SKUs mapeados, sem exceção (Passo D do documento) --
+  // inclusive o caso raro de nenhum MLB de catálogo confirmado (Passo A.2, "-" nos
+  // campos). Filtrar por catalogoConfirmado aqui excluía esses SKUs por engano (caso
+  // real: CEARAN-BW-MAX, linha 151, sem disputa de catálogo genuína). O filtro por
+  // catálogo confirmado fica só dentro de cada `escreverAba` (via `filtro`), não aqui.
+  const linhasValidas = Object.values(resultados).filter((r) => r.sku);
+
+  function escreverAba(nomeAba, colunas, filtro) {
+    const ws = wb.getWorksheet(nomeAba);
+    if (!ws) throw new Error(`Aba "${nomeAba}" não encontrada no Analise Oficial.xlsx`);
+
+    let ultimaLinha = 0;
+    ws.eachRow((row, num) => { ultimaLinha = num; });
+    for (let r = 4; r <= Math.max(ultimaLinha, 4); r++) {
+      for (let c = 1; c <= 20; c++) ws.getCell(r, c).value = null;
+    }
+
+    const linhasFiltradas = linhasValidas.filter(filtro);
+    let linhaAtual = 4;
+    for (const registro of linhasFiltradas) {
+      const itens = montarCascata(registro);
+      const mlbsTexto = celulaMultiLinha(itens, 'mlb', (m) => `#${m}`);
+      const depositoTexto = celulaMultiLinha(itens, 'deposito', normalizarNumeroOuTraco);
+      const fullTexto = celulaMultiLinha(itens, 'full', normalizarNumeroOuTraco);
+      const statusProdutoTexto = celulaMultiLinha(itens, 'statusProduto');
+
+      let col = 1;
+      ws.getCell(linhaAtual, col).value = registro.sku; col += 2;
+      ws.getCell(linhaAtual, col).value = mlbsTexto; col += 2;
+      ws.getCell(linhaAtual, col).value = registro.tituloCatalogo || '-'; col += 2;
+      ws.getCell(linhaAtual, col).value = depositoTexto; col += 2;
+      ws.getCell(linhaAtual, col).value = fullTexto; col += 2;
+      if (colunas === 7) {
+        ws.getCell(linhaAtual, col).value = statusProdutoTexto; col += 2;
+        ws.getCell(linhaAtual, col).value = registro.statusAds || '-'; col += 2;
+      }
+      linhaAtual++;
+    }
+    return linhasFiltradas.length;
+  }
+
+  const nPrioridade = escreverAba(ABA_PRIORIDADE, 5, (r) => r.statusAds === 'Sem Campanha');
+  const nCompleto = escreverAba(ABA_COMPLETO, 7, () => true);
+
+  await wb.xlsx.writeFile(ARQUIVO_ANALISE_OFICIAL);
+  return { nPrioridade, nCompleto };
+}
+
+async function processarLinha(pageAnuncios, pageAds, context, itemId, linha, mlbsConhecidos) {
+  let sku = mlbsConhecidos.get(itemId) || null;
+  if (sku) {
+    console.log(`  [reaproveitado] Item ID ${itemId} já conhecido como SKU ${sku} -- pulando Passo A`);
+  } else {
+    sku = await acharSkuDoMlb(pageAnuncios, itemId);
+  }
   if (!sku) {
     return { linha, itemId, erro: 'ANUNCIO_NAO_ENCONTRADO', metodoVersao: METODO_VERSAO, processadoEm: new Date().toISOString() };
   }
@@ -211,6 +337,8 @@ async function main() {
   const wsFonte = wbFonte.getWorksheet(ABA_FONTE);
 
   const resultados = lerJsonSeguro(ARQUIVO_JSON, {});
+  const mlbsConhecidos = carregarMlbsConhecidos();
+  console.log(`MLBs conhecidos de lotes antigos (reaproveitamento): ${mlbsConhecidos.size}`);
 
   const itens = [];
   for (let r = linhaInicio; r <= linhaFim; r++) {
@@ -226,22 +354,12 @@ async function main() {
     browser = await chromium.connectOverCDP('http://localhost:9222');
     const context = browser.contexts()[0];
 
-    // Correção real (18/08/2026, achada mapeando ao vivo as abas do Chrome): o matcher
-    // exigia o `#` literal da URL base (`/anuncios#`) -- mas assim que a 1ª busca por SKU
-    // roda, o site troca a URL pra `/anuncios?page=1&sort=DEFAULT&search=...` (sem `#`).
-    // Isso fazia CADA rodada nova do script nunca reencontrar a aba da rodada anterior,
-    // abrindo uma aba "Anúncios" nova toda vez -- confirmado ao vivo: 15 abas de
-    // "Anúncios" acumuladas, várias com o padrão exato de buscas deste script. Corrigido
-    // pra aceitar qualquer URL de Anúncios (com ou sem busca ativa), não só a base.
-    let pageAnuncios = context.pages().find((p) => /vendedores\.mercadolivre\.com\.br\/anuncios(\?|#|$)/.test(p.url()));
+    // Correção real (18/08/2026, achado no piloto BLOCO 0-AA): matcher de aba nunca
+    // mais reescrito inline aqui -- sempre reusar o módulo compartilhado
+    // achar-abas-mercadolivre.js (ver CLAUDE.md, hook check-selector-reuse.js v4).
+    let pageAnuncios = acharAbaAnuncios(context);
     if (!pageAnuncios) pageAnuncios = await openBackgroundPage(browser, context, URL_ANUNCIOS);
-    // Correção real (18/08/2026, achada no piloto): filtro largo demais
-    // (só `.includes('ads.mercadolivre.com.br')`) pegava qualquer aba velha do domínio
-    // deixada aberta de sessões/scripts anteriores -- inclusive dashboard de campanha
-    // (`.../product-ads/admin/campaigns/.../dashboard`), que tem busca própria mas
-    // busca DENTRO daquela campanha específica, nunca mostra o bloco "CATÁLOGO". Exigir
-    // o path exato da página certa (Anúncios Patrocinados, `/product-ads/admin/ads`).
-    let pageAds = context.pages().find((p) => p.url().includes('ads.mercadolivre.com.br/product-ads/admin/ads'));
+    let pageAds = acharAbaAdsPatrocinados(context);
     if (!pageAds) pageAds = await openBackgroundPage(browser, context, URL_ADS);
 
     let processadosNestaRodada = 0;
@@ -261,7 +379,7 @@ async function main() {
 
       console.log(`\n=== LINHA ${item.row} (Item ID ${item.itemId}) ===`);
       try {
-        const r = await processarLinha(pageAnuncios, pageAds, context, item.itemId, item.row);
+        const r = await processarLinha(pageAnuncios, pageAds, context, item.itemId, item.row, mlbsConhecidos);
         resultados[chave] = r;
         salvarJson(ARQUIVO_JSON, resultados);
         console.log(`  -> SKU: ${r.sku || '(não encontrado)'} | erro: ${r.erro || 'nenhum'}`);
@@ -280,6 +398,22 @@ async function main() {
     }
 
     console.log(`\nConcluído. ${processadosNestaRodada} linhas processadas nesta rodada.`);
+
+    // Escrita real no Analise Oficial.xlsx (item 1, 18/08/2026) -- regenera as 2 abas
+    // do zero a partir do JSON acumulado inteiro (não só as linhas desta rodada),
+    // sempre com backup e confirmação de arquivo fechado antes.
+    const lockFile = path.join(path.dirname(ARQUIVO_ANALISE_OFICIAL), '~$' + path.basename(ARQUIVO_ANALISE_OFICIAL));
+    if (fs.existsSync(lockFile)) {
+      console.log('\n⚠️ Analise Oficial.xlsx está aberto no Excel -- feche o arquivo antes de escrever. Pulando a escrita nesta rodada.');
+    } else {
+      const ts = new Date().toISOString().replace(/[:.]/g, '-');
+      const backupPath = path.join(path.dirname(ARQUIVO_ANALISE_OFICIAL), `BACKUP-antes-reprocessamento-completo-${ts}.xlsx`);
+      fs.copyFileSync(ARQUIVO_ANALISE_OFICIAL, backupPath);
+      console.log(`\nBackup criado: ${backupPath}`);
+
+      const { nPrioridade, nCompleto } = await regenerarAbasExcel(resultados);
+      console.log(`Analise Oficial.xlsx regenerado -- "Prioridade - Fora de Ads": ${nPrioridade} linhas | "Mapeamento Completo da Planilha": ${nCompleto} linhas.`);
+    }
   } catch (err) {
     console.error('ERRO GERAL:', err.message);
   } finally {

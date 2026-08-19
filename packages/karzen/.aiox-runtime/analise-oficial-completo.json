@@ -45,7 +45,7 @@
     "catalogoConfirmado": null,
     "erro": "NENHUM_MLB_DE_CATALOGO_CONFIRMADO",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:07:42.195Z"
+    "processadoEm": "2026-08-19T01:40:18.046Z"
   },
   "linha-152": {
     "linha": 152,
@@ -77,11 +77,10 @@
         "statusCatalogo": "PERDENDO"
       }
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Panela elétrica a pressão Kian PPM-101 -",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:09:14.957Z"
+    "processadoEm": "2026-08-18T20:54:04.789Z"
   },
   "linha-153": {
     "linha": 153,
@@ -101,17 +100,16 @@
       "Clássico": {
         "mlb": "5929513268",
         "full": "200 un.",
-        "deposito": "550 un.",
+        "deposito": "549 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Chapinha de cabelo Mondial Golden Rose P-20 8920-01",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:10:40.623Z"
+    "processadoEm": "2026-08-18T20:55:23.248Z"
   },
   "linha-154": {
     "linha": 154,
@@ -143,11 +141,10 @@
         "statusCatalogo": "Inativo"
       }
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Lavadora de alta pressão Wap WL WL 1820 Black Ultra FW010076",
+    "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:12:15.090Z"
+    "processadoEm": "2026-08-18T20:56:43.689Z"
   },
   "linha-155": {
     "linha": 155,
@@ -198,11 +195,10 @@
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Cafeteira portátil Mondial Dolce Arome Inox Dolce Arome C-34JI-15X de filtro",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:14:25.701Z"
+    "processadoEm": "2026-08-18T20:57:48.087Z"
   },
   "linha-157": {
     "linha": 157,
@@ -234,26 +230,10 @@
         "statusCatalogo": "PERDENDO"
       }
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Secador de cabelo GA.MA ItalyKeration BECHD0000003014",
+    "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:15:58.143Z"
-  },
-  "linha-158": {
-    "linha": 158,
-    "itemId": "4277230093",
-    "sku": "CKESSTC-ITA5Q",
-    "todosMlbsSincronizados": [
-      "4277217107",
-      "4277230155",
-      "4277204327",
-      "4277230093"
-    ],
-    "catalogoConfirmado": null,
-    "erro": "NENHUM_MLB_DE_CATALOGO_CONFIRMADO",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:17:35.031Z"
+    "processadoEm": "2026-08-18T20:59:05.441Z"
   },
   "linha-159": {
     "linha": 159,
@@ -279,11 +259,10 @@
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Chapinha de cabelo Mondial Golden Rose P-20 8920-01",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:19:09.191Z"
+    "processadoEm": "2026-08-18T21:02:03.367Z"
   },
   "linha-160": {
     "linha": 160,
@@ -309,11 +288,10 @@
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Mixer Britânia BMX400P",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:20:55.742Z"
+    "processadoEm": "2026-08-18T21:03:34.874Z"
   },
   "linha-161": {
     "linha": 161,
@@ -345,11 +323,10 @@
         "statusCatalogo": "Inativo"
       }
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Lavadora de alta pressão Philco Plp 2800",
+    "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:22:19.235Z"
+    "processadoEm": "2026-08-18T21:04:44.297Z"
   },
   "linha-162": {
     "linha": 162,
@@ -366,18 +343,17 @@
     "a2": {
       "Clássico": {
         "mlb": "4417870781",
-        "full": "124 un.",
+        "full": "123 un.",
         "deposito": "518 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Sanduicheira elétrica Mondial Master Press PG-01-RC 2222-01",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:23:20.521Z"
+    "processadoEm": "2026-08-18T21:05:38.624Z"
   },
   "linha-163": {
     "linha": 163,
@@ -403,11 +379,10 @@
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:24:44.890Z"
+    "processadoEm": "2026-08-18T21:07:00.181Z"
   },
   "linha-164": {
     "linha": 164,
@@ -435,11 +410,10 @@
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:26:36.516Z"
+    "processadoEm": "2026-08-18T21:08:35.761Z"
   },
   "linha-165": {
     "linha": 165,
@@ -467,11 +441,10 @@
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:28:15.992Z"
+    "processadoEm": "2026-08-19T01:38:22.067Z"
   },
   "linha-166": {
     "linha": 166,
@@ -503,11 +476,10 @@
         "statusCatalogo": "PERDENDO"
       }
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Taiff Curves Automático Modelador Automático 210°c Bivolt",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:29:55.506Z"
+    "processadoEm": "2026-08-18T21:11:37.632Z"
   },
   "linha-167": {
     "linha": 167,
@@ -539,11 +511,10 @@
         "statusCatalogo": "PERDENDO"
       }
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Robô aspirador Philco Robôs Aspiradores PAS23",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:31:20.895Z"
+    "processadoEm": "2026-08-18T21:12:48.008Z"
   },
   "linha-168": {
     "linha": 168,
@@ -573,11 +544,10 @@
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Escova de dentes elétrica sônica Multi Saúde Clean Pro HC 1 1/2 -",
+    "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:33:17.467Z"
+    "processadoEm": "2026-08-18T21:14:25.550Z"
   },
   "linha-169": {
     "linha": 169,
@@ -601,11 +571,10 @@
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Chaleira elétrica Elgin 42CHA1002000 2L",
+    "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:34:38.914Z"
+    "processadoEm": "2026-08-18T21:15:31.947Z"
   },
   "linha-170": {
     "linha": 170,
@@ -629,10 +598,213 @@
       },
       "Premium": null
     },
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Aspirador Philco PAS1450C 1L PAS1450C",
+    "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:36:00.375Z"
+    "processadoEm": "2026-08-18T21:16:36.324Z"
+  },
+  "linha-145": {
+    "linha": 145,
+    "itemId": "3985845283",
+    "sku": "PAN-127V",
+    "todosMlbsSincronizados": [
+      "3985819767",
+      "3985896181",
+      "3985819765",
+      "3985845283"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "3985819767",
+      "Premium": "3985896181"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "3985819767",
+        "full": null,
+        "deposito": "206 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      "Premium": {
+        "mlb": "3985896181",
+        "full": "4 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    },
+    "tituloCatalogo": "Panificadora Britânia Multipane",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:47:39.671Z"
+  },
+  "linha-146": {
+    "linha": 146,
+    "itemId": "4609366221",
+    "sku": "AFON-12L-GI-220V",
+    "todosMlbsSincronizados": [
+      "4609353943",
+      "6624116800",
+      "4609366221",
+      "6624080772"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4609353943",
+      "Premium": "6624116800"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4609353943",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      "Premium": {
+        "mlb": "6624116800",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    },
+    "tituloCatalogo": "Air fryer Mondial Cozinha AFON-12L-WI",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:48:55.027Z"
+  },
+  "linha-148": {
+    "linha": 148,
+    "itemId": "4317817207",
+    "sku": "PAN-B-127V",
+    "todosMlbsSincronizados": [
+      "4317752487",
+      "5954468868",
+      "4317713473",
+      "4317817207"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4317752487",
+      "Premium": "5954468868"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4317752487",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      "Premium": {
+        "mlb": "5954468868",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    },
+    "tituloCatalogo": "Panificadora Britânia Multipane",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:49:58.421Z"
+  },
+  "linha-149": {
+    "linha": 149,
+    "itemId": "6619945688",
+    "sku": "ES-JU-02",
+    "todosMlbsSincronizados": [
+      "6619969332",
+      "6724404552",
+      "4658336699",
+      "6619945688"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6619969332",
+      "Premium": "6724404552"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6619969332",
+        "full": "sem estoque",
+        "deposito": null,
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      "Premium": {
+        "mlb": "6724404552",
+        "full": "sem estoque",
+        "deposito": null,
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    },
+    "tituloCatalogo": "Escova secadora Mondial ES-JU-03",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-19T01:33:41.775Z"
+  },
+  "linha-150": {
+    "linha": 150,
+    "itemId": "4741778985",
+    "sku": "P-JU-03",
+    "todosMlbsSincronizados": [
+      "6908546780",
+      "4741778985",
+      "6908559646",
+      "4741767715"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "6908546780",
+      "Premium": null
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "6908546780",
+        "full": "sem estoque",
+        "deposito": "193 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      "Premium": null
+    },
+    "tituloCatalogo": "Chapinha de cabelo Mondial by Juliette Qu4tro Elementos P-JU-03",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-18T20:52:07.076Z"
+  },
+  "linha-158": {
+    "linha": 158,
+    "itemId": "4277230093",
+    "sku": "CKESSTC-ITA5Q",
+    "todosMlbsSincronizados": [
+      "4277217107",
+      "4277230155",
+      "4277204327",
+      "4277230093"
+    ],
+    "catalogoConfirmado": {
+      "Clássico": "4277217107",
+      "Premium": "4277230155"
+    },
+    "a2": {
+      "Clássico": {
+        "mlb": "4277217107",
+        "full": "150 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "RESTRITO PARA GANHAR"
+      },
+      "Premium": {
+        "mlb": "4277230155",
+        "full": "150 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "RESTRITO PARA GANHAR"
+      }
+    },
+    "tituloCatalogo": "Fogão cooktop - Itatiaia 3700000194 - 5 queimadores",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-18-v1",
+    "processadoEm": "2026-08-19T01:36:58.630Z"
   }
 }
