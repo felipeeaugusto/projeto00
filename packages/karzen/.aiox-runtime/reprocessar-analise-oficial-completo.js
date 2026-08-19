@@ -226,17 +226,42 @@ async function regenerarAbasExcel(resultados) {
   // catálogo confirmado fica só dentro de cada `escreverAba` (via `filtro`), não aqui.
   const linhasValidas = Object.values(resultados).filter((r) => r.sku);
 
+  // Formatação visual (18/08/2026, pedido do Felipe) -- seguir o mesmo padrão já
+  // validado na "Pausados em Campanha - Karzen.xlsx": largura de coluna proporcional
+  // ao conteúdo típico (nunca corta texto), célula de dado sempre com wrapText, e uma
+  // linha em branco separando cada bloco (aqui, cada SKU = 1 linha = 1 bloco, já que
+  // esta planilha não tem o agrupamento multi-linha por produto que a Pausados tem).
+  const LARGURAS = {
+    [ABA_PRIORIDADE]: [18, 18, 50, 14, 14],
+    [ABA_COMPLETO]: [18, 18, 50, 14, 14, 20, 24],
+  };
+
+  function aplicarLargurasColuna(ws, larguras) {
+    let col = 1;
+    for (const largura of larguras) {
+      ws.getColumn(col).width = largura;
+      col += 2; // pula a coluna espaçadora
+    }
+  }
+
   function escreverAba(nomeAba, colunas, filtro) {
     const ws = wb.getWorksheet(nomeAba);
     if (!ws) throw new Error(`Aba "${nomeAba}" não encontrada no Analise Oficial.xlsx`);
 
-    let ultimaLinha = 0;
-    ws.eachRow((row, num) => { ultimaLinha = num; });
-    for (let r = 4; r <= Math.max(ultimaLinha, 4); r++) {
-      for (let c = 1; c <= 20; c++) ws.getCell(r, c).value = null;
-    }
+    aplicarLargurasColuna(ws, LARGURAS[nomeAba]);
 
     const linhasFiltradas = linhasValidas.filter(filtro);
+
+    // Limpa um intervalo generoso (cobre tanto o conteúdo antigo quanto o novo, que
+    // agora ocupa ~2x mais linhas por causa das linhas em branco separadoras).
+    let ultimaLinha = 0;
+    ws.eachRow((row, num) => { ultimaLinha = num; });
+    const limiteLimpeza = Math.max(ultimaLinha, 4 + linhasFiltradas.length * 2 + 10);
+    for (let r = 4; r <= limiteLimpeza; r++) {
+      for (let c = 1; c <= 20; c++) ws.getCell(r, c).value = null;
+      ws.getRow(r).height = undefined; // volta pra altura automática (auto-fit do Excel)
+    }
+
     let linhaAtual = 4;
     for (const registro of linhasFiltradas) {
       const itens = montarCascata(registro);
@@ -245,17 +270,23 @@ async function regenerarAbasExcel(resultados) {
       const fullTexto = celulaMultiLinha(itens, 'full', normalizarNumeroOuTraco);
       const statusProdutoTexto = celulaMultiLinha(itens, 'statusProduto');
 
+      const valoresLinha = [
+        registro.sku,
+        mlbsTexto,
+        registro.tituloCatalogo || '-',
+        depositoTexto,
+        fullTexto,
+        ...(colunas === 7 ? [statusProdutoTexto, registro.statusAds || '-'] : []),
+      ];
+
       let col = 1;
-      ws.getCell(linhaAtual, col).value = registro.sku; col += 2;
-      ws.getCell(linhaAtual, col).value = mlbsTexto; col += 2;
-      ws.getCell(linhaAtual, col).value = registro.tituloCatalogo || '-'; col += 2;
-      ws.getCell(linhaAtual, col).value = depositoTexto; col += 2;
-      ws.getCell(linhaAtual, col).value = fullTexto; col += 2;
-      if (colunas === 7) {
-        ws.getCell(linhaAtual, col).value = statusProdutoTexto; col += 2;
-        ws.getCell(linhaAtual, col).value = registro.statusAds || '-'; col += 2;
+      for (const valor of valoresLinha) {
+        const cel = ws.getCell(linhaAtual, col);
+        cel.value = valor;
+        cel.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+        col += 2;
       }
-      linhaAtual++;
+      linhaAtual += 2; // pula 1 linha em branco (separador visual entre blocos/SKUs)
     }
     return linhasFiltradas.length;
   }
