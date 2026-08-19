@@ -1534,4 +1534,68 @@ qualquer script que manipule janelas de browser — sem exceção.
 
 ---
 
-*Última atualização: 2026-08-10 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 49 — BLOCO 0-AC — TROCA DE PERSONA AIOX NUNCA USA SUB-AGENTE EM BACKGROUND
+
+**Data de aprovação:** 2026-08-19
+**Problema resolvido:** Felipe pediu "Chame o analyst no *elicit" pro @dev (Dex). Em vez de se transformar em Atlas ele mesmo (dentro da mesma conversa, com saudação visível — o mecanismo correto de troca de persona AIOX), Dex disparou um sub-agente em background (ferramenta de plataforma, não faz parte do protocolo AIOX) instruído a "atuar como Atlas", rodando escondido em paralelo. Ao mesmo tempo escreveu `analyst` em `.claude/.current-agent` (BLOCO 0-A) — criando um estado inconsistente: o marcador dizia "analyst", mas quem continuava a conversa era o mesmo processo de sempre (Dex), e o "Atlas" de verdade era outro processo sem rosto, sem saudação, que nunca apareceu pra Felipe. Felipe só percebeu o problema ao perguntar "estou falando com quem?" sem conseguir uma resposta clara, precisando parar tudo e chamar o @aiox-master pra investigar. Nenhum dano real (a tarefa em background foi interrompida via `TaskStop` antes de escrever qualquer arquivo), mas o comportamento nunca pode se repetir.
+**O que faz:** Estabelece que existem 2 mecanismos diferentes na sessão — (1) troca de persona AIOX, sempre transformação in-conversa com saudação visível, e (2) ferramenta de sub-agente em background, recurso de plataforma que roda em paralelo, escondido — e que eles nunca podem ser misturados. Qualquer pedido de "chame o [agente]"/"*elicit do [agente]" é SEMPRE mecanismo 1. A ferramenta de sub-agente em background só é legítima pra tarefas que não representam "virar" um agente do framework.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-AC (entre BLOCO 0-AB e BLOCO 1)
+**Regra:**
+```
+AO RECEBER "chame o [agente]" / "*elicit do [agente]" / qualquer ativação de
+persona AIOX:
+
+PASSO 1: Isso é SEMPRE mecanismo 1 (transformação in-conversa) — nunca mecanismo 2
+PASSO 2: Escrever o ID do novo agente em .claude/.current-agent (BLOCO 0-A)
+PASSO 3: NA MESMA resposta, se transformar no novo agente — saudação visível
+         (icon + nome + role), sem processo separado, sem ferramenta de
+         sub-agente/background
+PASSO 4: Continuar a conversa como esse agente, normalmente
+
+PROIBIDO:
+- Escrever um ID de agente em .current-agent sem fazer a transformação visível
+  correspondente na mesma resposta
+- Usar sub-agente em background pra "atuar como" um agente do framework AIOX
+- Deixar o marcador .current-agent e quem está de fato respondendo
+  dessincronizados, mesmo que temporariamente
+- Avisar Felipe "chamei o [agente], ele está rodando em background" quando o
+  pedido era troca de persona AIOX
+
+LEGÍTIMO usar sub-agente em background: só para tarefas que NÃO são troca de
+persona AIOX (pesquisa longa independente, ou pedido explícito do Felipe pra
+rodar algo em paralelo sem travar a conversa).
+```
+
+---
+
+## CUSTOMIZAÇÃO 50 — BLOCO 0-U, REGRA 4 — NUNCA COMBINAR `&` MANUAL COM `run_in_background: true`
+
+**Data de aprovação:** 2026-08-19
+**Problema resolvido:** @dev lançou o reprocessamento de linhas do Analise Oficial.xlsx com `&` manual dentro do comando E `run_in_background: true` na ferramenta ao mesmo tempo (double-backgrounding). A ferramenta reportou o job como concluído quase de imediato (só a parte síncrona antes do `&` rodou dentro do tempo rastreado), enquanto o `for` loop de verdade ficou rodando escondido, órfão, sem rastreamento nenhum. Achando que tinha morrido, @dev relançou uma 2ª cópia "corrigida" — e as 2 cópias ficaram rodando em paralelo, brigando pela mesma aba do Modo Navegador, corrompendo pelo menos 4 linhas de dados silenciosamente (uma mudou de erro pra "sem erro" entre 2 checagens, sem nenhuma mudança real no Mercado Livre). Só foi descoberto porque o @analyst, chamado via `*elicit`, investigou a fundo e achou os 2 processos pai vivos via `Get-CimInstance Win32_Process` com o `CommandLine` completo.
+**O que faz:** Proíbe combinar os 2 mecanismos de backgrounding no mesmo comando — usar SÓ a opção nativa da ferramenta (`run_in_background: true`) sem `&` manual dentro do comando. Além disso, estabelece que antes de relançar qualquer job que "parece ter morrido" (log parado, sem progresso visível), é obrigatório confirmar via lista de processos reais filtrando pelo `CommandLine` exato do script — nunca assumir que sumiu da ferramenta = realmente morreu.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-U, REGRA 4 (após a REGRA 3)
+**Regra:**
+```
+❌ PROIBIDO:
+   comando_longo &
+   echo "Iniciado em background"
+   (chamado com run_in_background: true na ferramenta)
+   -- a ferramenta considera concluído após o echo, o "comando_longo" fica órfão
+
+✅ OBRIGATÓRIO (opção nativa disponível):
+   comando_longo
+   (chamado com run_in_background: true na ferramenta, SEM `&` dentro do comando)
+
+Antes de relançar qualquer job que "parece ter morrido": SEMPRE confirmar via
+lista de processos reais, filtrando pelo CommandLine exato do script (mesmo
+padrão da REGRA 3 -- nunca confiar só no nome do processo nem só na ausência
+de saída na ferramenta) -- nunca assumir que sumiu da ferramenta = realmente
+morreu.
+
+Aplica-se a TODOS os agentes atuais e futuros que lançarem qualquer processo
+em background — sem exceção.
+```
+
+---
+
+*Última atualização: 2026-08-19 — Orion (@aiox-master)*

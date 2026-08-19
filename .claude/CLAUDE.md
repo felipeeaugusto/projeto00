@@ -1166,6 +1166,36 @@ PASSO 4: Janela visível de browser é PROIBIDA em qualquer circunstância duran
 
 ---
 
+#### REGRA 4 — NUNCA COMBINAR `&` MANUAL COM `run_in_background: true` (adicionada 19/08/2026)
+
+**Problema:** Existem 2 mecanismos independentes pra rodar um comando em background — (a) adicionar `&` manualmente DENTRO do comando (backgrounding do próprio shell), e (b) marcar `run_in_background: true` na própria ferramenta de execução. Usar os 2 ao mesmo tempo no MESMO comando ("double-backgrounding") faz a ferramenta considerar o job "concluído" quase instantaneamente — só a parte síncrona antes do `&` (ou um `echo` logo depois dele) roda dentro do tempo rastreado — enquanto o trabalho de verdade (tudo que estava depois do `&`) vira um processo **órfão, detached, sem nenhum rastreamento**. A ferramenta nunca mais sabe se aquele processo terminou, travou, ou continua rodando.
+
+**Regra:** Usar **exatamente um** dos 2 mecanismos, nunca os dois juntos:
+- Se a ferramenta de execução tem uma opção nativa de rodar em background (ex: `run_in_background: true`) → usar SÓ ela, sem `&` manual dentro do comando.
+- Se for necessário background manual via `&` (ex: contexto sem opção nativa) → não marcar a chamada como já sendo em background na ferramenta.
+
+```
+❌ PROIBIDO:
+   comando_longo &
+   echo "Iniciado em background"
+   (chamado com run_in_background: true na ferramenta)
+   -- a ferramenta considera concluído após o echo, o "comando_longo" fica órfão
+
+✅ OBRIGATÓRIO (opção nativa disponível):
+   comando_longo
+   (chamado com run_in_background: true na ferramenta, SEM `&` dentro do comando)
+```
+
+**Consequência real quando isso dá errado:** se um agente, achando que o job "morreu" (porque a ferramenta não indica mais nada rodando), relança o mesmo comando de novo — e o job original órfão ainda estiver vivo — passam a existir **2 cópias do mesmo processo rodando ao mesmo tempo**, competindo por qualquer recurso compartilhado (ex: a mesma aba do Chrome no Modo Navegador), corrompendo resultados silenciosamente sem gerar nenhum erro óbvio.
+
+**Antes de relançar QUALQUER job que "parece ter morrido"** (log parado, sem progresso visível): SEMPRE confirmar via lista de processos reais, filtrando pelo `CommandLine` exato do script (mesmo padrão da REGRA 3 acima — nunca confiar só no nome do processo nem só na ausência de saída na ferramenta) — nunca assumir que sumiu da ferramenta = realmente morreu.
+
+**O ERRO QUE GEROU ESTA REGRA (19/08/2026):** o @dev lançou o reprocessamento de linhas do `Analise Oficial.xlsx` com `&` manual dentro do comando E `run_in_background: true` na ferramenta ao mesmo tempo. A ferramenta reportou o job como concluído quase de imediato, mas o `for` loop de verdade ficou rodando escondido. Achando que tinha morrido, o @dev relançou uma 2ª cópia "corrigida" (sem o `&` manual) — e as 2 cópias ficaram rodando em paralelo, brigando pela mesma aba do Modo Navegador, corrompendo pelo menos 4 linhas de dados (uma delas mudou de erro pra "sem erro" entre 2 checagens, sem nenhuma mudança real no Mercado Livre — sinal de contaminação por concorrência). Só foi descoberto porque o @analyst, chamado via `*elicit`, investigou a fundo e achou os 2 processos pai vivos via `Get-CimInstance Win32_Process` com o `CommandLine` completo.
+
+**Esta regra se aplica a: TODOS os agentes atuais e futuros que lançarem qualquer processo em background — sem exceção.**
+
+---
+
 **Esta regra (REGRA 1 e REGRA 2) se aplica a: @devops, @dev, compositor-agent, scout-agent, publisher-agent, @aiox-master e TODOS os agentes atuais e futuros que lançarem qualquer processo, aplicação ou serviço — sem exceção.**
 
 ---
@@ -1446,6 +1476,40 @@ PASSO 4: SE não existe documento parecido → seguir normalmente, sem essa perg
 **O ERRO QUE GEROU ESTA REGRA (16/08/2026):** ligado ao mesmo incidente da BLOCO 0-AA — a regra "campo certo vs campo errado" já estava documentada desde 11/08/2026 em `mapeamento-skus-ads-catalogo-mercadolivre.md`, mas não foi consultada nem replicada quando documentos/scripts novos relacionados foram criados depois. O Felipe pediu explicitamente que, daqui pra frente, nenhum agente decida sozinho se uma regra crítica já validada se aplica a um documento novo — sempre perguntar.
 
 **Esta regra se aplica a TODOS os agentes atuais e futuros que criarem qualquer documento novo de processo/procedimento.**
+
+---
+
+### BLOCO 0-AC — TROCA DE PERSONA AIOX NUNCA USA SUB-AGENTE EM BACKGROUND (inegociável)
+
+**Gatilho:** Qualquer agente prestes a cumprir um pedido do tipo "chame o [agente]", "*elicit do [agente]", ou qualquer variação de ativação/transformação de persona AIOX (BLOCO 0-A, 0-D).
+
+**REGRA ABSOLUTA:** Existem 2 mecanismos completamente diferentes disponíveis nesta sessão, e eles NUNCA podem ser misturados:
+
+1. **Troca de persona AIOX** (o mecanismo correto, sempre): o próprio agente ativo se TRANSFORMA no agente pedido, DENTRO DA MESMA conversa — saudação visível da nova persona, e a conversa continua como esse agente. 100% visível pro Felipe, sem processo escondido.
+2. **Ferramenta de sub-agente em background** (recurso de plataforma, não é AIOX): dispara uma tarefa rodando numa instância separada, em paralelo, que só volta quando termina via notificação de sistema.
+
+```
+AO RECEBER "chame o [agente]" / "*elicit do [agente]" / qualquer ativação de persona AIOX:
+
+PASSO 1: Isso é SEMPRE mecanismo 1 (transformação in-conversa) — nunca mecanismo 2
+PASSO 2: Escrever o ID do novo agente em .claude/.current-agent (BLOCO 0-A)
+PASSO 3: NA MESMA resposta, se transformar no novo agente — saudação visível
+         (icon + nome + role), sem processo separado, sem ferramenta de
+         sub-agente/background
+PASSO 4: Continuar a conversa como esse agente, normalmente
+```
+
+**PROIBIDO:**
+- Escrever um ID de agente em `.claude/.current-agent` sem fazer a transformação visível correspondente (saudação) na mesma resposta
+- Usar a ferramenta de sub-agente em background pra "atuar como" um agente do framework AIOX (Dex, Atlas, Gage, Orion, ou qualquer outro)
+- Deixar o marcador `.current-agent` e o agente que está de fato respondendo na conversa dessincronizados, mesmo que temporariamente
+- Avisar Felipe que "chamei o [agente], ele está rodando em background" quando o pedido era uma troca de persona AIOX — isso nunca é o comportamento esperado
+
+**QUANDO A FERRAMENTA DE SUB-AGENTE EM BACKGROUND É LEGÍTIMA:** para tarefas que NÃO são troca de persona AIOX — ex: pesquisa longa e independente que não representa "virar" um agente do framework, ou explicitamente quando o próprio Felipe pedir algo que rode em paralelo sem travar a conversa. A distinção é: troca de persona AIOX = sempre transformação in-conversa; qualquer outra coisa = pode usar a ferramenta certa pro caso.
+
+**O ERRO QUE GEROU ESTA REGRA (19/08/2026):** Felipe pediu "Chame o analyst no *elicit" pro @dev (Dex). Dex escreveu `analyst` em `.claude/.current-agent` (seguindo BLOCO 0-A), mas em vez de se transformar em Atlas ele mesmo (mecanismo 1), disparou um sub-agente em background instruído a "atuar como Atlas" (mecanismo 2) — criando um estado inconsistente: o marcador dizia "analyst", mas quem continuava a conversa com Felipe era o mesmo processo de sempre (Dex), e o "Atlas" de verdade era outro processo qualquer, sem rosto, sem saudação, nunca apareceu pra Felipe. A mensagem final de Dex ("Chamei o @analyst... ele está rodando em background") era esse sintoma: o próprio Dex, ainda sendo o Dex, contando sobre uma tarefa fantasma que ele mesmo criou escondida. Felipe só percebeu que algo estava errado ao perguntar "estou falando com quem?" e não ter uma resposta clara — teve que interromper e chamar o @aiox-master pra investigar. Nenhum dano real aconteceu (a tarefa em background foi parada via `TaskStop` antes de escrever qualquer arquivo), mas o comportamento nunca pode se repetir.
+
+**Esta regra se aplica a TODOS os agentes atuais e futuros — atuais, squads, futuros, vindos de atualizações do AIOX. Sem exceção.**
 
 ---
 

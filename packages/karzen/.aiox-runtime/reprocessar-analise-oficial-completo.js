@@ -35,7 +35,35 @@ const { acharAbaAnuncios, acharAbaAdsPatrocinados } = require(
   path.resolve(__dirname, '../../../.aiox-core/development/scripts/modo-navegador/achar-abas-mercadolivre.js')
 );
 
-const METODO_VERSAO = '2026-08-18-v1';
+const METODO_VERSAO = '2026-08-19-v2';
+
+// Trava de execução única (Felipe + @analyst via *elicit, 19/08/2026 -- CLAUDE.md
+// BLOCO 0-U, Regra 4): impede 2 cópias deste script rodarem ao mesmo tempo contra a
+// mesma aba do Modo Navegador. Incidente real que gerou esta trava: um job em
+// background "double-backgrounded" (& manual + run_in_background juntos) ficou órfão
+// e invisível pra ferramenta; ao relançar achando que tinha morrido, 2 cópias rodaram
+// em paralelo e corromperam pelo menos 4 linhas silenciosamente (sem erro visível).
+const ARQUIVO_LOCK_EXECUCAO = path.resolve(__dirname, '.reprocessar.lock');
+
+function adquirirLock() {
+  if (fs.existsSync(ARQUIVO_LOCK_EXECUCAO)) {
+    const pidAntigo = parseInt(fs.readFileSync(ARQUIVO_LOCK_EXECUCAO, 'utf8').trim(), 10);
+    let aindaVivo = false;
+    if (pidAntigo) {
+      try { process.kill(pidAntigo, 0); aindaVivo = true; } catch (e) { aindaVivo = false; }
+    }
+    if (aindaVivo) {
+      console.error(`ERRO: já existe uma instância deste script rodando (PID ${pidAntigo}). Abortando pra evitar corrida/corrupção de dados.`);
+      process.exit(1);
+    }
+    console.log(`Lock antigo encontrado (PID ${pidAntigo || '?'}, não está mais vivo) -- removendo e continuando.`);
+  }
+  fs.writeFileSync(ARQUIVO_LOCK_EXECUCAO, String(process.pid));
+}
+
+function liberarLock() {
+  try { fs.unlinkSync(ARQUIVO_LOCK_EXECUCAO); } catch (e) {}
+}
 
 const URL_ANUNCIOS = 'https://vendedores.mercadolivre.com.br/anuncios#menu-user';
 const URL_ADS = 'https://ads.mercadolivre.com.br/product-ads/admin/ads?navigate_to=mercado_ads';
@@ -190,16 +218,30 @@ function listarCatalogoPorCondicao(mlbs) {
 // script só salvava no JSON, nunca escrevia na planilha de verdade). Regenera as 2
 // abas por completo a partir do JSON acumulado, nunca patch célula a célula.
 
-// Regra "Ativo primeiro" (documento, 12/08/2026): quando Clássico e Premium têm
+// Regra "Ativo primeiro" (documento, 12/08/2026): quando os 2 itens da cascata têm
 // statusProduto diferente, o Ativo entra primeiro na célula (quebra de linha) --
 // afeta MLB's, Depósito, FULL e Status do Produto juntos, mantendo correspondência
 // posição-a-posição entre as colunas.
+//
+// Regra "até 2 MLBs de catálogo, com fallback pro mesmo tipo" (Felipe, 19/08/2026,
+// avaliada pelo @analyst via *elicit): `a2` deixou de ser sempre {Clássico, Premium}
+// -- quando um dos 2 tipos não existe pro SKU, os 2 primeiros MLBs do tipo que existe
+// entram juntos (nunca mais que 2 no total). Isso quebra a premissa de "1 chave por
+// tipo", então `a2` passa a ser uma LISTA de até 2 itens (cada um já carrega sua
+// própria `condicao`). Compatibilidade: entradas antigas do JSON (já processadas antes
+// deste fix, ainda no formato {Clássico, Premium}) continuam lidas normalmente aqui --
+// só as reprocessadas passam a vir no formato novo.
 function montarCascata(registro) {
-  const c = registro.a2 && registro.a2['Clássico'];
-  const p = registro.a2 && registro.a2['Premium'];
-  const itens = [];
-  if (c) itens.push(c);
-  if (p) itens.push(p);
+  let itens;
+  if (Array.isArray(registro.a2)) {
+    itens = registro.a2.filter(Boolean);
+  } else {
+    const c = registro.a2 && registro.a2['Clássico'];
+    const p = registro.a2 && registro.a2['Premium'];
+    itens = [];
+    if (c) itens.push(c);
+    if (p) itens.push(p);
+  }
   if (itens.length === 2 && itens[0].statusProduto !== itens[1].statusProduto) {
     itens.sort((a, b) => (a.statusProduto === 'Ativo' ? 0 : 1) - (b.statusProduto === 'Ativo' ? 0 : 1));
   }
@@ -279,6 +321,20 @@ async function regenerarAbasExcel(resultados) {
         ...(colunas === 7 ? [statusProdutoTexto, registro.statusAds || '-'] : []),
       ];
 
+      // Fix de altura de linha (Felipe achou, 19/08/2026): `ws.getRow(r).height = undefined`
+      // (linha 276) NÃO faz o Excel autoajustar a altura pra células com wrapText de
+      // verdade -- ele mantém a altura padrão de 1 linha só, escondendo a 2ª linha de
+      // qualquer célula com "\n" (ex: PSC3500-127V, MLB's = "#123\n#456") até o usuário
+      // aumentar a altura manualmente. O dado sempre esteve certo no arquivo -- só a
+      // exibição ficava cortada. Corrigido: calcula o maior número de linhas entre todos
+      // os valores desta linha e define a altura explicitamente (15pt por linha, padrão
+      // de linha única do Excel com fonte 11pt).
+      let maxLinhas = 1;
+      for (const valor of valoresLinha) {
+        const nLinhas = String(valor).split('\n').length;
+        if (nLinhas > maxLinhas) maxLinhas = nLinhas;
+      }
+
       let col = 1;
       for (const valor of valoresLinha) {
         const cel = ws.getCell(linhaAtual, col);
@@ -286,6 +342,7 @@ async function regenerarAbasExcel(resultados) {
         cel.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
         col += 2;
       }
+      if (maxLinhas > 1) ws.getRow(linhaAtual).height = maxLinhas * 15;
       linhaAtual += 2; // pula 1 linha em branco (separador visual entre blocos/SKUs)
     }
     return linhasFiltradas.length;
@@ -311,41 +368,51 @@ async function processarLinha(pageAnuncios, pageAds, context, itemId, linha, mlb
 
   const { todosMlbsSincronizados, mlbs } = await analisarSku(pageAnuncios, context, sku);
   const { classicos, premiums } = listarCatalogoPorCondicao(mlbs);
-  const classico = classicos[0] || null;
-  const premium = premiums[0] || null;
 
-  if (!classico && !premium) {
+  // Regra confirmada pelo Felipe (19/08/2026), avaliada pelo @analyst via *elicit:
+  // até 2 MLBs de catálogo por SKU, nunca mais -- prioridade 1 Clássico + 1 Premium
+  // (os primeiros encontrados); se um dos 2 tipos não existir, completa com os 2
+  // primeiros do tipo que existir; se só existir 1 MLB de catálogo no total, mostra
+  // só esse 1; se não existir nenhum, "-" (mantém o erro NENHUM_MLB_DE_CATALOGO_CONFIRMADO).
+  let selecionados;
+  if (classicos.length > 0 && premiums.length > 0) {
+    selecionados = [classicos[0], premiums[0]];
+  } else if (classicos.length > 0) {
+    selecionados = classicos.slice(0, 2);
+  } else if (premiums.length > 0) {
+    selecionados = premiums.slice(0, 2);
+  } else {
+    selecionados = [];
+  }
+
+  if (selecionados.length === 0) {
     return {
       linha,
       itemId,
       sku,
       todosMlbsSincronizados,
-      catalogoConfirmado: null,
+      catalogoConfirmado: [],
       erro: 'NENHUM_MLB_DE_CATALOGO_CONFIRMADO',
       metodoVersao: METODO_VERSAO,
       processadoEm: new Date().toISOString(),
     };
   }
 
-  const mlbReferencia = classico ? classico.mlbId : premium.mlbId;
+  const mlbReferencia = selecionados[0].mlbId;
   const { titulo, statusAds, erro: erroAds } = await buscarTituloEStatusEmAds(pageAds, mlbReferencia);
 
-  const dc = classico ? mlbs[classico.mlbId] : null;
-  const dp = premium ? mlbs[premium.mlbId] : null;
+  const a2 = selecionados.map((sel) => {
+    const d = mlbs[sel.mlbId];
+    return { mlb: sel.mlbId, condicao: d.condicao, full: d.full, deposito: d.deposito, statusProduto: d.statusProduto, statusCatalogo: d.statusCatalogo };
+  });
 
   return {
     linha,
     itemId,
     sku,
     todosMlbsSincronizados,
-    catalogoConfirmado: {
-      Clássico: classico ? classico.mlbId : null,
-      Premium: premium ? premium.mlbId : null,
-    },
-    a2: {
-      Clássico: dc ? { mlb: classico.mlbId, full: dc.full, deposito: dc.deposito, statusProduto: dc.statusProduto, statusCatalogo: dc.statusCatalogo } : null,
-      Premium: dp ? { mlb: premium.mlbId, full: dp.full, deposito: dp.deposito, statusProduto: dp.statusProduto, statusCatalogo: dp.statusCatalogo } : null,
-    },
+    catalogoConfirmado: selecionados.map((sel) => ({ mlb: sel.mlbId, condicao: mlbs[sel.mlbId].condicao })),
+    a2,
     tituloCatalogo: titulo,
     statusAds,
     ...(erroAds ? { erro: erroAds } : {}),
@@ -361,6 +428,8 @@ async function main() {
     console.error('Uso: node reprocessar-analise-oficial-completo.js <linhaInicio> <linhaFim>');
     process.exit(1);
   }
+
+  adquirirLock();
 
   const ExcelJS = require('exceljs');
   const wbFonte = new ExcelJS.Workbook();
@@ -449,6 +518,7 @@ async function main() {
     console.error('ERRO GERAL:', err.message);
   } finally {
     if (browser) await browser.close();
+    liberarLock();
   }
   process.exit(0);
 }
