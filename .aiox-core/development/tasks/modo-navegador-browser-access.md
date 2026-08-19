@@ -133,6 +133,30 @@ await page.waitForLoadState('domcontentloaded', { timeout: 30000 });
 
 ---
 
+## Reusar aba já aberta antes de abrir nova — obrigatório (crítico, 18/08/2026)
+
+**Regra:** qualquer script (permanente ou diagnóstico ad-hoc) que precise da aba de "Anúncios" (Gestão de anúncios) ou "Anúncios Patrocinados" DEVE primeiro checar se ela já está aberta e reusá-la — nunca abrir uma aba nova por padrão. Só abrir aba nova quando a checagem confirmar que nenhuma das duas existe.
+
+**Módulo persistido (18/08/2026):** `.aiox-core/development/scripts/modo-navegador/achar-abas-mercadolivre.js` — exporta `acharAbaAnuncios(context)` e `acharAbaAdsPatrocinados(context)`, com os padrões já validados (nem tão largos que confundem com a aba "Alterar", nem tão restritos que perdem a aba depois da 1ª busca). Qualquer script novo importa direto de lá — nunca escreve o próprio `context.pages().find(...)` do zero.
+
+```javascript
+const { acharAbaAnuncios, acharAbaAdsPatrocinados } = require('./.aiox-core/development/scripts/modo-navegador/achar-abas-mercadolivre.js');
+
+let pageAnuncios = acharAbaAnuncios(context);
+if (!pageAnuncios) pageAnuncios = await openBackgroundPage(browser, context, URL_ANUNCIOS);
+
+let pageAds = acharAbaAdsPatrocinados(context);
+if (!pageAds) pageAds = await openBackgroundPage(browser, context, URL_ADS);
+```
+
+**Por que isso existe (18/08/2026):** confirmado ao vivo, o Chrome do Modo Navegador acumulou 22 abas numa única madrugada de trabalho — a maioria porque diagnósticos rápidos ad-hoc (rodados durante investigação de bugs) abriam aba nova a cada checagem, em vez de reusar a aba de Anúncios/Anúncios Patrocinados que já estava aberta e sendo usada pelo processo principal. Isso gera: consumo real de memória no PC do Felipe, confusão sobre qual aba é "a de verdade", e (achado no mesmo incidente) mais chance de um script novo reescrever a lógica de encontrar a aba certa do zero, reintroduzindo bugs já corrigidos em outro script (ver BLOCO 0-AA do `CLAUDE.md`).
+
+**Regra complementar — aba "Alterar" continua sendo exceção:** abrir e fechar uma aba nova pra analisar 1 MLB via "Alterar" continua correto e obrigatório (ela é sempre temporária, fecha logo depois, nunca deveria acumular) — a regra acima é só sobre as 2 abas fixas (Anúncios, Anúncios Patrocinados).
+
+**Se for genuinamente necessário acessar uma aba diferente dessas 2 fixas** (situação rara, fora do fluxo normal): perguntar ao Felipe antes de abrir, nunca abrir por conta própria "só pra checar rápido".
+
+---
+
 ## Uso de `bringToFront()` — regra obrigatória (crítica, 04/08/2026)
 
 Algumas ações (`page.screenshot()` em aba minimizada, alguns cliques em painéis específicos) só funcionam de forma confiável se a aba estiver em primeiro plano — exigindo `page.bringToFront()`. Isso é aceitável, **mas nunca pode ser uma chamada de ferramenta separada de quem minimiza depois**.

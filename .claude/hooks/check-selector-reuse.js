@@ -25,13 +25,24 @@
  *   forma de escrever o mesmo seletor que escaparia da detecção (getByRole,
  *   getByTestId, XPath, string concatenada, etc.) — sem mudar a estrutura do
  *   problema.
- *   v3 (atual): inverte a lógica. Em vez de detectar PRESENÇA de um padrão de
+ *   v3: inverte a lógica. Em vez de detectar PRESENÇA de um padrão de
  *   seletor ruim específico, detecta AUSÊNCIA de reuso (`SELETOR_BUSCA`/pipeline
  *   validado) num arquivo que (a) claramente interage com a tela de Anúncios do
  *   Mercado Livre E (b) mostra sinal de que vai preencher/buscar um campo (não
  *   importa a sintaxe usada). Isso cobre qualquer forma atual ou futura de escrever
  *   o seletor errado, porque o critério não é "como foi escrito", é "não reusou o
  *   que já é validado".
+ *   v4 (atual, 18/08/2026): v3 só cobria SELETOR DE CAMPO (.fill/.type/
+ *   getByPlaceholder). Incidente real: `reprocessar-analise-oficial-completo.js`
+ *   reusou corretamente 4 funções do pipeline principal (então v3 não bloqueou
+ *   nada, REUSO_VALIDADO_PATTERN bateu) — mas reescreveu do zero, numa linha
+ *   ADJACENTE, o MATCHER DE ABA (`context.pages().find(...)`), reintroduzindo um
+ *   bug que outro script mais antigo (`pipeline-lote-25-91.js`) já não tinha.
+ *   "Reusei o pipeline principal" não prova que TODO padrão novo do arquivo foi
+ *   checado — só prova que os padrões efetivamente importados foram. v4 adiciona
+ *   uma 2ª categoria de detecção, independente da de campo: matcher de aba novo
+ *   sem reusar o módulo compartilhado (`achar-abas-mercadolivre.js`, criado pra
+ *   eliminar a necessidade de qualquer script reescrever essa lógica).
  *
  * MECANISMO (evento PreToolUse, matcher Write|Edit):
  *   1. Só considera arquivo `.js`.
@@ -41,27 +52,29 @@
  *   3. CONTEXTO: esse texto combinado referencia a tela de Anúncios do Mercado
  *      Livre (URL literal ou constante `URL_ANUNCIOS`), OU o arquivo está fisicamente
  *      em `packages/karzen/.aiox-runtime/` E usa `chromium.connectOverCDP`?
- *   4. SINAL DE BUSCA: o TRECHO NOVO (não o arquivo inteiro -- só bloqueia quando é
- *      a mudança atual que introduz isso) usa `.fill(`, `.type(` ou
- *      `getByPlaceholder(` -- sinais de que vai preencher/localizar um campo de
- *      busca, qualquer que seja a sintaxe do seletor em si?
- *   5. REUSO: o texto combinado já referencia `SELETOR_BUSCA` ou importa o pipeline
- *      validado (`pipeline-pausados-campanha-completo.js`)?
- *   6. SE contexto E sinal de busca E NÃO reuso → bloqueia (exit 1).
+ *   4a. CATEGORIA "campo de busca": o TRECHO NOVO usa `.fill(`, `.type(` ou
+ *      `getByPlaceholder(` E o texto combinado NÃO referencia `SELETOR_BUSCA`/
+ *      pipeline principal → bloqueia.
+ *   4b. CATEGORIA "matcher de aba" (nova em v4): o TRECHO NOVO usa
+ *      `.pages().find(` combinado com `.url()` E o texto combinado NÃO referencia
+ *      `achar-abas-mercadolivre`/`acharAbaAnuncios`/`acharAbaAdsPatrocinados` →
+ *      bloqueia.
+ *   5. SE (4a) OU (4b) → bloqueia (exit 1), mensagem específica pra cada categoria.
  *
  * POR QUE `.locator(`/`page.locator`/`getByRole(` sozinhos NÃO contam como "sinal
  * de busca": um script pode legitimamente usar `.locator(...)` pra clicar num botão
  * já visível (ex: "Pausar anúncio") ou tirar screenshot, sem nunca buscar/preencher
  * nada -- bloquear esse caso seria falso positivo real (risco que o próprio
  * @analyst apontou). Restringir a `.fill(`/`.type(`/`getByPlaceholder(` mantém o
- * foco em "vai preencher um campo", que é o cenário real do incidente.
+ * foco em "vai preencher um campo", que é o cenário real do incidente original.
  *
  * LIMITE CONHECIDO, ainda assim: isso não é garantia absoluta (nenhum hook baseado
  * em heurística é). Um script que preenche o campo via alguma técnica totalmente
  * fora do radar (ex: `page.keyboard.type(...)` sem nenhum `.fill(`/`.type(` de
- * elemento, ou manipulação direta de DOM via `page.evaluate`) ainda escaparia.
- * Mesma filosofia já documentada no PRINCÍPIO do CLAUDE.md (antes da BLOCO 0-K):
- * reforço técnico complementa a regra escrita, não a substitui.
+ * elemento, ou manipulação direta de DOM via `page.evaluate`), ou que localiza a
+ * aba por outro mecanismo (ex: `context.pages()[0]`, índice fixo), ainda
+ * escaparia. Mesma filosofia já documentada no PRINCÍPIO do CLAUDE.md (antes da
+ * BLOCO 0-K): reforço técnico complementa a regra escrita, não a substitui.
  */
 
 'use strict';
@@ -73,11 +86,13 @@ const URL_ANUNCIOS_PATTERN = /vendedores\.mercadolivre\.com\.br\/anuncios|URL_AN
 const CONNECT_CDP_PATTERN = /chromium\.connectOverCDP/i;
 const CAMINHO_KARZEN_RUNTIME_PATTERN = /packages[\\/]karzen[\\/]\.aiox-runtime/i;
 
-// ─── Sinal de que o TRECHO NOVO vai preencher/localizar um campo de busca ────
+// ─── Categoria 4a: campo de busca ─────────────────────────────────────────
 const SINAL_BUSCA_PATTERN = /\.fill\(|\.type\(|getByPlaceholder\(/i;
+const REUSO_SELETOR_BUSCA_PATTERN = /SELETOR_BUSCA|require\([^)]*pipeline-pausados-campanha-completo/i;
 
-// ─── Sinal de que o script reusa algo já validado, em vez de reimplementar ──
-const REUSO_VALIDADO_PATTERN = /SELETOR_BUSCA|require\([^)]*pipeline-pausados-campanha-completo/i;
+// ─── Categoria 4b: matcher de aba (v4, 18/08/2026) ────────────────────────
+const SINAL_MATCHER_ABA_PATTERN = /\.pages\(\)\.find\([^;]*\.url\(\)/i;
+const REUSO_MODULO_ABAS_PATTERN = /achar-abas-mercadolivre|acharAbaAnuncios|acharAbaAdsPatrocinados/i;
 
 let rawInput = '';
 process.stdin.on('data', chunk => (rawInput += chunk));
@@ -125,24 +140,46 @@ process.stdin.on('end', () => {
     process.exit(0); // não é automação da tela de Anúncios do Mercado Livre
   }
 
-  if (!SINAL_BUSCA_PATTERN.test(novoTrecho)) {
-    process.exit(0); // o trecho novo não introduz preenchimento/busca de campo
+  // Categoria 4a: campo de busca sem reuso
+  const violacaoCampoBusca =
+    SINAL_BUSCA_PATTERN.test(novoTrecho) && !REUSO_SELETOR_BUSCA_PATTERN.test(textoContexto);
+
+  // Categoria 4b: matcher de aba novo sem reuso do módulo compartilhado (v4)
+  const violacaoMatcherAba =
+    SINAL_MATCHER_ABA_PATTERN.test(novoTrecho) && !REUSO_MODULO_ABAS_PATTERN.test(textoContexto);
+
+  if (!violacaoCampoBusca && !violacaoMatcherAba) {
+    process.exit(0); // nenhuma das 2 categorias disparou
   }
 
-  if (REUSO_VALIDADO_PATTERN.test(textoContexto)) {
-    process.exit(0); // já referencia SELETOR_BUSCA/pipeline validado -- ok
+  if (violacaoCampoBusca) {
+    process.stderr.write(
+      'BLOCO 0-AA: este script interage com a tela de Anúncios do Mercado Livre e ' +
+      'preenche/localiza um campo (.fill(/.type(/getByPlaceholder() sem referenciar ' +
+      'SELETOR_BUSCA nem importar o pipeline de produção já validado ' +
+      '(pipeline-pausados-campanha-completo.js). Antes de continuar: importe/reuse a ' +
+      'constante/função existente em vez de reimplementar o seletor do zero, seja qual ' +
+      'for a sintaxe (atributo, classe, getByPlaceholder, getByRole, etc.). Se não ' +
+      'existir pipeline equivalente pro que você está automatizando, documente o ' +
+      'seletor validado no doc de processo correspondente (ver BLOCO 0-AB) antes de ' +
+      'considerar a tarefa concluída.'
+    );
   }
 
-  process.stderr.write(
-    'BLOCO 0-AA: este script interage com a tela de Anúncios do Mercado Livre e ' +
-    'preenche/localiza um campo (.fill(/.type(/getByPlaceholder() sem referenciar ' +
-    'SELETOR_BUSCA nem importar o pipeline de produção já validado ' +
-    '(pipeline-pausados-campanha-completo.js). Antes de continuar: importe/reuse a ' +
-    'constante/função existente em vez de reimplementar o seletor do zero, seja qual ' +
-    'for a sintaxe (atributo, classe, getByPlaceholder, getByRole, etc.). Se não ' +
-    'existir pipeline equivalente pro que você está automatizando, documente o ' +
-    'seletor validado no doc de processo correspondente (ver BLOCO 0-AB) antes de ' +
-    'considerar a tarefa concluída.'
-  );
+  if (violacaoMatcherAba) {
+    process.stderr.write(
+      (violacaoCampoBusca ? '\n\n' : '') +
+      'BLOCO 0-AA (v4): este script escreve um matcher de aba novo ' +
+      '(.pages().find(...) combinado com .url()) sem referenciar o módulo ' +
+      'compartilhado achar-abas-mercadolivre.js (acharAbaAnuncios/' +
+      'acharAbaAdsPatrocinados). Reescrever essa lógica do zero já reintroduziu um ' +
+      'bug real hoje (18/08/2026) que outro script já tinha corrigido. Antes de ' +
+      'continuar: importe ' +
+      "require('.aiox-core/development/scripts/modo-navegador/achar-abas-mercadolivre.js') " +
+      'em vez de escrever um novo `context.pages().find(...)`. Ver ' +
+      'modo-navegador-browser-access.md, seção "Reusar aba já aberta antes de abrir nova".'
+    );
+  }
+
   process.exit(1); // bloqueia o Write/Edit
 });
