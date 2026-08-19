@@ -168,24 +168,26 @@
       "6512791896",
       "4558922231"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "6512791896",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "6512791896",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6512791896",
+        "condicao": "Clássico",
         "full": "38 un.",
         "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
-      },
-      "Premium": null
-    },
+      }
+    ],
     "tituloCatalogo": "Aspirador Kian 3 em 1 1.2L",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:13:17.341Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:45:44.121Z"
   },
   "linha-156": {
     "linha": 156,
@@ -195,24 +197,26 @@
       "6612787400",
       "6612775230"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "6612787400",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "6612787400",
-        "full": "sem estoque",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6612787400",
+        "condicao": "Clássico",
+        "full": null,
         "deposito": "252 un.",
         "statusProduto": "Ativo",
-        "statusCatalogo": "PERDENDO"
-      },
-      "Premium": null
-    },
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
     "tituloCatalogo": "Cafeteira portátil Mondial Dolce Arome Inox Dolce Arome C-34JI-15X de filtro",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T20:57:48.087Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:46:49.626Z"
   },
   "linha-157": {
     "linha": 157,
@@ -379,24 +383,26 @@
       "4417870781",
       "6163878978"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "4417870781",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "4417870781",
-        "full": "123 un.",
-        "deposito": "518 un.",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4417870781",
+        "condicao": "Clássico",
+        "full": "91 un.",
+        "deposito": "516 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
-      },
-      "Premium": null
-    },
+      }
+    ],
     "tituloCatalogo": "Sanduicheira elétrica Mondial Master Press PG-01-RC 2222-01",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T21:05:38.624Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:51:26.474Z"
   },
   "linha-163": {
     "linha": 163,
@@ -645,24 +651,26 @@
       "3847452621",
       "3847416663"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "3847452621",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "3847452621",
-        "full": "sem estoque",
-        "deposito": null,
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3847452621",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
         "statusProduto": "Pausado",
         "statusCatalogo": "Inativo"
-      },
-      "Premium": null
-    },
+      }
+    ],
     "tituloCatalogo": "Chaleira elétrica Elgin 42CHA1002000 2L",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T21:15:31.947Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:49:04.623Z"
   },
   "linha-170": {
     "linha": 170,
@@ -672,24 +680,26 @@
       "6174001096",
       "6174091882"
     ],
-    "catalogoConfirmado": {
-      "Clássico": "6174001096",
-      "Premium": null
-    },
-    "a2": {
-      "Clássico": {
+    "catalogoConfirmado": [
+      {
         "mlb": "6174001096",
-        "full": "286 un.",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6174001096",
+        "condicao": "Clássico",
+        "full": "284 un.",
         "deposito": "250 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
-      },
-      "Premium": null
-    },
+      }
+    ],
     "tituloCatalogo": "Aspirador Philco PAS1450C 1L PAS1450C",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-18-v1",
-    "processadoEm": "2026-08-18T21:16:36.324Z"
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:50:08.060Z"
   },
   "linha-145": {
     "linha": 145,
