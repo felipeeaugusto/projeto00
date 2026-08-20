@@ -1770,5 +1770,1067 @@
     "statusAds": "Ativa",
     "metodoVersao": "2026-08-19-v2",
     "processadoEm": "2026-08-19T22:40:16.831Z"
+  },
+  "linha-26": {
+    "linha": 26,
+    "itemId": "6822624026",
+    "sku": "P32CRB",
+    "todosMlbsSincronizados": [
+      "4701003563",
+      "6822624026",
+      "4701016495",
+      "6822585656"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4701016495",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6822585656",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4701016495",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "229 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6822585656",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "229 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Smart Tv 32 Philco Roku Tv Dolby Áudio Hdr10 P32crb",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:58:02.552Z"
+  },
+  "linha-27": {
+    "linha": 27,
+    "itemId": "6087456966",
+    "sku": "MC-JU-03",
+    "todosMlbsSincronizados": [
+      "6087456966",
+      "6087431886"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6087456966",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6087456966",
+        "condicao": "Clássico",
+        "full": "23 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Modelador de cachos de barril Mondial by Juliette Qu4tro Elementos MC-JU-02 MC-JU-02",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-19T23:59:05.934Z"
+  },
+  "linha-28": {
+    "linha": 28,
+    "itemId": "4670665821",
+    "sku": "ESG-MG-BIV",
+    "todosMlbsSincronizados": [
+      "4670665821",
+      "6754501096",
+      "4670653685",
+      "6754501088"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4670665821",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6754501096",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4670665821",
+        "condicao": "Clássico",
+        "full": "168 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6754501096",
+        "condicao": "Premium",
+        "full": "168 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Escova secadora/alisadora/modeladora GA.MA Italy HDCBR0000000577",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:00:23.330Z"
+  },
+  "linha-29": {
+    "linha": 29,
+    "itemId": "4363150692",
+    "sku": "BAS1295P-127V",
+    "todosMlbsSincronizados": [
+      "4363150692",
+      "4363099400",
+      "6739045862",
+      "6739045854"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4363150692",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6739045862",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4363150692",
+        "condicao": "Clássico",
+        "full": "165 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6739045862",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Britânia BAS1295P 1L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:01:55.030Z"
+  },
+  "linha-30": {
+    "linha": 30,
+    "itemId": "4712944469",
+    "sku": "HQ-100CEVPVFFI-127V",
+    "todosMlbsSincronizados": [
+      "4712944469",
+      "6844645444",
+      "6844655584",
+      "6844778312"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4712944469",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6844645444",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4712944469",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "70 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6844645444",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "70 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Geladeira expositora HQ HQ-100CEVPVFFI",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:03:15.565Z"
+  },
+  "linha-31": {
+    "linha": 31,
+    "itemId": "4639770999",
+    "sku": "GTW20INOX-127V",
+    "todosMlbsSincronizados": [
+      "4639442015",
+      "4639770999",
+      "4639758729",
+      "6680571138"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4639770999",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4639442015",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4639770999",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "4639442015",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Aspirador é industrial Tambor Wap GTW Inox 20 20L GTW INOX 20",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:04:37.099Z"
+  },
+  "linha-32": {
+    "linha": 32,
+    "itemId": "4749860381",
+    "sku": "TVSEMP-43",
+    "todosMlbsSincronizados": [
+      "6922849626",
+      "6922870044",
+      "4749860381",
+      "6922871026"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6922870044",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6922849626",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6922870044",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "112 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6922849626",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "112 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Smart TV Semp 43 Polegadas LED Full HD S42 WiFi Bluetooth Google TV 2 HDMI HDR10 Dolby Audio 43S42",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:05:56.632Z"
+  },
+  "linha-33": {
+    "linha": 33,
+    "itemId": "4701016495",
+    "sku": "P32CRB",
+    "todosMlbsSincronizados": [
+      "4701003563",
+      "6822624026",
+      "4701016495",
+      "6822585656"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4701016495",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6822585656",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4701016495",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "229 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6822585656",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "229 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Smart Tv 32 Philco Roku Tv Dolby Áudio Hdr10 P32crb",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:07:16.234Z"
+  },
+  "linha-34": {
+    "linha": 34,
+    "itemId": "6057626042",
+    "sku": "MSAMOLED-49",
+    "todosMlbsSincronizados": [
+      "6057784296",
+      "6058262732",
+      "4367394365",
+      "6057626042"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6057784296",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6058262732",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6057784296",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6058262732",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Monitor Gamer Samsung com tela de 49\" 240Hz e resolução DQHD",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:08:15.766Z"
+  },
+  "linha-35": {
+    "linha": 35,
+    "itemId": "4334317341",
+    "sku": "HQ-AP10500FW1-127V",
+    "todosMlbsSincronizados": [
+      "4334317341",
+      "5983677794",
+      "4334292941",
+      "5983677548"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4334317341",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5983677794",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4334317341",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5983677794",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "HQ AP10500FW",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:09:35.369Z"
+  },
+  "linha-36": {
+    "linha": 36,
+    "itemId": "5304006664",
+    "sku": "CXBEATBOX-2000",
+    "todosMlbsSincronizados": [
+      "5304006664",
+      "4659782701",
+      "5303954904",
+      "4659744995"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4659782701",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5304006664",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4659782701",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "45 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5304006664",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "45 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante Bomber LifeStyle BeatBox 2000 1.92.074 portátil com bluetooth",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:10:55.019Z"
+  },
+  "linha-37": {
+    "linha": 37,
+    "itemId": "6518628038",
+    "sku": "BBX4-JBL",
+    "todosMlbsSincronizados": [
+      "4561472143",
+      "4561510195",
+      "4561508609",
+      "6518628038"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6518628038",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4561508609",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6518628038",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "514 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "4561508609",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "514 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante JBL Boombox 4 portátil com bluetooth waterproof",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:11:54.405Z"
+  },
+  "linha-38": {
+    "linha": 38,
+    "itemId": "4498997473",
+    "sku": "JBLQ-360",
+    "todosMlbsSincronizados": [
+      "4497768467",
+      "4498997473",
+      "4498172789",
+      "6312578938"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4497768467",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4498997473",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4497768467",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "3 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "4498997473",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "3 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Headset over-ear gamer sem fio JBL Quantum Series Quantum 360 JBLQTUM360",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:13:16.121Z"
+  },
+  "linha-39": {
+    "linha": 39,
+    "itemId": "4692202865",
+    "sku": "WAPS-220V",
+    "todosMlbsSincronizados": [
+      "4692202865",
+      "4692202867",
+      "4690637523",
+      "4690640063"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4692202867",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4692202865",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4692202867",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4692202865",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Vertical Wap Home Power Speed 3L FW006008",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:14:38.654Z"
+  },
+  "linha-40": {
+    "linha": 40,
+    "itemId": "4641434309",
+    "sku": "SCP-JU-04-220V",
+    "todosMlbsSincronizados": [
+      "4641434309",
+      "6723064204",
+      "4641408549",
+      "6723052190"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4641434309",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6723064204",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4641434309",
+        "condicao": "Clássico",
+        "full": "1 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6723064204",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Secador de cabelo MondialBy Juliette SCP-JU-04-US_220",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:16:08.357Z"
+  },
+  "linha-41": {
+    "linha": 41,
+    "itemId": "5983677794",
+    "sku": "HQ-AP10500FW1-127V",
+    "todosMlbsSincronizados": [
+      "4334317341",
+      "5983677794",
+      "4334292941",
+      "5983677548"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4334317341",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5983677794",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4334317341",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5983677794",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "HQ AP10500FW",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:17:18.907Z"
+  },
+  "linha-42": {
+    "linha": 42,
+    "itemId": "6520143516",
+    "sku": "TVSEMP-50S62",
+    "todosMlbsSincronizados": [
+      "4561968353",
+      "6520144610",
+      "6520143516",
+      "6520144606"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4561968353",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6520144610",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4561968353",
+        "condicao": "Clássico",
+        "full": "1 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6520144610",
+        "condicao": "Premium",
+        "full": "1 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Smart TV Semp 50 Polegadas LED HVA 4K S62 WiFi Bluetooth Google TV 3 HDMI HDR10+ Dolby Audio 50S62",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:18:30.375Z"
+  },
+  "linha-43": {
+    "linha": 43,
+    "itemId": "6682756226",
+    "sku": "PCT04I-BIV",
+    "todosMlbsSincronizados": [
+      "6682756226",
+      "6682756222",
+      "4657704295",
+      "4657704291"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6682756226",
+        "condicao": "Premium"
+      },
+      {
+        "mlb": "4657704295",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6682756226",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4657704295",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Fogão cooktop com alimentação gás - Philco PCT04I - 4 queimadores",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:19:54.027Z"
+  },
+  "linha-44": {
+    "linha": 44,
+    "itemId": "3612598695",
+    "sku": "MO-01-21-W-127V",
+    "todosMlbsSincronizados": [
+      "3612578019",
+      "3612598695",
+      "4432574595",
+      "4432380057"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "3612578019",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "3612598695",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3612578019",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "294 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "3612598695",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "294 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Micro-ondas Mondial Linha Branca MO-01-21 21L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:21:28.809Z"
+  },
+  "linha-45": {
+    "linha": 45,
+    "itemId": "4317713473",
+    "sku": "PAN-B-127V",
+    "todosMlbsSincronizados": [
+      "4317752487",
+      "5954468868",
+      "4317713473",
+      "4317817207"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4317752487",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5954468868",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4317752487",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5954468868",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Panificadora Britânia Multipane",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:22:49.310Z"
+  },
+  "linha-46": {
+    "linha": 46,
+    "itemId": "6517683696",
+    "sku": "IMPC-G3110",
+    "todosMlbsSincronizados": [
+      "4560946507",
+      "4560958907",
+      "4560968027",
+      "6517683696"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4560946507",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4560958907",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4560946507",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "416 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "4560958907",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "416 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Impressora multifuncional cor Canon Pixma G3110",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:23:47.771Z"
+  },
+  "linha-47": {
+    "linha": 47,
+    "itemId": "6844202314",
+    "sku": "HQ-140RDF-CZ-127V",
+    "todosMlbsSincronizados": [
+      "6844202314",
+      "6844226556",
+      "4712668301",
+      "6844226550"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6844226556",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6844202314",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6844226556",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6844202314",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Geladeira com freezer HQ HQ con capacidad de 140L",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:24:48.280Z"
+  },
+  "linha-48": {
+    "linha": 48,
+    "itemId": "4659782701",
+    "sku": "CXBEATBOX-2000",
+    "todosMlbsSincronizados": [
+      "5304006664",
+      "4659782701",
+      "5303954904",
+      "4659744995"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4659782701",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5304006664",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4659782701",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "45 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5304006664",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "45 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:26:11.820Z"
+  },
+  "linha-49": {
+    "linha": 49,
+    "itemId": "4722782047",
+    "sku": "HQ-100CFX-127V",
+    "todosMlbsSincronizados": [
+      "4722742973",
+      "4722782047",
+      "4722755255",
+      "4722782041"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4722742973",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4722782047",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4722742973",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4722782047",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Freezer horizontal HQ HQ-100CFX 100L",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:27:32.446Z"
+  },
+  "linha-50": {
+    "linha": 50,
+    "itemId": "6894656242",
+    "sku": "HQ-HQMGI45-220V",
+    "todosMlbsSincronizados": [
+      "4734682211",
+      "6894630390",
+      "4734643617",
+      "6894656242"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6894630390",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4734682211",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6894630390",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4734682211",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Máquina de gelo tipo cubos HQ Hq-hqmgi45 45kg/h",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-19-v2",
+    "processadoEm": "2026-08-20T00:28:52.081Z"
   }
 }
