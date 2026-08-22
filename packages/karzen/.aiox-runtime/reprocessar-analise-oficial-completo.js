@@ -266,7 +266,37 @@ async function regenerarAbasExcel(resultados) {
   // campos). Filtrar por catalogoConfirmado aqui excluía esses SKUs por engano (caso
   // real: CEARAN-BW-MAX, linha 151, sem disputa de catálogo genuína). O filtro por
   // catálogo confirmado fica só dentro de cada `escreverAba` (via `filtro`), não aqui.
-  const linhasValidas = Object.values(resultados).filter((r) => r.sku);
+  //
+  // Correção real (22/08/2026, achada pelo Felipe na validação manual -- avaliada pelo
+  // @analyst via *elicit): o mesmo SKU pode aparecer em VÁRIAS linhas da planilha fonte
+  // (múltiplos Item IDs apontando pro mesmo catálogo) -- sem agrupar por SKU antes de
+  // escrever, cada linha fonte virava uma linha separada na saída, duplicando o SKU
+  // visualmente e, pior, podendo mostrar "-" numa das cópias quando aquela linha fonte
+  // específica deu erro de confirmação (mesmo já existindo uma cópia limpa do mesmo SKU
+  // vinda de outra linha fonte). Caso real confirmado: P-20-BIV, PRODT-1270,
+  // CXBEATBOX-2000 (linha 153/163 tinha título correto, linha 159/165/48 do mesmo SKU
+  // deu erro e ficou "-" na planilha). Corrigido agrupando por SKU: prefere sempre um
+  // registro sem erro sobre um com erro; entre os sem erro, prefere o mais recente
+  // (processadoEm) -- reflete o estado mais atual do Mercado Livre. Se todas as
+  // ocorrências do SKU tiverem erro, mantém a mais recente mesmo assim (continua visível
+  // como pendente, nunca desaparece silenciosamente).
+  function escolherMelhorRegistro(a, b) {
+    const aErro = !!a.erro;
+    const bErro = !!b.erro;
+    if (aErro !== bErro) return aErro ? b : a;
+    return new Date(b.processadoEm) > new Date(a.processadoEm) ? b : a;
+  }
+
+  function agruparPorSkuCanonico(registros) {
+    const porSku = new Map();
+    for (const r of registros) {
+      const atual = porSku.get(r.sku);
+      porSku.set(r.sku, atual ? escolherMelhorRegistro(atual, r) : r);
+    }
+    return [...porSku.values()];
+  }
+
+  const linhasValidas = agruparPorSkuCanonico(Object.values(resultados).filter((r) => r.sku));
 
   // Formatação visual (18/08/2026, pedido do Felipe) -- seguir o mesmo padrão já
   // validado na "Pausados em Campanha - Karzen.xlsx": largura de coluna proporcional
@@ -286,6 +316,31 @@ async function regenerarAbasExcel(resultados) {
     }
   }
 
+  // Preservação da "zona do usuário" (Felipe + @analyst via *elicit, 22/08/2026):
+  // colunas depois do último espaçador de dado nunca foram pensadas como território do
+  // script -- são livres pro Felipe anotar (ex: "ok" de validação manual). A limpeza
+  // abaixo (colunas 1-20) sempre tratou essas colunas como próprias, apagando qualquer
+  // anotação em toda regeneração. Corrigido: lê tudo que existe na zona do usuário ANTES
+  // de limpar, guardando por SKU (nunca por número de linha -- a posição pode mudar
+  // entre regenerações, inclusive por causa do fix de deduplicação acima), e reescreve
+  // de volta depois que a linha do SKU correspondente for escrita. Genérico: protege
+  // QUALQUER coluna na zona livre, não só uma coluna fixa -- o início da zona é derivado
+  // do próprio array de LARGURAS (nunca hardcoded).
+  function lerZonaDoUsuario(ws, colunaInicio, ultimaLinha) {
+    const porSku = new Map();
+    for (let r = 4; r <= ultimaLinha; r++) {
+      const sku = ws.getCell(r, 1).value;
+      if (!sku) continue;
+      const anotacoes = {};
+      for (let c = colunaInicio; c <= 20; c++) {
+        const v = ws.getCell(r, c).value;
+        if (v !== null && v !== undefined && String(v).trim() !== '') anotacoes[c] = v;
+      }
+      if (Object.keys(anotacoes).length > 0) porSku.set(String(sku), anotacoes);
+    }
+    return porSku;
+  }
+
   function escreverAba(nomeAba, colunas, filtro) {
     const ws = wb.getWorksheet(nomeAba);
     if (!ws) throw new Error(`Aba "${nomeAba}" não encontrada no Analise Oficial.xlsx`);
@@ -298,6 +353,10 @@ async function regenerarAbasExcel(resultados) {
     // agora ocupa ~2x mais linhas por causa das linhas em branco separadoras).
     let ultimaLinha = 0;
     ws.eachRow((row, num) => { ultimaLinha = num; });
+
+    const colunaZonaUsuario = LARGURAS[nomeAba].length * 2 + 1;
+    const anotacoesPorSku = lerZonaDoUsuario(ws, colunaZonaUsuario, ultimaLinha);
+
     const limiteLimpeza = Math.max(ultimaLinha, 4 + linhasFiltradas.length * 2 + 10);
     for (let r = 4; r <= limiteLimpeza; r++) {
       for (let c = 1; c <= 20; c++) ws.getCell(r, c).value = null;
@@ -343,6 +402,14 @@ async function regenerarAbasExcel(resultados) {
         col += 2;
       }
       if (maxLinhas > 1) ws.getRow(linhaAtual).height = maxLinhas * 15;
+
+      const anotacoesDoSku = anotacoesPorSku.get(String(registro.sku));
+      if (anotacoesDoSku) {
+        for (const [colStr, valor] of Object.entries(anotacoesDoSku)) {
+          ws.getCell(linhaAtual, Number(colStr)).value = valor;
+        }
+      }
+
       linhaAtual += 2; // pula 1 linha em branco (separador visual entre blocos/SKUs)
     }
     return linhasFiltradas.length;
