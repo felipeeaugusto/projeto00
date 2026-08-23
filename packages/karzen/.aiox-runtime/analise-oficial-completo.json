@@ -53,7 +53,7 @@
     "catalogoConfirmado": [],
     "erro": "NENHUM_MLB_DE_CATALOGO_CONFIRMADO",
     "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:16:59.202Z"
+    "processadoEm": "2026-08-23T20:51:52.047Z"
   },
   "linha-152": {
     "linha": 152,
@@ -571,11 +571,10 @@
         "statusCatalogo": "Inativo"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:35:12.317Z"
+    "processadoEm": "2026-08-23T20:53:03.039Z"
   },
   "linha-166": {
     "linha": 166,
@@ -1009,11 +1008,10 @@
         "statusCatalogo": "Inativo"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Máquina de gelo tipo cubos HQ Hq-hqmgi45 45kg/h",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:08:19.654Z"
+    "processadoEm": "2026-08-23T20:38:48.744Z"
   },
   "linha-3": {
     "linha": 3,
@@ -2968,7 +2966,7 @@
         "mlb": "4659782701",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "34 un.",
+        "deposito": "30 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
       },
@@ -2976,16 +2974,15 @@
         "mlb": "5304006664",
         "condicao": "Premium",
         "full": null,
-        "deposito": "35 un.",
+        "deposito": "30 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Alto-falante Bomber LifeStyle BeatBox 2000 1.92.074 portátil com bluetooth",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:05:13.603Z"
+    "processadoEm": "2026-08-23T20:40:08.362Z"
   },
   "linha-49": {
     "linha": 49,
@@ -3029,7 +3026,7 @@
     "statusAds": null,
     "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
     "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:06:34.045Z"
+    "processadoEm": "2026-08-23T20:41:28.892Z"
   },
   "linha-50": {
     "linha": 50,
