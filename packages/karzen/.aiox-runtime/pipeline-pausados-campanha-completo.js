@@ -574,11 +574,20 @@ async function analisarSku(pageAnuncios, context, sku) {
   // contra a contagem real de botões "Ações secundárias" no DOM, no MESMO estado de
   // página (já expandido/rolado por `buscarERolar`). Se não baterem, os índices podem
   // estar deslocados por algum caso não previsto (ex: uma linha "#numero" isolada que
-  // não corresponde a nenhum botão, ou vice-versa) -- só avisa no console, não trava o
-  // pipeline, pra virar sinal visível em vez de bug silencioso numa próxima ocorrência.
+  // não corresponde a nenhum botão, ou vice-versa).
+  //
+  // Correção real (22/08/2026, achada pelo Felipe na validação manual do SKU P-JU-03 --
+  // avaliada pelo @analyst via *elicit): até aqui essa divergência só virava um
+  // console.log, descartado -- foi exatamente o sinal que teria pego a captura
+  // incompleta do P-JU-03 (achou só 1 de 4 MLBs reais, sem nenhum erro registrado).
+  // Agora o resultado da comparação é devolvido pro chamador (`divergenciaContagemBotoes`)
+  // pra virar um `erro` de verdade no registro salvo -- entra automaticamente na regra já
+  // validada de "linha com erro é sempre reprocessada, nunca aceita como feita
+  // silenciosamente".
   const qtdBotoesReal = await pageAnuncios.locator('button[aria-label="Ações secundárias"]').count().catch(() => -1);
-  if (qtdBotoesReal !== -1 && qtdBotoesReal !== ordemMlbsGlobal.length) {
-    console.log(`⚠️ Divergência de contagem de botões pro SKU ${sku}: calculado ${ordemMlbsGlobal.length}, DOM real ${qtdBotoesReal} — índices podem estar deslocados`);
+  const divergenciaContagemBotoes = qtdBotoesReal !== -1 && qtdBotoesReal !== ordemMlbsGlobal.length;
+  if (divergenciaContagemBotoes) {
+    console.log(`⚠️ Divergência de contagem de botões pro SKU ${sku}: calculado ${ordemMlbsGlobal.length}, DOM real ${qtdBotoesReal} — possível captura incompleta`);
   }
 
   for (let ci = 0; ci < cards.length; ci++) {
@@ -658,7 +667,20 @@ async function analisarSku(pageAnuncios, context, sku) {
         continue;
       }
 
-      const inativo = /Inativo sem estoque/.test(blocoMlb);
+      // Correcao real (22/08/2026, achada pelo Felipe na validacao manual do SKU P-JU-03
+      // -- avaliada pelo @analyst via *elicit): a regex antiga so reconhecia UMA frase
+      // especifica ("Inativo sem estoque"), deixando passar qualquer outro motivo de
+      // inatividade (ex: "Inativo\nÉ igual a outro anúncio.") como se o anuncio estivesse
+      // Ativo por padrao -- silencioso, sem gerar erro. Caso real confirmado: MLB
+      // 4741778985/SKU P-JU-03, "Inativo" sozinho numa linha, motivo na linha seguinte.
+      // Generalizado pra reconhecer a palavra "Inativo" isolada (mesmo padrao de limite
+      // de palavra ja usado pros badges GANHANDO/PERDENDO/etc), capturando o motivo tanto
+      // se vier na mesma linha ("Inativo sem estoque") quanto na linha seguinte ("Inativo"
+      // sozinho, motivo depois) -- superconjunto da regra antiga, nao quebra nenhum caso
+      // ja validado (a palavra "Inativo" continua presente em "Inativo sem estoque").
+      const inativoMatch = blocoMlb.match(/\bInativo\b[ \t]*\n?[ \t]*([^\n]*)/);
+      const inativo = !!inativoMatch;
+      const motivoInativo = inativoMatch && inativoMatch[1].trim() ? inativoMatch[1].trim() : null;
       // Correcao real (14/08/2026): regex era case-insensitive (/i), o que casava a
       // palavra "ganhando" minuscula dentro de frases comuns como "Voce esta ganhando
       // com outra opcao de venda" (mensagem de MLB SEM status explicito) como se fosse
@@ -676,6 +698,7 @@ async function analisarSku(pageAnuncios, context, sku) {
         full: fullMatch ? fullMatch[1].trim() : null,
         deposito: depMatch ? depMatch[1].trim() : null,
         statusProduto: inativo ? 'Pausado' : 'Ativo',
+        motivoInativo: motivoInativo,
         condicao: condMatch ? condMatch[1] : (posicoes[bi] ? posicoes[bi].condicao : null),
         statusCatalogo: statusMatch ? statusMatch[1].toUpperCase() : null,
         qualidade: qualMatch ? qualMatch[1] : null,
@@ -897,7 +920,7 @@ async function analisarSku(pageAnuncios, context, sku) {
     .filter(mlb => mlbs[mlb] && mlbs[mlb].viaAlterar)
     .map(mlb => ({ mlb, ...mlbs[mlb].viaAlterar }));
 
-  return { todosMlbsSincronizados: todosMlbs, mlbs, statusCatalogoViaAlterar };
+  return { todosMlbsSincronizados: todosMlbs, mlbs, statusCatalogoViaAlterar, divergenciaContagemBotoes };
 }
 
 function normalizarNumeroOuTraco(valor) {

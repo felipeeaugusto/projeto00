@@ -35,7 +35,7 @@ const { acharAbaAnuncios, acharAbaAdsPatrocinados } = require(
   path.resolve(__dirname, '../../../.aiox-core/development/scripts/modo-navegador/achar-abas-mercadolivre.js')
 );
 
-const METODO_VERSAO = '2026-08-19-v2';
+const METODO_VERSAO = '2026-08-22-v3';
 
 // Trava de execução única (Felipe + @analyst via *elicit, 19/08/2026 -- CLAUDE.md
 // BLOCO 0-U, Regra 4): impede 2 cópias deste script rodarem ao mesmo tempo contra a
@@ -433,7 +433,12 @@ async function processarLinha(pageAnuncios, pageAds, context, itemId, linha, mlb
     return { linha, itemId, erro: 'ANUNCIO_NAO_ENCONTRADO', metodoVersao: METODO_VERSAO, processadoEm: new Date().toISOString() };
   }
 
-  const { todosMlbsSincronizados, mlbs } = await analisarSku(pageAnuncios, context, sku);
+  const { todosMlbsSincronizados, mlbs, divergenciaContagemBotoes } = await analisarSku(pageAnuncios, context, sku);
+  // Correção real (22/08/2026, achada pelo Felipe no SKU P-JU-03 -- avaliada pelo
+  // @analyst via *elicit): a divergência de contagem de botões (sinal já existente em
+  // analisarSku, antes só um console.log descartado) agora vira um erro de verdade --
+  // entra na regra já validada de "linha com erro é sempre reprocessada".
+  const erroCaptura = divergenciaContagemBotoes ? 'divergencia_contagem_botoes_possivel_captura_incompleta' : null;
   const { classicos, premiums } = listarCatalogoPorCondicao(mlbs);
 
   // Regra confirmada pelo Felipe (19/08/2026), avaliada pelo @analyst via *elicit:
@@ -459,7 +464,7 @@ async function processarLinha(pageAnuncios, pageAds, context, itemId, linha, mlb
       sku,
       todosMlbsSincronizados,
       catalogoConfirmado: [],
-      erro: 'NENHUM_MLB_DE_CATALOGO_CONFIRMADO',
+      erro: erroCaptura || 'NENHUM_MLB_DE_CATALOGO_CONFIRMADO',
       metodoVersao: METODO_VERSAO,
       processadoEm: new Date().toISOString(),
     };
@@ -482,7 +487,7 @@ async function processarLinha(pageAnuncios, pageAds, context, itemId, linha, mlb
     a2,
     tituloCatalogo: titulo,
     statusAds,
-    ...(erroAds ? { erro: erroAds } : {}),
+    ...(erroCaptura ? { erro: erroCaptura } : erroAds ? { erro: erroAds } : {}),
     metodoVersao: METODO_VERSAO,
     processadoEm: new Date().toISOString(),
   };
