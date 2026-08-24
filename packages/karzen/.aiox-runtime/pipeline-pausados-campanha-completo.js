@@ -781,15 +781,31 @@ async function analisarSku(pageAnuncios, context, sku) {
           const opcoesComStatus = opcoes.filter(o => o.status);
 
           if (opcoesComStatus.length === 0) {
+            // Correcao real (24/08/2026, achada no SKU CKESSTC-ITA5Q via a trava do BLOCO
+            // 0-AD -- Felipe aprovou como catalogo confirmado): o formato narrativo do
+            // "Restrito para ganhar" ("Você não pode ganhar porque tem experiência de
+            // compra ruim.") já é um caso valido conhecido desde 18/08/2026 (ver
+            // mapeamento-skus-ads-catalogo-mercadolivre.md) -- so nao batia com Opção N nem
+            // sem rotulo porque e um texto narrativo, nao uma tabela de preco. Diferente do
+            // caso PREÇO ALTO/PREÇO COMPETITIVO (que nunca tem "COMPETINDO"), este SEMPRE
+            // tem "COMPETINDO" presente -- por isso e seguro reconhecer aqui, sem reabrir a
+            // brecha revertida hoje.
+            const restritoNarrativo = /você não pode ganhar porque tem experiência de compra ruim/i.test(blocoConc);
+            if (restritoNarrativo) {
+              mlbs[mlb].statusCatalogo = mlbs[mlb].statusProduto === 'Pausado' ? 'Inativo' : 'RESTRITO PARA GANHAR';
+              mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, formatoNarrativoRestrito: true };
+              continue;
+            }
             // Correcao real (24/08/2026): o caminho do formato colapsado (clicar pra
             // expandir, extrair badge tipo "PREÇO ALTO" via
             // extrairBadgeConcorrenciaColapsada, com dupla-leitura) foi construido em cima
             // da premissa de 16/08 que hoje sabemos errada -- deixa de decidir catalogo.
             // Se "COMPETINDO" esta presente mas nenhum dos formatos conhecidos e validados
-            // (Opção N / sem rotulo) extraiu uma opcao com status, isso e um padrao NUNCA
-            // mapeado antes -- nao presumir catalogo nem "nao catalogo", nunca. Vira
-            // pendencia sempre visivel (regra obrigatoria do mapeamento-skus-ads-catalogo-
-            // mercadolivre.md, 24/08/2026) -- decisao fica com o Felipe, nunca automatica.
+            // (Opção N / sem rotulo / narrativo Restrito) extraiu uma opcao com status,
+            // isso e um padrao NUNCA mapeado antes -- nao presumir catalogo nem "nao
+            // catalogo", nunca. Vira pendencia sempre visivel (regra obrigatoria do
+            // mapeamento-skus-ads-catalogo-mercadolivre.md, 24/08/2026, e BLOCO 0-AD do
+            // CLAUDE.md) -- decisao fica com o Felipe, nunca automatica.
             mlbs[mlb].viaAlterar = { erro: 'padrao_concorrencia_nao_mapeado', temConcorrencia, temCompetindo };
             mlbs[mlb].statusCatalogo = null;
             if (!anomaliaClassificacaoDetectada) {
