@@ -727,6 +727,18 @@ async function analisarSku(pageAnuncios, context, sku) {
   // agora TODO MLB passa por aqui, e o Alterar (fonte mais confiavel) sempre tem a
   // ultima palavra sobre o status final.
   const mlbsSemStatus = todosMlbs.filter(mlb => mlbs[mlb]);
+  // Correcao real (24/08/2026, pedido explicito do Felipe, generalizada em seguida pra
+  // qualquer anomalia de classificacao futura -- ver .aiox/itens-em-aberto.md, principio
+  // "anomalia de classificacao nunca mapeada -> parar o lote"): quando o pipeline encontra
+  // um padrao de CONTEUDO/CLASSIFICACAO nunca visto/documentado (nao um erro tecnico
+  // transitorio, que continua no fluxo normal de retry), nao pode só ficar registrado no
+  // MLB individual -- precisa parar o lote inteiro ate ser resolvido, nunca continuar
+  // processando outras linhas silenciosamente. `anomaliaClassificacaoDetectada` e generico
+  // de proposito -- qualquer caso futuro desse tipo (nao so padrao_concorrencia_nao_
+  // mapeado) preenche esse mesmo campo com seu proprio `tipo`, sem precisar duplicar o
+  // mecanismo de parada no loop principal. Devolvido pro chamador (mesmo padrao ja usado
+  // pra divergenciaContagemBotoes).
+  let anomaliaClassificacaoDetectada = null;
   for (const mlb of mlbsSemStatus) {
     // Correcao real (17/08/2026): nao precisa mais de indice de botao nem de re-buscar
     // a listagem antes -- abrirAlterarPorMlb abre por URL direta, numa aba separada, sem
@@ -749,116 +761,39 @@ async function analisarSku(pageAnuncios, context, sku) {
         const idxConc = resultado.texto.indexOf('Concorrência no Mercado Livre');
         const temConcorrencia = idxConc !== -1;
 
-        // Correcao real (16/08/2026, achado pelo Felipe + investigado pelo @analyst):
-        // "COMPETINDO" e so o badge de 1 dos 3 formatos de Concorrencia (o formato "Opção
-        // N", que aparece perto do titulo, nao dentro da secao) -- exigir essa palavra
-        // pra decidir "e catalogo?" deixava passar batido o formato colapsado (badge tipo
-        // "PREÇO ALTO", ver extrairBadgeConcorrenciaColapsada). A secao "Concorrência no
-        // Mercado Livre" existir (temConcorrencia) ja e o sinal real de catalogo, sozinho.
-        if (!temConcorrencia) {
+        // Correcao real (24/08/2026, achada pelo Felipe na validacao manual do SKU
+        // P32CRB -- REVERTE a correcao de 16/08/2026, que estava errada): temConcorrencia
+        // sozinho NAO e mais o sinal de catalogo -- o badge "COMPETINDO" (perto do titulo
+        // do anuncio, fora da secao) agora e obrigatorio junto. Casos reais confirmados em
+        // 24/08: PROSB-3000/MLB#4935565074 e WAF-127V/MLB#4690623743 mostravam a secao
+        // Concorrencia (formato colapsado, badge tipo "PREÇO ALTO") SEM "COMPETINDO", e
+        // NAO sao catalogo -- confirmado tambem por colegas em outros PCs, que abrindo os
+        // MESMOS MLBs nem viram a secao Concorrencia aparecer (reforca que nao e uma
+        // disputa de catalogo real e estavel). Ver mapeamento-skus-ads-catalogo-
+        // mercadolivre.md, correcao de 24/08/2026, para os 3 formatos validados como
+        // catalogo de verdade (sempre COM "COMPETINDO"): 1 card unico, comparacao lado a
+        // lado, "Opção N" com "Inativa" quando Pausado.
+        if (!temConcorrencia || !temCompetindo) {
           mlbs[mlb].viaAlterar = { ehPai: true, temCompetindo, temConcorrencia };
         } else {
           const blocoConc = resultado.texto.slice(idxConc);
           const opcoes = extrairOpcoesConcorrencia(blocoConc);
           const opcoesComStatus = opcoes.filter(o => o.status);
 
-          // Correcao real (16/08/2026): quando nenhuma das 2 extracoes de formato
-          // conhecido (Opção N / sem rotulo) acha nenhuma opcao com status, mesmo com
-          // temConcorrencia:true, e o 3o formato -- colapsado por padrao, precisa clicar
-          // no cabecalho da secao pra expandir antes de conseguir ler o badge real.
-          // Correcao real (17/08/2026): esse clique agora acontece na aba SEPARADA
-          // (`resultado.page`), nao mais na aba de Anuncios.
           if (opcoesComStatus.length === 0) {
-            await resultado.page.locator('*').filter({ hasText: 'Concorrência no Mercado Livre' }).last()
-              .click({ timeout: 5000 }).catch(() => {});
-            const textoExpandido = await esperarTextoEstabilizar(resultado.page, {
-              validarConteudo: (t) => t.includes('Competitividade'),
-            });
-            const idxConc2 = textoExpandido.indexOf('Concorrência no Mercado Livre');
-            const blocoConc2 = idxConc2 !== -1 ? textoExpandido.slice(idxConc2) : blocoConc;
-            const badge = extrairBadgeConcorrenciaColapsada(blocoConc2);
-
-            if (badge) {
-              // Correcao real (17/08/2026, pedido explicito do Felipe): a coluna Status
-              // Catalogo so mostra o badge de concorrencia real (GANHANDO/PERDENDO/etc)
-              // quando o anuncio esta ATIVO o suficiente pra competir de verdade. Se o
-              // anuncio ja esta Pausado, ele nao esta "ativo pra mostrar GANHANDO/PERDENDO/
-              // COMPARTILHANDO" -- o badge colapsado (ex: "PREÇO ALTO") pode ficar visivel
-              // na pagina mesmo assim, mas nao reflete competicao real acontecendo agora.
-              // Caso real: MLB #4935565074 (SKU PROSB-3000), Pausado, badge "PREÇO ALTO"
-              // -- Felipe confirmou que o certo e "Inativo", nao o texto do badge.
-              //
-              // Correcao real (17/08/2026, achado pelo Felipe -- MLB #6739045854, SKU
-              // BAS1295P-127V): "PREÇO ALTO" NAO e uma categoria propria paralela a
-              // GANHANDO/PERDENDO/COMPARTILHANDO -- e um badge que so aparece quando o
-              // anuncio esta PERDENDO especificamente por causa do preco. Confirmado ao
-              // vivo, expandindo a secao: "Preço competitivo: R$134" vs "Seu anúncio:
-              // R$190,83", "Competitividade: Alta" (mercado) vs "Baixa" (nosso anuncio) --
-              // inequivocamente perdendo, so com um rotulo diferente. Normaliza pra
-              // "PERDENDO" (badge original preservado em viaAlterar.badge, so como
-              // referencia interna) -- mesmo padrao ja usado pra Pausado->Inativo, mas
-              // aqui e badge->status normalizado, nao status_do_produto->status_catalogo.
-              const badgeNormalizado = badge === 'PREÇO ALTO' ? 'PERDENDO' : badge;
-
-              // Salvaguarda de dupla-leitura (17/08/2026, achado pelo @analyst via *elicit):
-              // os 2 erros reais de dado confirmados hoje (WAF-127V MLB #4690623743 --
-              // catalogo fantasma sem causa raiz confirmada -- e BAS1295P-127V MLB
-              // #6739045854 -- badge PRECO ALTO nao normalizado) vieram exatamente deste
-              // caminho (formatoColapsado), 100% de correlacao (2 de 2). E o caminho mais
-              // raro (precisa clicar pra expandir) e o mais fragil confirmado ate agora.
-              // Releitura ao vivo independente (aba nova, do zero) do mesmo MLB antes de
-              // aceitar como final -- se baterem, confirma; se divergirem, nunca escolher
-              // qual esta certa (mesma filosofia "sem confirmacao = fica de fora" do caso
-              // AOC21-30HM) -- vira erro/pendencia visivel em vez de dado errado silencioso.
-              let badgeConfirmado = badgeNormalizado;
-              let segundaLeituraOk = true;
-              let resultado2 = null;
-              try {
-                resultado2 = await abrirAlterarPorMlb(context, mlb);
-                if (resultado2) {
-                  const idxConc3 = resultado2.texto.indexOf('Concorrência no Mercado Livre');
-                  if (idxConc3 !== -1) {
-                    await resultado2.page.locator('*').filter({ hasText: 'Concorrência no Mercado Livre' }).last()
-                      .click({ timeout: 5000 }).catch(() => {});
-                    const textoExpandido2 = await esperarTextoEstabilizar(resultado2.page, {
-                      validarConteudo: (t) => t.includes('Competitividade'),
-                    });
-                    const idxConc4 = textoExpandido2.indexOf('Concorrência no Mercado Livre');
-                    const blocoConc4 = idxConc4 !== -1 ? textoExpandido2.slice(idxConc4) : '';
-                    const badge2 = extrairBadgeConcorrenciaColapsada(blocoConc4);
-                    const badge2Normalizado = badge2 === 'PREÇO ALTO' ? 'PERDENDO' : badge2;
-                    segundaLeituraOk = badge2 !== null && badge2Normalizado === badgeNormalizado;
-                  } else {
-                    segundaLeituraOk = false; // 2a leitura nao achou nem a secao de Concorrencia
-                  }
-                } else {
-                  segundaLeituraOk = false; // 2a leitura nao conseguiu nem abrir o Alterar
-                }
-              } catch {
-                segundaLeituraOk = false;
-              } finally {
-                if (resultado2 && resultado2.page) await resultado2.page.close().catch(() => {});
-              }
-
-              if (!segundaLeituraOk) {
-                console.log(`⚠️ Dupla-leitura divergiu pro MLB ${mlb} (formatoColapsado, badge 1a leitura: "${badge}") -- sem confirmacao, fica de fora da planilha.`);
-                mlbs[mlb].statusCatalogo = null;
-                mlbs[mlb].viaAlterar = { erro: 'dupla-leitura divergiu no formato colapsado', temConcorrencia, badgePrimeiraLeitura: badge };
-                continue;
-              }
-
-              mlbs[mlb].statusCatalogo = mlbs[mlb].statusProduto === 'Pausado' ? 'Inativo' : badgeConfirmado;
-              mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, formatoColapsado: true, badge, dupleReleituraConfirmada: true };
-            } else {
-              // Nunca presumir "pai" silenciosamente quando ha concorrencia confirmada --
-              // vira aviso visivel em vez de dado errado sem ninguem perceber.
-              mlbs[mlb].viaAlterar = { erro: 'concorrencia confirmada mas nao foi possivel extrair status apos expandir', temConcorrencia };
-              // Correcao real (17/08/2026): sem conseguir extrair um badge valido do
-              // Alterar, o valor que sobraria em mlbs[mlb].statusCatalogo seria o da
-              // pagina de LISTAGEM (nunca limpo nesse caminho) -- ja provamos hoje que
-              // esse valor pode estar errado (FP100-220V, PAF11B-220V). Mesma filosofia
-              // de "sem confirmacao = fica de fora" ja aplicada ao caso AOC21-30HM.
-              mlbs[mlb].statusCatalogo = null;
+            // Correcao real (24/08/2026): o caminho do formato colapsado (clicar pra
+            // expandir, extrair badge tipo "PREÇO ALTO" via
+            // extrairBadgeConcorrenciaColapsada, com dupla-leitura) foi construido em cima
+            // da premissa de 16/08 que hoje sabemos errada -- deixa de decidir catalogo.
+            // Se "COMPETINDO" esta presente mas nenhum dos formatos conhecidos e validados
+            // (Opção N / sem rotulo) extraiu uma opcao com status, isso e um padrao NUNCA
+            // mapeado antes -- nao presumir catalogo nem "nao catalogo", nunca. Vira
+            // pendencia sempre visivel (regra obrigatoria do mapeamento-skus-ads-catalogo-
+            // mercadolivre.md, 24/08/2026) -- decisao fica com o Felipe, nunca automatica.
+            mlbs[mlb].viaAlterar = { erro: 'padrao_concorrencia_nao_mapeado', temConcorrencia, temCompetindo };
+            mlbs[mlb].statusCatalogo = null;
+            if (!anomaliaClassificacaoDetectada) {
+              anomaliaClassificacaoDetectada = { tipo: 'padrao_concorrencia_nao_mapeado', mlb, sku };
             }
           } else {
             // Correcao real (14/08/2026, reportada pelo Felipe): o preco "de" (precoBase)
@@ -920,7 +855,7 @@ async function analisarSku(pageAnuncios, context, sku) {
     .filter(mlb => mlbs[mlb] && mlbs[mlb].viaAlterar)
     .map(mlb => ({ mlb, ...mlbs[mlb].viaAlterar }));
 
-  return { todosMlbsSincronizados: todosMlbs, mlbs, statusCatalogoViaAlterar, divergenciaContagemBotoes };
+  return { todosMlbsSincronizados: todosMlbs, mlbs, statusCatalogoViaAlterar, divergenciaContagemBotoes, anomaliaClassificacaoDetectada };
 }
 
 function normalizarNumeroOuTraco(valor) {

@@ -35,7 +35,7 @@ const { acharAbaAnuncios, acharAbaAdsPatrocinados } = require(
   path.resolve(__dirname, '../../../.aiox-core/development/scripts/modo-navegador/achar-abas-mercadolivre.js')
 );
 
-const METODO_VERSAO = '2026-08-22-v3';
+const METODO_VERSAO = '2026-08-24-v4';
 
 // Trava de execução única (Felipe + @analyst via *elicit, 19/08/2026 -- CLAUDE.md
 // BLOCO 0-U, Regra 4): impede 2 cópias deste script rodarem ao mesmo tempo contra a
@@ -131,7 +131,39 @@ function carregarMlbsConhecidos() {
 // Passo A.2 (Título de catálogo) + Passo B (Status em Ads) -- upgrade da versão antiga
 // (pipeline-lote-25-91.js, buscarTituloEStatusComPolling) trocando polling com tempo fixo
 // por esperarTextoEstabilizar, conforme REGRA GERAL OBRIGATÓRIA do documento.
+// Correção real (24/08/2026, achada na reverificação da regra COMPETINDO): um elemento
+// da própria interface do Mercado Livre (`.ml-ads-toolbar`) pode ficar fisicamente
+// cobrindo o campo de busca da aba de Ads, travando toda busca seguinte com timeout de
+// clique (30s cada) -- confirmado ao vivo: persistente até a aba ser recarregada, causa
+// exata de por que apareceu não confirmada.
+//
+// Correção real (24/08/2026, achada no TESTE FUNCIONAL deste próprio fix, antes de virar
+// código definitivo -- 2 tentativas erradas antes de acertar): a 1ª versão comparava
+// bounding boxes (posição/tamanho da toolbar vs do campo) -- deu FALSO POSITIVO na aba
+// atual, que não estava travada. A 2ª versão trocou pra `elementFromPoint` + `closest`,
+// mas TAMBÉM deu falso positivo -- o campo de busca provavelmente fica estruturalmente
+// DENTRO do container `.ml-ads-toolbar` mesmo no estado normal (não bloqueado), então
+// `closest('.ml-ads-toolbar')` bate sempre, bloqueado ou não. Correção final: em vez de
+// tentar adivinhar com geometria ou estrutura do DOM, reusar a própria checagem de
+// clicabilidade real do Playwright -- um clique de teste com timeout curto. Se falhar
+// especificamente com "intercepts pointer events" (a mesma mensagem do erro original em
+// produção), SÓ AÍ recarrega. Qualquer outro tipo de falha (elemento não existe, etc.)
+// não recarrega -- deixa o fluxo normal de buscarUmaVez lidar com isso do jeito usual.
+async function destravarToolbarSeNecessario(pageAds) {
+  const campo = pageAds.locator(SELETOR_BUSCA_ADS).first();
+  try {
+    await campo.click({ timeout: 3000 });
+  } catch (e) {
+    if (/intercepts pointer events/.test(e.message)) {
+      console.log('  ⚠️ Campo de busca em Ads bloqueado (intercepts pointer events) -- recarregando a aba antes de continuar.');
+      await pageAds.reload({ waitUntil: 'domcontentloaded' }).catch(() => {});
+      await esperarTextoEstabilizar(pageAds);
+    }
+  }
+}
+
 async function buscarTituloEStatusEmAds(pageAds, mlb) {
+  await destravarToolbarSeNecessario(pageAds);
   // Correção real (18/08/2026, achada no piloto 145-170): a página de Ads é reusada pra
   // TODA a rodada (nunca aberta de novo por MLB) -- sem exigir que o texto tenha MUDADO
   // do estado anterior, esperarTextoEstabilizar podia aceitar o resultado da busca
@@ -451,7 +483,7 @@ async function processarLinha(pageAnuncios, pageAds, context, itemId, linha, mlb
     return { linha, itemId, erro: 'ANUNCIO_NAO_ENCONTRADO', metodoVersao: METODO_VERSAO, processadoEm: new Date().toISOString() };
   }
 
-  const { todosMlbsSincronizados, mlbs, divergenciaContagemBotoes } = await analisarSku(pageAnuncios, context, sku);
+  const { todosMlbsSincronizados, mlbs, divergenciaContagemBotoes, anomaliaClassificacaoDetectada } = await analisarSku(pageAnuncios, context, sku);
   // Correção real (22/08/2026, achada pelo Felipe no SKU P-JU-03 -- avaliada pelo
   // @analyst via *elicit): a divergência de contagem de botões (sinal já existente em
   // analisarSku, antes só um console.log descartado) agora vira um erro de verdade --
@@ -482,9 +514,10 @@ async function processarLinha(pageAnuncios, pageAds, context, itemId, linha, mlb
       sku,
       todosMlbsSincronizados,
       catalogoConfirmado: [],
-      erro: erroCaptura || 'NENHUM_MLB_DE_CATALOGO_CONFIRMADO',
+      erro: anomaliaClassificacaoDetectada ? anomaliaClassificacaoDetectada.tipo : (erroCaptura || 'NENHUM_MLB_DE_CATALOGO_CONFIRMADO'),
       metodoVersao: METODO_VERSAO,
       processadoEm: new Date().toISOString(),
+      ...(anomaliaClassificacaoDetectada ? { anomaliaClassificacaoDetectada } : {}),
     };
   }
 
@@ -505,7 +538,13 @@ async function processarLinha(pageAnuncios, pageAds, context, itemId, linha, mlb
     a2,
     tituloCatalogo: titulo,
     statusAds,
-    ...(erroCaptura ? { erro: erroCaptura } : erroAds ? { erro: erroAds } : {}),
+    // anomaliaClassificacaoDetectada tem prioridade sobre os outros erros -- garante que a
+    // linha SEMPRE fica com `erro` setado quando isso acontece (mesmo se catalogoConfirmado
+    // tiver sido preenchido por outro MLB do mesmo SKU), senão a regra de "linha com erro
+    // é sempre reprocessada" não pegaria essa linha numa rodada futura.
+    ...(anomaliaClassificacaoDetectada
+      ? { erro: anomaliaClassificacaoDetectada.tipo, anomaliaClassificacaoDetectada }
+      : erroCaptura ? { erro: erroCaptura } : erroAds ? { erro: erroAds } : {}),
     metodoVersao: METODO_VERSAO,
     processadoEm: new Date().toISOString(),
   };
@@ -553,6 +592,16 @@ async function main() {
     if (!pageAds) pageAds = await openBackgroundPage(browser, context, URL_ADS);
 
     let processadosNestaRodada = 0;
+    // Freio de segurança (24/08/2026, achado pela auditoria após o incidente do
+    // .ml-ads-toolbar -- 14 linhas seguidas bateram no mesmo timeout de clique antes de
+    // alguém perceber): se a MESMA exceção se repetir 2 vezes seguidas, algo estrutural
+    // está errado (aba travada, elemento sumiu, etc.) -- continuar tentando linha após
+    // linha só desperdiça tempo (30s+ cada) e multiplica o problema. Classifica por
+    // `errLinha.message.split('\n')[0]` (1ª linha da mensagem) -- confirmado suficiente
+    // pro caso real (mesma frase exata "locator.click: Timeout 30000ms exceeded." em
+    // todas as 14 falhas).
+    let excecoesSeguidas = 0;
+    let ultimoTipoExcecao = null;
     for (const item of itens) {
       const chave = `linha-${item.row}`;
       const existente = resultados[chave];
@@ -573,8 +622,35 @@ async function main() {
         resultados[chave] = r;
         salvarJson(ARQUIVO_JSON, resultados);
         console.log(`  -> SKU: ${r.sku || '(não encontrado)'} | erro: ${r.erro || 'nenhum'}`);
+        excecoesSeguidas = 0;
+        ultimoTipoExcecao = null;
+        // Correção real (24/08/2026, pedido explícito do Felipe, generalizada em seguida --
+        // ver .aiox/itens-em-aberto.md, princípio "anomalia de classificação nunca mapeada
+        // -> parar o lote"): qualquer anomalia de CLASSIFICAÇÃO (não erro técnico
+        // transitório) não pode só ficar registrada -- precisa PARAR o lote inteiro aqui,
+        // nunca continuar processando outras linhas enquanto não for validada pelo Felipe.
+        // Checagem genérica (`r.anomaliaClassificacaoDetectada`), não amarrada a um `tipo`
+        // específico -- qualquer anomalia futura desse tipo reusa este mesmo mecanismo sem
+        // precisar mexer neste loop de novo. O resultado já foi salvo no JSON acima (não
+        // perde nada), só a continuação do loop é que trava.
+        if (r.anomaliaClassificacaoDetectada) {
+          console.log(`\n⛔ ANOMALIA DE CLASSIFICAÇÃO NUNCA MAPEADA ENCONTRADA -- parando o lote inteiro.`);
+          console.log(`   Tipo: ${r.anomaliaClassificacaoDetectada.tipo}`);
+          console.log(`   SKU: ${r.anomaliaClassificacaoDetectada.sku} | MLB: ${r.anomaliaClassificacaoDetectada.mlb}`);
+          console.log(`   Linha ${item.row} já salva no JSON com esse erro -- nenhuma linha depois desta foi processada.`);
+          processadosNestaRodada++;
+          break;
+        }
       } catch (errLinha) {
+        // Correção real (24/08/2026, achada pela auditoria após o incidente do
+        // .ml-ads-toolbar travado): este catch sobrescrevia o registro inteiro da linha,
+        // apagando sku/catalogoConfirmado/tituloCatalogo etc. que já estavam corretos de
+        // uma rodada anterior -- pra QUALQUER exceção, não só a do toolbar. Correção:
+        // preservar o registro anterior (se existir) e só atualizar os campos de erro --
+        // nunca perder dado bom por causa de uma falha técnica transitória. A linha
+        // continua entrando na regra de "erro sempre reprocessado" de qualquer forma.
         resultados[chave] = {
+          ...(resultados[chave] || {}),
           linha: item.row,
           itemId: item.itemId,
           erro: `EXCECAO: ${errLinha.message}`,
@@ -583,6 +659,16 @@ async function main() {
         };
         salvarJson(ARQUIVO_JSON, resultados);
         console.log(`  -> ERRO: ${errLinha.message}`);
+
+        const tipoExcecao = errLinha.message.split('\n')[0];
+        excecoesSeguidas = tipoExcecao === ultimoTipoExcecao ? excecoesSeguidas + 1 : 1;
+        ultimoTipoExcecao = tipoExcecao;
+        if (excecoesSeguidas >= 2) {
+          console.log(`\n⛔ FREIO DE SEGURANÇA: 2 linhas seguidas falharam com a mesma exceção -- parando o lote inteiro.`);
+          console.log(`   Exceção: "${tipoExcecao}"`);
+          processadosNestaRodada++;
+          break;
+        }
       }
       processadosNestaRodada++;
     }
