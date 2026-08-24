@@ -1513,6 +1513,54 @@ PASSO 4: Continuar a conversa como esse agente, normalmente
 
 ---
 
+### BLOCO 0-AD — ANOMALIA DE CLASSIFICAÇÃO NUNCA MAPEADA → PARAR O LOTE INTEIRO (inegociável)
+
+**Gatilho:** Qualquer pipeline/automação que processa itens em lote (linhas de planilha, produtos, MLBs, o que for) e, no meio do processamento, encontra um padrão de **conteúdo/classificação** que nunca foi visto nem documentado antes — não um erro técnico transitório (timing, rede, elemento que sumiu por um instante), mas uma situação onde decidir "isso é X ou Y" exigiria adivinhar.
+
+**REGRA ABSOLUTA — distinção obrigatória entre os 2 tipos de anomalia:**
+
+```
+TIPO 1 — Erro técnico transitório (timing, rede, exceção de clique, elemento
+não encontrado momentaneamente): continua no padrão já validado deste
+framework — vira `erro` no item, entra na fila de "sempre reprocessado na
+próxima rodada", e O LOTE CONTINUA RODANDO os outros itens normalmente.
+Isso NÃO muda com esta regra.
+
+TIPO 2 — Anomalia de CLASSIFICAÇÃO nunca mapeada (o pipeline encontra um
+formato/padrão de dado que não bate com NENHUM dos casos já validados e
+documentados, e guessing poderia gerar uma conclusão errada sobre algo que
+precisa de julgamento humano): o lote inteiro PARA na hora, não processa
+mais nenhum item depois deste, registra exatamente o que foi encontrado, e
+aguarda validação humana explícita antes de continuar.
+```
+
+**Protocolo obrigatório pro Tipo 2:**
+
+```
+PASSO 1: Detectar a anomalia dentro da função de análise/classificação do item
+         (nunca no meio do loop principal — o sinal sobe até lá via retorno de função)
+PASSO 2: Salvar o item com o dado já processado até ali preservado (nunca apagar
+         dado bom por causa da anomalia) + um `erro`/flag explícito indicando o
+         tipo de anomalia
+PASSO 3: No loop principal, checar esse flag de forma GENÉRICA (não amarrada a
+         um tipo específico de anomalia) — qualquer anomalia futura do Tipo 2
+         deve poder reusar o mesmo mecanismo de parada sem reimplementar
+PASSO 4: Parar o loop (break/return) imediatamente, com log claro do que foi
+         encontrado (tipo, item, dado relevante)
+PASSO 5: Reportar ao usuário — NUNCA presumir uma classificação sozinho
+```
+
+**PROIBIDO:**
+- Tratar anomalia de classificação (Tipo 2) como se fosse erro técnico transitório (Tipo 1) — continuar processando os itens seguintes enquanto uma classificação desconhecida fica pra trás sem validação
+- Implementar o mecanismo de parada amarrado a um erro/caso específico, obrigando reimplementação a cada nova anomalia do mesmo tipo
+- Adivinhar a classificação porque "parece parecido" com um caso já conhecido
+
+**O CASO QUE GEROU ESTA REGRA (24/08/2026, projeto Karzen):** o pipeline de mapeamento de catálogo Mercado Livre (`packages/karzen/.aiox-runtime/`) tratava a existência da seção "Concorrência no Mercado Livre" como sinal suficiente de catálogo — decisão de 16/08/2026, baseada em 1 caso só, nunca totalmente validada. O Felipe encontrou, validando manualmente o SKU `P32CRB`, que isso estava errado: existem casos onde a seção aparece sem o produto ser catálogo de verdade (badges genéricos "PREÇO ALTO"/"PREÇO COMPETITIVO", sem o badge "COMPETINDO" que de fato confirma disputa real). A correção arrumou a regra pros 3 formatos já mapeados — mas o Felipe pediu explicitamente: **qualquer formato futuro que não bata com o que já foi mapeado não pode ser adivinhado por um agente — o lote inteiro para, e ele é quem decide.** Isso generalizou pra um princípio do framework, não só uma correção pontual daquele pipeline.
+
+**Esta regra se aplica a TODOS os pipelines/automações de lote, atuais e futuros, em qualquer projeto — não é exclusiva do Karzen.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.

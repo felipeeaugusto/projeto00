@@ -1598,4 +1598,41 @@ em background — sem exceção.
 
 ---
 
+## CUSTOMIZAÇÃO 51 — BLOCO 0-AD — Anomalia de classificação nunca mapeada → parar o lote inteiro
+
+**Data de aprovação:** 2026-08-24
+**Problema resolvido:** o pipeline de mapeamento de catálogo Mercado Livre (projeto Karzen, `packages/karzen/.aiox-runtime/`) tratava a existência da seção "Concorrência no Mercado Livre" como sinal suficiente de catálogo — decisão de 16/08/2026, baseada em 1 caso só, nunca totalmente validada. O Felipe encontrou, validando manualmente o SKU `P32CRB`, que isso estava errado: existem casos onde a seção aparece sem o produto ser catálogo de verdade (badges genéricos "PREÇO ALTO"/"PREÇO COMPETITIVO", sem o badge "COMPETINDO" que de fato confirma disputa real) — confirmado também em PROSB-3000 e WAF-127V. A correção pontual arrumou a regra pros 3 formatos já mapeados (badge COMPETINDO + 1 card único / comparação lado a lado / "Opção N" com "Inativa"), mas o Felipe pediu explicitamente que isso virasse princípio geral do framework: qualquer formato futuro que não bata com o já mapeado não pode ser adivinhado por um agente — precisa parar tudo e esperar validação humana.
+**O que faz:** Distingue 2 tipos de anomalia em qualquer pipeline/automação de lote: (1) erro técnico transitório (timing, rede, clique) — continua no padrão já validado (vira `erro`, reprocessado na próxima rodada, o lote continua rodando as outras linhas); (2) anomalia de CLASSIFICAÇÃO nunca mapeada (o pipeline encontra um padrão de conteúdo que não bate com nenhum caso já documentado, e adivinhar poderia gerar conclusão errada) — o lote inteiro para na hora, registra o que foi encontrado, e aguarda validação humana antes de continuar. O mecanismo de parada deve ser implementado de forma genérica (não amarrado a um erro/caso específico), pra qualquer anomalia futura do mesmo tipo reusar sem reimplementar.
+**Onde implementar:** `.claude/CLAUDE.md` — nova BLOCO 0-AD (entre a BLOCO 0-AC e a BLOCO 1). Implementação de referência: `packages/karzen/.aiox-runtime/reprocessar-analise-oficial-completo.js` (campo `anomaliaClassificacaoDetectada`, generalizado a partir do caso específico `padrao_concorrencia_nao_mapeado`).
+**Regra:**
+```
+TIPO 1 — Erro técnico transitório: `erro` no item, reprocessado na próxima
+rodada, o LOTE CONTINUA RODANDO os outros itens. Não muda com esta regra.
+
+TIPO 2 — Anomalia de classificação nunca mapeada: o lote inteiro PARA na
+hora, não processa mais nada depois deste item, registra exatamente o que
+foi encontrado, aguarda validação humana explícita.
+
+Protocolo pro Tipo 2:
+PASSO 1: Detectar a anomalia dentro da função de análise/classificação do
+         item (o sinal sobe até o loop principal via retorno de função)
+PASSO 2: Salvar o item com o dado já processado até ali preservado (nunca
+         apagar dado bom por causa da anomalia) + um erro/flag explícito
+PASSO 3: No loop principal, checar esse flag de forma GENÉRICA (não
+         amarrada a um tipo específico) — qualquer anomalia futura do
+         Tipo 2 deve poder reusar o mesmo mecanismo sem reimplementar
+PASSO 4: Parar o loop imediatamente, com log claro (tipo, item, dado
+         relevante)
+PASSO 5: Reportar ao usuário — NUNCA presumir uma classificação sozinho
+
+PROIBIDO: tratar anomalia de classificação como erro técnico transitório;
+implementar a parada amarrada a um caso específico; adivinhar a
+classificação porque "parece parecido" com um caso já conhecido.
+
+Aplica-se a TODOS os pipelines/automações de lote, atuais e futuros, em
+qualquer projeto — não é exclusiva do Karzen.
+```
+
+---
+
 *Última atualização: 2026-08-19 — Orion (@aiox-master)*
