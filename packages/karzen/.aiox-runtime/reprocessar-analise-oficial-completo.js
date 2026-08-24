@@ -150,26 +150,44 @@ async function buscarTituloEStatusEmAds(pageAds, mlb) {
 
   const textoAntes = await pageAds.locator('body').innerText().catch(() => '');
 
-  async function buscarUmaVez() {
+  async function buscarUmaVez(baseline) {
     const campo = pageAds.locator(SELETOR_BUSCA_ADS).first();
     await campo.click();
     await campo.fill('');
     await campo.fill(`MLB${mlb}`);
     await pageAds.keyboard.press('Enter');
     return esperarTextoEstabilizar(pageAds, {
-      validarConteudo: (t) => (t.includes('CATÁLOGO') || t.includes('Sem Campanha')) && t !== textoAntes,
+      validarConteudo: (t) => (t.includes('CATÁLOGO') || t.includes('Sem Campanha')) && t !== baseline,
     });
   }
 
-  let texto = await buscarUmaVez();
-  if (texto === textoAntes) {
-    texto = await buscarUmaVez(); // re-busca do zero, uma vez -- mesmo padrão de analisarSku
+  let texto = await buscarUmaVez(textoAntes);
+  let baselineUsado = textoAntes;
+
+  if (texto === baselineUsado) {
+    // Correção real (24/08/2026, achada no SKU HQ-100CFX-127V/linha-49 -- causa raiz
+    // investigada pelo @dev, solução proposta pelo Felipe, validada ao vivo ponta a ponta
+    // pelo @dev antes de codar): textoAntes nunca é atualizado entre as 2 tentativas --
+    // se o resultado fresco e correto coincidir textualmente com o que já estava na tela
+    // (ex: mesmo MLB buscado 2x seguidas, ou "Sem Campanha" idêntico entre MLBs diferentes),
+    // o retry contra o MESMO baseline NUNCA teria como confirmar, em nenhuma tentativa.
+    // Correção: limpar o campo e confirmar vazio (Enter) -- volta pra tela padrão/sem
+    // filtro da aba de Ads, estruturalmente diferente de qualquer resultado de MLB
+    // específico (confirmado ao vivo: uma listagem com vários produtos nunca é igual, como
+    // texto inteiro, a um resultado filtrado de 1 MLB só) -- usa essa tela como novo
+    // baseline, garantindo que a 2ª tentativa não pode falhar pelo mesmo motivo.
+    const campoLimpar = pageAds.locator(SELETOR_BUSCA_ADS).first();
+    await campoLimpar.click();
+    await campoLimpar.fill('');
+    await pageAds.keyboard.press('Enter');
+    baselineUsado = await esperarTextoEstabilizar(pageAds);
+    texto = await buscarUmaVez(baselineUsado);
   }
 
   // Mesma filosofia já usada no resto do pipeline (caso AOC21-30HM, dupla-leitura
   // divergente): sem confirmação real de que o texto é fresco, não inventa um resultado
   // -- fica marcado como não confiável em vez de silenciosamente errado.
-  if (texto === textoAntes || !(texto.includes('CATÁLOGO') || texto.includes('Sem Campanha'))) {
+  if (texto === baselineUsado || !(texto.includes('CATÁLOGO') || texto.includes('Sem Campanha'))) {
     return { titulo: null, statusAds: null, erro: 'busca_em_ads_nao_confirmada_texto_desatualizado' };
   }
 

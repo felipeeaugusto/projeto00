@@ -2941,49 +2941,6 @@
     "metodoVersao": "2026-08-22-v3",
     "processadoEm": "2026-08-23T01:03:51.247Z"
   },
-  "linha-48": {
-    "linha": 48,
-    "itemId": "4659782701",
-    "sku": "CXBEATBOX-2000",
-    "todosMlbsSincronizados": [
-      "5304006664",
-      "4659782701",
-      "5303954904",
-      "4659744995"
-    ],
-    "catalogoConfirmado": [
-      {
-        "mlb": "4659782701",
-        "condicao": "Clássico"
-      },
-      {
-        "mlb": "5304006664",
-        "condicao": "Premium"
-      }
-    ],
-    "a2": [
-      {
-        "mlb": "4659782701",
-        "condicao": "Clássico",
-        "full": null,
-        "deposito": "30 un.",
-        "statusProduto": "Ativo",
-        "statusCatalogo": "GANHANDO"
-      },
-      {
-        "mlb": "5304006664",
-        "condicao": "Premium",
-        "full": null,
-        "deposito": "30 un.",
-        "statusProduto": "Ativo",
-        "statusCatalogo": "PERDENDO"
-      }
-    ],
-    "tituloCatalogo": "Alto-falante Bomber LifeStyle BeatBox 2000 1.92.074 portátil com bluetooth",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T20:40:08.362Z"
-  },
   "linha-49": {
     "linha": 49,
     "itemId": "4722782047",
@@ -3022,11 +2979,10 @@
         "statusCatalogo": "Inativo"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Freezer horizontal HQ HQ-100CFX 100L",
+    "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T20:41:28.892Z"
+    "processadoEm": "2026-08-24T01:21:22.332Z"
   },
   "linha-50": {
     "linha": 50,
@@ -3101,5 +3057,48 @@
     "statusAds": "Ativa",
     "metodoVersao": "2026-08-22-v3",
     "processadoEm": "2026-08-23T01:16:00.321Z"
+  },
+  "linha-48": {
+    "linha": 48,
+    "itemId": "4659782701",
+    "sku": "CXBEATBOX-2000",
+    "todosMlbsSincronizados": [
+      "5304006664",
+      "4659782701",
+      "5303954904",
+      "4659744995"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4659782701",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5304006664",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4659782701",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "30 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5304006664",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "30 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante Bomber LifeStyle BeatBox 2000 1.92.074 portátil com bluetooth",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-22-v3",
+    "processadoEm": "2026-08-24T01:23:50.100Z"
   }
 }
