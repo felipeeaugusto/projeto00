@@ -23,7 +23,7 @@
       {
         "mlb": "6298075690",
         "condicao": "Clássico",
-        "full": "70 un.",
+        "full": "67 un.",
         "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
@@ -31,7 +31,7 @@
       {
         "mlb": "6298204420",
         "condicao": "Premium",
-        "full": "70 un.",
+        "full": "67 un.",
         "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
@@ -39,8 +39,8 @@
     ],
     "tituloCatalogo": "Secador de cabelo PhilcoSecadores de Cabelo PSC3500",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:12:06.045Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:48:17.731Z"
   },
   "linha-151": {
     "linha": 151,
@@ -52,8 +52,8 @@
     ],
     "catalogoConfirmado": [],
     "erro": "NENHUM_MLB_DE_CATALOGO_CONFIRMADO",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T20:51:52.047Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T23:49:31.733Z"
   },
   "linha-152": {
     "linha": 152,
@@ -95,8 +95,8 @@
     ],
     "tituloCatalogo": "Panela elétrica a pressão Kian PPM-101 -",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:18:15.939Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:54:39.085Z"
   },
   "linha-153": {
     "linha": 153,
@@ -122,24 +122,24 @@
       {
         "mlb": "5929513268",
         "condicao": "Clássico",
-        "full": "195 un.",
-        "deposito": "439 un.",
+        "full": "191 un.",
+        "deposito": "392 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
       {
         "mlb": "5929513378",
         "condicao": "Clássico",
-        "full": "195 un.",
-        "deposito": "439 un.",
+        "full": "191 un.",
+        "deposito": "392 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Chapinha de cabelo Mondial Golden Rose P-20 8920-01",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:19:33.424Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:56:00.551Z"
   },
   "linha-154": {
     "linha": 154,
@@ -181,8 +181,8 @@
     ],
     "tituloCatalogo": "Lavadora de alta pressão Wap WL WL 1820 Black Ultra FW010076",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:20:50.909Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:57:23.152Z"
   },
   "linha-155": {
     "linha": 155,
@@ -210,8 +210,8 @@
     ],
     "tituloCatalogo": "Aspirador Kian 3 em 1 1.2L",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:21:55.439Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T23:50:40.808Z"
   },
   "linha-156": {
     "linha": 156,
@@ -234,13 +234,13 @@
         "full": null,
         "deposito": "252 un.",
         "statusProduto": "Ativo",
-        "statusCatalogo": "COMPARTILHANDO"
+        "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Cafeteira portátil Mondial Dolce Arome Inox Dolce Arome C-34JI-15X de filtro",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:22:59.859Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:59:36.820Z"
   },
   "linha-157": {
     "linha": 157,
@@ -282,8 +282,8 @@
     ],
     "tituloCatalogo": "Secador de cabelo GA.MA ItalyKeration BECHD0000003014",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:24:15.338Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T23:52:00.272Z"
   },
   "linha-159": {
     "linha": 159,
@@ -309,24 +309,24 @@
       {
         "mlb": "5929513268",
         "condicao": "Clássico",
-        "full": "195 un.",
-        "deposito": "439 un.",
+        "full": "190 un.",
+        "deposito": "392 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
       {
         "mlb": "5929513378",
         "condicao": "Clássico",
-        "full": "195 un.",
-        "deposito": "439 un.",
+        "full": "190 un.",
+        "deposito": "392 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Chapinha de cabelo Mondial Golden Rose P-20 8920-01",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:27:45.617Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T23:54:41.157Z"
   },
   "linha-160": {
     "linha": 160,
@@ -353,7 +353,7 @@
         "mlb": "3969889039",
         "condicao": "Clássico",
         "full": "698 un.",
-        "deposito": "248 un.",
+        "deposito": "247 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
@@ -361,15 +361,15 @@
         "mlb": "3969949487",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "248 un.",
+        "deposito": "247 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Mixer Britânia BMX400P",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:29:13.230Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T23:56:12.779Z"
   },
   "linha-161": {
     "linha": 161,
@@ -411,8 +411,8 @@
     ],
     "tituloCatalogo": "Lavadora de alta pressão Philco Plp 2800",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:30:35.684Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T23:57:38.342Z"
   },
   "linha-162": {
     "linha": 162,
@@ -433,15 +433,15 @@
         "mlb": "4417870781",
         "condicao": "Clássico",
         "full": "sem estoque",
-        "deposito": "500 un.",
+        "deposito": "497 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Sanduicheira elétrica Mondial Master Press PG-01-RC 2222-01",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:31:39.165Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T23:58:44.808Z"
   },
   "linha-163": {
     "linha": 163,
@@ -468,7 +468,7 @@
         "mlb": "4719874527",
         "condicao": "Clássico",
         "full": "118 un.",
-        "deposito": "290 un.",
+        "deposito": "288 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
@@ -476,15 +476,15 @@
         "mlb": "4719886935",
         "condicao": "Clássico",
         "full": "118 un.",
-        "deposito": "290 un.",
+        "deposito": "288 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:32:38.465Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T23:59:46.175Z"
   },
   "linha-164": {
     "linha": 164,
@@ -528,8 +528,8 @@
     ],
     "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:33:50.908Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T00:00:59.627Z"
   },
   "linha-165": {
     "linha": 165,
@@ -573,8 +573,8 @@
     ],
     "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T20:53:03.039Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T00:02:25.192Z"
   },
   "linha-166": {
     "linha": 166,
@@ -600,8 +600,8 @@
       {
         "mlb": "5320555604",
         "condicao": "Clássico",
-        "full": "31 un.",
-        "deposito": "32 un.",
+        "full": "15 un.",
+        "deposito": "31 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
       },
@@ -609,15 +609,15 @@
         "mlb": "5320580856",
         "condicao": "Premium",
         "full": null,
-        "deposito": "32 un.",
+        "deposito": "31 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Taiff Curves Automático Modelador Automático 210°c Bivolt",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:36:31.718Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T00:03:52.679Z"
   },
   "linha-167": {
     "linha": 167,
@@ -643,24 +643,24 @@
       {
         "mlb": "6667309696",
         "condicao": "Clássico",
-        "full": "1.045 un.",
-        "deposito": "1 un.",
+        "full": "1.033 un.",
+        "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
       },
       {
         "mlb": "6667322986",
         "condicao": "Premium",
-        "full": "1.045 un.",
-        "deposito": "1 un.",
+        "full": "1.033 un.",
+        "deposito": "sem estoque",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Robô aspirador Philco Robôs Aspiradores PAS23",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:37:55.181Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T00:05:20.217Z"
   },
   "linha-168": {
     "linha": 168,
@@ -694,8 +694,8 @@
     ],
     "tituloCatalogo": "Escova de dentes elétrica sônica Multi Saúde Clean Pro HC 1 1/2 -",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:39:41.731Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T00:07:08.947Z"
   },
   "linha-169": {
     "linha": 169,
@@ -723,8 +723,8 @@
     ],
     "tituloCatalogo": "Chaleira elétrica Elgin 42CHA1002000 2L",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:40:43.128Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T00:08:12.414Z"
   },
   "linha-170": {
     "linha": 170,
@@ -744,7 +744,7 @@
       {
         "mlb": "6174001096",
         "condicao": "Clássico",
-        "full": "272 un.",
+        "full": "269 un.",
         "deposito": "250 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
@@ -752,8 +752,8 @@
     ],
     "tituloCatalogo": "Aspirador Philco PAS1450C 1L PAS1450C",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:41:45.513Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T00:09:19.831Z"
   },
   "linha-145": {
     "linha": 145,
@@ -795,8 +795,8 @@
     ],
     "tituloCatalogo": "Panificadora Britânia Multipane",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:09:23.067Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:45:23.444Z"
   },
   "linha-146": {
     "linha": 146,
@@ -838,8 +838,8 @@
     ],
     "tituloCatalogo": "Air fryer Mondial Cozinha AFON-12L-WI",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:10:47.543Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:46:55.028Z"
   },
   "linha-148": {
     "linha": 148,
@@ -881,8 +881,8 @@
     ],
     "tituloCatalogo": "Panificadora Britânia Multipane",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:13:22.444Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:49:35.250Z"
   },
   "linha-149": {
     "linha": 149,
@@ -924,8 +924,8 @@
     ],
     "tituloCatalogo": "Escova secadora Mondial ES-JU-03",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:14:38.897Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:50:54.815Z"
   },
   "linha-158": {
     "linha": 158,
@@ -951,7 +951,7 @@
       {
         "mlb": "4277217107",
         "condicao": "Clássico",
-        "full": "144 un.",
+        "full": "141 un.",
         "deposito": null,
         "statusProduto": "Ativo",
         "statusCatalogo": "RESTRITO PARA GANHAR"
@@ -959,7 +959,7 @@
       {
         "mlb": "4277230155",
         "condicao": "Premium",
-        "full": "144 un.",
+        "full": "141 un.",
         "deposito": null,
         "statusProduto": "Ativo",
         "statusCatalogo": "RESTRITO PARA GANHAR"
@@ -967,8 +967,8 @@
     ],
     "tituloCatalogo": "Fogão cooktop - Itatiaia 3700000194 - 5 queimadores",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:26:27.220Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T23:53:19.757Z"
   },
   "linha-2": {
     "linha": 2,
@@ -1010,8 +1010,8 @@
     ],
     "tituloCatalogo": "Máquina de gelo tipo cubos HQ Hq-hqmgi45 45kg/h",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T20:38:48.744Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:44:15.363Z"
   },
   "linha-3": {
     "linha": 3,
@@ -1027,10 +1027,6 @@
       {
         "mlb": "4594566887",
         "condicao": "Clássico"
-      },
-      {
-        "mlb": "4591670843",
-        "condicao": "Clássico"
       }
     ],
     "a2": [
@@ -1038,23 +1034,15 @@
         "mlb": "4594566887",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "1 un.",
-        "statusProduto": "Ativo",
-        "statusCatalogo": "GANHANDO"
-      },
-      {
-        "mlb": "4591670843",
-        "condicao": "Clássico",
-        "full": null,
-        "deposito": "1 un.",
-        "statusProduto": "Ativo",
-        "statusCatalogo": "PERDENDO"
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
       }
     ],
     "tituloCatalogo": "Máquina de lavar semi-automática Colormaq hasta 15kg",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:09:39.264Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:45:16.624Z"
   },
   "linha-4": {
     "linha": 4,
@@ -1096,8 +1084,8 @@
     ],
     "tituloCatalogo": "Freezer horizontal HQ HQ-100CFX 100L",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:10:58.755Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:46:31.208Z"
   },
   "linha-5": {
     "linha": 5,
@@ -1139,8 +1127,8 @@
     ],
     "tituloCatalogo": "Geladeira com freezer inverter HQ HQ-426MDFF HQ-426MDFF con capacidad de 426L",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:11:59.083Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:47:26.537Z"
   },
   "linha-6": {
     "linha": 6,
@@ -1182,8 +1170,8 @@
     ],
     "tituloCatalogo": "Máquina de gelo tipo cubos EOS EMG70 220V 17.5kg/h",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:12:55.417Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:53:04.948Z"
   },
   "linha-7": {
     "linha": 7,
@@ -1225,8 +1213,8 @@
     ],
     "tituloCatalogo": "Smart TV TCL 55 Polegadas QLED 4K P7K WiFi Bluetooth Google TV HDR10+ Dolby Atmos Dolby Vision 55P7K",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:13:52.783Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:54:02.140Z"
   },
   "linha-8": {
     "linha": 8,
@@ -1242,10 +1230,6 @@
       {
         "mlb": "4594566887",
         "condicao": "Clássico"
-      },
-      {
-        "mlb": "4591670843",
-        "condicao": "Clássico"
       }
     ],
     "a2": [
@@ -1253,23 +1237,15 @@
         "mlb": "4594566887",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "1 un.",
-        "statusProduto": "Ativo",
-        "statusCatalogo": "GANHANDO"
-      },
-      {
-        "mlb": "4591670843",
-        "condicao": "Clássico",
-        "full": null,
-        "deposito": "1 un.",
-        "statusProduto": "Ativo",
-        "statusCatalogo": "PERDENDO"
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
       }
     ],
     "tituloCatalogo": "Máquina de lavar semi-automática Colormaq hasta 15kg",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:15:10.079Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:55:17.511Z"
   },
   "linha-9": {
     "linha": 9,
@@ -1309,10 +1285,11 @@
         "statusCatalogo": "PERDENDO"
       }
     ],
-    "tituloCatalogo": "Geladeira com freezer HQ HQ con capacidad de 140L",
-    "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:16:11.434Z"
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:56:25.791Z"
   },
   "linha-10": {
     "linha": 10,
@@ -1354,8 +1331,8 @@
     ],
     "tituloCatalogo": "Geladeira expositora vertical HQ HQ-264CVEFFX",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:17:11.794Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:57:29.150Z"
   },
   "linha-11": {
     "linha": 11,
@@ -1382,7 +1359,7 @@
         "mlb": "4719874527",
         "condicao": "Clássico",
         "full": "118 un.",
-        "deposito": "290 un.",
+        "deposito": "289 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
@@ -1390,15 +1367,15 @@
         "mlb": "4719886935",
         "condicao": "Clássico",
         "full": "118 un.",
-        "deposito": "290 un.",
+        "deposito": "289 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:18:13.127Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T15:58:31.333Z"
   },
   "linha-12": {
     "linha": 12,
@@ -1424,7 +1401,7 @@
       {
         "mlb": "5770034668",
         "condicao": "Clássico",
-        "full": "35 un.",
+        "full": "25 un.",
         "deposito": null,
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
@@ -1433,15 +1410,15 @@
         "mlb": "5203154588",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "15 un.",
+        "deposito": "13 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "Inativa"
       }
     ],
     "tituloCatalogo": "Secador de cabelo TaiffProfissional Unique Digital TFF-379 SECF331BL",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:19:40.519Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:00:00.951Z"
   },
   "linha-13": {
     "linha": 13,
@@ -1486,8 +1463,8 @@
     ],
     "tituloCatalogo": "Smart Tv Samsung 43 Ls43f6000fgxzd Full Hd Led 110v/220v",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:21:06.884Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:01:29.374Z"
   },
   "linha-14": {
     "linha": 14,
@@ -1531,8 +1508,8 @@
     ],
     "tituloCatalogo": "Conversor de áudio e vídeo Pro Electronic PRODT-1270",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:22:21.394Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:02:41.767Z"
   },
   "linha-15": {
     "linha": 15,
@@ -1574,8 +1551,8 @@
     ],
     "tituloCatalogo": "Impressora multifuncional cor Canon Pixma G3110",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:23:18.594Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:03:43.058Z"
   },
   "linha-16": {
     "linha": 16,
@@ -1617,8 +1594,8 @@
     ],
     "tituloCatalogo": "Alto-falante JBL Boombox 4 portátil com bluetooth waterproof",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:24:18.954Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:04:43.238Z"
   },
   "linha-17": {
     "linha": 17,
@@ -1660,8 +1637,8 @@
     ],
     "tituloCatalogo": "Starlink Mini omnidirecional",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:25:14.339Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:05:41.429Z"
   },
   "linha-18": {
     "linha": 18,
@@ -1703,8 +1680,8 @@
     ],
     "tituloCatalogo": "Monitor Gamer Samsung com tela de 49\" 240Hz e resolução DQHD",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:26:11.664Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:06:38.744Z"
   },
   "linha-19": {
     "linha": 19,
@@ -1746,8 +1723,8 @@
     ],
     "tituloCatalogo": "Smart Tv Samsung 32 Ls32h5000fgxzd Hd Led Wifi Hdmi 110/220v",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:27:12.123Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:07:36.056Z"
   },
   "linha-20": {
     "linha": 20,
@@ -1789,8 +1766,8 @@
     ],
     "tituloCatalogo": "Smart TV TCL 55 Polegadas QLED 4K P7K WiFi Bluetooth Google TV HDR10+ Dolby Atmos Dolby Vision 55P7K",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:28:07.492Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:08:32.338Z"
   },
   "linha-21": {
     "linha": 21,
@@ -1818,24 +1795,24 @@
       {
         "mlb": "4935566078",
         "condicao": "Clássico",
-        "full": "1.845 un.",
-        "deposito": "2.091 un.",
+        "full": "1.835 un.",
+        "deposito": "2.082 un.",
         "statusProduto": "Ativo",
-        "statusCatalogo": "PERDENDO"
+        "statusCatalogo": "GANHANDO"
       },
       {
         "mlb": "5267746592",
         "condicao": "Premium",
         "full": null,
-        "deposito": "2.091 un.",
+        "deposito": "2.082 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Tv box Proeletronic Smart Prosb-3000/16gb Android 10.0 3ª geração 4K",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:30:24.284Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:10:20.862Z"
   },
   "linha-22": {
     "linha": 22,
@@ -1877,8 +1854,8 @@
     ],
     "tituloCatalogo": "Alto-falante Philco Amplificada Pcx26000 Pcx26000 portátil",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:31:30.717Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:11:25.100Z"
   },
   "linha-23": {
     "linha": 23,
@@ -1920,8 +1897,8 @@
     ],
     "tituloCatalogo": "Air fryer Britânia BAF45A",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:32:27.020Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:12:24.428Z"
   },
   "linha-24": {
     "linha": 24,
@@ -1929,8 +1906,8 @@
     "sku": "PGR21PI-127V",
     "todosMlbsSincronizados": [
       "3566803125",
-      "3566520771",
       "3566777787",
+      "3566520771",
       "3566571775"
     ],
     "catalogoConfirmado": [
@@ -1956,15 +1933,15 @@
         "mlb": "3566803125",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "sem estoque",
-        "statusProduto": "Pausado",
-        "statusCatalogo": "Inativo"
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
       }
     ],
     "tituloCatalogo": "Sanduicheira elétrica Philco Sanduicheira Philco PGR21PI Maxx Clean",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:33:22.261Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:13:26.747Z"
   },
   "linha-25": {
     "linha": 25,
@@ -1991,7 +1968,7 @@
         "mlb": "4719874527",
         "condicao": "Clássico",
         "full": "118 un.",
-        "deposito": "290 un.",
+        "deposito": "289 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
@@ -1999,15 +1976,15 @@
         "mlb": "4719886935",
         "condicao": "Clássico",
         "full": "118 un.",
-        "deposito": "290 un.",
+        "deposito": "289 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:34:18.681Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:14:26.965Z"
   },
   "linha-26": {
     "linha": 26,
@@ -2021,36 +1998,36 @@
     ],
     "catalogoConfirmado": [
       {
-        "mlb": "4701003563",
+        "mlb": "4701016495",
         "condicao": "Clássico"
       },
       {
-        "mlb": "6822624026",
+        "mlb": "6822585656",
         "condicao": "Premium"
       }
     ],
     "a2": [
       {
-        "mlb": "4701003563",
+        "mlb": "4701016495",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "220 un.",
+        "deposito": "219 un.",
         "statusProduto": "Ativo",
-        "statusCatalogo": "PREÇO COMPETITIVO"
+        "statusCatalogo": "PERDENDO"
       },
       {
-        "mlb": "6822624026",
+        "mlb": "6822585656",
         "condicao": "Premium",
         "full": null,
-        "deposito": "220 un.",
+        "deposito": "219 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Smart Tv 32 Philco Roku Tv Dolby Áudio Hdr10 P32crb",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:36:24.412Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:15:46.278Z"
   },
   "linha-27": {
     "linha": 27,
@@ -2078,8 +2055,8 @@
     ],
     "tituloCatalogo": "Modelador de cachos de barril Mondial by Juliette Qu4tro Elementos MC-JU-02 MC-JU-02",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:37:30.806Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:16:54.579Z"
   },
   "linha-28": {
     "linha": 28,
@@ -2121,8 +2098,8 @@
     ],
     "tituloCatalogo": "Escova secadora/alisadora/modeladora GA.MA Italy HDCBR0000000577",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:38:50.286Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:18:12.980Z"
   },
   "linha-29": {
     "linha": 29,
@@ -2148,10 +2125,10 @@
       {
         "mlb": "4363150692",
         "condicao": "Clássico",
-        "full": "164 un.",
+        "full": "195 un.",
         "deposito": null,
         "statusProduto": "Ativo",
-        "statusCatalogo": "PERDENDO"
+        "statusCatalogo": "COMPARTILHANDO"
       },
       {
         "mlb": "6739045862",
@@ -2162,10 +2139,11 @@
         "statusCatalogo": "PERDENDO"
       }
     ],
-    "tituloCatalogo": "Aspirador Britânia BAS1295P 1L",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:40:05.835Z"
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:19:35.343Z"
   },
   "linha-30": {
     "linha": 30,
@@ -2207,8 +2185,8 @@
     ],
     "tituloCatalogo": "Geladeira expositora HQ HQ-100CEVPVFFI",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:41:24.399Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:20:54.665Z"
   },
   "linha-31": {
     "linha": 31,
@@ -2248,10 +2226,11 @@
         "statusCatalogo": "PERDENDO"
       }
     ],
-    "tituloCatalogo": "Aspirador é industrial Tambor Wap GTW Inox 20 20L GTW INOX 20",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:42:46.012Z"
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:22:21.032Z"
   },
   "linha-32": {
     "linha": 32,
@@ -2278,7 +2257,7 @@
         "mlb": "6922870044",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "102 un.",
+        "deposito": "101 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
@@ -2286,15 +2265,15 @@
         "mlb": "6922849626",
         "condicao": "Premium",
         "full": null,
-        "deposito": "102 un.",
+        "deposito": "101 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Smart TV Semp 43 Polegadas LED Full HD S42 WiFi Bluetooth Google TV 2 HDMI HDR10 Dolby Audio 43S42",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:44:06.635Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:23:44.386Z"
   },
   "linha-33": {
     "linha": 33,
@@ -2308,36 +2287,37 @@
     ],
     "catalogoConfirmado": [
       {
-        "mlb": "4701003563",
+        "mlb": "4701016495",
         "condicao": "Clássico"
       },
       {
-        "mlb": "6822624026",
+        "mlb": "6822585656",
         "condicao": "Premium"
       }
     ],
     "a2": [
       {
-        "mlb": "4701003563",
+        "mlb": "4701016495",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "220 un.",
+        "deposito": "219 un.",
         "statusProduto": "Ativo",
-        "statusCatalogo": "PREÇO COMPETITIVO"
+        "statusCatalogo": "PERDENDO"
       },
       {
-        "mlb": "6822624026",
+        "mlb": "6822585656",
         "condicao": "Premium",
         "full": null,
-        "deposito": "220 un.",
+        "deposito": "219 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
-    "tituloCatalogo": "Smart Tv 32 Philco Roku Tv Dolby Áudio Hdr10 P32crb",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:46:10.539Z"
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:25:10.750Z"
   },
   "linha-34": {
     "linha": 34,
@@ -2377,10 +2357,11 @@
         "statusCatalogo": "Inativo"
       }
     ],
-    "tituloCatalogo": "Monitor Gamer Samsung com tela de 49\" 240Hz e resolução DQHD",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:47:06.983Z"
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:26:12.084Z"
   },
   "linha-35": {
     "linha": 35,
@@ -2420,10 +2401,11 @@
         "statusCatalogo": "Inativo"
       }
     ],
-    "tituloCatalogo": "HQ AP10500FW",
-    "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:48:24.353Z"
+    "tituloCatalogo": null,
+    "statusAds": null,
+    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T16:27:35.468Z"
   },
   "linha-36": {
     "linha": 36,
@@ -2450,7 +2432,7 @@
         "mlb": "4659782701",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "35 un.",
+        "deposito": "27 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
       },
@@ -2458,15 +2440,15 @@
         "mlb": "5304006664",
         "condicao": "Premium",
         "full": null,
-        "deposito": "35 un.",
+        "deposito": "27 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Alto-falante Bomber LifeStyle BeatBox 2000 1.92.074 portátil com bluetooth",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:49:40.983Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T10:21:27.856Z"
   },
   "linha-37": {
     "linha": 37,
@@ -2508,51 +2490,8 @@
     ],
     "tituloCatalogo": "Alto-falante JBL Boombox 4 portátil com bluetooth waterproof",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:50:39.426Z"
-  },
-  "linha-38": {
-    "linha": 38,
-    "itemId": "4498997473",
-    "sku": "JBLQ-360",
-    "todosMlbsSincronizados": [
-      "4497768467",
-      "4498997473",
-      "4498172789",
-      "6312578938"
-    ],
-    "catalogoConfirmado": [
-      {
-        "mlb": "4497768467",
-        "condicao": "Clássico"
-      },
-      {
-        "mlb": "4498997473",
-        "condicao": "Premium"
-      }
-    ],
-    "a2": [
-      {
-        "mlb": "4497768467",
-        "condicao": "Clássico",
-        "full": null,
-        "deposito": "sem estoque",
-        "statusProduto": "Pausado",
-        "statusCatalogo": "Inativo"
-      },
-      {
-        "mlb": "4498997473",
-        "condicao": "Premium",
-        "full": null,
-        "deposito": "sem estoque",
-        "statusProduto": "Pausado",
-        "statusCatalogo": "Inativo"
-      }
-    ],
-    "tituloCatalogo": "Headset over-ear gamer sem fio JBL Quantum Series Quantum 360 JBLQTUM360",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:51:56.947Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T10:22:31.064Z"
   },
   "linha-39": {
     "linha": 39,
@@ -2594,8 +2533,8 @@
     ],
     "tituloCatalogo": "Aspirador Vertical Wap Home Power Speed 3L FW006008",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:53:12.433Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:23:46.763Z"
   },
   "linha-40": {
     "linha": 40,
@@ -2637,8 +2576,8 @@
     ],
     "tituloCatalogo": "Secador de cabelo MondialBy Juliette SCP-JU-04-US_220",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:54:44.199Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:25:51.340Z"
   },
   "linha-41": {
     "linha": 41,
@@ -2680,8 +2619,8 @@
     ],
     "tituloCatalogo": "HQ AP10500FW",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:56:13.825Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T10:23:52.502Z"
   },
   "linha-42": {
     "linha": 42,
@@ -2723,51 +2662,8 @@
     ],
     "tituloCatalogo": "Smart TV Semp 50 Polegadas LED HVA 4K S62 WiFi Bluetooth Google TV 3 HDMI HDR10+ Dolby Audio 50S62",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:57:55.418Z"
-  },
-  "linha-43": {
-    "linha": 43,
-    "itemId": "6682756226",
-    "sku": "PCT04I-BIV",
-    "todosMlbsSincronizados": [
-      "6682756226",
-      "6682756222",
-      "4657704295",
-      "4657704291"
-    ],
-    "catalogoConfirmado": [
-      {
-        "mlb": "6682756226",
-        "condicao": "Premium"
-      },
-      {
-        "mlb": "4657704295",
-        "condicao": "Premium"
-      }
-    ],
-    "a2": [
-      {
-        "mlb": "6682756226",
-        "condicao": "Premium",
-        "full": null,
-        "deposito": "sem estoque",
-        "statusProduto": "Pausado",
-        "statusCatalogo": "Inativo"
-      },
-      {
-        "mlb": "4657704295",
-        "condicao": "Premium",
-        "full": null,
-        "deposito": "sem estoque",
-        "statusProduto": "Pausado",
-        "statusCatalogo": "Inativo"
-      }
-    ],
-    "tituloCatalogo": "Fogão cooktop com alimentação gás - Philco PCT04I - 4 queimadores",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T00:59:14.844Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:28:42.900Z"
   },
   "linha-44": {
     "linha": 44,
@@ -2794,7 +2690,7 @@
         "mlb": "3612578019",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "292 un.",
+        "deposito": "294 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       },
@@ -2802,15 +2698,15 @@
         "mlb": "4432574595",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "292 un.",
+        "deposito": "294 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Micro-ondas Mondial Linha Branca MO-01-21 21L",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:00:32.231Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:31:33.835Z"
   },
   "linha-45": {
     "linha": 45,
@@ -2852,8 +2748,8 @@
     ],
     "tituloCatalogo": "Panificadora Britânia Multipane",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:01:47.612Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:32:52.274Z"
   },
   "linha-46": {
     "linha": 46,
@@ -2895,8 +2791,8 @@
     ],
     "tituloCatalogo": "Impressora multifuncional cor Canon Pixma G3110",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:02:48.863Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:33:56.667Z"
   },
   "linha-47": {
     "linha": 47,
@@ -2938,8 +2834,8 @@
     ],
     "tituloCatalogo": "Geladeira com freezer HQ HQ con capacidad de 140L",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:03:51.247Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:34:58.035Z"
   },
   "linha-49": {
     "linha": 49,
@@ -2981,8 +2877,8 @@
     ],
     "tituloCatalogo": "Freezer horizontal HQ HQ-100CFX 100L",
     "statusAds": "Sem Campanha",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-24T01:21:22.332Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:37:34.071Z"
   },
   "linha-50": {
     "linha": 50,
@@ -3024,8 +2920,8 @@
     ],
     "tituloCatalogo": "Máquina de gelo tipo cubos HQ Hq-hqmgi45 45kg/h",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:07:51.506Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:38:51.505Z"
   },
   "linha-150": {
     "linha": 150,
@@ -3047,16 +2943,16 @@
       {
         "mlb": "6908546780",
         "condicao": "Clássico",
-        "full": null,
-        "deposito": "157 un.",
+        "full": "1 un.",
+        "deposito": "141 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
       }
     ],
     "tituloCatalogo": "Chapinha de cabelo Mondial by Juliette Qu4tro Elementos P-JU-03",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-23T01:16:00.321Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:52:19.319Z"
   },
   "linha-48": {
     "linha": 48,
@@ -3083,7 +2979,7 @@
         "mlb": "4659782701",
         "condicao": "Clássico",
         "full": null,
-        "deposito": "30 un.",
+        "deposito": "28 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "GANHANDO"
       },
@@ -3091,14 +2987,100 @@
         "mlb": "5304006664",
         "condicao": "Premium",
         "full": null,
-        "deposito": "30 un.",
+        "deposito": "28 un.",
         "statusProduto": "Ativo",
         "statusCatalogo": "PERDENDO"
       }
     ],
     "tituloCatalogo": "Alto-falante Bomber LifeStyle BeatBox 2000 1.92.074 portátil com bluetooth",
     "statusAds": "Ativa",
-    "metodoVersao": "2026-08-22-v3",
-    "processadoEm": "2026-08-24T01:23:50.100Z"
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-24T22:36:15.570Z"
+  },
+  "linha-38": {
+    "linha": 38,
+    "itemId": "4498997473",
+    "sku": "JBLQ-360",
+    "todosMlbsSincronizados": [
+      "4497768467",
+      "4498997473",
+      "4498172789",
+      "6312578938"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4497768467",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4498997473",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4497768467",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4498997473",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Headset over-ear gamer sem fio JBL Quantum Series Quantum 360 JBLQTUM360",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T10:34:54.709Z"
+  },
+  "linha-43": {
+    "linha": 43,
+    "itemId": "6682756226",
+    "sku": "PCT04I-BIV",
+    "todosMlbsSincronizados": [
+      "6682756226",
+      "6682756222",
+      "4657704295",
+      "4657704291"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6682756226",
+        "condicao": "Premium"
+      },
+      {
+        "mlb": "4657704295",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6682756226",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4657704295",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Fogão cooktop com alimentação gás - Philco PCT04I - 4 queimadores",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-25T10:36:17.263Z"
   }
 }

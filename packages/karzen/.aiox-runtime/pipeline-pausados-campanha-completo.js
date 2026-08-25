@@ -413,7 +413,16 @@ function extrairOpcoesConcorrencia(blocoConc) {
     const statusAntesMatch = antesTexto.match(/\b(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b\s*$/);
     const statusAntes = statusAntesMatch ? statusAntesMatch[1] : null;
 
-    opcoes.push({ preco: precoMatch[1], status: statusAntes || statusDepois || null });
+    // Correcao real (24/08/2026, achada no SKU JBLQ-360 -- Felipe apontou via screenshots
+    // 41/42 que cada "Opção N" ja vem rotulada com a condicao ("Clássico e Frete grátis" /
+    // "Premium e Frete grátis"), mas essa extracao nunca capturava isso -- so
+    // extrairOpcaoUnicaSemRotulo capturava `condicaoDaOpcao`. Sem isso, o casamento por
+    // condicao adicionado no `opcaoBatida` (mesma correcao) era um no-op pra esse formato
+    // -- exatamente o formato usado pelos 2 casos reais problematicos de hoje (JBLQ-360,
+    // PCX26000). Mesmo padrao de regex ja usado no resto do arquivo pra condicao.
+    const condicaoMatch = segmento.match(/\b(Clássico|Premium)\b/);
+
+    opcoes.push({ preco: precoMatch[1], status: statusAntes || statusDepois || null, condicaoDaOpcao: condicaoMatch ? condicaoMatch[1] : null });
   }
   return opcoes;
 }
@@ -824,8 +833,18 @@ async function analisarSku(pageAnuncios, context, sku) {
             // sim exclusivo deste MLB). Correcao: tentar casar pelo precoPromo (preco real
             // de venda, raramente coincide entre condicoes) PRIMEIRO -- so cai pro precoBase
             // se nao achar nada pelo promo.
-            const opcaoBatida = (mlbs[mlb].precoPromo && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoPromo))
-              || (mlbs[mlb].precoBase && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoBase))
+            // Correcao real (24/08/2026, achada no SKU JBLQ-360 -- Felipe apontou via
+            // screenshots que o Mercado Livre ja rotula cada opcao com a condicao
+            // (Clássico/Premium) no formato "Opção N", e o extrator ja captura isso em
+            // `condicaoDaOpcao` -- so nao estava sendo usado no casamento, que confiava so
+            // no preco. Quando 2 MLBs de condicoes diferentes tem o MESMO preco (caso real:
+            // JBLQ-360, R$799,90 nos 2), o casamento so-por-preco fica ambiguo de verdade
+            // (ver aviso `qtdMesmoPreco` abaixo). Correcao: se a opcao tiver `condicaoDaOpcao`
+            // rotulada, exigir que bata com a condicao do proprio MLB tambem -- so restringe
+            // quando o rotulo ja existe (formato "sem rotulo", sem `condicaoDaOpcao`,
+            // continua identico a antes, nunca fica mais permissivo).
+            const opcaoBatida = (mlbs[mlb].precoPromo && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoPromo && (!o.condicaoDaOpcao || o.condicaoDaOpcao === mlbs[mlb].condicao)))
+              || (mlbs[mlb].precoBase && opcoes.find(o => o.status && o.preco === mlbs[mlb].precoBase && (!o.condicaoDaOpcao || o.condicaoDaOpcao === mlbs[mlb].condicao)))
               || null;
 
             // Item 2 da validacao do @analyst (14/08/2026): mesmo depois de excluir "Outras
