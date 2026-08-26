@@ -1285,11 +1285,10 @@
         "statusCatalogo": "PERDENDO"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Geladeira com freezer HQ HQ con capacidad de 140L",
+    "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-24-v4",
-    "processadoEm": "2026-08-24T15:56:25.791Z"
+    "processadoEm": "2026-08-26T01:19:11.715Z"
   },
   "linha-10": {
     "linha": 10,
@@ -2139,11 +2138,10 @@
         "statusCatalogo": "PERDENDO"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Aspirador Britânia BAS1295P 1L",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-24-v4",
-    "processadoEm": "2026-08-24T16:19:35.343Z"
+    "processadoEm": "2026-08-26T01:20:35.822Z"
   },
   "linha-30": {
     "linha": 30,
@@ -2215,7 +2213,7 @@
         "full": null,
         "deposito": "1 un.",
         "statusProduto": "Ativo",
-        "statusCatalogo": "PERDENDO"
+        "statusCatalogo": "Inativa"
       },
       {
         "mlb": "4639442015",
@@ -2223,14 +2221,13 @@
         "full": null,
         "deposito": "1 un.",
         "statusProduto": "Ativo",
-        "statusCatalogo": "PERDENDO"
+        "statusCatalogo": "Inativa"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Aspirador é industrial Tambor Wap GTW Inox 20 20L GTW INOX 20",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-24-v4",
-    "processadoEm": "2026-08-24T16:22:21.032Z"
+    "processadoEm": "2026-08-26T01:31:09.506Z"
   },
   "linha-32": {
     "linha": 32,
@@ -2313,11 +2310,10 @@
         "statusCatalogo": "PERDENDO"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Smart Tv 32 Philco Roku Tv Dolby Áudio Hdr10 P32crb",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-24-v4",
-    "processadoEm": "2026-08-24T16:25:10.750Z"
+    "processadoEm": "2026-08-26T01:23:49.456Z"
   },
   "linha-34": {
     "linha": 34,
@@ -2357,11 +2353,10 @@
         "statusCatalogo": "Inativo"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "Monitor Gamer Samsung com tela de 49\" 240Hz e resolução DQHD",
+    "statusAds": "Ativa",
     "metodoVersao": "2026-08-24-v4",
-    "processadoEm": "2026-08-24T16:26:12.084Z"
+    "processadoEm": "2026-08-26T01:24:48.875Z"
   },
   "linha-35": {
     "linha": 35,
@@ -2401,11 +2396,10 @@
         "statusCatalogo": "Inativo"
       }
     ],
-    "tituloCatalogo": null,
-    "statusAds": null,
-    "erro": "busca_em_ads_nao_confirmada_texto_desatualizado",
+    "tituloCatalogo": "HQ AP10500FW",
+    "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-24-v4",
-    "processadoEm": "2026-08-24T16:27:35.468Z"
+    "processadoEm": "2026-08-26T01:26:17.287Z"
   },
   "linha-36": {
     "linha": 36,
