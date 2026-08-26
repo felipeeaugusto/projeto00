@@ -162,7 +162,7 @@ async function destravarToolbarSeNecessario(pageAds) {
   }
 }
 
-async function buscarTituloEStatusEmAds(pageAds, mlb) {
+async function tentarBuscarTituloEStatusEmAds(pageAds, mlb) {
   await destravarToolbarSeNecessario(pageAds);
   // Correção real (18/08/2026, achada no piloto 145-170): a página de Ads é reusada pra
   // TODA a rodada (nunca aberta de novo por MLB) -- sem exigir que o texto tenha MUDADO
@@ -258,6 +258,26 @@ async function buscarTituloEStatusEmAds(pageAds, mlb) {
   }
 
   return { titulo, statusAds };
+}
+
+async function buscarTituloEStatusEmAds(pageAds, mlb) {
+  // Correção real (26/08/2026, achada na linha 31/GTW20INOX-127V -- @dev investigou via
+  // 5 Whys a pedido do Felipe): mesmo com o orçamento de 16 tentativas (fix de 25/08), a
+  // busca ainda falhou 1x num lote real, mas passou de primeira (3045ms) quando reexecutada
+  // isolada logo em seguida -- tempo muito abaixo do teto, sugerindo não é "lento", é
+  // resíduo de estado da busca ANTERIOR do mesmo lote (textoAntes capturado antes da página
+  // assentar de verdade), não reproduzível testando 1 MLB sozinho e frio. Em vez de caçar a
+  // causa exata (rede vs resíduo -- os dois são plausíveis e uma tentativa nova do zero
+  // resolve qualquer um dos dois), a correção replica exatamente o que resolveu ao vivo:
+  // tentar a função inteira de novo, do zero (novo textoAntes, nova busca), 1 única vez
+  // extra. Se a 2ª tentativa também falhar, mantém o erro -- rede de segurança existente
+  // (reprocessamento na próxima rodada) continua intacta, nunca inventa dado.
+  const primeira = await tentarBuscarTituloEStatusEmAds(pageAds, mlb);
+  if (primeira.erro !== 'busca_em_ads_nao_confirmada_texto_desatualizado') {
+    return primeira;
+  }
+  console.log(`  ⚠️ Busca em Ads não confirmou na 1ª tentativa (MLB ${mlb}) -- tentando mais 1 vez, do zero.`);
+  return tentarBuscarTituloEStatusEmAds(pageAds, mlb);
 }
 
 // Mesma lógica de popular-teste1-v3.js (listarCatalogoPorCondicao) -- helper puro de
