@@ -188,7 +188,18 @@ async function buscarTituloEStatusEmAds(pageAds, mlb) {
     await campo.fill('');
     await campo.fill(`MLB${mlb}`);
     await pageAds.keyboard.press('Enter');
+    // Correção real (25/08/2026, achada nas linhas 9/29/31/33/34/35 -- Felipe pegou "-"
+    // no Título de Catálogo/Status em Ads na Planilha, @dev investigou ao vivo reproduzindo
+    // a lógica exata de produção): o orçamento padrão de esperarTextoEstabilizar (8
+    // tentativas x 1000ms = 8000ms) fica na margem exata pra essas páginas -- medido ao
+    // vivo, a 1a tentativa levou de 4980ms a 9076ms pros 6 casos reais, já ULTRAPASSANDO o
+    // teto nominal num deles. Não é bug de lógica (a busca em si funciona), é orçamento de
+    // tempo insuficiente pra páginas que demoram mais a estabilizar. maxTentativas: 16 dá
+    // margem de 2x o pior caso observado, só nesta função (esperarTextoEstabilizar
+    // genérico, usado por ~15 outras chamadas no pipeline, continua com o padrão de 8 --
+    // nenhuma outra chamada fica mais lenta por causa disso).
     return esperarTextoEstabilizar(pageAds, {
+      maxTentativas: 16,
       validarConteudo: (t) => (t.includes('CATÁLOGO') || t.includes('Sem Campanha')) && t !== baseline,
     });
   }
