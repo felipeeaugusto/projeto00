@@ -3076,5 +3076,1064 @@
     "statusAds": "Ativa",
     "metodoVersao": "2026-08-24-v4",
     "processadoEm": "2026-08-25T10:36:17.263Z"
+  },
+  "linha-51": {
+    "linha": 51,
+    "itemId": "5223312412",
+    "sku": "SCT-TI-127V",
+    "todosMlbsSincronizados": [
+      "5223312412",
+      "3853660257",
+      "3934594883",
+      "3853698843",
+      "3960022303",
+      "5267651330"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "3853660257",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "3960022303",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3853660257",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "38 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "3960022303",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "38 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "Inativa"
+      }
+    ],
+    "tituloCatalogo": "Secador de cabelo TaiffElegance Tourmaline Íon",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:13:42.836Z"
+  },
+  "linha-52": {
+    "linha": 52,
+    "itemId": "6955068406",
+    "sku": "SAMCRYST-65",
+    "todosMlbsSincronizados": [
+      "6955041722",
+      "6955068406",
+      "4771508967",
+      "6955043180"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6955041722",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6955068406",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6955041722",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6955068406",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Smart Tv Samsung Led 65 Lh65befh4ggxzd Led Crystal Processor 4k Uhd Tizen 110v/220v",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:15:03.198Z"
+  },
+  "linha-53": {
+    "linha": 53,
+    "itemId": "6799911904",
+    "sku": "PFH105B-220V",
+    "todosMlbsSincronizados": [
+      "6799911904",
+      "6800174752",
+      "4692033477",
+      "6800173330"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6799911904",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6800174752",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6799911904",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "6800174752",
+        "condicao": "Premium",
+        "full": "sem estoque",
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Freezer Philco Freezer PFH105B 99L",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:16:22.461Z"
+  },
+  "linha-54": {
+    "linha": 54,
+    "itemId": "5270366166",
+    "sku": "CX300B-PAPAO",
+    "todosMlbsSincronizados": [
+      "5270366166",
+      "5322444418",
+      "5093867700",
+      "5270366164"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5270366166",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5322444418",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5270366166",
+        "condicao": "Clássico",
+        "full": "265 un.",
+        "deposito": "281 un.",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5322444418",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "281 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "Inativa"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante Bomber PAPAO 300",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:18:10.938Z"
+  },
+  "linha-55": {
+    "linha": 55,
+    "itemId": "4374902993",
+    "sku": "D800",
+    "todosMlbsSincronizados": [
+      "4374902993",
+      "6079651188",
+      "4374838875",
+      "4374889867"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4374889867",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4374838875",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4374889867",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4374838875",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Cadeira de rodas Dellamed D800 para peso de até 120 Kg",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:19:31.219Z"
+  },
+  "linha-56": {
+    "linha": 56,
+    "itemId": "4771508967",
+    "sku": "SAMCRYST-65",
+    "todosMlbsSincronizados": [
+      "6955041722",
+      "6955068406",
+      "4771508967",
+      "6955043180"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6955041722",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6955068406",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6955041722",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6955068406",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Smart Tv Samsung Led 65 Lh65befh4ggxzd Led Crystal Processor 4k Uhd Tizen 110v/220v",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:20:50.602Z"
+  },
+  "linha-57": {
+    "linha": 57,
+    "itemId": "4734797275",
+    "sku": "HQ-426MDFF-127V",
+    "todosMlbsSincronizados": [
+      "4734797275",
+      "4734808493",
+      "4734782815",
+      "4734797265"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4734808493",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4734797275",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4734808493",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4734797275",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Geladeira com freezer inverter HQ HQ-426MDFF HQ-426MDFF con capacidad de 426L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:21:49.839Z"
+  },
+  "linha-58": {
+    "linha": 58,
+    "itemId": "4024809085",
+    "sku": "ECOCLEANLITE-220V",
+    "todosMlbsSincronizados": [
+      "4024796635",
+      "4024809085",
+      "4024757589",
+      "4024831099"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4024809085",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4024796635",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4024809085",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4024796635",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Lava aspirador Tambor IPC Ecoclean Lite 18L 18L AA118-127",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:23:09.137Z"
+  },
+  "linha-59": {
+    "linha": 59,
+    "itemId": "4484718899",
+    "sku": "TVSAM-43",
+    "todosMlbsSincronizados": [
+      "4484796429",
+      "6712897822",
+      "6733267870",
+      "4786797457",
+      "6712897810",
+      "4484718899",
+      "4484758197"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6712897822",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4484796429",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6712897822",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4484796429",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Smart Tv Samsung 43 Ls43f6000fgxzd Full Hd Led 110v/220v",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:24:50.588Z"
+  },
+  "linha-60": {
+    "linha": 60,
+    "itemId": "4329007775",
+    "sku": "SGK-127V",
+    "todosMlbsSincronizados": [
+      "4329106605",
+      "4329007775"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4329106605",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4329106605",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": "4.330 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Sanduicheira elétrica Kian ELETRO ANTIADERENTE PÃO CARNE MISTO 23259",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:25:55.855Z"
+  },
+  "linha-61": {
+    "linha": 61,
+    "itemId": "4275644727",
+    "sku": "VP-07-127V",
+    "todosMlbsSincronizados": [
+      "4275754587",
+      "5856768544",
+      "4275597913",
+      "4275644727"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4275754587",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5856768544",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4275754587",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5856768544",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Mondial Vip Care VP-07 2L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:27:14.173Z"
+  },
+  "linha-62": {
+    "linha": 62,
+    "itemId": "6253614288",
+    "sku": "XL5T",
+    "todosMlbsSincronizados": [
+      "6253614288",
+      "6253640832",
+      "6253524126",
+      "6253718004"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6253614288",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6253640832",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6253614288",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "23 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6253640832",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "23 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante LG XL5T XL5T portátil com bluetooth",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:28:37.627Z"
+  },
+  "linha-63": {
+    "linha": 63,
+    "itemId": "4683197331",
+    "sku": "SLKM-BIV",
+    "todosMlbsSincronizados": [
+      "4682948797",
+      "4683210039",
+      "4682937151",
+      "4683197331"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4683210039",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4682948797",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4683210039",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4682948797",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Starlink Mini omnidirecional",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:29:38.791Z"
+  },
+  "linha-64": {
+    "linha": 64,
+    "itemId": "5419408290",
+    "sku": "AWS-SP-01",
+    "todosMlbsSincronizados": [
+      "5419369352",
+      "6723772746",
+      "5419369550",
+      "5419408290"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5419369352",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6723772746",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5419369352",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6723772746",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Caixa De Som Speaker Aiwa Bluetooth Ip65 Aws-sp-01",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:31:31.406Z"
+  },
+  "linha-65": {
+    "linha": 65,
+    "itemId": "6822585656",
+    "sku": "P32CRB",
+    "todosMlbsSincronizados": [
+      "4701003563",
+      "6822624026",
+      "4701016495",
+      "6822585656"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4701016495",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6822585656",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4701016495",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "219 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6822585656",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "219 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Smart Tv 32 Philco Roku Tv Dolby Áudio Hdr10 P32crb",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:32:53.660Z"
+  },
+  "linha-66": {
+    "linha": 66,
+    "itemId": "6279141864",
+    "sku": "TVSEMP-32",
+    "todosMlbsSincronizados": [
+      "6279310350",
+      "6279492002",
+      "6279141864",
+      "6279466156"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6279310350",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6279492002",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6279310350",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6279492002",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Smart TV Semp 32 Polegadas LED HD S42 WiFi Bluetooth Google TV 2 HDMI HDR10 Dolby Audio 32S42",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:34:12.894Z"
+  },
+  "linha-67": {
+    "linha": 67,
+    "itemId": "5310942356",
+    "sku": "SCUNIQ-DUO",
+    "todosMlbsSincronizados": [
+      "3932307247",
+      "5310968478",
+      "3932406335",
+      "5310942356"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "3932307247",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5310968478",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3932307247",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "113 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "5310968478",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "113 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Secador de cabelo Taiff Unique Duo",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:35:31.232Z"
+  },
+  "linha-68": {
+    "linha": 68,
+    "itemId": "6714259000",
+    "sku": "WL4000-220V",
+    "todosMlbsSincronizados": [
+      "4984216839",
+      "6714259004",
+      "6680162274",
+      "4984216837",
+      "6714259000",
+      "6680162264"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4984216839",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6714259004",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4984216839",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": null,
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6714259004",
+        "condicao": "Premium",
+        "full": "sem estoque",
+        "deposito": null,
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Lavadora de alta pressão Wap Profissional WL4000",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:37:03.613Z"
+  },
+  "linha-69": {
+    "linha": 69,
+    "itemId": "5742568558",
+    "sku": "GTW12INOX-220V",
+    "todosMlbsSincronizados": [
+      "5742607202",
+      "5742568558",
+      "5742696738",
+      "5742670954"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5742607202",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5742568558",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5742607202",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5742568558",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Tambor Wap GTW Inox 12 12L GTW INOX",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:38:21.994Z"
+  },
+  "linha-70": {
+    "linha": 70,
+    "itemId": "5948222524",
+    "sku": "BAF40A-127V",
+    "todosMlbsSincronizados": [
+      "5948210078",
+      "5948222524",
+      "4314143747",
+      "5948235462"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5948222524",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5948210078",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5948222524",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5948210078",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Air fryer Britânia BAF40A 063801125",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:39:41.281Z"
+  },
+  "linha-71": {
+    "linha": 71,
+    "itemId": "6680162264",
+    "sku": "WL4000-220V",
+    "todosMlbsSincronizados": [
+      "4984216839",
+      "6714259004",
+      "6680162274",
+      "4984216837",
+      "6714259000",
+      "6680162264"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4984216839",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6714259004",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4984216839",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": null,
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6714259004",
+        "condicao": "Premium",
+        "full": "sem estoque",
+        "deposito": null,
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Lavadora de alta pressão Wap Profissional WL4000",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:41:14.682Z"
+  },
+  "linha-72": {
+    "linha": 72,
+    "itemId": "6714258578",
+    "sku": "WL4000-127V",
+    "todosMlbsSincronizados": [
+      "6680136190",
+      "5000383363",
+      "6714234786",
+      "5000740711",
+      "6714258578",
+      "6680123398"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6680136190",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6714234786",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6680136190",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6714234786",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "133 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "Inativa"
+      }
+    ],
+    "tituloCatalogo": "Lavadora de alta pressão Wap Profissional WL4000",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:43:06.150Z"
+  },
+  "linha-73": {
+    "linha": 73,
+    "itemId": "4749892881",
+    "sku": "STARLINK-V4",
+    "todosMlbsSincronizados": [
+      "4749893485",
+      "6922944672",
+      "4749892881",
+      "4749893481"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4749893485",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6922944672",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4749893485",
+        "condicao": "Clássico",
+        "full": "231 un.",
+        "deposito": "23 un.",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6922944672",
+        "condicao": "Clássico",
+        "full": "231 un.",
+        "deposito": "23 un.",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Starlink 2534008BR",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:44:26.451Z"
+  },
+  "linha-74": {
+    "linha": 74,
+    "itemId": "5334261644",
+    "sku": "CX450-TROLLEY",
+    "todosMlbsSincronizados": [
+      "5334261644",
+      "4009007607",
+      "3935394697"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4009007607",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5334261644",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4009007607",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "40 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "5334261644",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "40 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante Bomber Lifestyle Caixa Som Bluetooth Led TROLLEY 450",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:45:38.669Z"
+  },
+  "linha-75": {
+    "linha": 75,
+    "itemId": "6908546780",
+    "sku": "P-JU-03",
+    "todosMlbsSincronizados": [
+      "6908546780",
+      "6908559646",
+      "4741767715",
+      "4741778985"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6908546780",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6908546780",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": "132 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Chapinha de cabelo Mondial by Juliette Qu4tro Elementos P-JU-03",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-26T09:46:58.174Z"
   }
 }
