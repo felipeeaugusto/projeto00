@@ -4135,5 +4135,1054 @@
     "statusAds": "Ativa",
     "metodoVersao": "2026-08-24-v4",
     "processadoEm": "2026-08-26T09:46:58.174Z"
+  },
+  "linha-76": {
+    "linha": 76,
+    "itemId": "4277217107",
+    "sku": "CKESSTC-ITA5Q",
+    "todosMlbsSincronizados": [
+      "4277217107",
+      "4277230155",
+      "4277204327",
+      "4277230093"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4277217107",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4277230155",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4277217107",
+        "condicao": "Clássico",
+        "full": "138 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "RESTRITO PARA GANHAR"
+      },
+      {
+        "mlb": "4277230155",
+        "condicao": "Premium",
+        "full": "138 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "RESTRITO PARA GANHAR"
+      }
+    ],
+    "tituloCatalogo": "Fogão cooktop - Itatiaia 3700000194 - 5 queimadores",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:04:14.978Z"
+  },
+  "linha-77": {
+    "linha": 77,
+    "itemId": "4511528639",
+    "sku": "BB-PLUS",
+    "todosMlbsSincronizados": [
+      "4511528639",
+      "6729960374",
+      "4480116621",
+      "4660073283"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6729960374",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4511528639",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6729960374",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "2 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "4511528639",
+        "condicao": "Premium",
+        "full": "10 un.",
+        "deposito": "2 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante Bomber BomberBass Plus portátil com bluetooth waterproof",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:05:33.414Z"
+  },
+  "linha-78": {
+    "linha": 78,
+    "itemId": "4690640063",
+    "sku": "WAPS-220V",
+    "todosMlbsSincronizados": [
+      "4692202865",
+      "4692202867",
+      "4690637523",
+      "4690640063"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4692202867",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4692202865",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4692202867",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4692202865",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Vertical Wap Home Power Speed 3L FW006008",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:06:54.930Z"
+  },
+  "linha-79": {
+    "linha": 79,
+    "itemId": "4281260269",
+    "sku": "FPDFI-127V",
+    "todosMlbsSincronizados": [
+      "4281286209",
+      "5880465758",
+      "4281260269",
+      "4281286513"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4281286209",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5880465758",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4281286209",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5880465758",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Fritadeira elétrica Philco Deep Fry Inox 53801033 1.8L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:08:14.400Z"
+  },
+  "linha-80": {
+    "linha": 80,
+    "itemId": "6312578938",
+    "sku": "JBLQ-360",
+    "todosMlbsSincronizados": [
+      "4497768467",
+      "4498997473",
+      "4498172789",
+      "6312578938"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4497768467",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4498997473",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4497768467",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4498997473",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Headset over-ear gamer sem fio JBL Quantum Series Quantum 360 JBLQTUM360",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:09:33.900Z"
+  },
+  "linha-81": {
+    "linha": 81,
+    "itemId": "4640799397",
+    "sku": "PAF65A-127V",
+    "todosMlbsSincronizados": [
+      "4640811141",
+      "4657712323",
+      "4640799397",
+      "4657712317"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4640811141",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4657712323",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4640811141",
+        "condicao": "Clássico",
+        "full": "80 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "4657712323",
+        "condicao": "Premium",
+        "full": "80 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Air fryer Philco Air Fryer PAF65A de 6.5L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:10:55.352Z"
+  },
+  "linha-82": {
+    "linha": 82,
+    "itemId": "6087755582",
+    "sku": "CE-07-220V",
+    "todosMlbsSincronizados": [
+      "6087755582",
+      "4379898881"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6087755582",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6087755582",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Chaleira elétrica Mondial Pratic Hot CE-07 1L",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:12:03.834Z"
+  },
+  "linha-83": {
+    "linha": 83,
+    "itemId": "6844645444",
+    "sku": "HQ-100CEVPVFFI-127V",
+    "todosMlbsSincronizados": [
+      "4712944469",
+      "6844645444",
+      "6844655584",
+      "6844778312"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4712944469",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6844645444",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4712944469",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "74 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6844645444",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "74 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Geladeira expositora HQ HQ-100CEVPVFFI",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:13:27.352Z"
+  },
+  "linha-84": {
+    "linha": 84,
+    "itemId": "4471876024",
+    "sku": "ESJU-01",
+    "todosMlbsSincronizados": [
+      "4471963902",
+      "4471876024",
+      "4658352173",
+      "4658361043"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4471963902",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4658352173",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4471963902",
+        "condicao": "Clássico",
+        "full": "455 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "4658352173",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Escova secadora Mondial ES-JU-01",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:14:45.758Z"
+  },
+  "linha-85": {
+    "linha": 85,
+    "itemId": "6420795406",
+    "sku": "SAMQLED-43",
+    "todosMlbsSincronizados": [
+      "4510838697",
+      "6420795406",
+      "6420757668",
+      "6420782470"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6420795406",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4510838697",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6420795406",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4510838697",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Samsung Smart Tv 43 Qled Full Hd Q5f 2025, Xbox Cloud Gaming, Canais Gratuitos, Hdr, Som Em Movimento Virtual",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:16:04.208Z"
+  },
+  "linha-86": {
+    "linha": 86,
+    "itemId": "6682756222",
+    "sku": "PCT04I-BIV",
+    "todosMlbsSincronizados": [
+      "6682756226",
+      "6682756222",
+      "4657704295",
+      "4657704291"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6682756226",
+        "condicao": "Premium"
+      },
+      {
+        "mlb": "4657704295",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6682756226",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4657704295",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Fogão cooktop com alimentação gás - Philco PCT04I - 4 queimadores",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:17:26.671Z"
+  },
+  "linha-87": {
+    "linha": 87,
+    "itemId": "4660077355",
+    "sku": "CXPAREDAO-2300",
+    "todosMlbsSincronizados": [
+      "4660077355",
+      "5532032636",
+      "4660102905",
+      "5532135116"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4660077355",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5532032636",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4660077355",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "91 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5532032636",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "91 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante Bomber 1.92.072 portátil com bluetooth",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:19:04.205Z"
+  },
+  "linha-88": {
+    "linha": 88,
+    "itemId": "3969996181",
+    "sku": "PAS400V-127V",
+    "todosMlbsSincronizados": [
+      "3969810323",
+      "6724782878",
+      "3969996181",
+      "4658494729"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "3969810323",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6724782878",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3969810323",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6724782878",
+        "condicao": "Premium",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Vertical, De mão Philco Domestica PAS4000V 2L 54902065",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:20:28.691Z"
+  },
+  "linha-89": {
+    "linha": 89,
+    "itemId": "5532032636",
+    "sku": "CXPAREDAO-2300",
+    "todosMlbsSincronizados": [
+      "4660077355",
+      "5532032636",
+      "4660102905",
+      "5532135116"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4660077355",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5532032636",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4660077355",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "91 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5532032636",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "91 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante Bomber 1.92.072 portátil com bluetooth",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:22:04.257Z"
+  },
+  "linha-90": {
+    "linha": 90,
+    "itemId": "4719886935",
+    "sku": "MPN-01-BF-127V",
+    "todosMlbsSincronizados": [
+      "4719874527",
+      "4719886935",
+      "4719860315",
+      "6858282012"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4719874527",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4719886935",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4719874527",
+        "condicao": "Clássico",
+        "full": "118 un.",
+        "deposito": "285 un.",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4719886935",
+        "condicao": "Clássico",
+        "full": "118 un.",
+        "deposito": "285 un.",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Multiprocessador Mondial Turbo chef MPN-01-BF",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:23:10.660Z"
+  },
+  "linha-91": {
+    "linha": 91,
+    "itemId": "3930160015",
+    "sku": "CAD-MARTINELLI",
+    "todosMlbsSincronizados": [
+      "3930160015",
+      "3930185829"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "3930160015",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3930160015",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "6 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Cadeira de escritório Maxprint Office Martinelli",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:24:15.996Z"
+  },
+  "linha-92": {
+    "linha": 92,
+    "itemId": "4670660503",
+    "sku": "SCG-MR-BIV",
+    "todosMlbsSincronizados": [
+      "4670672195",
+      "6754529246",
+      "4670660503",
+      "4670803311"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4670672195",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6754529246",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4670672195",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6754529246",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Secador de cabelo GA.MA Italy PRIMO II BIVOLT C",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:25:34.481Z"
+  },
+  "linha-93": {
+    "linha": 93,
+    "itemId": "6992920836",
+    "sku": "TVP40CRA",
+    "todosMlbsSincronizados": [
+      "6992920836",
+      "4794214887",
+      "4794277577"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4794214887",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4794277577",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4794214887",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "1.443 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "4794277577",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "1.443 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Smart Tv Philco 40'' Full Hd Roku Tv Hdr10 Dolby Áudio P40cra",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:26:48.944Z"
+  },
+  "linha-94": {
+    "linha": 94,
+    "itemId": "6589654682",
+    "sku": "XT-2210T",
+    "todosMlbsSincronizados": [
+      "4592441397",
+      "6589654682",
+      "4478935529",
+      "4479000491",
+      "4709174819",
+      "6837748958"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6589654682",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4592441397",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6589654682",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "27 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "4592441397",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "27 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante Polyvox KT2210TM com bluetooth",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:28:24.545Z"
+  },
+  "linha-95": {
+    "linha": 95,
+    "itemId": "6298075690",
+    "sku": "PSC3500-127V",
+    "todosMlbsSincronizados": [
+      "6298075690",
+      "6298204420",
+      "6298255920",
+      "6298295030"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6298075690",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6298204420",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6298075690",
+        "condicao": "Clássico",
+        "full": "63 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6298204420",
+        "condicao": "Premium",
+        "full": "63 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Secador de cabelo PhilcoSecadores de Cabelo PSC3500",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:29:47.079Z"
+  },
+  "linha-96": {
+    "linha": 96,
+    "itemId": "5715849724",
+    "sku": "GTW20-127V",
+    "todosMlbsSincronizados": [
+      "5715849724",
+      "5719134834",
+      "5719186698",
+      "5719045862",
+      "5719134830"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5715849724",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5719186698",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5715849724",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "91 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5719186698",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "91 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "Inativa"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Tambor Wap Home GTW 20 20L FW006491",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:31:15.647Z"
+  },
+  "linha-97": {
+    "linha": 97,
+    "itemId": "6667166150",
+    "sku": "PCT10A-220V",
+    "todosMlbsSincronizados": [
+      "6667166150",
+      "6667202318",
+      "6667166726",
+      "6667189096"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6667166150",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6667202318",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6667166150",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6667202318",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Fogão cooktop - Philco PCT10A - 1 queimador",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:32:48.247Z"
+  },
+  "linha-98": {
+    "linha": 98,
+    "itemId": "3853651641",
+    "sku": "CCT-PROSTYLE-BIV",
+    "todosMlbsSincronizados": [
+      "3853728817",
+      "5267660000",
+      "3959996381",
+      "3853651641"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "3853728817",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5267660000",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3853728817",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5267660000",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Chapinha de cabelo Taiff Style Pro Titanium",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:34:22.971Z"
+  },
+  "linha-99": {
+    "linha": 99,
+    "itemId": "5929963756",
+    "sku": "AP-41-BLI-127V",
+    "todosMlbsSincronizados": [
+      "4302539511",
+      "5929912008",
+      "5929912006",
+      "5929963756"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4302539511",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5929912008",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4302539511",
+        "condicao": "Clássico",
+        "full": "156 un.",
+        "deposito": "908 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5929912008",
+        "condicao": "Premium",
+        "full": "156 un.",
+        "deposito": "908 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Mondial Turbo Cycle Aspirador de pó 1.8L AP-41-BLI",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:35:59.583Z"
+  },
+  "linha-100": {
+    "linha": 100,
+    "itemId": "4597534177",
+    "sku": "LCS10-127V",
+    "todosMlbsSincronizados": [
+      "4597534177",
+      "6600138712",
+      "4597557333",
+      "6600149918"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6600138712",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4597534177",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6600138712",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4597534177",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Máquina de lavar semi-automática Colormaq Ecomax hasta 10kg",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T00:37:38.205Z"
   }
 }
