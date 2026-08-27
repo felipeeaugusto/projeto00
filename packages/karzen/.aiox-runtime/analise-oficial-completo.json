@@ -5184,5 +5184,1047 @@
     "statusAds": "Sem Campanha",
     "metodoVersao": "2026-08-24-v4",
     "processadoEm": "2026-08-27T00:37:38.205Z"
+  },
+  "linha-101": {
+    "linha": 101,
+    "itemId": "4558447125",
+    "sku": "FOGK2-127V",
+    "todosMlbsSincronizados": [
+      "6511820724",
+      "4558447125"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6511820724",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6511820724",
+        "condicao": "Clássico",
+        "full": "1 un.",
+        "deposito": "7 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Fogão cooktop - Kian FG-101 - 2 queimadores",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T14:56:25.657Z"
+  },
+  "linha-102": {
+    "linha": 102,
+    "itemId": "4639741851",
+    "sku": "WW2-220V",
+    "todosMlbsSincronizados": [
+      "4639741851",
+      "4653317905",
+      "4653317901",
+      "6680169332"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4639741851",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4653317905",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4639741851",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4653317905",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Aspirador extrator Tambor Wap Spot Cleaner W2 4.17L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T14:57:49.095Z"
+  },
+  "linha-103": {
+    "linha": 103,
+    "itemId": "5953949764",
+    "sku": "PB-02-127V",
+    "todosMlbsSincronizados": [
+      "5953885086",
+      "5953949764"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5953885086",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5953885086",
+        "condicao": "Clássico",
+        "full": "352 un.",
+        "deposito": "1.060 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Pipoqueira elétrica Britânia Pop Time ar quente",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T14:58:53.430Z"
+  },
+  "linha-104": {
+    "linha": 104,
+    "itemId": "4657015301",
+    "sku": "PAF11B-127V",
+    "todosMlbsSincronizados": [
+      "6679991440",
+      "4657015301",
+      "6721093874",
+      "6680004208"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6679991440",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6721093874",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6679991440",
+        "condicao": "Clássico",
+        "full": "44 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "6721093874",
+        "condicao": "Premium",
+        "full": "48 un.",
+        "deposito": "48 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Air fryer Philco NA PAF11B",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:00:14.850Z"
+  },
+  "linha-105": {
+    "linha": 105,
+    "itemId": "6444706846",
+    "sku": "AFDO-25L-FD-127V",
+    "todosMlbsSincronizados": [
+      "6444674222",
+      "6444727852",
+      "6444706846",
+      "6444707248"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6444727852",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6444674222",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6444727852",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "202 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6444674222",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "202 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Air fryer Mondial Cozinha AFDO-25L-FD",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:01:38.365Z"
+  },
+  "linha-106": {
+    "linha": 106,
+    "itemId": "4363099400",
+    "sku": "BAS1295P-127V",
+    "todosMlbsSincronizados": [
+      "4363150692",
+      "4363099400",
+      "6739045862",
+      "6739045854"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4363150692",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6739045862",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4363150692",
+        "condicao": "Clássico",
+        "full": "194 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "COMPARTILHANDO"
+      },
+      {
+        "mlb": "6739045862",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Britânia BAS1295P 1L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:03:01.840Z"
+  },
+  "linha-107": {
+    "linha": 107,
+    "itemId": "4682948797",
+    "sku": "SLKM-BIV",
+    "todosMlbsSincronizados": [
+      "4682948797",
+      "4683210039",
+      "4682937151",
+      "4683197331"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4683210039",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4682948797",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4683210039",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4682948797",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Starlink Mini omnidirecional",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:04:03.157Z"
+  },
+  "linha-108": {
+    "linha": 108,
+    "itemId": "2916237395",
+    "sku": "BG-03",
+    "todosMlbsSincronizados": [
+      "5234169058",
+      "5334248308",
+      "2916237395",
+      "3923816305",
+      "2944395528",
+      "2944370327",
+      "5217415498",
+      "6613066930",
+      "4605153021",
+      "4605228491",
+      "5216339100",
+      "3280639334",
+      "5216312206",
+      "2916262362",
+      "5220999356"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5234169058",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5217415498",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5234169058",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "1.529 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "5217415498",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "1.529 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "Inativa"
+      }
+    ],
+    "tituloCatalogo": "Barbeador e cortador de cabelo Mondial Super Grooming Body groom BG-03",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:07:01.095Z"
+  },
+  "linha-109": {
+    "linha": 109,
+    "itemId": "3934594883",
+    "sku": "SCT-TI-127V",
+    "todosMlbsSincronizados": [
+      "5223312412",
+      "3853660257",
+      "3934594883",
+      "3853698843",
+      "3960022303",
+      "5267651330"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "3853660257",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "3960022303",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3853660257",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "20 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "3960022303",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "20 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "Inativa"
+      }
+    ],
+    "tituloCatalogo": "Secador de cabelo TaiffElegance Tourmaline Íon",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:08:35.637Z"
+  },
+  "linha-110": {
+    "linha": 110,
+    "itemId": "6593310852",
+    "sku": "LCS15",
+    "todosMlbsSincronizados": [
+      "4594566887",
+      "6588111386",
+      "4591670843",
+      "6593310852"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4594566887",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4594566887",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Máquina de lavar semi-automática Colormaq hasta 15kg",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:09:40.958Z"
+  },
+  "linha-111": {
+    "linha": 111,
+    "itemId": "4639758729",
+    "sku": "GTW20INOX-127V",
+    "todosMlbsSincronizados": [
+      "4639442015",
+      "4639770999",
+      "4639758729",
+      "6680571138"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4639770999",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4639442015",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4639770999",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4639442015",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Aspirador é industrial Tambor Wap GTW Inox 20 20L GTW INOX 20",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:11:03.517Z"
+  },
+  "linha-112": {
+    "linha": 112,
+    "itemId": "6754654140",
+    "sku": "SCG-BB-127V",
+    "todosMlbsSincronizados": [
+      "4670670999",
+      "6754665798",
+      "4670670993",
+      "6754654140"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6754665798",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4670670999",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6754665798",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "4670670999",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Secador de cabelo GA.MA Italy GM-BECHD0000002810",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:12:22.946Z"
+  },
+  "linha-113": {
+    "linha": 113,
+    "itemId": "3959996381",
+    "sku": "CCT-PROSTYLE-BIV",
+    "todosMlbsSincronizados": [
+      "3853728817",
+      "5267660000",
+      "3959996381",
+      "3853651641"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "3853728817",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5267660000",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3853728817",
+        "condicao": "Clássico",
+        "full": "sem estoque",
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5267660000",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Chapinha de cabelo Taiff Style Pro Titanium",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:13:47.401Z"
+  },
+  "linha-114": {
+    "linha": 114,
+    "itemId": "4701003563",
+    "sku": "P32CRB",
+    "todosMlbsSincronizados": [
+      "4701003563",
+      "6822624026",
+      "4701016495",
+      "6822585656"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4701016495",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6822585656",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4701016495",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "219 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "6822585656",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "219 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Smart Tv 32 Philco Roku Tv Dolby Áudio Hdr10 P32crb",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:15:12.810Z"
+  },
+  "linha-115": {
+    "linha": 115,
+    "itemId": "4689961435",
+    "sku": "XT-800T",
+    "todosMlbsSincronizados": [
+      "4689961435",
+      "4680116521",
+      "6795613462",
+      "4680147687"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4680116521",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4689961435",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4680116521",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "44 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "4689961435",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "44 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      }
+    ],
+    "tituloCatalogo": "Alto-falante Polyvox XT-800T portátil com bluetooth",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:16:36.319Z"
+  },
+  "linha-116": {
+    "linha": 116,
+    "itemId": "4632049603",
+    "sku": "PLP2800-127V",
+    "todosMlbsSincronizados": [
+      "4632049611",
+      "6667092866",
+      "4632049603",
+      "6667092856"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4632049611",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6667092866",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4632049611",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6667092866",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Lavadora de alta pressão Philco Plp 2800",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:17:58.671Z"
+  },
+  "linha-117": {
+    "linha": 117,
+    "itemId": "5310806324",
+    "sku": "PROCS-5040W01",
+    "todosMlbsSincronizados": [
+      "5310806324",
+      "5310819624",
+      "5310948364",
+      "5310935964"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5310806324",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5310806324",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Telefone Proeletronic PROCS-5040W",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:19:25.185Z"
+  },
+  "linha-118": {
+    "linha": 118,
+    "itemId": "5538130630",
+    "sku": "BG-05",
+    "todosMlbsSincronizados": [
+      "6848619998",
+      "5538258776",
+      "5538130632",
+      "5538130630"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6848619998",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5538130632",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6848619998",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "555 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5538130632",
+        "condicao": "Clássico",
+        "full": "3 un.",
+        "deposito": "555 un.",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Mondial 76810-01 BG-05",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:20:49.551Z"
+  },
+  "linha-119": {
+    "linha": 119,
+    "itemId": "4632341539",
+    "sku": "BAF80A-127V",
+    "todosMlbsSincronizados": [
+      "4632377473",
+      "4632365423",
+      "4632341539",
+      "4632365421"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4632377473",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "4632365423",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4632377473",
+        "condicao": "Clássico",
+        "full": "13 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "4632365423",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Air fryer Britânia Air Fryer BAF80A de 8L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:22:28.037Z"
+  },
+  "linha-120": {
+    "linha": 120,
+    "itemId": "5719134834",
+    "sku": "GTW20-127V",
+    "todosMlbsSincronizados": [
+      "5715849724",
+      "5719134834",
+      "5719186698",
+      "5719045862",
+      "5719134830"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5715849724",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5719186698",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5715849724",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "89 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5719186698",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "89 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "Inativa"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Tambor Wap Home GTW 20 20L FW006491",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:24:03.476Z"
+  },
+  "linha-121": {
+    "linha": 121,
+    "itemId": "3934626741",
+    "sku": "SCT-TI-220V",
+    "todosMlbsSincronizados": [
+      "3934626741",
+      "5605733732",
+      "3934554275",
+      "5223240014",
+      "5100388423",
+      "5605069360",
+      "3934580171"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "3934626741",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5605733732",
+        "condicao": "Clássico"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "3934626741",
+        "condicao": "Clássico",
+        "full": "68 un.",
+        "deposito": null,
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      },
+      {
+        "mlb": "5605733732",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "1 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Secador de cabelo TaiffElegance Tourmaline Íon",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:25:53.217Z"
+  },
+  "linha-122": {
+    "linha": 122,
+    "itemId": "4708590145",
+    "sku": "WAPS-127V",
+    "todosMlbsSincronizados": [
+      "4708590145",
+      "6844829150",
+      "4692319059",
+      "4692256879",
+      "6844812538"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "4708590145",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6844829150",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "4708590145",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6844829150",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Aspirador Vertical Wap Home Power Speed 3L FW006008",
+    "statusAds": "Sem Campanha",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:27:42.824Z"
+  },
+  "linha-123": {
+    "linha": 123,
+    "itemId": "6667310140",
+    "sku": "PAS23-BIV",
+    "todosMlbsSincronizados": [
+      "6667309696",
+      "6667322986",
+      "6667286460",
+      "6667310140"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6667309696",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6667322986",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6667309696",
+        "condicao": "Clássico",
+        "full": "1.019 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "6667322986",
+        "condicao": "Premium",
+        "full": "1.019 un.",
+        "deposito": "sem estoque",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "PERDENDO"
+      }
+    ],
+    "tituloCatalogo": "Robô aspirador Philco Robôs Aspiradores PAS23",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:29:20.415Z"
+  },
+  "linha-124": {
+    "linha": 124,
+    "itemId": "5930253842",
+    "sku": "CE-06-R-127V",
+    "todosMlbsSincronizados": [
+      "5930241240",
+      "5930253842",
+      "5930169006",
+      "5930318174"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5930253842",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5930241240",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5930253842",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "5930241240",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Chaleira elétrica Mondial Premium CE-06-R 2L",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:30:57.823Z"
+  },
+  "linha-125": {
+    "linha": 125,
+    "itemId": "4580853607",
+    "sku": "M-BM19I1HVW",
+    "todosMlbsSincronizados": [
+      "6582893402",
+      "6582930290",
+      "6583231968",
+      "4580853607",
+      "6557738734"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "6582930290",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "6582893402",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "6582930290",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      },
+      {
+        "mlb": "6582893402",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "sem estoque",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Monitor Bluecase com tela de 19\"",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-27T15:32:40.371Z"
   }
 }
