@@ -687,9 +687,22 @@ async function analisarSku(pageAnuncios, context, sku) {
       // se vier na mesma linha ("Inativo sem estoque") quanto na linha seguinte ("Inativo"
       // sozinho, motivo depois) -- superconjunto da regra antiga, nao quebra nenhum caso
       // ja validado (a palavra "Inativo" continua presente em "Inativo sem estoque").
+      // Correcao real (27/08/2026, achada pelo Felipe na validacao manual do SKU BG-03 --
+      // avaliada pelo @analyst via *elicit): "Inativo" nao e a unica palavra que o Mercado
+      // Livre usa pra anuncio nao-ativo -- "Pausado" (com botao "Ativar anúncio" logo
+      // depois) e um estado real e distinto (pausa manual do vendedor), nunca coberto pela
+      // regex antiga. Caso real confirmado: MLB 5217415498/SKU BG-03, texto "Pausado |
+      // Ativar anúncio", sem a palavra "Inativo" em lugar nenhum -- salvo como "Ativo" por
+      // engano, silenciosamente (sem erro). Corrigido exigindo os 2 sinais juntos
+      // ("Pausado" seguido do botao "Ativar anúncio", mesmo padrao de exigir confirmacao
+      // estrutural ja usado no resto do pipeline) -- nunca confia em "Pausado" sozinho,
+      // que poderia aparecer solto em outro contexto.
       const inativoMatch = blocoMlb.match(/\bInativo\b[ \t]*\n?[ \t]*([^\n]*)/);
-      const inativo = !!inativoMatch;
-      const motivoInativo = inativoMatch && inativoMatch[1].trim() ? inativoMatch[1].trim() : null;
+      const pausadoMatch = blocoMlb.match(/\bPausado\b[ \t]*\n?[ \t]*Ativar an[uú]ncio\b/);
+      const inativo = !!inativoMatch || !!pausadoMatch;
+      const motivoInativo = inativoMatch && inativoMatch[1].trim()
+        ? inativoMatch[1].trim()
+        : (pausadoMatch ? 'Pausado' : null);
       // Correcao real (14/08/2026): regex era case-insensitive (/i), o que casava a
       // palavra "ganhando" minuscula dentro de frases comuns como "Voce esta ganhando
       // com outra opcao de venda" (mensagem de MLB SEM status explicito) como se fosse
