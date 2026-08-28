@@ -5458,60 +5458,6 @@
     "metodoVersao": "2026-08-24-v4",
     "processadoEm": "2026-08-27T15:04:03.157Z"
   },
-  "linha-108": {
-    "linha": 108,
-    "itemId": "2916237395",
-    "sku": "BG-03",
-    "todosMlbsSincronizados": [
-      "5234169058",
-      "5334248308",
-      "2916237395",
-      "3923816305",
-      "2944395528",
-      "2944370327",
-      "5217415498",
-      "6613066930",
-      "4605153021",
-      "4605228491",
-      "5216339100",
-      "3280639334",
-      "5216312206",
-      "2916262362",
-      "5220999356"
-    ],
-    "catalogoConfirmado": [
-      {
-        "mlb": "5234169058",
-        "condicao": "Clássico"
-      },
-      {
-        "mlb": "5217415498",
-        "condicao": "Premium"
-      }
-    ],
-    "a2": [
-      {
-        "mlb": "5234169058",
-        "condicao": "Clássico",
-        "full": null,
-        "deposito": "1.529 un.",
-        "statusProduto": "Ativo",
-        "statusCatalogo": "PERDENDO"
-      },
-      {
-        "mlb": "5217415498",
-        "condicao": "Premium",
-        "full": null,
-        "deposito": "1.529 un.",
-        "statusProduto": "Ativo",
-        "statusCatalogo": "Inativa"
-      }
-    ],
-    "tituloCatalogo": "Barbeador e cortador de cabelo Mondial Super Grooming Body groom BG-03",
-    "statusAds": "Ativa",
-    "metodoVersao": "2026-08-24-v4",
-    "processadoEm": "2026-08-27T15:07:01.095Z"
-  },
   "linha-109": {
     "linha": 109,
     "itemId": "3934594883",
@@ -6226,5 +6172,59 @@
     "statusAds": "Ativa",
     "metodoVersao": "2026-08-24-v4",
     "processadoEm": "2026-08-27T15:32:40.371Z"
+  },
+  "linha-108": {
+    "linha": 108,
+    "itemId": "2916237395",
+    "sku": "BG-03",
+    "todosMlbsSincronizados": [
+      "5234169058",
+      "5334248308",
+      "2916237395",
+      "3923816305",
+      "2944395528",
+      "2944370327",
+      "5217415498",
+      "6613066930",
+      "4605153021",
+      "4605228491",
+      "5216339100",
+      "3280639334",
+      "5216312206",
+      "2916262362",
+      "5220999356"
+    ],
+    "catalogoConfirmado": [
+      {
+        "mlb": "5234169058",
+        "condicao": "Clássico"
+      },
+      {
+        "mlb": "5217415498",
+        "condicao": "Premium"
+      }
+    ],
+    "a2": [
+      {
+        "mlb": "5234169058",
+        "condicao": "Clássico",
+        "full": null,
+        "deposito": "1.490 un.",
+        "statusProduto": "Ativo",
+        "statusCatalogo": "GANHANDO"
+      },
+      {
+        "mlb": "5217415498",
+        "condicao": "Premium",
+        "full": null,
+        "deposito": "1.490 un.",
+        "statusProduto": "Pausado",
+        "statusCatalogo": "Inativo"
+      }
+    ],
+    "tituloCatalogo": "Barbeador e cortador de cabelo Mondial Super Grooming Body groom BG-03",
+    "statusAds": "Ativa",
+    "metodoVersao": "2026-08-24-v4",
+    "processadoEm": "2026-08-28T22:28:16.698Z"
   }
 }
