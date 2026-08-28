@@ -761,7 +761,8 @@ async function analisarSku(pageAnuncios, context, sku) {
   // mecanismo de parada no loop principal. Devolvido pro chamador (mesmo padrao ja usado
   // pra divergenciaContagemBotoes).
   let anomaliaClassificacaoDetectada = null;
-  for (const mlb of mlbsSemStatus) {
+
+  async function checarMlbViaAlterar(mlb) {
     // Correcao real (17/08/2026): nao precisa mais de indice de botao nem de re-buscar
     // a listagem antes -- abrirAlterarPorMlb abre por URL direta, numa aba separada, sem
     // depender do estado da pagina de listagem. `resultado.page` (se existir) so e
@@ -816,7 +817,7 @@ async function analisarSku(pageAnuncios, context, sku) {
             if (restritoNarrativo) {
               mlbs[mlb].statusCatalogo = mlbs[mlb].statusProduto === 'Pausado' ? 'Inativo' : 'RESTRITO PARA GANHAR';
               mlbs[mlb].viaAlterar = { ehPai: false, temCompetindo, temConcorrencia, formatoNarrativoRestrito: true };
-              continue;
+              return;
             }
             // Correcao real (24/08/2026): o caminho do formato colapsado (clicar pra
             // expandir, extrair badge tipo "PREÇO ALTO" via
@@ -899,7 +900,67 @@ async function analisarSku(pageAnuncios, context, sku) {
     }
   }
 
-  const statusCatalogoViaAlterar = mlbsSemStatus
+  // Correcao real (28/08/2026, achada no SKU BG-03 -- Felipe apontou que a regra de
+  // selecao final (ate 2 MLBs, 1o Classico + 1o Premium encontrados, ver
+  // listarCatalogoPorCondicao em reprocessar-analise-oficial-completo.js) ja estava
+  // satisfeita ANTES do loop terminar de checar TODOS os MLBs da familia -- um MLB
+  // desnecessario (nunca usado no resultado final, MLB #5334248308) foi o que travou o
+  // lote com uma anomalia de classificacao. Design testado em 4 cenarios via *elicit
+  // antes de codar (familia mista, so-Classico, so 1 confirmado, nenhum confirmado --
+  // ver .aiox/itens-em-aberto.md): em vez de checar em ordem de pagina (que intercala
+  // Classico/Premium de forma imprevisivel -- no BG-03, o Premium so aparecia na 7a
+  // posicao), separa os candidatos por condicao e checa intercalado (1 Classico, 1
+  // Premium, alternando), parando assim que a regra de selecao ja estiver satisfeita.
+  // Preserva o comportamento antigo (checar todos) exatamente nos casos em que ainda e
+  // necessario: nenhum confirmado ainda, ou so 1 tipo existe na familia e ainda nao tem
+  // 2 confirmados dele.
+  const classicoQueue = mlbsSemStatus.filter(mlb => mlbs[mlb].condicao === 'Clássico');
+  const premiumQueue = mlbsSemStatus.filter(mlb => mlbs[mlb].condicao === 'Premium');
+  // MLBs com condicao desconhecida (nem Classico nem Premium -- caso raro, condMatch e
+  // o fallback posicoes[bi] falharam os 2) nunca entram em catalogoConfirmado de
+  // qualquer forma (listarCatalogoPorCondicao exige dados.condicao truthy) -- mas pra
+  // nao mudar nenhum comportamento existente fora dessa otimizacao, continuam sendo
+  // SEMPRE checados via Alterar, sem entrar no calculo de parada antecipada.
+  const semCondicaoQueue = mlbsSemStatus.filter(mlb => mlbs[mlb].condicao !== 'Clássico' && mlbs[mlb].condicao !== 'Premium');
+  let idxClassico = 0;
+  let idxPremium = 0;
+
+  const contarConfirmados = (queue, ateIndice) =>
+    queue.slice(0, ateIndice).filter(mlb => mlbs[mlb].statusCatalogo).length;
+
+  while (true) {
+    const classicosEsgotados = idxClassico >= classicoQueue.length;
+    const premiumsEsgotados = idxPremium >= premiumQueue.length;
+    const confirmClassicos = contarConfirmados(classicoQueue, idxClassico);
+    const confirmPremiums = contarConfirmados(premiumQueue, idxPremium);
+
+    if (confirmClassicos >= 1 && confirmPremiums >= 1) break;
+    if (classicosEsgotados && premiumsEsgotados) break;
+    if (confirmClassicos >= 2 && premiumsEsgotados) break;
+    if (confirmPremiums >= 2 && classicosEsgotados) break;
+    if (anomaliaClassificacaoDetectada) break;
+
+    if (!classicosEsgotados) {
+      await checarMlbViaAlterar(classicoQueue[idxClassico++]);
+    }
+    if (anomaliaClassificacaoDetectada) break;
+    if (!premiumsEsgotados) {
+      await checarMlbViaAlterar(premiumQueue[idxPremium++]);
+    }
+  }
+
+  for (const mlb of semCondicaoQueue) {
+    if (anomaliaClassificacaoDetectada) break;
+    await checarMlbViaAlterar(mlb);
+  }
+
+  const mlbsChecados = [...new Set([
+    ...classicoQueue.slice(0, idxClassico),
+    ...premiumQueue.slice(0, idxPremium),
+    ...semCondicaoQueue,
+  ])];
+
+  const statusCatalogoViaAlterar = mlbsChecados
     .filter(mlb => mlbs[mlb] && mlbs[mlb].viaAlterar)
     .map(mlb => ({ mlb, ...mlbs[mlb].viaAlterar }));
 
