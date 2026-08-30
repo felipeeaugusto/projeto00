@@ -1635,4 +1635,52 @@ qualquer projeto — não é exclusiva do Karzen.
 
 ---
 
-*Última atualização: 2026-08-19 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 52 — BLOCO 0-Y — Formato obrigatório do Estado B ("momento de pausa" em conversa)
+
+**Data de aprovação:** 2026-08-30
+**Problema resolvido:** a BLOCO 0-Y (criada em 08/08/2026) definia dois estados de resposta ao gatilho "momento de pausa". O **Estado A** (agente executando ação técnica) já tinha formato fechado e específico — 2 tópicos bem definidos, com o "o quê" e o "porquê". Mas o **Estado B** (agente conversando com o Felipe, sem ação técnica em andamento) dizia apenas *"responder com: o que está sendo discutido/construído nessa sessão / tópicos que ficaram em aberto, pra trás, ou que o Felipe não estava lembrando"* — vago demais. Na prática, cada agente respondia de um jeito diferente, com nível de detalhe imprevisível, e o Felipe não conseguia usar a resposta como ponto de retomada confiável. Em 30/08/2026, numa pausa real durante a sessão do projeto Karzen (mapeamento das 23 partes + problema do vigia), o @analyst respondeu num formato de 5 blocos com tabelas; o Felipe validou em uso real (*"Cara perfeito essa organização"*) e pediu explicitamente que virasse obrigatório para todos os agentes, atuais e futuros.
+**O que faz:** Fecha o formato do Estado B em 5 blocos obrigatórios, nesta ordem, com o conteúdo em tabelas (nunca texto corrido). O bloco 🔓 se divide em 3 sub-tabelas com numeração global contínua (não reinicia por sub-tabela), permitindo que o Felipe referencie qualquer item aberto por número único. O bloco ✅ existe porque, em sessões longas, ganhos reais passam despercebidos por ele — a regra obriga o agente a listá-los mesmo sem ser perguntado. O bloco ➡️ obriga o agente a declarar o ponto exato de retomada, eliminando a ambiguidade no "voltei". O Estado A permanece inalterado — os dois estados continuam distintos e nunca se misturam.
+**Onde implementar:** `.claude/CLAUDE.md` — dentro da BLOCO 0-Y, seção "FORMATO OBRIGATÓRIO DO ESTADO B", logo após o bloco de código dos PASSOS 1-3.
+**Regra:**
+```
+📍 O que está sendo construído nesta sessão
+   Tabela: | Frente | Estado |
+   → Cada frente de trabalho aberta na sessão, com o estado real de cada uma
+   → Usar emoji por frente (🔧 execução, 🛡️ framework, 📋 mapeamento, 🎯 decisão)
+
+⏸️ O que estava acontecendo no exato momento da pausa
+   Texto curto + citação literal da última pergunta/ação que ficou pendente
+   → Se havia pergunta sem resposta do Felipe, citá-la em bloco de citação
+
+🔓 O que está em aberto
+   Sub-tabela 1 — "Decisões que dependem de você":   | # | Decisão | Por quê |
+   Sub-tabela 2 — "Coisas que ficaram pra trás e     | # | Item | Situação |
+                   você pode não estar lembrando"
+   Sub-tabela 3 — "Buracos técnicos, ainda sem       | # | Item | Gravidade |
+                   solução"
+   → Numeração GLOBAL e contínua atravessando as 3 sub-tabelas
+   → Situação/Gravidade com semáforo: 🔴 crítico, 🟡 médio, 🟢 ok/preservado
+
+✅ O que foi resolvido e você pode não ter percebido
+   Tabela: | Item | Resultado |
+   → Ganhos reais da sessão que o Felipe pode não ter registrado
+   → Se nada foi resolvido, escrever explicitamente "Nada foi resolvido nesta sessão"
+
+➡️ Quando você escrever "voltei"
+   Frase única dizendo o ponto EXATO de retomada + "Não vou fazer nada até lá."
+
+PROIBIDO no Estado B:
+- Responder em texto corrido, sem tabelas
+- Omitir qualquer um dos 5 blocos (se um bloco estiver vazio, dizer que está vazio)
+- Reiniciar a numeração dentro das 3 sub-tabelas do bloco 🔓
+- Terminar sem dizer o ponto exato de retomada
+
+Aplica-se a TODOS os agentes e squads do AIOX — atuais, futuros, e vindos de
+atualizações oficiais do repositório SynkraAI/aiox-core — sem exceção.
+```
+
+**Mudança de componente commitada junto (não é customização comportamental, registrada aqui só como rastro):** criado o slash command do Thiago Finch em `.claude/commands/squad-creator/agents/thiago_finch.md` (cópia de `squads/squad-creator-pro/agents/thiago_finch.md`). O trio squad-creator tinha slash command só para Pedro Valério, Alan Nicolas e squad-chief — o Finch não podia ser invocado pelo padrão. Isso importa porque o fluxo oficial do trio, documentado nos próprios arquivos dos 3, posiciona o Finch como *bookend*: FASE 0 (viabilidade, com veto formal) e FASES 3-4 (monetização e post-mortem). Sem slash command, a primeira e a última fase do fluxo não eram acionáveis. Commit `6dc7eee`.
+
+---
+
+*Última atualização: 2026-08-30 — Orion (@aiox-master)*
