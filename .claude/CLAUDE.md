@@ -1327,15 +1327,62 @@ PASSO 1: Identificar em qual dos dois estados o agente estava no momento do "mom
 
   ESTADO B — Conversando com Felipe, sem nenhuma ação técnica em andamento:
     Reler a sessão inteira do terminal, desde o início dela até o "momento de
-    pausa", e responder com:
-    - O que está sendo discutido/construído nessa sessão
-    - Tópicos que ficaram em aberto, pra trás, ou que o Felipe não estava lembrando
+    pausa", e responder OBRIGATORIAMENTE nos 5 blocos abaixo, nesta ordem,
+    usando TABELAS (aprovado pelo Felipe em 30/08/2026 — ver "Formato
+    obrigatório do Estado B" logo abaixo deste bloco de código):
+
+    1. 📍 O que está sendo construído nesta sessão
+    2. ⏸️ O que estava acontecendo no exato momento da pausa
+    3. 🔓 O que está em aberto (3 sub-tabelas)
+    4. ✅ O que foi resolvido e o Felipe pode não ter percebido
+    5. ➡️ Quando você escrever "voltei"
 
 PASSO 2: Aguardar. Não continuar nenhum trabalho até Felipe escrever "voltei".
 
 PASSO 3: Quando Felipe escrever "voltei", retomar exatamente do que foi registrado
          no PASSO 1 — sem pular etapas, sem presumir que ele lembra o contexto sozinho.
 ```
+
+**FORMATO OBRIGATÓRIO DO ESTADO B (aprovado pelo Felipe em 30/08/2026):**
+
+O Estado B antes dizia apenas "responder com 2 tópicos" — vago demais, cada agente
+respondia de um jeito. Felipe validou em uso real o formato abaixo e pediu que TODOS
+os agentes, atuais e futuros, respondam exatamente assim. Os 5 blocos são obrigatórios,
+nesta ordem, e o conteúdo vai em TABELAS (não em texto corrido):
+
+```
+📍 O que está sendo construído nesta sessão
+   Tabela: | Frente | Estado |
+   → Cada frente de trabalho aberta na sessão, com o estado real de cada uma
+   → Usar emoji por frente (🔧 execução, 🛡️ framework, 📋 mapeamento, 🎯 decisão)
+
+⏸️ O que estava acontecendo no exato momento da pausa
+   Texto curto + citação literal da última pergunta/ação que ficou pendente
+   → Se havia pergunta sem resposta do Felipe, citá-la em bloco de citação
+
+🔓 O que está em aberto
+   Sub-tabela 1 — "Decisões que dependem de você":   | # | Decisão | Por quê |
+   Sub-tabela 2 — "Coisas que ficaram pra trás e     | # | Item | Situação |
+                   você pode não estar lembrando"
+   Sub-tabela 3 — "Buracos técnicos, ainda sem       | # | Item | Gravidade |
+                   solução"
+   → Numeração GLOBAL e contínua atravessando as 3 sub-tabelas
+   → Situação/Gravidade com semáforo: 🔴 crítico, 🟡 médio, 🟢 ok/preservado
+
+✅ O que foi resolvido e você pode não ter percebido
+   Tabela: | Item | Resultado |
+   → Ganhos reais da sessão que o Felipe pode não ter registrado
+   → Se nada foi resolvido, escrever explicitamente "Nada foi resolvido nesta sessão"
+
+➡️ Quando você escrever "voltei"
+   Frase única dizendo o ponto EXATO de retomada + "Não vou fazer nada até lá."
+```
+
+**PROIBIDO no Estado B:**
+- Responder em texto corrido, sem tabelas
+- Omitir qualquer um dos 5 blocos (se um bloco estiver vazio, dizer que está vazio)
+- Reiniciar a numeração dentro das 3 sub-tabelas do bloco 🔓
+- Terminar sem dizer o ponto exato de retomada
 
 **PROIBIDO:**
 - Disparar esse formato para qualquer OUTRA interrupção que não seja a frase literal "momento de pausa" — inclusive quando Felipe interrompe por outro motivo (ex: corrigir uma ação ineficiente, redirecionar a conversa). Isso é interrupção normal, não "momento de pausa" — o agente responde à correção normalmente, sem entrar no formato de pausa
