@@ -1196,7 +1196,44 @@ PASSO 4: Janela visível de browser é PROIBIDA em qualquer circunstância duran
 
 ---
 
-**Esta regra (REGRA 1 e REGRA 2) se aplica a: @devops, @dev, compositor-agent, scout-agent, publisher-agent, @aiox-master e TODOS os agentes atuais e futuros que lançarem qualquer processo, aplicação ou serviço — sem exceção.**
+---
+
+#### REGRA 5 — NUNCA DUAS FRENTES DE TRABALHO DISPUTANDO O MESMO EXECUTOR E O MESMO RECURSO (adicionada 31/08/2026)
+
+**Problema:** duas frentes de trabalho diferentes podem, sem ninguém perceber, precisar do **mesmo agente** e do **mesmo recurso exclusivo** ao mesmo tempo. O caso real que gerou a regra: a validação da planilha `Analise Oficial.xlsx` (que roda por horas, usa o @dev e o Chrome do Modo Navegador) e o trabalho de consertar buracos do framework (que também aciona o @dev, e às vezes também o Chrome). Tratados como universos separados, colidem.
+
+**Regra:** antes de iniciar qualquer frente de trabalho longa, verificar se **outra frente já está ativa** disputando o mesmo executor ou o mesmo recurso exclusivo. Se estiver:
+
+```
+PASSO 1: Identificar os recursos exclusivos que a frente nova precisa
+         → Agente executor (o @dev é um só — não roda 2 tarefas em paralelo)
+         → Chrome do Modo Navegador (1 instância, 1 porta, 1 perfil)
+         → Arquivo compartilhado (Analise Oficial.xlsx, JSONs de estado)
+
+PASSO 2: Checar se há trava ativa
+         → `.reprocessar.lock` para o pipeline da Karzen
+         → Processo Chrome vivo com `ChromeDebugKarzen` no CommandLine (ver REGRA 3)
+
+PASSO 3: SE houver disputa → PARAR e perguntar ao Felipe. Nunca decidir sozinho
+         qual frente tem prioridade, e nunca rodar as duas.
+
+PASSO 4: A troca entre frentes só acontece em FRONTEIRA LIMPA — nunca no meio:
+         → Fim de um lote de linhas processadas (20-25)
+         → Fim de uma tarefa/parte concluída e assinada pelo Felipe
+```
+
+**PROIBIDO:**
+- Iniciar uma frente nova sem checar se outra está ativa
+- Assumir que "são coisas diferentes, não vão se atrapalhar" — o @dev e o Chrome são os mesmos
+- Trocar de frente no meio de um lote ou de uma tarefa
+
+**O CASO QUE GEROU ESTA REGRA (31/08/2026):** ao montar o plano do Solucionador, o @analyst escreveu que a validação da planilha poderia voltar **"em paralelo"** com o trabalho do framework — depois de ter, na mesma sessão, **rejeitado o `wave-executor` justamente por disputa de recurso compartilhado**. Contradição direta. O Felipe pegou: *"como que o dev vai continuar analisando a planilha se ele for acionado pelo Solucionador? Aí caga tudo não?"*. Caga sim — e é literalmente o incidente de 19/08/2026 (2 processos brigando pela mesma aba do Chrome, 4 linhas de dados corrompidas em silêncio, sem nenhum erro visível).
+
+**Esta regra se aplica a TODOS os agentes atuais e futuros, em qualquer projeto — sem exceção.**
+
+---
+
+**Esta regra (REGRAS 1 a 5) se aplica a: @devops, @dev, compositor-agent, scout-agent, publisher-agent, @aiox-master e TODOS os agentes atuais e futuros que lançarem qualquer processo, aplicação ou serviço — sem exceção.**
 
 ---
 
@@ -1304,7 +1341,11 @@ PASSO 7: SE qualquer etapa falhar → seguir o Protocolo de Falha do próprio ar
 
 **O ERRO QUE GEROU ESTA REGRA (04/08/2026):** o procedimento de acesso ao Chrome via CDP foi reconstruído "de memória" (a partir do padrão geral do BLOCO 0-V, que documenta o Edge) em vez de ir atrás do comando exato já validado em sessão anterior — faltou a flag `--no-first-run`, o que causou falha repetida ("Falha ao criar o diretório de dados") e horas de investigação até a causa ser encontrada no histórico de uma sessão salva. Esta regra existe pra garantir que o comando literal, uma vez validado, nunca mais precise ser reconstruído de memória por nenhum agente.
 
-**Esta regra se aplica a TODOS os agentes atuais e futuros, de todos os squads — sem exceção.**
+**QUEM EXECUTA O MODO NAVEGADOR (decisão do Felipe, 31/08/2026):** o gatilho "Modo Navegador" pode ser dito por você a **qualquer** agente — mas quem **executa** é sempre o **@dev**, e só ele. A versão anterior desta regra dizia "se aplica a TODOS os agentes atuais e futuros, de todos os squads", o que contradizia a `agent-authority.md` (execução é escopo do @dev). **A cláusula foi removida** — vale a `agent-authority.md`. Se outro agente receber o gatilho, ele reconhece, mas delega ao @dev (BLOCO 0-D: perguntar antes de chamar).
+
+**Por que o @qa não tem acesso, de propósito:** quando o @qa precisar verificar algo na tela (ex: `*evidence-check`), quem roda é o @dev e o que vale é a **saída bruta da ferramenta**, não o resumo que o @dev escreveu sobre ela. Quem produz a evidência nunca pode ser quem a julga — é o antídoto direto do padrão B4/B5.
+
+**Os 4 documentos de processo continuam sendo do @dev:** `modo-navegador-browser-access.md`, `mapeamento-skus-ads-catalogo-mercadolivre.md`, `mapeamento-pausados-campanha-mercadolivre.md`, `analise-acos-catalogo-mercadolivre.md`.
 
 ---
 
@@ -1338,6 +1379,23 @@ PASSO 1: Identificar em qual dos dois estados o agente estava no momento do "mom
     5. ➡️ Quando você escrever "voltei"
 
 PASSO 2: Aguardar. Não continuar nenhum trabalho até Felipe escrever "voltei".
+
+PASSO 2-B: RETOMADA AUTOMÁTICA APÓS AUSÊNCIA LONGA (aprovada 30/08/2026) —
+         vale MESMO SEM o Felipe ter dito "momento de pausa" antes:
+
+         Antes de responder qualquer mensagem do Felipe, comparar o horário
+         dela com o da mensagem anterior dele. SE passaram mais de 30 minutos:
+         → Abrir a resposta com o quadro completo dos 5 blocos do Estado B
+           (mesmo formato descrito abaixo), ANTES de responder o que ele pediu
+         → Ele não precisa pedir. O agente reconhece a ausência e devolve o
+           contexto sozinho
+
+         ⚠️ Isso NÃO faz o fluxo avançar sem ele. O agente esperou parado o
+         tempo todo — este passo é só reorientação na volta. Avançar sem o
+         Felipe foi PROIBIDO explicitamente por ele em 30/08/2026: "eu prefiro
+         deixar a mensagem esperando até eu ver, do que o fluxo seguir — até
+         para eu não me perder". O custo aceito é tempo ocioso; o custo evitado
+         é ele perder o fio do trabalho.
 
 PASSO 3: Quando Felipe escrever "voltei", retomar exatamente do que foi registrado
          no PASSO 1 — sem pular etapas, sem presumir que ele lembra o contexto sozinho.
@@ -1605,6 +1663,50 @@ PASSO 5: Reportar ao usuário — NUNCA presumir uma classificação sozinho
 **O CASO QUE GEROU ESTA REGRA (24/08/2026, projeto Karzen):** o pipeline de mapeamento de catálogo Mercado Livre (`packages/karzen/.aiox-runtime/`) tratava a existência da seção "Concorrência no Mercado Livre" como sinal suficiente de catálogo — decisão de 16/08/2026, baseada em 1 caso só, nunca totalmente validada. O Felipe encontrou, validando manualmente o SKU `P32CRB`, que isso estava errado: existem casos onde a seção aparece sem o produto ser catálogo de verdade (badges genéricos "PREÇO ALTO"/"PREÇO COMPETITIVO", sem o badge "COMPETINDO" que de fato confirma disputa real). A correção arrumou a regra pros 3 formatos já mapeados — mas o Felipe pediu explicitamente: **qualquer formato futuro que não bata com o que já foi mapeado não pode ser adivinhado por um agente — o lote inteiro para, e ele é quem decide.** Isso generalizou pra um princípio do framework, não só uma correção pontual daquele pipeline.
 
 **Esta regra se aplica a TODOS os pipelines/automações de lote, atuais e futuros, em qualquer projeto — não é exclusiva do Karzen.**
+
+---
+
+### BLOCO 0-AE — ORGANIZAÇÃO VISUAL OBRIGATÓRIA COM LIMIAR (inegociável)
+
+**Gatilho:** qualquer agente prestes a escrever qualquer resposta ao Felipe.
+
+**REGRA ABSOLUTA:** toda resposta que apresente decisão, achado, análise, plano, diagnóstico ou comparação DEVE vir em **tabela**, com **emoji** e **semáforo** — nunca em texto corrido. Respostas curtas de confirmação continuam em texto direto.
+
+```
+LIMIAR — quando a tabela é obrigatória:
+
+✅ TABELA OBRIGATÓRIA (com emoji + semáforo 🔴🟡🟢):
+   - Resposta com 3 ou mais itens comparáveis
+   - QUALQUER decisão, achado, análise, plano, diagnóstico
+   - Comparação entre alternativas
+   - Placar / status / contagem de qualquer coisa
+
+❌ TEXTO DIRETO (tabela seria ruído):
+   - Confirmação curta ("feito", "sim", "commit abc123")
+   - Resposta de 1 linha a pergunta fechada
+   - A pergunta única no final da mensagem
+```
+
+**Elementos obrigatórios quando a tabela se aplica:**
+
+| Elemento | Uso |
+|---|---|
+| **Emoji por linha ou por seção** | Identifica o tipo (🔧 execução · 🛡️ framework · 📋 mapeamento · 🎯 decisão · 🕳️ buraco) |
+| **Semáforo** | 🔴 crítico · 🟡 médio/atenção · 🟢 ok/resolvido · ⏳ aberto · ✅ feito · ❌ recusado |
+| **Numeração global** | Quando houver várias tabelas relacionadas, a numeração atravessa todas — nunca reinicia |
+| **Cabeçalho descritivo** | Nunca "Item / Valor" — sempre o que a coluna realmente é |
+
+**PROIBIDO:**
+- Apresentar decisão, achado ou análise em texto corrido
+- Tabela de 1 linha só para dizer "ok" — isso é o ruído que a regra existe pra evitar
+- Omitir o semáforo em tabela de status
+- Reiniciar numeração entre tabelas do mesmo assunto
+
+**Por que existe o limiar (aprendizado do erro da BLOCO 0-K):** a regra da linha de auditoria virou ruído porque disparava sempre, sem proporção — o Felipe mandou desligar (*"aí eu fico doido você colocando isso toda hora"*). Uma regra de formatação sem limiar morre do mesmo jeito. O limiar é o que faz esta regra sobreviver.
+
+**Origem (30/08/2026):** o Felipe observou que o @analyst vinha organizando tudo em tabelas com emoji, de forma detalhada e visualmente estruturada, e pediu que virasse regra para todos os agentes — *"toda conversa, ação; toda interação que eu tiver com qualquer agente existente ou futuro deve seguir essa mesma organização visual"*. O limiar foi proposto pelo próprio @analyst e aprovado por ele.
+
+**Esta regra se aplica a TODOS os agentes e squads do AIOX — atuais, futuros, e vindos de atualizações oficiais do repositório `SynkraAI/aiox-core` — sem exceção.**
 
 ---
 

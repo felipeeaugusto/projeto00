@@ -1683,4 +1683,117 @@ atualizações oficiais do repositório SynkraAI/aiox-core — sem exceção.
 
 ---
 
-*Última atualização: 2026-08-30 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 53 — BLOCO 0-AE — Organização visual obrigatória com limiar
+
+**Data de aprovação:** 2026-08-30
+**Problema resolvido:** durante a sessão do Solucionador, o Felipe reparou que o @analyst vinha organizando tudo em tabelas com emoji e semáforo, de forma detalhada e visualmente estruturada, e que isso fazia diferença real na compreensão dele. Pediu que virasse regra para todos os agentes: *"toda conversa, ação; toda interação que eu tiver com qualquer agente existente ou futuro deve seguir essa mesma organização visual"*. **O risco identificado antes de implementar:** uma regra "sempre tabela" quebraria do mesmo jeito que a linha de auditoria da BLOCO 0-K — que virou ruído por disparar sem proporção, até o Felipe mandar desligar (*"aí eu fico doido você colocando isso toda hora"*). Uma tabela de 1 linha para dizer "ok" é exatamente esse ruído.
+**O que faz:** torna tabela obrigatória (com emoji + semáforo) para decisão, achado, análise, plano, diagnóstico, comparação ou qualquer resposta com 3+ itens comparáveis — e explicitamente **dispensa** tabela em confirmação curta, resposta de 1 linha e na pergunta final da mensagem. O limiar é o que faz a regra sobreviver em vez de ser desligada em duas semanas.
+**Onde implementar:** `.claude/CLAUDE.md` — nova BLOCO 0-AE, logo após a BLOCO 0-AD.
+**Regra:**
+```
+✅ TABELA OBRIGATÓRIA (emoji + semáforo 🔴🟡🟢):
+   - 3+ itens comparáveis
+   - QUALQUER decisão, achado, análise, plano, diagnóstico
+   - Comparação entre alternativas · placar · status · contagem
+
+❌ TEXTO DIRETO:
+   - Confirmação curta ("feito", "sim", "commit abc123")
+   - Resposta de 1 linha a pergunta fechada
+   - A pergunta única no final da mensagem
+
+Elementos obrigatórios: emoji por linha/seção · semáforo (🔴 crítico,
+🟡 médio, 🟢 ok, ⏳ aberto, ✅ feito, ❌ recusado) · numeração global
+atravessando tabelas relacionadas · cabeçalho descritivo real.
+
+PROIBIDO: decisão em texto corrido · tabela de 1 linha pra dizer "ok" ·
+omitir semáforo em tabela de status · reiniciar numeração no mesmo assunto.
+```
+
+---
+
+## CUSTOMIZAÇÃO 54 — BLOCO 0-Y PASSO 2-B — Retomada automática após ausência longa
+
+**Data de aprovação:** 2026-08-30
+**Problema resolvido:** a BLOCO 0-Y só dispara quando o Felipe escreve literalmente "momento de pausa". Mas ele se ausenta com frequência **sem avisar** — sai para outra tarefa e volta horas depois. Ao voltar, encontrava um "aguardando decisão" mudo, sem contexto, e precisava reconstruir sozinho onde estava. Ele propôs que, após 30 minutos sem interação, o sistema entrasse sozinho em modo de pausa. **Ajuste técnico necessário:** entre as mensagens do Felipe, o agente não roda — não existe cronômetro em background. A versão que funciona sem infraestrutura nova é detectar a ausência **na volta**, comparando o horário da mensagem nova com o da anterior.
+**O que faz:** antes de responder qualquer mensagem, o agente compara o horário dela com o da mensagem anterior do Felipe. Se passaram mais de 30 minutos, abre a resposta com o quadro completo dos 5 blocos do Estado B (Customização 52) **antes** de responder o que foi pedido. O Felipe não precisa pedir — o agente reconhece a ausência e devolve o contexto sozinho.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-Y, novo PASSO 2-B, entre os PASSOS 2 e 3.
+**Regra:**
+```
+Antes de responder qualquer mensagem do Felipe, comparar o horário dela
+com o da mensagem anterior dele. SE passaram mais de 30 minutos:
+→ Abrir a resposta com o quadro dos 5 blocos do Estado B, ANTES de
+  responder o que ele pediu.
+→ Vale MESMO SEM ele ter dito "momento de pausa" antes.
+
+⚠️ Isso NÃO faz o fluxo avançar sem ele. O agente esperou parado o tempo
+todo — este passo é só reorientação na volta.
+```
+**Decisão relacionada, registrada junto (RECUSA explícita do Felipe, 30/08/2026):** foi proposto que, quando ele não pudesse decidir num portão, o item voltasse pra fila e o fluxo seguisse pro próximo item. **Recusado:** *"eu prefiro deixar a mensagem esperando até eu ver, do que o fluxo seguir — até para eu não me perder"*. Custo aceito: tempo ocioso. Custo evitado: perder o fio em dezenas de itens.
+
+---
+
+## CUSTOMIZAÇÃO 55 — BLOCO 0-X — Modo Navegador é execução exclusiva do @dev
+
+**Data de aprovação:** 2026-08-31
+**Problema resolvido:** a BLOCO 0-X terminava com *"esta regra se aplica a TODOS os agentes atuais e futuros, de todos os squads — sem exceção"*, o que contradizia diretamente a `agent-authority.md`, onde execução é escopo do @dev. Na prática sempre foi o @dev — mas o texto autorizava qualquer agente, e ninguém tinha notado a contradição.
+**O que faz:** separa o **gatilho** (que qualquer agente reconhece) da **execução** (que é só do @dev). Se outro agente receber o gatilho "Modo Navegador", ele reconhece e delega ao @dev, perguntando antes (BLOCO 0-D). Documenta também por que o @qa **não** tem acesso ao navegador de propósito: quando ele precisar verificar algo na tela (`*evidence-check`), quem roda é o @dev e o que vale é a **saída bruta da ferramenta**, não o resumo escrito pelo @dev. Quem produz a evidência nunca pode ser quem a julga — é o antídoto direto do padrão B4/B5 (empurrar verificação, buraco só aparecer quando o Felipe pergunta).
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-X, substituindo a cláusula final.
+**Regra:**
+```
+Gatilho: qualquer agente reconhece "Modo Navegador".
+Execução: SEMPRE o @dev, e só ele. Vale a agent-authority.md.
+Outro agente recebe o gatilho → reconhece → delega ao @dev (BLOCO 0-D).
+
+@qa NÃO tem acesso ao navegador, de propósito:
+  @dev roda → saída bruta da ferramenta fica registrada →
+  @qa audita a SAÍDA, nunca o resumo do @dev.
+
+Os 4 documentos de processo continuam sendo do @dev:
+  modo-navegador-browser-access.md
+  mapeamento-skus-ads-catalogo-mercadolivre.md
+  mapeamento-pausados-campanha-mercadolivre.md
+  analise-acos-catalogo-mercadolivre.md
+```
+
+---
+
+## CUSTOMIZAÇÃO 56 — BLOCO 0-U REGRA 5 — Nunca duas frentes disputando o mesmo executor e recurso
+
+**Data de aprovação:** 2026-08-31
+**Problema resolvido:** duas frentes de trabalho diferentes podem precisar do **mesmo agente** e do **mesmo recurso exclusivo** sem ninguém perceber. O caso real: a validação da planilha `Analise Oficial.xlsx` (roda por horas, usa o @dev e o Chrome do Modo Navegador) e o trabalho de consertar buracos do framework (também aciona o @dev, às vezes também o Chrome). O @analyst escreveu no plano que as duas poderiam correr **"em paralelo"** — depois de, na mesma sessão, ter **rejeitado o `wave-executor` justamente por disputa de recurso compartilhado**. Contradição direta, pega pelo Felipe: *"como que o dev vai continuar analisando a planilha se ele for acionado pelo Solucionador? Aí caga tudo não?"*. Caga sim — é literalmente o incidente de 19/08/2026 (2 processos brigando pela mesma aba do Chrome, 4 linhas de dados corrompidas em silêncio, sem erro visível).
+**O que faz:** obriga a checar, antes de iniciar qualquer frente de trabalho longa, se outra frente já está ativa disputando o mesmo executor (o @dev é um só) ou o mesmo recurso exclusivo (Chrome, arquivo compartilhado). Se houver disputa, para e pergunta ao Felipe — nunca decide sozinho qual frente tem prioridade, e nunca roda as duas. A troca entre frentes só acontece em fronteira limpa.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-U, nova REGRA 5.
+**Regra:**
+```
+PASSO 1: Identificar os recursos exclusivos que a frente nova precisa
+         → Agente executor (o @dev é um só)
+         → Chrome do Modo Navegador (1 instância, 1 porta, 1 perfil)
+         → Arquivo compartilhado (Analise Oficial.xlsx, JSONs de estado)
+PASSO 2: Checar trava ativa (.reprocessar.lock, processo Chrome com
+         ChromeDebugKarzen no CommandLine — ver REGRA 3)
+PASSO 3: SE houver disputa → PARAR e perguntar ao Felipe
+PASSO 4: Trocar de frente só em FRONTEIRA LIMPA:
+         → Fim de um lote de 20-25 linhas processadas
+         → Fim de uma tarefa/parte concluída e assinada pelo Felipe
+
+PROIBIDO: iniciar frente nova sem checar · assumir que "são coisas
+diferentes, não vão se atrapalhar" · trocar no meio de um lote.
+```
+
+---
+
+## CUSTOMIZAÇÃO 57 — `agent-authority.md` — @aiox-master pode `git commit` (nunca `git push`)
+
+**Data de aprovação:** 2026-08-31
+**Problema resolvido:** o Felipe perguntou diretamente *"quem comita não é o dev? Ou é vc tbm?"*. A checagem revelou uma contradição real entre documentos: a **BLOCO 0-M** nomeia o @aiox-master explicitamente na lista de agentes obrigados a "commitar imediatamente após gerar arquivo", e a **BLOCO 3 (PASSO 4)** manda o agente ativo fazer `add`/`commit` — mas a tabela de escopo em `agent-authority.md` listava `git add`/`git commit` **só na linha do @dev**. Na prática o @aiox-master já commitava (correto pelas duas BLOCOs); a tabela é que estava desatualizada.
+**O que faz:** acrescenta 2 linhas na tabela do @aiox-master em `agent-authority.md` — uma autorizando `git add`/`git commit` dos próprios outputs de framework, com a justificativa e a data; outra reforçando que `git push` continua **proibido e exclusivo do @devops**.
+**Onde implementar:** `.claude/rules/agent-authority.md` — tabela da seção `### @aiox-master (Orion) — Governança do Framework`.
+**Regra:**
+```
+| `git add` / `git commit` dos próprios outputs de framework | SIM |
+| `git push`                                                 | PROIBIDO — sempre @devops |
+```
+
+---
+
+*Última atualização: 2026-08-31 — Orion (@aiox-master)*

@@ -154,6 +154,8 @@ Exceção única: BLOCO 0-B (hook bloqueia tool call) → auto-correção técni
 | Criar/modificar agentes, tasks, workflows, checklists | Escopo de framework — SIM |
 | Atualizar CLAUDE.md, agent-authority.md, hooks, settings.json | Escopo de framework — SIM |
 | Orquestrar fluxos e identificar agente correto | Escopo de framework — SIM |
+| `git add` / `git commit` dos próprios outputs de framework | **SIM** — a BLOCO 0-M nomeia o @aiox-master explicitamente ("todo arquivo gerado deve ser commitado imediatamente") e a BLOCO 3 (PASSO 4) manda o agente ativo commitar. Esta linha só faltava na tabela (corrigido 31/08/2026) |
+| `git push` | **PROIBIDO — sempre @devops**, sem exceção |
 | **Copy, HTML, código, criativos, diagnóstico, render de imagens** | **PROIBIDO — delegar SEMPRE, sem exceção, mesmo com urgência** |
 | **"Vou fazer rápido porque é urgente"** | **PROIBIDO — urgência NUNCA justifica fazer trabalho de outro agente** |
 
