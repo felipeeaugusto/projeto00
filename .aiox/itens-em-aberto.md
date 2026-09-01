@@ -106,33 +106,87 @@ Lista leve e incremental de coisas discutidas em conversa mas ainda não formali
 
 ## Os 17 buracos do Solucionador (D1-D17)
 
-> Buracos do **próprio desenho** do Solucionador, achados em busca sistemática (30-31/08/2026). O @analyst tinha apresentado 2; a busca achou 16; o Felipe achou o 17º. Placar: **4 fechados, 13 abertos**.
+> Buracos do **próprio desenho** do Solucionador, achados em busca sistemática (30-31/08/2026). O @analyst tinha apresentado 2; a busca achou 16; o Felipe achou o 17º. **Placar após a etapa 3.2 da FASE 3 (01/09/2026): 16 fechados, 1 aberto.**
+>
+> **O mecanismo que fechou 4 de uma vez — a CADEIA DE ARTEFATOS:** cada portão produz um artefato verificável, e o portão seguinte **se recusa a começar** se o artefato anterior não existir. O modelo veio do @po, que não *diz* que validou — ele muda o status da story de `Draft` para `Ready` no arquivo, e dá `HALT` se o estado real não bater. Artefatos por portão: 1 Finch = registro de triagem · 2 Alan = evidências com `[SOURCE:]` (mín. 15) · 3 Pedro = `ARTEFATOS_READY` · 4 @po = status `Draft`→`Ready` (já existe) · 5 @dev = 3 bugs + 3 edge cases no Dev Notes · 6-8 @qa = arquivo de gate com veredito · 9 Felipe = mensagem aprovando.
 
 ### Categoria A — Erros que o desenho não pega
 
-- [31/08/2026] **D1 — Qualidade de julgamento em domínio novo** — ⏳ ABERTO. Nenhum dos 9 portões pergunta "essa análise está certa?". Cobrem processo, não conteúdo.
-- [31/08/2026] **D2 — Erro inédito de conteúdo** — ⏳ ABERTO. Só a BLOCO 0-AD pega, e ela é do pipeline Karzen, não do Solucionador.
-- [31/08/2026] **D3 — O conserto de um buraco quebra outro** — ⏳ ABERTO. O @qa checa regressão dentro da story; ninguém checa entre stories.
-- [31/08/2026] **D4 — Dois buracos que se contradizem** — ⏳ ABERTO. Ninguém compara os consertos entre si antes de aplicar.
+- [01/09/2026] **D1 — Qualidade de julgamento em domínio novo** — ✅ **LIMITADO** (não silencioso). Não dá pra verificar julgamento por processo. Mas dá pra impedir que julgamento não validado vire regra: conclusão em domínio novo nasce marcada `não validado` e **não pode virar regra** até um evento real confirmar. Complemento: a etapa 9 do @po (Anti-Hallucination Verification, ver E22) ataca parte disso antes de qualquer código entrar.
+- [01/09/2026] **D2 — Erro inédito de conteúdo** — ✅ FECHADO. O **Portão 0** (classificador) generaliza a BLOCO 0-AD: ela deixa de ser só do pipeline Karzen e passa a valer pro Solucionador inteiro. Padrão que não bate com nada conhecido → estado 3, para e chama o Felipe.
+- [01/09/2026] **D3 — O conserto de um buraco quebra outro** — ✅ FECHADO. Cada story tem `File List`. Cruzar as File Lists entre itens da fila: se dois tocam o mesmo arquivo, ficam ligados e o @qa checa regressão cruzada, não só dentro da própria story.
+- [01/09/2026] **D4 — Dois buracos que se contradizem** — ✅ FECHADO. Mesma raiz do D3. Na ordenação da fila (etapa 5.1), itens que tocam o mesmo arquivo ou a mesma regra são marcados como **decidir juntos**, nunca separadamente.
 
 ### Categoria B — O desenho falhando em si mesmo
 
-- [31/08/2026] **D5 — Um agente dizer que passou pelo portão sem ter passado** — 🔴 ABERTO, **o mais grave**. Os 9 portões são texto. É a doença central desta sessão: 86 ofertas de handoff, 74 sem a linha de auditoria exigida, **zero bloqueios**. Solução desenhada (não implementada): **prova por evento real** — portão só conta como passado se houver evidência real (chamada de ferramenta que aconteceu, mensagem do Felipe aprovando), nunca texto que o agente escreve.
+- [01/09/2026] **D5 — Um agente dizer que passou pelo portão sem ter passado** — ✅ FECHADO pela **cadeia de artefatos** (ver nota acima) + **recusa de partida**: nenhum agente começa sem o artefato do anterior. O comando `status` conta artefatos esperados vs existentes e mostra a lacuna. **Não depende de confiança** — o artefato existe ou não existe. Era o mais grave dos 17: 86 ofertas de handoff na sessão, 74 sem a linha de auditoria exigida, zero bloqueios.
 - [31/08/2026] **D6 — A triagem do Finch classificar errado** — ✅ FECHADO pela **escalada assimétrica** (ver E12).
-- [31/08/2026] **D7 — O veto do Finch estar errado** — ⏳ ABERTO. Arquivar um buraco real e ninguém nunca mais olhar.
-- [31/08/2026] **D8 — Quem vigia o Solucionador** — ✅ FECHADO. A torre de vigias é infinita se a resposta for "outro vigia"; ela só para em algo **fora da máquina** — o Felipe, digitando o comando `status` com os próprios dedos (Camada 0, ver E6), porque isso não pode falhar em silêncio. Complemento para o meio da sessão: batimento cardíaco (E7).
-- [31/08/2026] **D9 — Ausência temporária do Felipe** — ✅ FECHADO pela recusa do E8: o fluxo **espera**, não avança sem ele. Complemento aprovado: retomada automática na volta se passou mais de 30 min (extensão da BLOCO 0-Y).
+- [01/09/2026] **D7 — O veto do Finch estar errado** — ✅ FECHADO. Item vetado **não some**: vai pra lista visível de arquivados, com o motivo. O comando `status` mostra a contagem, e o post-mortem relê os vetados periodicamente.
+- [31/08/2026] **D8 — Quem vigia o Solucionador** — ✅ FECHADO. A torre de vigias é infinita se a resposta for "outro vigia"; ela só para em algo **fora da máquina** — o Felipe digitando `status` com os próprios dedos (Camada 0, ver E6), porque isso não pode falhar em silêncio. Complemento para o meio da sessão: batimento cardíaco (E7).
+- [31/08/2026] **D9 — Ausência temporária do Felipe** — ✅ FECHADO pela recusa do E8: o fluxo **espera**, não avança sem ele. Complemento: retomada automática na volta se passou mais de 30 min (BLOCO 0-Y, PASSO 2-B, já implementado).
 
 ### Categoria C — Condições de contorno
 
-- [31/08/2026] **D10 — Contexto acabar no meio de um ciclo** — ⏳ ABERTO. Não há estado persistido; a BLOCO 0-G reativa o agente mas não sabe em qual portão parou.
-- [31/08/2026] **D11 — A fila crescer mais rápido que o conserto** — ⏳ ABERTO. Evidência real: 16 → 23 → 35 → 37 → 42 partes; 7 → 10 → 19 buracos. Mitigação parcial: o contador aparece no comando `status`.
-- [31/08/2026] **D12 — Felipe mudar de ideia no meio do ciclo** — ⏳ ABERTO. Como o ciclo absorve isso sem virar bagunça.
-- [31/08/2026] **D13 — O buraco mudar enquanto está na fila** — ⏳ ABERTO. Página do Mercado Livre muda, código muda; achado velho vira falso.
-- [31/08/2026] **D14 — Não existir agente dono da tarefa** — ⏳ ABERTO. Trava sem saída definida.
+- [01/09/2026] **D10 — Contexto acabar no meio de um ciclo** — ✅ FECHADO pela **mesma cadeia de artefatos do D5**: se o contexto morrer, a sessão seguinte lê os artefatos em disco e sabe exatamente qual foi o último portão passado. Uma solução fechou 2 buracos.
+- [01/09/2026] **D11 — A fila crescer mais rápido que o conserto** — ✅ **VISÍVEL** (não silencioso). Não dá pra impedir o crescimento — dá pra medir. O `status` mostra o tamanho da fila; se crescer N sessões seguidas, vira alerta. O veto do Finch é a válvula de escape. Evidência real do crescimento: 16 → 23 → 35 → 37 → 42 partes; 7 → 10 → 17 buracos; 20 → 30 itens soltos.
+- [01/09/2026] **D12 — Felipe mudar de ideia no meio do ciclo** — ✅ FECHADO. O ciclo aceita **reset** dele em qualquer ponto: o item volta pra FASE 0 com a premissa nova. Barato, porque a triagem é barata.
+- [01/09/2026] **D13 — O buraco mudar enquanto está na fila** — ✅ FECHADO. Item que depende de estado externo (página do Mercado Livre) ganha **validade**. Se o registro for mais velho que o limite, re-verificar antes de agir. É o B10 aplicado (dado do ML sempre com o horário da leitura).
+- [01/09/2026] **D14 — Não existir agente dono da tarefa** — ✅ FECHADO. A etapa **1.1** do @po (Executor Assignment Validation, ver E22) já valida atribuição de executor. Se nenhum agente serve → **estado 3**, para e pergunta ao Felipe.
 
 ### Categoria D — Conflito com o que já existe
 
-- [31/08/2026] **D15 — O Solucionador conflitar com as 37 BLOCOs** — ⏳ ABERTO. Já aconteceu com o CENÁRIO 1 (4 conflitos, um deles com hook técnico). Ver E3.
-- [31/08/2026] **D16 — Custar caro demais e ser abandonado** — 🔴 ABERTO. **É exatamente como morreram as 3 camadas de proteção**: existem, estão instaladas, ninguém usa. Mitigação parcial: a triagem em 4 trilhas (nem todo problema paga o ciclo completo).
-- [31/08/2026] **D17 — Planilha e Solucionador disputando o mesmo @dev e o mesmo Chrome** — ✅ FECHADO pelo **modelo de alternância** (ver E16). **Achado pelo Felipe**, não pela busca sistemática.
+- [31/08/2026] **D15 — O Solucionador conflitar com as 37 BLOCOs** — ⏳ **O ÚNICO AINDA ABERTO.** Fecha na etapa 3.5 da FASE 3, que é justamente cruzar o desenho inteiro contra as 37 BLOCOs e as 57 customizações. Já aconteceu com o CENÁRIO 1 (4 conflitos, um deles com hook técnico que barraria de verdade). Ver E3.
+- [01/09/2026] **D16 — Custar caro demais e ser abandonado** — ✅ FECHADO por 3 frentes. **(a) Custo proporcional:** a trilha 🟢 é só 2 agentes (@dev + @qa) — mais barato que o ad-hoc atual, que gerou os erros desta sessão inteira. **(b) Visibilidade forçada:** o comando `status`, que o Felipe digita, mostra se o Solucionador foi usado — abandono vira visível no dia seguinte. **(c) Orçamento de ciclo:** 6 / 15 / 30 interações por trilha (ver E23); passou disso, escala pro Felipe no formato do estado 3. Não garante que ele vai usar — **garante que parar de usar não passa em silêncio**. É o buraco que matou as 3 camadas de proteção.
+- [31/08/2026] **D17 — Planilha e Solucionador disputando o mesmo @dev e o mesmo Chrome** — ✅ FECHADO pelo **modelo de alternância** (ver E16), agora também implementado como BLOCO 0-U REGRA 5. **Achado pelo Felipe**, não pela busca sistemática.
+
+---
+
+## Itens soltos da FASE 3 do Solucionador — 31/08 a 01/09/2026 (E21-E30)
+
+> Criados durante as etapas 3.1 a 3.4 da FASE 3 (fechar o desenho do Solucionador). Nenhum estava em arquivo até este commit — o que é, em si, o E29 acontecendo: a BLOCO 2-B manda registrar na hora, mas o agente que descobriu (@analyst) não tem permissão de escrita desde a decisão de 28/08/2026.
+
+- [01/09/2026] analyst — **E21 — Drift entre `story-lifecycle.md` e `validate-next-story.md`**: a regra (`.claude/rules/story-lifecycle.md`) descreve a validação do @po como "checklist de 10 pontos" com uma lista conceitual (título claro, descrição completa, critérios testáveis...). A task real que o @po executa (`.aiox-core/development/tasks/validate-next-story.md`) tem **11 etapas** (0 a 11) com conteúdo completamente diferente (Template Completeness, Executor Assignment, File Structure, UI/Frontend, Acceptance Criteria, Testing, Security, Tasks Sequence, CodeRabbit, Code Intelligence, Anti-Hallucination, Dev Readiness). **As duas listas não batem.** O "10" da regra é a escala do *Implementation Readiness Score* (1-10, GO ≥7), não a quantidade de itens. Arquivos: `.claude/rules/story-lifecycle.md`, `.aiox-core/development/tasks/validate-next-story.md`
+
+- [01/09/2026] analyst — **E22 — 3 etapas do @po nunca aproveitadas, que atacam buracos conhecidos**: (1) etapa **9 — Anti-Hallucination Verification**: checa invenção antes de codar — ataca direto o padrão B4/B5 e parte do D1; (2) etapa **1.1 — Executor Assignment Validation**: valida se a tarefa tem executor certo — liga no D14 e na triagem em trilhas; (3) etapa **8.1 — Code Intelligence: No Duplicate Functionality**: liga direto na BLOCO 0-AA (nunca reimplementar seletor validado). As 3 existem, estão escritas, e nunca foram usadas. Arquivo: `.aiox-core/development/tasks/validate-next-story.md`
+
+- [01/09/2026] analyst — **E23 — Orçamento de ciclo do Solucionador (RESOLVIDO por decisão do Felipe, 01/09)**: mitigação do D16 (custar caro e ser abandonado). Se um ciclo passar do orçamento, o sistema avisa no formato do estado 3 — *"esse ciclo já está na interação N, o esperado era M. Continua, ajusta ou para?"*. Não trava nada, só torna o custo visível **antes** do Felipe abandonar em silêncio. **Números decididos por trilha:** 🟢 rápida = **6** · 🟡 média = **15** · 🔵 completa = **30** interações (1 interação = mensagem do Felipe + resposta).
+
+- [01/09/2026] analyst — **E24 — 3 hooks em disco fora do `settings.json`**: `code-intel-pretool.cjs`, `precompact-session-digest.cjs` e `synapse-engine.cjs` existem em `.claude/hooks/` mas não aparecem no `settings.json`. Os 2 últimos provavelmente são chamados pelos respectivos wrappers (`precompact-wrapper.cjs`, `synapse-wrapper.cjs`) — **o `code-intel-pretool.cjs` precisa ser checado**, pode estar genuinamente morto. **Correção de um achado anterior:** durante a mesma investigação o @analyst chegou a afirmar que o `check-selector-reuse.js` não estava registrado — **está**, no mesmo matcher `Edit|Write|NotebookEdit` do `check-agent-scope.js`. Os 4 hooks de enforcement estão todos registrados. Arquivos: `.claude/hooks/`, `.claude/settings.json`
+
+- [01/09/2026] analyst — **E25 — `.current-agent` dessincronizado ao vivo**: durante a etapa 3.3, o arquivo dizia `devops` enquanto o @analyst respondia — o Gage tinha feito o push e a transformação de volta pro Atlas não atualizou o marcador. Corrigido na hora, mas **nenhum mecanismo pegou** — foi achado por acaso, ao inspecionar o arquivo pra outro fim. É a BLOCO 0-AC falhando em produção. O comando `status` (Camada 0) passa a mostrar esse campo. Arquivo: `.claude/.current-agent`
+
+- [01/09/2026] analyst — **E26 — "O Solucionador é fluxo, nunca agente" (regra estrutural do desenho)**: proibido qualquer agente incorporar os frameworks dos outros e escrever a visão deles. Cada persona é ativada de verdade (BLOCO 0-AC): arquivo de definição carregado, saudação visível, `.current-agent` atualizado, e o Felipe vê cada uma aparecer. **O bug que originou:** o @analyst lia os arquivos do trio e escrevia "⚙️ Pedro Valério: ...", "🧠 Alan Nicolas: ...", "🎯 Thiago Finch: ..." — depois concluía "convergência total". Claro que convergia: era a mesma cabeça escrevendo os 3. O Felipe pegou perguntando *"como o Pedro, o Alan e o Finch estão dando a resposta se eles não estão sendo ativados?"*. Precisa estar **explícito** no documento da FASE 4.1.
+
+- [01/09/2026] analyst — **E27 — Cota obrigatória de discordância (APROVADA pelo Felipe, 01/09)**: todo agente que recebe artefato do anterior é obrigado a produzir **no mínimo 1 objeção concreta**, OU listar explicitamente os checks que fez e não acharam nada (ex: *"conferi: 15/15 citações com fonte, 6 signature phrases, 0 inferências não marcadas. Aceito"*). **Concordância sem check listado é proibida.** Mesmo padrão da autocrítica obrigatória do @dev (3 bugs + 3 edge cases), que funciona por ser checável. Silêncio deixa de ser resposta válida.
+
+- [01/09/2026] analyst — **E28 — Detector de convergência suspeita (APROVADO pelo Felipe, 01/09)**: inverte o sinal da convergência. Antes: 3 agentes concordando = 🟢 validação. Agora: **3 agentes com ZERO objeções = 🔴 alerta**, e dispara post-mortem obrigatório — ou o problema era trivial, ou ninguém olhou de verdade. Ataca direto a frase que o Alan escreveu na Parte 13: *"os 4 convergimos e a convergência estava errada — convergência se sentiu como validação, e não era."* Agora ela não pode se sentir como validação.
+
+- [01/09/2026] analyst — **E29 — BLOCO 2-B é inexecutável por 8 dos 11 agentes (APROVADA a correção pelo Felipe, 01/09)**: a BLOCO 2-B manda o agente ativo registrar pendências **imediatamente** ("PROIBIDO continuar a conversa sem registrar primeiro"). Mas a decisão do Felipe de 28/08/2026 permite escrita apenas ao @aiox-master, @dev e @devops. **@analyst, @qa, @architect, @sm, @po, Finch, Alan e Pedro não conseguem cumprir uma regra marcada como inegociável** — não por esquecimento, por impossibilidade. Foi o que produziu os 10 itens não registrados desta fase. **Correção aprovada, em 2 níveis:** (a) achado que **NÃO** muda o rumo → agente marca `📌 REGISTRAR: [item]` visível na própria resposta, e o próximo agente com permissão de escrita esvazia a fila **antes** de qualquer outra coisa; (b) achado que **MUDA o rumo** (invalida decisão, desenho ou algo já construído) **ou em dúvida** → **PARA o fluxo na hora**, chama quem registra, registra, e só depois continua. Regra de desempate: em dúvida, trata como se mudasse o rumo (mesma lógica da escalada assimétrica). Folga prática: vários achados no mesmo momento = uma parada só. **Prova de que a correção era necessária:** aplicando o critério aos 10 itens desta fase, **7 deveriam ter parado o fluxo. Nenhum parou.** Arquivo: `.claude/CLAUDE.md` (BLOCO 2-B)
+
+- [01/09/2026] analyst — **E30 — Auditar TODAS as regras anteriores a 28/08/2026 que assumem que o agente ativo escreve**: o A3 (`project-log.md` mandando o agente ativo atualizar o caderno) e o E29 (BLOCO 2-B) são **2 casos confirmados** da mesma família — regras escritas antes da decisão dos 3 agentes, que pressupõem permissão de escrita universal. É improvável que sejam só 2. Precisa varredura do `CLAUDE.md`, das `.claude/rules/*` e do `MANUAL.md` procurando toda instrução do tipo "o agente ativo registra/atualiza/escreve". Arquivos: `.claude/CLAUDE.md`, `.claude/rules/`, `CUSTOMIZACOES-FELIPE/MANUAL.md`
+
+---
+
+## Decisões do Felipe — 31/08 a 01/09/2026 (10 decisões)
+
+> Todas tomadas em conversa durante a FASE 3, nenhuma em arquivo até este commit.
+
+- [31/08/2026] **DEC-1 — Comando `status`: digita só a palavra**: sem prefixo, sem `>`, sem símbolo. O `▶️` que aparecia no desenho da rotina era só uma seta apontando a linha, não algo pra digitar. Arquivo/local: spec da Camada 0 (E6)
+
+- [31/08/2026] **DEC-2 — Criar os 2 arquivos do `status` (opção 🆎)**: `status.cmd` (para cmd.exe, onde basta digitar `status`) **e** `status` (script sh para Git Bash, onde se digita `./status`). Motivo: a rotina do Felipe começa com `cmd + r` e usa barra invertida (`cd packages\karzen`, jeito de cmd), mas o CLAUDE.md pessoal dele diz Git Bash — criar os dois elimina a chance de ele digitar e não funcionar. Executor: @dev, na FASE 4.3
+
+- [31/08/2026] **DEC-3 — Parar e registrar antes de seguir (opção 🅰️)**: quando itens não registrados se acumulam, parar o avanço das etapas e registrar, em vez de apostar que nada se perde até o fim. Motivo do Felipe: foi exatamente essa aposta que criou o B10
+
+- [31/08/2026] **DEC-4 — Conceito da marca `📌 REGISTRAR:` aprovado**: agente sem permissão de escrita torna o item visível na própria resposta, em vez de deixá-lo só na conversa
+
+- [31/08/2026] **DEC-5 — Achado que muda o rumo PARA o fluxo na hora (correção do Felipe à DEC-4)**: marcar e seguir só serve pra achado que não muda o rumo. Se o achado invalida uma premissa, tudo construído depois está errado. Palavras dele: *"se um achado mexe no projeto inteiro, o fluxo vai continuar (errado porque o achado que não foi registrado) foi deixado só pra quando o agente que registra for ativado. Isso é loucura total"*. Virou o nível (b) do E29
+
+- [01/09/2026] **DEC-6 — E27 aprovado** (cota obrigatória de discordância)
+
+- [01/09/2026] **DEC-7 — E28 aprovado** (detector de convergência suspeita)
+
+- [01/09/2026] **DEC-8 — E29 aprovado na forma final** (2 níveis: marca vs para o fluxo)
+
+- [01/09/2026] **DEC-9 — Sub-agentes continuam fechados**: a ferramenta de sub-agente roda instância realmente separada, e resolveria o limite de "não são processos separados". Mas o Felipe manteve a proibição da BLOCO 0-AC. Motivo (recomendação do @analyst, aceita por ele): o que se perde — visibilidade e poder de interromper no meio — é maior que o que se ganha, e reabriria o risco do agente fantasma do incidente de 19/08/2026. **O limite fica registrado como fato estrutural conhecido, não como buraco aberto** — o E27 e o E28 fazem ele deixar de importar na prática
+
+- [01/09/2026] **DEC-10 — Orçamento de ciclo: 6 / 15 / 30** (ver E23)
