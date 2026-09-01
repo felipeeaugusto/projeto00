@@ -106,7 +106,7 @@ Lista leve e incremental de coisas discutidas em conversa mas ainda não formali
 
 ## Os 17 buracos do Solucionador (D1-D17)
 
-> Buracos do **próprio desenho** do Solucionador, achados em busca sistemática (30-31/08/2026). O @analyst tinha apresentado 2; a busca achou 16; o Felipe achou o 17º. **Placar após a etapa 3.2 da FASE 3 (01/09/2026): 16 fechados, 1 aberto.**
+> Buracos do **próprio desenho** do Solucionador, achados em busca sistemática (30-31/08/2026). O @analyst tinha apresentado 2; a busca achou 16; o Felipe achou o 17º. **Placar após a etapa 3.5 da FASE 3 (01/09/2026): 17 fechados, 0 abertos.**
 >
 > **O mecanismo que fechou 4 de uma vez — a CADEIA DE ARTEFATOS:** cada portão produz um artefato verificável, e o portão seguinte **se recusa a começar** se o artefato anterior não existir. O modelo veio do @po, que não *diz* que validou — ele muda o status da story de `Draft` para `Ready` no arquivo, e dá `HALT` se o estado real não bater. Artefatos por portão: 1 Finch = registro de triagem · 2 Alan = evidências com `[SOURCE:]` (mín. 15) · 3 Pedro = `ARTEFATOS_READY` · 4 @po = status `Draft`→`Ready` (já existe) · 5 @dev = 3 bugs + 3 edge cases no Dev Notes · 6-8 @qa = arquivo de gate com veredito · 9 Felipe = mensagem aprovando.
 
@@ -135,7 +135,7 @@ Lista leve e incremental de coisas discutidas em conversa mas ainda não formali
 
 ### Categoria D — Conflito com o que já existe
 
-- [31/08/2026] **D15 — O Solucionador conflitar com as 37 BLOCOs** — ⏳ **O ÚNICO AINDA ABERTO.** Fecha na etapa 3.5 da FASE 3, que é justamente cruzar o desenho inteiro contra as 37 BLOCOs e as 57 customizações. Já aconteceu com o CENÁRIO 1 (4 conflitos, um deles com hook técnico que barraria de verdade). Ver E3.
+- [01/09/2026] **D15 — O Solucionador conflitar com as 37 BLOCOs** — ✅ **FECHADO na etapa 3.5.** O cruzamento completo foi feito: 25 BLOCOs compatíveis, 8 precisando ajuste, 4 em conflito real que impediria o funcionamento. Todos nomeados, com correção desenhada e aprovada pelo Felipe (ver E31, E32, DEC-11, DEC-12). Implementação na FASE 4.
 - [01/09/2026] **D16 — Custar caro demais e ser abandonado** — ✅ FECHADO por 3 frentes. **(a) Custo proporcional:** a trilha 🟢 é só 2 agentes (@dev + @qa) — mais barato que o ad-hoc atual, que gerou os erros desta sessão inteira. **(b) Visibilidade forçada:** o comando `status`, que o Felipe digita, mostra se o Solucionador foi usado — abandono vira visível no dia seguinte. **(c) Orçamento de ciclo:** 6 / 15 / 30 interações por trilha (ver E23); passou disso, escala pro Felipe no formato do estado 3. Não garante que ele vai usar — **garante que parar de usar não passa em silêncio**. É o buraco que matou as 3 camadas de proteção.
 - [31/08/2026] **D17 — Planilha e Solucionador disputando o mesmo @dev e o mesmo Chrome** — ✅ FECHADO pelo **modelo de alternância** (ver E16), agora também implementado como BLOCO 0-U REGRA 5. **Achado pelo Felipe**, não pela busca sistemática.
 
@@ -190,3 +190,44 @@ Lista leve e incremental de coisas discutidas em conversa mas ainda não formali
 - [01/09/2026] **DEC-9 — Sub-agentes continuam fechados**: a ferramenta de sub-agente roda instância realmente separada, e resolveria o limite de "não são processos separados". Mas o Felipe manteve a proibição da BLOCO 0-AC. Motivo (recomendação do @analyst, aceita por ele): o que se perde — visibilidade e poder de interromper no meio — é maior que o que se ganha, e reabriria o risco do agente fantasma do incidente de 19/08/2026. **O limite fica registrado como fato estrutural conhecido, não como buraco aberto** — o E27 e o E28 fazem ele deixar de importar na prática
 
 - [01/09/2026] **DEC-10 — Orçamento de ciclo: 6 / 15 / 30** (ver E23)
+
+---
+
+## Resultado da etapa 3.5 — cruzamento contra as 37 BLOCOs e 57 customizações (E31-E32)
+
+> O @analyst passou os 11 componentes do desenho do Solucionador contra as 37 BLOCOs do `CLAUDE.md` e as 57 customizações do Manual. **25 compatíveis** (várias reforçam o Solucionador), **8 precisam ajuste**, **4 são conflito real que impede o funcionamento**. Este cruzamento é o que fechou o D15.
+
+- [01/09/2026] analyst — **E31 — 4 CONFLITOS REAIS entre o Solucionador e as BLOCOs (bloqueiam o funcionamento; correções APROVADAS pelo Felipe, 01/09)**. Implementar na FASE 4.
+
+  **(1) BLOCO 0-K — a linha de auditoria.** Exige que todo agente que oferece handoff inclua a linha. Um ciclo 🔵 tem **9 handoffs** → 9 linhas de auditoria por ciclo. É exatamente o ruído que o Felipe mandou desligar (*"aí eu fico doido você colocando isso toda hora"*), **e o hook `check-handoff-audit.js` usa `exit(2)` — bloqueia de verdade**, então o ciclo travaria. **Correção:** handoff **dentro** de um ciclo do Solucionador não leva a linha — o artefato do portão substitui a auditoria. Fora do ciclo, a BLOCO 0-K continua valendo integralmente.
+
+  **(2) BLOCO 1 — mostrar o caderno ao ser ativado.** Exige que todo agente leia e mostre o caderno na ativação → **9 blocos de caderno por ciclo**. **Correção:** dentro do Solucionador não mostra caderno — o contexto vem do artefato do portão anterior.
+
+  **(3) BLOCO 1-A — o formato do @analyst.** Exige que, ao ser ativado, o @analyst mostre TODAS as pendências, com proibição absoluta de resumir. Hoje são **78 itens** — toda entrada dele despejaria os 78. **Correção:** dentro do Solucionador a BLOCO 1-A não se aplica. Fora, continua.
+
+  **(4) BLOCO 0-R × BLOCO 0-T (T1) — contradição entre duas regras.** A 0-R proíbe agente especializado de descrever sequência de agentes (isso é escopo do @aiox-master); a 0-T (T1) obriga cada agente a dizer qual é o próximo antes de encerrar. **Dentro do fluxo as duas se contradizem.** **Correção:** no Solucionador a sequência é fixa e pública — dizer "o próximo é o Pedro" é **ler o fluxo**, não orquestrar. Precisa da exceção escrita nas duas BLOCOs.
+
+  **⚠️ Ressalva registrada pelo próprio @analyst:** essas 4 correções são análise dele, **não passaram por nenhum portão** — mesma categoria de tudo que ele errou nesta sessão. São o mínimo pra o Solucionador nascer. **Serão auditadas pelo `*post-mortem` do próprio nascimento (FASE 5.5)**, com o detector de convergência (E28) ligado: se o post-mortem passar pelas 4 e não achar nenhuma objeção, isso é 🔴 alerta, não 🟢 validação. Arquivo: `.claude/CLAUDE.md`
+
+- [01/09/2026] analyst — **E32 — 8 AJUSTES em BLOCOs (não bloqueiam, mas geram atrito ou perda; APROVADOS pelo Felipe, 01/09)**. Achados no mesmo cruzamento, **independentes dos 4 conflitos**. Implementar na FASE 4.
+
+  | # | BLOCO | Problema | Ajuste |
+  |---|---|---|---|
+  | 5 | **0-A** | Finch, Alan e Pedro **não estão na tabela de IDs** do `.current-agent` — os 3 participam do fluxo e não têm ID definido | Adicionar os 3 à tabela |
+  | 6 | **0-G** | Pós-compactação reativa o agente, mas **não sabe ler os artefatos** de um ciclo em andamento — não saberia em qual portão parou | Novo passo: se há ciclo ativo, ler os artefatos e retomar no portão certo |
+  | 7 | **0-M** | "Commitar imediatamente" → commit a cada portão seriam **9 por ciclo** | ✅ **DECIDIDO pelo Felipe (opção meio-termo): commit nos portões 4 e 9** — os 2 pontos onde o ciclo muda de estado de verdade (story vira `Ready` / Felipe assina). 2 commits por ciclo, sem poluir o histórico e sem deixar artefato desversionado |
+  | 8 | **0-P** | O template de delegação vale para delegação via Skill; o Solucionador usa **transformação de persona** (BLOCO 0-AC) | Clarificar que a 0-P não se aplica ao fluxo interno do Solucionador |
+  | 9 | **0-T (T2)** | O bloco "fluxo em andamento" a cada ativação = **9 blocos por ciclo** | Versão curta dentro do Solucionador: portão anterior + artefato recebido |
+  | 10 | **0-Y** + **CUSTOMIZAÇÃO 52** | Se o Felipe pausa no meio de um ciclo, o formato do Estado B **não tem campo pro portão** onde parou — ele volta sabendo o assunto, mas não se parou no portão 3 ou no 7 | Acrescentar o portão ao formato **nos dois arquivos** (a BLOCO 0-Y é a regra, a CUSTOMIZAÇÃO 52 é a documentação dela — corrigir só um cria drift, exatamente o problema do E21) |
+  | 11 | **BLOCO 3** | *"Vou parar"* com ciclo aberto — **ninguém definiu** o que acontece com o ciclo | Ciclo fica suspenso, artefatos preservados, campo `PAROU EM` registra o portão |
+  | 12 | **0-H** | Agente novo vindo de atualização do AIOX **não entra na tabela de trilhas** do Solucionador | Acrescentar ao protocolo de atualização |
+
+  **Sobre o Manual:** as 57 customizações **espelham as BLOCOs** — os mesmos 12 problemas, nada independente. A única que exige edição própria é a **CUSTOMIZAÇÃO 52** (item 10 acima), porque documenta o formato do Estado B. Arquivos: `.claude/CLAUDE.md`, `CUSTOMIZACOES-FELIPE/MANUAL.md`
+
+---
+
+## Decisões do Felipe — etapa 3.5 (DEC-11 e DEC-12)
+
+- [01/09/2026] **DEC-11 — As 4 correções dos conflitos reais, aprovadas**: *"Concordo com suas correções em cada etapa"*. Aprovadas **com a ressalva que o próprio Felipe levantou** — ele perguntou se elas não deveriam ser revisadas pelo Solucionador depois que ele nascer. Resposta acordada: sim, entram agora porque são o mínimo pra ele rodar, **e são o primeiro alvo do `*post-mortem` do nascimento na FASE 5.5**.
+
+- [01/09/2026] **DEC-12 — Os 8 ajustes aprovados, com o meio-termo no item 7**: commit dos artefatos do ciclo nos **portões 4 e 9**, não a cada portão (9 seria ruído no histórico) nem só no fim (deixaria artefato desversionado se o contexto morresse no meio).
