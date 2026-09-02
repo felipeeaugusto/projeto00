@@ -28,9 +28,9 @@
 |---|---|---|---|---|
 | 1.1 | **Script de extração estrutural** dos 1.626 arquivos | Determinístico, sem LLM → `.aiox/leitura/indice.md` | ~1 min | ✅ **1.605/1.626 indexados, 21 excluídos com motivo (binários/marcadores), 586.668 linhas reconciliadas 100% com disco** |
 | 1.2 | Dividir em **N fatias** por pasta, sem sobreposição | Script gera o plano de fatias | ~1 min | ✅ **33 fatias, 17.681–19.677 linhas cada, integridade verificada (1605/1605 arquivos, 0 duplicado, 0 faltando)** |
-| 1.3 | 🤖 **Sub-agentes em paralelo** — cada um recebe: sua fatia + o desenho | 🔑 **Cada um ESCREVE em `.aiox/leitura/{fatia}.md`.** Nenhum devolve pro contexto de quem chamou | ~40–60 min | 🔴 **PAUSADO (E87) — fatia 01 (teste, 1 arquivo) gastou 434.912 tokens; 19/20 fatias relançadas falharam por limite de sessão, 2× na mesma manhã. Custo estimado do total: 10-13 milhões de tokens. NÃO relançar sem antes investigar.** |
-| 1.4 | **Script consolida** os deltas — dedup + conflitos | Determinístico → `.aiox/leitura/delta-consolidado.md` | ~1 min | ⏳ |
-| 1.5 | @analyst lê **só o delta consolidado** | Pequeno por construção | ~15 min | ⏳ |
+| 1.3 | ~~Sub-agentes em paralelo lendo tudo bruto~~ → **MÉTODO TROCADO (E87/E88)**: script determinístico varre 100% das linhas sem IA, filtra por padrão conhecido | `.aiox/leitura/buscar-padroes.js` → `.aiox/leitura/candidatos.md` | ~1 min | ✅ **Feito, com ressalva conhecida — ver seção 14** |
+| 1.4 | *(fundida com 1.3 — o script já consolida)* | — | — | ✅ Feito |
+| 1.5 | @analyst lê os candidatos filtrados (**opção C**, decisão do Felipe 02/09) | Sabendo que o filtro pode ter buraco em achados raros (tipo comparação) — investiga direto no arquivo original se algo não bater | ~20–30 min | 🔶 Em andamento — @analyst sendo chamado agora |
 
 > 🔑 **A fidelidade fica no arquivo, não na resposta.** É por isso que não perde.
 > ⚠️ **Correção de número:** o plano original dizia "os 115 itens" — hoje são **136** (`.aiox/itens-em-aberto.md`).
@@ -119,6 +119,26 @@ Quando aparecer qualquer coisa fora do plano no meio da execução:
 **Palavras dele:** *"se aparecer alguma coisa diferente pede pra registrar (chamar o orion — e ele comitar também — chamar o devops pro push) e depois continuar seguindo o fluxo!"*
 
 **Não é o mesmo que a BLOCO 2-B.** A 2-B manda registrar; esta define a **sequência completa até o push** e o **retorno ao ponto exato** — o que faltava era o "e depois continuar".
+
+---
+
+## 🔍 Seção 14 — E87/E88: método da etapa 1.3 trocado, e a ressalva pro @analyst
+
+**O que aconteceu:** sub-agentes lendo os arquivos brutos (33 fatias em paralelo) estouraram o limite de sessão do Felipe 2× na mesma manhã — 1 fatia de teste (1 arquivo, 19.677 linhas) sozinha custou 434.912 tokens. Extrapolado pro total: 10-13 milhões de tokens. **Método abandonado (E87).**
+
+**O que substituiu:** `.aiox/leitura/buscar-padroes.js` — script determinístico, **zero IA, zero token**, varre as **588.273 linhas de 100% dos 1.605 arquivos** em 0,4 segundos, procurando 7 padrões conhecidos (órfão/não-usado, inacabado, descontinuado, duplicata, contradição, veto/gate, estado-de-workflow). Saída: `.aiox/leitura/candidatos.md` (**712 KB**, 21.765 linhas — 0,12% do custo da leitura bruta).
+
+**2 defeitos achados e corrigidos durante a construção (E88):**
+1. Ruído — o filtro pegava código genérico (`usedBy: []` em `.js` comum) e a palavra "CRITICAL" (que é só estilo de escrita do framework). Corrigido: `ORFAO` restrito a `.yaml/.yml/.json`; "CRITICAL" e "already exists" removidos.
+2. **Mais grave** — um teto de 40 ocorrências por arquivo escondia achado real: num arquivo de 19.677 linhas, o teto era atingido nas primeiras ~1.474 linhas, cortando tudo depois. Testado contra os **9 achados reais** que uma IA achou ontem lendo esse mesmo arquivo por completo: **só 3 de 15 citações apareciam**. Corrigido com agrupamento por entidade (evita contar `usedBy`/`dependencies`/`lifecycle` da mesma entidade 3x) + teto removido dessa categoria → **14 de 15** depois do conserto.
+
+**O que NUNCA vai fechar 15/15, e por quê:** o 1 achado que sobra é do tipo *"o desenho afirma que X depende de Y, mas Y não está na lista real"* — uma comparação entre 2 documentos, não uma palavra escrita em algum lugar. Nenhum filtro de padrão pega isso — exige leitura de verdade.
+
+**⚠️ RESSALVA OFICIAL PRO @ANALYST (decisão do Felipe, opção C, 02/09/2026):** o filtro foi validado contra **apenas 1 dos 1.605 arquivos** (o único onde existia gabarito — uma IA já tinha lido ele inteiro antes). Nos outros 1.604, **não há garantia do mesmo nível de acerto**. Por isso:
+
+- O @analyst lê os candidatos **sabendo que pode haver buraco em achados raros** — o filtro é a 1ª peneira, não a palavra final
+- Ao notar qualquer coisa que **não bate** (uma citação do `SOLUCIONADOR-DESENHO.md` sem correspondência clara nos candidatos, um número que não fecha, uma alegação de "já implementado" sem confirmação) → **investigar direto no arquivo original**, não assumir que "não achou = não existe"
+- Atenção específica: os **~7 mecanismos da seção 11** do desenho ("já existe, é só reaproveitar") são onde o achado perdido morava — vale conferir cada um deles contra `entity-registry.yaml` diretamente, não só contra os candidatos
 
 ---
 
