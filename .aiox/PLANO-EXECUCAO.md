@@ -30,19 +30,37 @@
 | 1.2 | Dividir em **N fatias** por pasta, sem sobreposição | Script gera o plano de fatias | ~1 min | ✅ **33 fatias, 17.681–19.677 linhas cada, integridade verificada (1605/1605 arquivos, 0 duplicado, 0 faltando)** |
 | 1.3 | ~~Sub-agentes em paralelo lendo tudo bruto~~ → **MÉTODO TROCADO (E87/E88)**: script determinístico varre 100% das linhas sem IA, filtra por padrão conhecido | `.aiox/leitura/buscar-padroes.js` → `.aiox/leitura/candidatos.md` | ~1 min | ✅ **Feito, com ressalva conhecida — ver seção 14** |
 | 1.4 | *(fundida com 1.3 — o script já consolida)* | — | — | ✅ Feito |
-| 1.5 | @analyst lê os candidatos filtrados (**opção C**, decisão do Felipe 02/09) | Sabendo que o filtro pode ter buraco em achados raros (tipo comparação) — investiga direto no arquivo original se algo não bater | ~20–30 min | 🔶 Em andamento — @analyst sendo chamado agora |
+| 1.5 | @analyst lê os candidatos filtrados (**opção C**, decisão do Felipe 02/09) | Sabendo que o filtro pode ter buraco em achados raros (tipo comparação) — investiga direto no arquivo original se algo não bater | ~20–30 min | ✅ **Concluído** — as 7 categorias revisadas por completo, cada achado verificado antes de reportar |
 
 > 🔑 **A fidelidade fica no arquivo, não na resposta.** É por isso que não perde.
-> ⚠️ **Correção de número:** o plano original dizia "os 115 itens" — hoje são **136** (`.aiox/itens-em-aberto.md`).
+> ⚠️ **Correção de número:** o plano original dizia "os 115 itens" — hoje são **143** (`.aiox/itens-em-aberto.md`).
+
+## ✅ FASE 1 — CONCLUÍDA (02/09/2026)
+
+**Resultado das 7 categorias revisadas (712 KB, 21.765 linhas, por completo):**
+
+| Categoria | Marcado pelo filtro | Achados reais confirmados |
+|---|---|---|
+| 🧟 Órfão | 567 | **145 reais** (com ressalva: registro tem ponto cego pra arquivos de dado carregados sob demanda) |
+| 🔀 Contradição | 121 | 0 — só uso normal da palavra |
+| 👯 Duplicata | 166 | 0 — 1 pista investigada e descartada (relatório citado não existe) |
+| ⚠️ Descontinuado | 65 | **1 real** → **E90** |
+| 🚧 Inacabado | 345 | 1 padrão sistemático fora de escopo (6 checklists faltando) |
+| 🗂️ Estado de workflow | 199 | **1 real, o mais importante da sessão** → **E91** |
+| 🚦 Veto/gate | 910 | Confirmado vocabulário legítimo, 1 nota menor (circuit breaker duplicado em `code-intel-client.js`) |
+
+**Achados novos registrados nesta FASE: E85 a E91** (7 itens) — destaque pra **E89** (4 de 7 mecanismos "prontos" do desenho são código morto) e **E91** (o mecanismo de estado real do framework não é o que a seção 11 assumia — `session-state.js`, não `workflow-state-schema.yaml`).
 
 ---
 
-## 🗺️ FASE 2 — Mapeamento completo desde 13/08 *(~30 min)*
+## 🗺️ FASE 2 — Mapeamento completo desde 13/08 *(~30 min)* — 🔍 @analyst (Atlas)
+
+> Mesmo padrão da FASE 1: script determinístico primeiro (barato, zero token), @analyst interpreta depois — **nunca mais sub-agentes de IA lendo texto bruto em massa** (E87).
 
 | # | Ação | Como | Status |
 |---|---|---|---|
 | 2.1 | Script extrai o esqueleto das **27.742 linhas** | Já feito 3× — ~30s | ⏳ |
-| 2.2 | Sub-agentes mapeiam fatias do transcript | Escrevem em `.aiox/mapeamento/{fatia}.md` | ⏳ |
+| 2.2 | @analyst mapeia o conteúdo filtrado | Escreve em `.aiox/mapeamento/{fatia}.md` — método igual ao `buscar-padroes.js`, adaptado pro `.jsonl` da sessão | ⏳ |
 | 2.3 | Incluir as **sessões compactadas** | Pedido explícito do Felipe; não está na BLOCO 3 | ⏳ |
 | 2.4 | Consolidar em partes numeradas | Substitui o documento de 33 KB desatualizado | ⏳ |
 
@@ -50,7 +68,7 @@
 
 ---
 
-## 📋 FASE 3 — Plano final *(~30 min)*
+## 📋 FASE 3 — Plano final *(~30 min)* — 👑 @aiox-master (Orion)
 
 | # | Ação | Regra de verificação | Status |
 |---|---|---|---|
@@ -59,7 +77,7 @@
 
 ---
 
-## 🔧 FASE 4 — Camada 0 *(~2h)*
+## 🔧 FASE 4 — Camada 0 *(~2h)* — 💻 @dev (Dex)
 
 | # | Ação | Quem | Status |
 |---|---|---|---|
@@ -70,7 +88,7 @@
 
 ---
 
-## 🎯 FASE 5 — Rodar as partes *(variável)*
+## 🎯 FASE 5 — Rodar as partes *(variável)* — 👑 @aiox-master + 💻 @dev (alternando por item)
 
 | # | Ação | Quem | Status |
 |---|---|---|---|
@@ -80,7 +98,7 @@
 
 ---
 
-## 📊 FASE 6 — Planilha
+## 📊 FASE 6 — Planilha *(final)* — 💻 @dev (Dex)
 
 | | |
 |---|---|
