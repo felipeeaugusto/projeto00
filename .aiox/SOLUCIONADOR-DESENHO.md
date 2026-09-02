@@ -79,6 +79,7 @@ passa = confiança >= 0.58  E  nenhum sinal de risco
 ## 5. Os 9 portões da trilha 🔵 — e o artefato de cada um
 
 > **Este é o mecanismo central: a CADEIA DE ARTEFATOS.** Fechou 2 buracos de uma vez (**D5** e **D10**).
+> ⚠️ **Ressalva (E91):** o D10 fecha como *conceito* (ler artefatos em disco pra saber onde parou) — mas o arquivo de estado que a seção 11 citava como pronto pra isso não existe mais nesse formato. Precisa adaptar a partir de `session-state.js`, não copiar `workflow-state-schema.yaml`.
 
 | # | Portão | Quem | Artefato produzido | Recusa de partida se… |
 |---|---|---|---|---|
@@ -232,20 +233,30 @@ Os dois disputam **o mesmo @dev e o mesmo Chrome do Modo Navegador**. Rodar junt
 | Estado do ciclo | `.aiox/{instance-id}-state.yaml` | `workflow-state-schema.yaml` |
 | Comandos | `*run-workflow start / continue / status / skip / abort` | `run-workflow.md` |
 
-### O `workflow-state-schema.yaml` resolve o D10 inteiro (E68)
+### ⚠️ CORREÇÃO (E91, 02/09/2026): o `workflow-state-schema.yaml` NÃO resolve o D10 — o mecanismo real é outro, e o formato é diferente
 
-Campos que já existem no schema e são exatamente o que o desenho pedia:
+> A versão original desta seção dizia que o schema abaixo "já existe, é só usar". **Isso estava errado — verificado arquivo por arquivo.**
 
-| Campo | O que resolve |
+**A cadeia real, checada uma por uma:**
+
+| Camada | Arquivo | Status |
+|---|---|---|
+| 1 | `workflow-state-schema.yaml` | ❌ Órfão (E68) |
+| 2 | `workflow-state-manager.js` | ❌ **Também descontinuado** — `@deprecated Superseded by session-state.js (Story 11.5)` |
+| 3 | `core/orchestration/session-state.js` | ✅ **Real, em produção** — `SESSION_STATE_VERSION '1.2'`, salva em `.session-state.yaml` |
+
+**O mecanismo de verdade (`session-state.js`) não usa os campos abaixo.** Ele estrutura o estado em torno de `epic.id` / `progress.current_story` / `workflow.current_phase` — feito pro ciclo Epic→Story→Fase, não pra portões. **O D10 continua aberto**: o Solucionador precisa de um schema de estado adaptado do formato real de `session-state.js`, não pode só copiar a tabela abaixo (mantida como registro do que foi assumido errado, não como plano):
+
+| Campo (assumido, NÃO existe assim de verdade) | O que resolveria, se existisse |
 |---|---|
-| `current_step_index` | **em qual portão parou** |
-| `steps[].artifacts_created[]` | a cadeia de artefatos |
-| `steps[].session_id` | qual sessão produziu |
-| `artifacts[].status: created \| pending` | a lacuna do D5 |
-| `decisions[].rationale` | por que foi decidido assim |
-| `status: active \| paused \| completed \| aborted` | ciclo suspenso no "vou parar" |
+| ~~`current_step_index`~~ | em qual portão parou |
+| ~~`steps[].artifacts_created[]`~~ | a cadeia de artefatos |
+| ~~`steps[].session_id`~~ | qual sessão produziu |
+| ~~`artifacts[].status: created \| pending`~~ | a lacuna do D5 |
+| ~~`decisions[].rationale`~~ | por que foi decidido assim |
+| ~~`status: active \| paused \| completed \| aborted`~~ | ciclo suspenso no "vou parar" |
 
-> *"State persists between Claude Code sessions via YAML file."*
+**Achado relacionado:** `core/orchestration/master-orchestrator.js` tem um `StubEpicExecutor` — executor de mentirinha pra Epics numerados sem implementação real. Parece ser sistema separado do caminho que o Solucionador usaria (`run-workflow-engine`, confirmado real), mas vale checar antes de assumir que qualquer coisa via `master-orchestrator.js` está implementada de verdade.
 
 ### Outros mecanismos que já existem — **checados contra o `entity-registry.yaml` de verdade, 02/09/2026 (E89)**
 

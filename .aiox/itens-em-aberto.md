@@ -421,3 +421,23 @@ Lista leve e incremental de coisas discutidas em conversa mas ainda não formali
   | 7 | Etapas 9/1.1/8.1 do @po (`validate-next-story.md`, E22) | ✅ **Real** — `usedBy: [po-close-story, dev, po]`, é chamado de verdade quando o @po roda a validação |
 
   **Por que isso muda o rumo:** a seção 13 do `SOLUCIONADOR-DESENHO.md` ("Fase E — Ligar aos mecanismos que já existem") tratava os 7 como reaproveitamento praticamente gratuito. Na prática, **4 dos 7 exigem escrever a primeira ligação do zero**, não só "religar algo pronto" — o custo da Fase E está subestimado. Arquivos: `.aiox-core/data/entity-registry.yaml`, `.aiox/SOLUCIONADOR-DESENHO.md` (seção 11 e 13)
+
+---
+
+## Sessão 02/09/2026 — revisão das 7 categorias do candidatos.md (E90/E91)
+
+- [02/09/2026] analyst — **E90 — Workflow deprecated ainda é o ponto de entrada ativo do squad-creator.** `squads/squad-creator-pro/workflows/wf-mind-research-loop.yaml` tem no topo: `# ⚠️ DEPRECATED - Use /mind-research instead`. Mas `squads/squad-creator-pro/skills/squad.md:202` e `squads/squad-creator/skills/squad.md:200` (os pontos de entrada **ativos** do squad-creator) ainda mandam executar exatamente esse arquivo — `Execute workflows/wf-mind-research-loop.yaml`. Também referenciado como ativo em `config.yaml:48` (`workflows: - wf-mind-research-loop`) e em múltiplos docs de arquitetura. **Não é achado do Solucionador** — é um bug real e independente do squad-creator: quem roda o squad-creator hoje cai no workflow marcado como morto, não no substituto (`/mind-research`, cuja implementação completa não foi localizada). Fora de escopo do Solucionador — registrar e não agir agora. Arquivos: `squads/squad-creator{,-pro}/workflows/wf-mind-research-loop.yaml`, `skills/squad.md`, `config.yaml`
+
+- [02/09/2026] analyst — **E91 — 🔴 O mecanismo de estado que o desenho quer reaproveitar (seção 11, E68) está 2 gerações desatualizado — resolve a pergunta em aberto do 01-2.** Cadeia completa, verificada arquivo por arquivo:
+
+  | Camada | Arquivo | Status |
+  |---|---|---|
+  | 1 | `workflow-state-schema.yaml` | ❌ Órfão (já confirmado, E68/01-2) |
+  | 2 | `workflow-state-manager.js` | ❌ **Também descontinuado** — comentário no topo: `@deprecated Superseded by session-state.js (Story 11.5)` |
+  | 3 | `core/orchestration/session-state.js` | ✅ **Real, em produção** (`SESSION_STATE_VERSION = '1.2'`, salva em `.session-state.yaml`) |
+
+  **O problema não é só "qual arquivo é o real" — é que o formato é diferente.** `session-state.js` estrutura o estado em torno de `epic.id` / `progress.current_story` / `workflow.current_phase` (Story 11.5, ADR-011) — feito pro ciclo normal de Epic→Story→Fase. O Solucionador não é isso (9 portões, não stories). **A frase da seção 11 "não precisa ser inventado, é só escrever no formato que já existe (E67)" não se sustenta pra este mecanismo específico** — o formato real existe, mas não serve pronto, precisa ser adaptado pra estrutura de portões.
+
+  **Achado menor, relacionado:** `core/orchestration/master-orchestrator.js:1582-1614` tem um `StubEpicExecutor` — executor de mentirinha, retorna sucesso falso pra qualquer Epic numerado (`EPIC_CONFIG`) sem executor real implementado ("Story 0.3: Epic Executors"). Parece ser um sistema de execução por Epic numerado, separado do caminho que o Solucionador pretende usar (`run-workflow-engine`, já confirmado real em 01-4) — **não necessariamente ameaça o Solucionador**, mas vale checar antes de assumir que qualquer coisa rodando via `master-orchestrator.js` está implementada de verdade.
+
+  Arquivos: `.aiox-core/development/scripts/workflow-state-manager.js`, `.aiox-core/core/orchestration/session-state.js`, `.aiox-core/core/orchestration/master-orchestrator.js`, `.aiox/SOLUCIONADOR-DESENHO.md` (seção 11)
