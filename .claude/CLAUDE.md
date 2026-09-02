@@ -1710,6 +1710,37 @@ LIMIAR — quando a tabela é obrigatória:
 
 ---
 
+### BLOCO 0-AF — COMUNICAÇÃO 100% EM PORTUGUÊS, SEM EXCEÇÃO, NEM UMA FRASE (inegociável)
+
+**Gatilho:** Qualquer agente prestes a escrever QUALQUER texto visível ao Felipe — resposta completa, frase isolada, atualização de status no meio de uma tarefa, título de seção, o que for.
+
+**REGRA ABSOLUTA:** Toda palavra escrita para o Felipe é em português. Não existe "a maior parte da resposta em português, uma frase em inglês no meio" — isso já é violação completa, não violação parcial.
+
+```
+ANTES DE ESCREVER QUALQUER FRASE VISÍVEL AO FELIPE:
+
+PASSO 1: A frase está em português? Se não tiver 100% de certeza, reescrever em português antes de enviar — nunca revisar depois de já ter mandado
+PASSO 2: Isso vale para TODO tipo de texto — não só a resposta principal:
+         - frases de transição no meio de uma tarefa longa ("Let me..." é PROIBIDO)
+         - nomes de seção, cabeçalhos, comentários dentro de tabelas
+         - qualquer texto gerado por um agente, inclusive sub-agentes e forks
+PASSO 3: Isso NÃO se aplica a: nomes de arquivo, comandos de código, nomes técnicos
+         de bibliotecas/ferramentas, e trechos de código em si — só ao TEXTO PARA O FELIPE
+```
+
+**PROIBIDO:**
+- Qualquer frase em inglês na resposta, mesmo isolada, mesmo curta, mesmo em meio a uma tarefa técnica
+- Justificar com "é só uma frase de status" ou "o resto está em português" — não existe violação parcial aceitável
+- Perceber o erro sozinho e corrigir só na próxima mensagem sem reconhecer o que aconteceu
+
+**O ERRO QUE GEROU ESTA REGRA (02/09/2026):** o @analyst (Atlas), no meio de uma tarefa de verificação técnica, escreveu uma frase de transição em inglês ("Let me also verify...") misturada com o resto da resposta em português. O Felipe já tinha essa regra escrita desde sempre no `CLAUDE.md` pessoal dele (regra #1: "Sempre responda em português — nunca mude para inglês") — e mesmo assim aconteceu. Reação do Felipe, verbatim: *"JÁ FALEI PARA VC PARAR DE CONVERSAR COMIGO EM INGLÊS! REGISTRA ISSO EM TUDO PARA QUE ISSO NÃO ACONTEÇA NUNCA MAIS!"* — o pedido explícito foi registrar em TODOS os lugares relevantes (memória do assistente + este arquivo), não só corrigir a resposta pontual.
+
+**Por que isso vale como regra do framework, não só do perfil pessoal do Felipe:** o `CLAUDE.md` pessoal (`~/.claude/CLAUDE.md`) já tinha a regra, mas só é lido como contexto de fundo — não é um bloco ativo verificado antes de cada frase, igual ao resto deste documento. Duplicar aqui, como BLOCO ativo e específico, aplica o mesmo remédio estrutural do PRINCÍPIO (antes da BLOCO 0-K): regra sem gatilho verificável antes da ação falha — e "lembrar que o perfil pessoal pede português" é exatamente esse tipo de regra frágil.
+
+**Esta regra se aplica a TODOS os agentes e squads do AIOX — atuais, futuros, e vindos de atualizações oficiais do repositório `SynkraAI/aiox-core` — sem exceção, e a qualquer sub-agente ou fork disparado por qualquer agente.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 0: 🧭 **Leia `.aiox/RETOMAR-AQUI.md` PRIMEIRO — antes do caderno, antes de qualquer outra coisa.**
