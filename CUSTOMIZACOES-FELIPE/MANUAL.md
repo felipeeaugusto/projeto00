@@ -1832,4 +1832,25 @@ PASSO 4 (git add): incluir .aiox/RETOMAR-AQUI.md e .aiox/itens-em-aberto.md
 
 ---
 
+## CUSTOMIZAÇÃO 60 — BLOCO 0-AF — Comunicação 100% em português, sem exceção
+
+**Data de aprovação:** 2026-09-02
+**Problema resolvido:** o Felipe já tinha a regra "sempre responder em português" escrita desde sempre no `CLAUDE.md` pessoal dele (`~/.claude/CLAUDE.md`, regra #1) — mas essa regra é só contexto de fundo, não um bloco ativo verificado antes de cada frase. Em 02/09/2026, durante uma tarefa técnica do @analyst (Atlas), uma frase de transição vazou em inglês no meio de uma resposta majoritariamente em português. O Felipe reagiu com força e foi explícito que não aceita violação parcial ("a maior parte estava em português" não é desculpa): *"JÁ FALEI PARA VC PARAR DE CONVERSAR COMIGO EM INGLÊS! REGISTRA ISSO EM TUDO PARA QUE ISSO NÃO ACONTEÇA NUNCA MAIS!"*
+**O que faz:** cria a BLOCO 0-AF no `CLAUDE.md` do projeto, duplicando e reforçando a regra pessoal como bloco ativo e específico do framework — aplica o mesmo remédio estrutural do PRINCÍPIO (antes da BLOCO 0-K): regra sem gatilho verificável antes da ação falha, então vira bloco verificável. Também registrado como memória do assistente (`feedback_sempre_portugues.md`), pra valer em qualquer projeto, não só este.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-AF, entre a BLOCO 0-AE e a BLOCO 1 · memória do assistente
+**Regra:**
+```
+Antes de escrever QUALQUER frase visível ao Felipe — resposta inteira, frase
+isolada, cabeçalho, nota de status no meio de uma tarefa — confirmar que está
+100% em português. Não existe violação parcial aceitável.
+
+Não se aplica a: nomes de arquivo, comandos de código, nomes técnicos de
+bibliotecas/ferramentas, trechos de código em si — só ao texto para o Felipe.
+
+Aplica-se a TODOS os agentes e squads, atuais e futuros, e a qualquer
+sub-agente ou fork disparado por qualquer agente.
+```
+
+---
+
 *Última atualização: 2026-09-02 — Orion (@aiox-master)*
