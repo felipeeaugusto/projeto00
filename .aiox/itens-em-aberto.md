@@ -488,3 +488,9 @@ Arquivo de origem: `.aiox/mapeamento-guardiao-27-29-08.md` (partes correspondent
 - Todos os demais itens do caderno (mapeamento de SKUs/Campanhas de Ads, decisões de negócio do Felipe, backup do Chrome, limpeza de screenshots) — **específicos do pipeline Karzen**, corretamente fora do escopo do Solucionador, permanecem no caderno como já estavam.
 
 Arquivo de origem: `packages/karzen/PROJETO-STATUS.md`, seção PENDÊNCIAS ATUAIS.
+
+---
+
+## Decisão do Felipe — 02/09/2026 (DEC-17)
+
+- [02/09/2026] **DEC-17 — E66 resolvido: opção A — manter todos os agentes do Solucionador na mesma conversa.** Das 4 opções apresentadas (A: manter como está · B: contexto novo real a cada portão via `session-state.js` adaptado · C: híbrido, trio numa conversa e o resto separado · D: manter 1 conversa, mitigar com os mecanismos já aprovados), Felipe escolheu **A**. Risco aceito conscientemente: o `aiox-kb.md` recomenda contexto novo por agente, e os sintomas que isso previne (persona confundida, leitura parcial) já aconteceram nesta sessão. Mitigação: E27 (cota de discordância), E28 (detector de convergência) e E100 (hook de identidade, ainda não implementado) continuam sendo a rede de segurança. Fecha a pendência que travava o início da FASE 5. Arquivos: `.aiox/SOLUCIONADOR-DESENHO.md` (seção 12 e 13), `.aiox/RETOMAR-AQUI.md` (seção 4), `.aiox/PLANO-FINAL.md` (E66)

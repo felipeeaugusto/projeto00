@@ -18,7 +18,7 @@
 
 ---
 
-## 🚨 E66 — a decisão que trava a ordenação da fila (você decide, não eu)
+## ✅ E66 — RESOLVIDO (DEC-17, 02/09/2026): opção A
 
 **O conflito, sem filtro:** o `aiox-kb.md` do próprio AIOX manda usar contexto novo por agente (*"ALWAYS start new chat between SM, Dev, and QA work"*). O Solucionador que desenhamos roda 9-12 agentes na mesma conversa. Os sintomas que o framework prevê pra quem ignora essa regra — persona confundida, leitura parcial, coisas esquecidas — **já aconteceram nesta sessão** (E33, E60, E20).
 
@@ -33,22 +33,22 @@
 
 **Minha avaliação, não uma escolha por você:** a opção **D** é a que menos atrasa (nada novo pra construir além do que já está na fila), mas é remédio pro sintoma, não pra causa. A opção **B** é a mais fiel à regra do framework, mas tem custo real de adaptação. Isso é exatamente o tipo de troca que só você pode decidir — não tem uma resposta tecnicamente "certa" aqui.
 
-**➡️ Fica pendente. Rota provisória neste plano: E66 entra como 🔵 COMPLETA, primeira coisa da FASE 5 (E17 já tinha decidido isso: "o guardião ainda é necessário, e em qual escopo" vem antes de tudo — E66 é a versão do Solucionador dessa mesma pergunta).**
+**➡️ DECIDIDO: opção A — manter tudo na mesma conversa, como está hoje.** Risco aceito conscientemente. Mitigação ativa: E27 (cota de discordância) e E28 (detector de convergência), já aprovados; **E100** (hook de identidade, achado na reconciliação do caderno Karzen) entra na fila 🟡 MÉDIA como reforço adicional, não como pré-requisito. **Nada bloqueia mais o início da FASE 5 por causa do E66.**
 
 ---
 
 ## 📊 Resumo por trilha (153 itens + 16 decisões do Felipe)
 
-> **Atualizado em 02/09/2026, após a reconciliação com o caderno da Karzen (ver Bloco 10).** A versão anterior deste plano (150 itens) cobria só o `itens-em-aberto.md` — ficaram de fora o caderno `packages/karzen/PROJETO-STATUS.md` (arquivo separado) e uma checagem específica da consistência das 3 customizações mais novas. Os dois foram cobertos agora.
+> **Atualizado em 02/09/2026, após a reconciliação com o caderno da Karzen (Bloco 10) e a decisão do E66 (DEC-17).** A versão anterior deste plano (150 itens) cobria só o `itens-em-aberto.md` — ficaram de fora o caderno `packages/karzen/PROJETO-STATUS.md` e a consistência das 3 customizações mais novas. Os dois cobertos. E66 decidido (opção A) — sai da coluna COMPLETA, entra em VETO/arquivar (decisão tomada, nada a construir).
 
 | Trilha | Quantos itens | O que significa na prática |
 |---|---|---|
-| 🔴 VETO / já resolvido, arquivar | 34 | Remover de `itens-em-aberto.md`, mover pra `itens-resolvidos-arquivo.md` |
+| 🔴 VETO / já resolvido, arquivar | 35 | Remover de `itens-em-aberto.md`, mover pra `itens-resolvidos-arquivo.md` (+1: E66) |
 | 🟢 RÁPIDA | 52 | Implementação direta, @dev + @qa, sem passar pelo trio |
 | 🟡 MÉDIA | 44 | Trio decide o *como* antes de virar story (+3: E98, E99, E100) |
-| 🔵 COMPLETA | 6 | Estrutural ou decisão só do Felipe (inclui E66, E61) |
+| 🔵 COMPLETA | 5 | Estrutural ou decisão só do Felipe (só **E61** resta) |
 | ⚪ FORA DE ESCOPO | 17 | Pertence à FASE 6 (planilha Karzen) ou já foi separado explicitamente |
-| **Total rastreado** | **153** | 34+52+44+6+17 |
+| **Total rastreado** | **153** | 35+52+44+5+17 |
 
 ---
 
@@ -171,7 +171,7 @@ Todas as 16 decisões **não são itens a triar** — são decisões já tomadas
 
 | Item | Destino | Motivo |
 |---|---|---|
-| E66 | 🔵 COMPLETA | Ver seção dedicada acima — decisão do Felipe |
+| E66 | ✅ RESOLVIDO (DEC-17) | Ver seção dedicada acima — opção A escolhida pelo Felipe |
 | E67, E68, E69, E70 | 🟡 MÉDIA | Adotar formatos/mecanismos já existentes (workflow híbrido, schema de estado, nomes de status, orquestração) |
 | E71 | 🟢 RÁPIDA | Usar o framework de custo em token já existente pro orçamento de ciclo |
 | E72 | 🔴 VETO/arquivar | `entity-registry.yaml` já resolve o D3 — nada a fazer, só usar |

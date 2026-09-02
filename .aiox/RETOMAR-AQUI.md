@@ -10,9 +10,9 @@
 
 | | |
 |---|---|
-| 🔴 **A única coisa que trava a planilha** | Camada 0 — criar `status.cmd` + `status` + batimento no `synapse-wrapper.cjs`. **~2h do 💻 @dev.** |
-| ➡️ **Próximo passo concreto** | FASE 1 (ler 541k linhas via sub-agentes) **ou** pular direto pra Camada 0 e voltar à planilha — **DEC-14 diz que ler tudo NÃO é pré-requisito** |
-| 👤 **Decisão que só o Felipe toma** | E61 e E66 (seção 4 abaixo) |
+| 🔴 **A única coisa que trava a planilha** | Camada 0 — criar `status.cmd` + `status` + batimento no `synapse-wrapper.cjs`. **~2h do 💻 @dev.** (FASE 4, ainda reavaliada, roda DEPOIS da FASE 5 — DEC-16) |
+| ➡️ **Próximo passo concreto** | **FASE 0, 1, 2 e 3 concluídas** (`.aiox/PLANO-EXECUCAO.md`, `.aiox/PLANO-FINAL.md`). **E66 já decidido (DEC-17)**. Entrar na **FASE 5** — rodar as 153 partes classificadas no `PLANO-FINAL.md`, começando pelos itens 🟢 RÁPIDA (implementação direta) e priorizando **D5** (o mais crítico) |
+| 👤 **Decisão que só o Felipe toma** | **E61** ainda pendente (seção 4 abaixo) — **E66 resolvido** |
 
 ---
 
@@ -80,8 +80,8 @@ script consolida → delta-consolidado.md → @analyst lê só o delta
 
 | # | Decisão | Por quê |
 |---|---|---|
-| **E66** | O método AIOX exige **contexto novo por agente** (*"ALWAYS start new chat between SM, Dev, and QA work"*). O Solucionador roda 9-12 agentes na mesma conversa. **Os sintomas que o framework prevê aconteceram nesta sessão**: persona confundida 3×, leitura parcial, 11 mensagens órfãs | conflito de fundo do desenho |
-| **E61** | O próprio `SC_SCP_001` do framework **vetaria o Solucionador** (`agents_needed >= 8 → VETO`) e exigiria um PRD com Epics/Stories antes | bloqueante em princípio |
+| **E66** ✅ | **DECIDIDO (DEC-17, 02/09/2026): opção A — manter todos os agentes na mesma conversa**, como já era. Risco aceito conscientemente; mitigado por E27 (cota de discordância), E28 (detector de convergência) e E100 (hook de identidade, ainda a implementar) | resolvido, não bloqueia mais nada |
+| **E61** | O próprio `SC_SCP_001` do framework **vetaria o Solucionador** (`agents_needed >= 8 → VETO`) e exigiria um PRD com Epics/Stories antes | bloqueante em princípio — ainda pendente |
 | **E81** | Circuit breaker: **o código bloqueia, a documentação diz que nunca bloqueia**. É a pergunta dele — *"se o vigia bugar, trava ou deixa passar?"* — e o framework responde as duas coisas | decidir antes de depender dele |
 
 ---

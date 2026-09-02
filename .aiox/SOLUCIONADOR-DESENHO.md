@@ -278,7 +278,7 @@ Os dois disputam **o mesmo @dev e o mesmo Chrome do Modo Navegador**. Rodar junt
 
 | # | Pendência | Gravidade |
 |---|---|---|
-| **E66** | **O método AIOX exige contexto NOVO por agente** (*"ALWAYS start new chat between SM, Dev, and QA work"*), e o Solucionador roda 9-12 agentes na mesma conversa. **Os sintomas que o framework prevê são exatamente os desta sessão**: persona confundida 3×, leitura parcial, 11 mensagens órfãs. Não é coincidência | 🔴 **conflito de fundo, sem solução ainda** |
+| **E66** | **O método AIOX exige contexto NOVO por agente** (*"ALWAYS start new chat between SM, Dev, and QA work"*), e o Solucionador roda 9-12 agentes na mesma conversa. **Os sintomas que o framework prevê são exatamente os desta sessão**: persona confundida 3×, leitura parcial, 11 mensagens órfãs. Não é coincidência | ✅ **DECIDIDO (DEC-17, 02/09/2026): opção A — manter tudo numa conversa só.** Risco aceito conscientemente; mitigado pelos mecanismos já aprovados (E27 cota de discordância, E28 detector de convergência, E33/E100 hook de identidade — ainda a implementar) |
 | **E61** | O próprio `SC_SCP_001` do framework **vetaria o Solucionador**: `agents_needed >= 8 → VETO`, `workflows_mapped >= 10 → VETO` → exige PRD com Epics/Stories antes | 🔴 **bloqueante em princípio** |
 | **E81** | Circuit breaker: código bloqueia, documentação diz que nunca bloqueia | 🟡 decidir antes de depender dele |
 | **E69** | Drift `Approved` × `Ready` em 3 documentos oficiais | 🟡 quebra automação que cheque status por nome |
@@ -301,7 +301,7 @@ As 4 correções do E31 são análise do @analyst, **não passaram por nenhum po
 | Fase | O que | Quem | Bloqueia a planilha? |
 |---|---|---|---|
 | **A** | Camada 0 — `status.cmd` + `status` + batimento no `synapse-wrapper.cjs` | 💻 @dev | 🔴 **SIM — é o único** |
-| **B** | Decidir E61 (PRD/Epics) e E66 (contexto novo por agente) | 👤 Felipe | não |
+| **B** | Decidir E61 (PRD/Epics) — **E66 já decidido (DEC-17): opção A, mesma conversa** | 👤 Felipe | não |
 | **C** | Implementar E31 (4 correções) + E32 (8 ajustes) nas BLOCOs | 👑 @aiox-master | não |
 | **D** | Escrever o workflow no formato `cross_context` + `workflow-state-schema` | 👑 @aiox-master | não |
 | **E** | Ligar aos mecanismos que já existem (seção 11) | 💻 @dev | não |
