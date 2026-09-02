@@ -491,6 +491,22 @@ Arquivo de origem: `packages/karzen/PROJETO-STATUS.md`, seção PENDÊNCIAS ATUA
 
 ---
 
+## Investigação do trio oficial (Pedro/Alan/Finch) contra o `SOLUCIONADOR-DESENHO.md` — E101
+
+> Felipe perguntou se o Solucionador foi comparado linha a linha contra o AIOX + squad-creator-premium + o trio oficial. Resposta anterior (honesta): não, nem o AIOX (só 2% lido com compreensão) nem o trio. Investigação feita agora: leitura completa de `thiago_finch.md` (976 linhas) e `oalanicolas.md` (976 linhas), leitura estrutural de `pedro-valerio.md` (250 de 1.301 linhas — scope, comandos, handoff, posição no trio).
+
+- [02/09/2026] analyst — **E101 — 🔴 O trio oficial (Pedro/Alan/Finch) é de um domínio completamente diferente do que o Solucionador usa, e isso nunca foi declarado.** Os 3 agentes existem em `squads/squad-creator-pro/agents/`, com definição completa (3.253 linhas), e têm um propósito oficial único: **clonar a mente de uma pessoa real (especialista/influenciador) a partir do conteúdo dela, estruturar isso em artefatos automatizáveis, e vender como produto de IA.** Fluxo oficial deles (`trio_workflow` de cada arquivo): Finch (FASE 0) decide se vale clonar essa pessoa e a que preço · Alan (FASE 1) extrai Voice/Thinking DNA de fontes (podcasts, entrevistas) classificadas ouro/bronze · Pedro (FASE 2) constrói tasks/workflows/templates automatizáveis a partir do que Alan extraiu · Finch (FASE 3-4) precifica, lança e faz post-mortem do lançamento. **Nada nisso menciona framework, CLAUDE.md, hooks, ou governança de regras.** O Solucionador pegou os NOMES e alguns MÉTODOS GERAIS deles (Loss Aversion 2.5:1 do Finch, citação `[SOURCE:]` do Alan, "nada volta num fluxo" do Pedro) e os recolocou num domínio novo (decidir e implementar correções no próprio framework AIOX) — sem nunca declarar essa adaptação por escrito, e sem ler os 3.253 linhas antes de fazer isso (confirma o E60).
+
+  **Conflito concreto encontrado, não hipotético:** a definição real do Finch tem regra explícita — *"NEVER use hedging language ('talvez', 'acho que', 'poderia', 'na minha opinião')"* — com um `immune_system` que responde a hedging com *"Certeza ou silêncio. 'Talvez' não existe."* Isso **contradiz diretamente** o **estado 3** do Solucionador (o mecanismo que existe pra reconhecer com honestidade "não consigo classificar/decidir" — E38, E58, E59) e a decomposição obrigatória de incerteza. Se o Finch real fosse ativado de verdade, ele vetaria a própria linguagem que o estado 3 precisa usar.
+
+  **O que transfere bem, verificado:** o conceito de citação `[SOURCE:]` do Alan (AN005: *"SE conceito extraído → ENTÃO [SOURCE:]. SE inferido → ENTÃO [INFERRED]"*) é genuinamente genérico e se aplica bem fora do domínio de clonagem. A regra "nada volta num fluxo" do Pedro **já foi corrigida** (E55, achado antes desta investigação) — o `trigger` real da regra dele é *"Status workflow design"*, não proibição geral de correção.
+
+  **O que não foi verificado ainda:** os 15 workflows oficiais do `squad-creator-pro` (11.443 linhas) — podem ter um padrão de orquestração multi-agente oficial que o desenho deveria ter seguido. Não lidos ainda.
+
+  Arquivos: `squads/squad-creator-pro/agents/thiago_finch.md`, `oalanicolas.md`, `pedro-valerio.md`, `.aiox/SOLUCIONADOR-DESENHO.md`
+
+---
+
 ## Decisão do Felipe — 02/09/2026 (DEC-17)
 
 - [02/09/2026] **DEC-17 — E66 resolvido: opção A — manter todos os agentes do Solucionador na mesma conversa.** Das 4 opções apresentadas (A: manter como está · B: contexto novo real a cada portão via `session-state.js` adaptado · C: híbrido, trio numa conversa e o resto separado · D: manter 1 conversa, mitigar com os mecanismos já aprovados), Felipe escolheu **A**. Risco aceito conscientemente: o `aiox-kb.md` recomenda contexto novo por agente, e os sintomas que isso previne (persona confundida, leitura parcial) já aconteceram nesta sessão. Mitigação: E27 (cota de discordância), E28 (detector de convergência) e E100 (hook de identidade, ainda não implementado) continuam sendo a rede de segurança. Fecha a pendência que travava o início da FASE 5. Arquivos: `.aiox/SOLUCIONADOR-DESENHO.md` (seção 12 e 13), `.aiox/RETOMAR-AQUI.md` (seção 4), `.aiox/PLANO-FINAL.md` (E66)
