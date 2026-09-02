@@ -441,3 +441,9 @@ Lista leve e incremental de coisas discutidas em conversa mas ainda não formali
   **Achado menor, relacionado:** `core/orchestration/master-orchestrator.js:1582-1614` tem um `StubEpicExecutor` — executor de mentirinha, retorna sucesso falso pra qualquer Epic numerado (`EPIC_CONFIG`) sem executor real implementado ("Story 0.3: Epic Executors"). Parece ser um sistema de execução por Epic numerado, separado do caminho que o Solucionador pretende usar (`run-workflow-engine`, já confirmado real em 01-4) — **não necessariamente ameaça o Solucionador**, mas vale checar antes de assumir que qualquer coisa rodando via `master-orchestrator.js` está implementada de verdade.
 
   Arquivos: `.aiox-core/development/scripts/workflow-state-manager.js`, `.aiox-core/core/orchestration/session-state.js`, `.aiox-core/core/orchestration/master-orchestrator.js`, `.aiox/SOLUCIONADOR-DESENHO.md` (seção 11)
+
+---
+
+## Decisão do Felipe — 02/09/2026 (DEC-16)
+
+- [02/09/2026] **DEC-16 — Ordem de execução trocada: FASE 5 (resolver as partes) roda antes da FASE 4 (Camada 0/comando `status`), e a FASE 4 é reavaliada, não garantida.** Palavras dele: *"Não quero voltar pra Planilha enquanto não tiver com todas as partes mapeadas... E depois deles resolverem TUDO das PARTES e do CADERNO AÍ SIM! Se ainda fizer sentido entrar com essa parte [FASE 4]..."*. Motivo técnico confirmado pelo @dev: a FASE 5 não depende da FASE 4 pra rodar — a única coisa que dependia da FASE 4 era poder voltar pra planilha, e essa volta agora só acontece depois de TUDO (todas as partes + caderno) resolvido. Bônus técnico: construir o `status` antes da FASE 5 arriscava ficar desatualizado assim que a FASE 5 mexesse nas BLOCOs — construindo depois, nasce já refletindo o estado final. Nova ordem: `0 → 1 → 2 → 3 → 5 → [reavaliar FASE 4] → 6`. Arquivo: `.aiox/PLANO-EXECUCAO.md`

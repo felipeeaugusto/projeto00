@@ -28,7 +28,7 @@
 | Onde parou | **linha 151 de 736** |
 | Piloto | linhas 145–170 rodadas, **5 bugs reais achados e corrigidos** |
 | Estado | ✅ script pronto, formatação aplicada, tudo commitado |
-| Trava | 🔴 Camada 0 (comando `status`) |
+| Trava | 🔴 **Não volta até a Frente B terminar por completo** (FASE 5 → reavaliar FASE 4 → só então FASE 6) — decisão do Felipe, DEC-16, 02/09/2026 |
 
 ### 🛠️ Frente B — O Solucionador (framework)
 
@@ -41,17 +41,19 @@
 
 ---
 
-## 2. As fases do plano
+## 2. As fases do plano — ver `.aiox/PLANO-EXECUCAO.md` (fonte completa, com sub-passos)
+
+> ⚠️ **DEC-16 (02/09/2026): a ORDEM DE EXECUÇÃO real é `0 → 1 → 2 → 3 → 5 → [reavaliar 4] → 6`** — os números das fases não mudaram (pra não quebrar referência), mas a FASE 5 roda **antes** da FASE 4, e a FASE 4 **não é garantida** — só se decide se ainda faz sentido depois que a FASE 5 terminar.
 
 | Fase | O que | Quem | Estado |
 |---|---|---|---|
 | **0** | Registrar achados · escrever o desenho em arquivo · checkpoint · este arquivo | 👑 @aiox-master | ✅ **feita (02/09)** |
-| **1** | Ler as 541.000 linhas restantes via sub-agentes em paralelo | 🔍 @analyst + sub-agentes | ⏳ pendente |
-| **2** | Mapear a sessão desde 13/08 (27.742 linhas de `.jsonl`, **incluindo as compactadas**) | 🔍 @analyst | ⏳ pendente |
-| **3** | `.aiox/PLANO-FINAL.md` — cada um dos 136 itens aparece ou é marcado fora de escopo **com motivo** | 🔍 @analyst | ⏳ pendente |
-| **4** | 🔴 **Camada 0** — `status.cmd` + `status` + batimento (~2h) | 💻 @dev | ⏳ **desbloqueia a planilha** |
-| **5** | Implementar E31 (4 correções) + E32 (8 ajustes) + os 17 buracos | 👑 @aiox-master | ⏳ pendente |
-| **6** | Voltar à planilha, linha 151 → 736 | 💻 @dev | ⏳ pendente |
+| **1** | Ler o framework inteiro — método trocado (E87/E88): script determinístico filtra, @analyst interpreta o filtrado | 🔍 @analyst | ✅ **concluída (02/09)** — 7 achados novos (E85-E91), destaque E89 e E91 |
+| **2** | Mapear a sessão desde 13/08 (27.742+ linhas de `.jsonl`, **incluindo as compactadas**) | 🔍 @analyst | ⏳ próximo passo |
+| **3** | `.aiox/PLANO-FINAL.md` — cada um dos 144 itens aparece ou é marcado fora de escopo **com motivo** | 👑 @aiox-master | ⏳ pendente |
+| **5** ⚠️ *(roda antes da 4)* | Implementar E31 (4 correções) + E32 (8 ajustes) + os 17 buracos — as partes de verdade | 👑 @aiox-master + 💻 @dev | ⏳ pendente |
+| **4** ⚠️ *(roda depois da 5, e é reavaliada)* | Reavaliar se ainda é necessária → se sim, Camada 0 (`status.cmd` + `status` + batimento) | 💻 @dev | ⏳ pendente — **não inicia antes da 5** |
+| **6** | Voltar à planilha, linha 151 → 736 — **só depois de TUDO acima** | 💻 @dev | ⏳ pendente |
 
 ---
 

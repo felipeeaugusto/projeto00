@@ -6,6 +6,31 @@
 
 ---
 
+## 🔀 ORDEM REAL DE EXECUÇÃO (DEC-16, Felipe, 02/09/2026 — substitui a ordem numérica das seções abaixo)
+
+```
+0 → 1 → 2 → 3 → 5 → [reavaliar FASE 4] → 6
+```
+
+**Os números das seções abaixo (FASE 0 a FASE 6) ficam como estão** — mudar o número quebraria toda referência já feita a "FASE 4"/"FASE 5" em commits e no `itens-em-aberto.md`. O que muda é **a ordem em que elas são executadas**: a FASE 5 roda **antes** da FASE 4, não depois.
+
+**Por que:** a FASE 4 (comando `status`) foi colocada cedo por causa da DEC-14 (*"a Camada 0 é o único bloqueio real pra voltar à planilha"*) — mas isso confundiu duas coisas diferentes:
+
+| | O que é |
+|---|---|
+| FASE 4 (`status`) | Só um **espelho** — mostra o estado do que já existe. Não resolve nada, só relata |
+| FASE 5 (resolver as partes) | O trabalho de verdade — os 17 buracos, as correções nas BLOCOs (E31/E32), ligar os pedaços do Solucionador que a **E89** achou espalhados no AIOX/squad-creator-premium/pastas do trio (Pedro, Alan, Finch) |
+
+A FASE 5 **não depende** da FASE 4 pra rodar — nada no trabalho de resolver as partes precisa do comando `status` existir. A única coisa que dependia da FASE 4 era o Felipe poder voltar pra planilha — e a decisão dele agora é **não voltar até tudo estar resolvido mesmo** (todas as partes + o caderno inteiro). Então a única razão pra fazer a FASE 4 cedo deixou de valer.
+
+**Motivo técnico extra, não só preferência:** se o `status` fosse construído **antes** da FASE 5, e a FASE 5 mexesse nas BLOCOs (que é exatamente o que ela faz), o `status` ficaria desatualizado no meio do caminho e precisaria ser mexido de novo depois. Construindo **depois**, ele já nasce refletindo o estado final — sem retrabalho.
+
+**A FASE 4 não é garantida — vai ser reavaliada, não só adiada.** Depois que a FASE 5 terminar, pode ser que o jeito de verificar o estado já esteja resolvido de outro jeito (um dos mecanismos religados na FASE 5 pode cobrir isso), e a FASE 4 vire redundante — ou pode continuar fazendo sentido do jeito que está. **Isso só dá pra saber depois da FASE 5, não antes.**
+
+**Palavras dele:** *"Não quero voltar pra Planilha enquanto não tiver com todas as partes mapeadas... E depois deles resolverem TUDO das PARTES e do CADERNO AÍ SIM! Se ainda fizer sentido entrar com essa parte [FASE 4]..."*
+
+---
+
 ## 🔒 FASE 0 — Garantir o que já existe *(~10 min)*
 
 **Sem isso, tudo que vem depois trabalha em cima de coisa que pode sumir.**
@@ -77,18 +102,21 @@
 
 ---
 
-## 🔧 FASE 4 — Camada 0 *(~2h)* — 💻 @dev (Dex)
+## 🔧 FASE 4 — Camada 0 *(~2h)* — 💻 @dev (Dex) — ⚠️ **RODA DEPOIS DA FASE 5 (DEC-16)**
+
+> **Não iniciar esta fase antes da FASE 5 estar concluída.** E ao chegar aqui, primeiro **reavaliar se ainda é necessária** — não construir de forma automática só porque estava planejada.
 
 | # | Ação | Quem | Status |
 |---|---|---|---|
-| 4.1 | `status.cmd` + `status` (opção 🆎 — os dois arquivos, DEC-2) | 💻 @dev | ⏳ |
-| 4.2 | Batimento cardíaco no `synapse-wrapper.cjs` | 💻 @dev | ⏳ |
+| 4.0 | 🔍 **Reavaliar necessidade** — algum mecanismo religado na FASE 5 já cobre isso? | 👑 @aiox-master + 💻 @dev | ⏳ (só depois da FASE 5) |
+| 4.1 | `status.cmd` + `status` (opção 🆎 — os dois arquivos, DEC-2) — **se ainda fizer sentido após 4.0** | 💻 @dev | ⏳ |
+| 4.2 | Batimento cardíaco no `synapse-wrapper.cjs` — **se ainda fizer sentido após 4.0** | 💻 @dev | ⏳ |
 
-> 🎯 **Aqui a planilha destrava.** Item **A8**: *"pode ser retomada assim que a Camada 0 estiver de pé"*.
+> 🎯 **Aqui a planilha destrava** (se a FASE 4 ainda for necessária após a reavaliação). Item **A8**: *"pode ser retomada assim que a Camada 0 estiver de pé"*.
 
 ---
 
-## 🎯 FASE 5 — Rodar as partes *(variável)* — 👑 @aiox-master + 💻 @dev (alternando por item)
+## 🎯 FASE 5 — Rodar as partes *(variável)* — 👑 @aiox-master + 💻 @dev (alternando por item) — ⚠️ **RODA ANTES DA FASE 4 (DEC-16)**
 
 | # | Ação | Quem | Status |
 |---|---|---|---|
@@ -104,21 +132,22 @@
 |---|---|
 | Retomar | **Linha 151 de 736** |
 | Regra | ❌ Sem paralelo · ✅ **Alternância** (BLOCO 0-U REGRA 5) |
-| Status | ⏳ bloqueada pela FASE 4 |
+| Status | ⏳ bloqueada pela FASE 5 → FASE 4 (nessa ordem, DEC-16) — **não volta até TODAS as partes e o caderno estarem resolvidos** |
 
 ---
 
-## ⏱️ Expectativa de tempo (avaliação original do @analyst, mantida)
+## ⏱️ Expectativa de tempo (avaliação original do @analyst, ordem atualizada pela DEC-16)
 
-| Fases | Tempo | Dá hoje? |
+| Fases (na ordem real) | Tempo | Dá hoje? |
 |---|---|---|
 | **0 a 3** | ~2h30 | ✅ Sim |
-| **4** (Camada 0) | ~2h | ✅ Sim |
-| **5** | Depende das decisões do Felipe | ⚠️ Parcial |
+| **5** (rodar as partes) | Depende das decisões do Felipe | ⚠️ Parcial |
+| **4** (reavaliar + talvez Camada 0) | 0 (se redundante) a ~2h | ⚠️ Depende do resultado da 5 |
 | **6** (planilha) | 586 linhas restantes | ❌ Trabalho próprio, de vários dias |
 
-> **Fases 0–4 hoje: realista.** A **5** depende de quantas decisões o Felipe bate. A **6** é o trabalho da planilha em si, que não comprime.
+> **Fases 0–3 hoje: realista.** A **5** depende de quantas decisões o Felipe bate — é o trabalho de verdade, e agora vem antes da 4. A **4** pode nem ser necessária, só se sabe depois da 5. A **6** é o trabalho da planilha em si, que não comprime, e só começa depois de tudo.
 > 📌 *"Eu quero terminar tudo HOJE! E não estou falando da planilha"* — Felipe, 02/09/2026.
+> 📌 *"Não quero voltar pra Planilha enquanto não tiver com todas as partes mapeadas... e depois deles resolverem TUDO das PARTES e do CADERNO"* — Felipe, 02/09/2026 (DEC-16).
 
 ---
 
