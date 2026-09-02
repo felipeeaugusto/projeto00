@@ -501,9 +501,15 @@ Arquivo de origem: `packages/karzen/PROJETO-STATUS.md`, seção PENDÊNCIAS ATUA
 
   **O que transfere bem, verificado:** o conceito de citação `[SOURCE:]` do Alan (AN005: *"SE conceito extraído → ENTÃO [SOURCE:]. SE inferido → ENTÃO [INFERRED]"*) é genuinamente genérico e se aplica bem fora do domínio de clonagem. A regra "nada volta num fluxo" do Pedro **já foi corrigida** (E55, achado antes desta investigação) — o `trigger` real da regra dele é *"Status workflow design"*, não proibição geral de correção.
 
-  **O que não foi verificado ainda:** os 15 workflows oficiais do `squad-creator-pro` (11.443 linhas) — podem ter um padrão de orquestração multi-agente oficial que o desenho deveria ter seguido. Não lidos ainda.
+  **Atualização — os 15 workflows oficiais checados (11.443 linhas, leitura completa de `wf-clone-mind.yaml` + varredura estrutural dos outros 14):**
+  1. 🔴 **A palavra "trio" não existe em nenhum dos 15 workflows** — é terminologia que o Felipe/Solucionador criou, não do squad-creator-pro.
+  2. 🔴 **`@thiago_finch` NUNCA aparece em nenhum dos 15 workflows** (busca confirmada, zero ocorrências). O papel dele (viabilidade + monetização, bookend do trio) existe **só no arquivo próprio dele** — nunca foi de fato ligado a um workflow executável. É o mesmo padrão do E33/E76 (papel definido, nunca tecnicamente invocado) — só que na fonte oficial que o Solucionador copiou, não no Solucionador em si.
+  3. **Alan + Pedro SÃO orquestrados de verdade** em 3 workflows (`wf-clone-mind.yaml`, `wf-create-squad.yaml`, `wf-extraction-pipeline.yaml`) — mas o padrão real é **pipeline linear com gate bloqueante** (Alan extrai → checkpoint de qualidade → Pedro estrutura), não um "conselho" onde os 3 dão parecer independente sobre a mesma decisão, que é como o Solucionador usa o trio.
+  4. `wf-squad-fusion.yaml` tem "conflict resolution", mas é sobre **arquivos duplicados/diferentes ao fundir 2 pastas de squad** (resolvido apresentando ao humano) — não é sobre divergência de opinião entre agentes. Confirma que o E52 já tinha descartado isso corretamente por ser "outro assunto".
 
-  Arquivos: `squads/squad-creator-pro/agents/thiago_finch.md`, `oalanicolas.md`, `pedro-valerio.md`, `.aiox/SOLUCIONADOR-DESENHO.md`
+  **Conclusão da investigação:** não existe, em nenhum lugar do squad-creator-pro oficial, um padrão real de "3 especialistas dão parecer independente sobre o mesmo problema" — nem o "conselho" que o Solucionador assume. O que existe é uma pipeline linear (Alan→Pedro) com um bookend (Finch) que nunca foi tecnicamente conectado a nada. O Solucionador não adaptou um padrão oficial — **inventou um novo, usando peças soltas (2 agentes conectados + 1 desconectado) que nunca funcionaram juntas antes.**
+
+  Arquivos: `squads/squad-creator-pro/agents/thiago_finch.md`, `oalanicolas.md`, `pedro-valerio.md`, `squads/squad-creator-pro/workflows/*.yaml` (15 arquivos), `.aiox/SOLUCIONADOR-DESENHO.md`
 
 ---
 
