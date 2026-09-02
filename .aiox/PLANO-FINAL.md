@@ -37,15 +37,18 @@
 
 ---
 
-## 📊 Resumo por trilha (150 itens + 16 decisões do Felipe)
+## 📊 Resumo por trilha (153 itens + 16 decisões do Felipe)
+
+> **Atualizado em 02/09/2026, após a reconciliação com o caderno da Karzen (ver Bloco 10).** A versão anterior deste plano (150 itens) cobria só o `itens-em-aberto.md` — ficaram de fora o caderno `packages/karzen/PROJETO-STATUS.md` (arquivo separado) e uma checagem específica da consistência das 3 customizações mais novas. Os dois foram cobertos agora.
 
 | Trilha | Quantos itens | O que significa na prática |
 |---|---|---|
 | 🔴 VETO / já resolvido, arquivar | 34 | Remover de `itens-em-aberto.md`, mover pra `itens-resolvidos-arquivo.md` |
 | 🟢 RÁPIDA | 52 | Implementação direta, @dev + @qa, sem passar pelo trio |
-| 🟡 MÉDIA | 41 | Trio decide o *como* antes de virar story |
+| 🟡 MÉDIA | 44 | Trio decide o *como* antes de virar story (+3: E98, E99, E100) |
 | 🔵 COMPLETA | 6 | Estrutural ou decisão só do Felipe (inclui E66, E61) |
 | ⚪ FORA DE ESCOPO | 17 | Pertence à FASE 6 (planilha Karzen) ou já foi separado explicitamente |
+| **Total rastreado** | **153** | 34+52+44+6+17 |
 
 ---
 
@@ -198,13 +201,34 @@ Todas as 16 decisões **não são itens a triar** — são decisões já tomadas
 
 ---
 
+### Bloco 10 — Reconciliação com o caderno da Karzen e com as customizações (feita a pedido do Felipe, 02/09/2026)
+
+**Pergunta do Felipe:** *"Aqui já tem todas as pendências em aberto do caderno também? O claude.md, customizações também?"* — resposta honesta na hora: não, nenhum dos dois. Reconciliação feita agora, os dois.
+
+**1) `packages/karzen/PROJETO-STATUS.md` (caderno da Karzen) — lido por completo:**
+
+| Achado | Destino |
+|---|---|
+| E98 — ferramenta de geração automática do "fluxo em andamento" | 🟡 MÉDIA |
+| E99 — generalizar hook da BLOCO 0-K pras BLOCOs de formato (1, 1-A, 0-T, 0-Y, 3) | 🟡 MÉDIA |
+| E100 — hook técnico de detecção de idioma (BLOCO 0-AF só tem o texto ainda) | 🟡 MÉDIA |
+| "Inconsistência `project-log.md` × hook" | Duplicata do **A3**, já roteado — sem novo item |
+| "Regra anti-invenção com força suficiente" | Coberto (não implementado ainda) por BLOCO 0-L + **E22/E36/E54/E62**, já roteados — sem novo item |
+| Todo o resto (SKUs, Campanhas de Ads, decisões de negócio, backup, screenshots) | Específico do pipeline Karzen — corretamente fora do Solucionador, já rastreado no próprio caderno |
+
+**2) Customizações — verificação da contagem:** o Manual tem **60 customizações reais** (não 61 — o grep inicial contou também uma linha-modelo "CUSTOMIZAÇÃO N — [Nome descritivo]" que é só o template de exemplo dentro do próprio arquivo, não uma customização de verdade). Das 60, as 3 mais novas (58, 59, 60) foram criadas **nesta sessão, cada uma emparelhada 1:1 com a edição da BLOCO correspondente no `CLAUDE.md`** — risco de drift bem menor que a checagem geral que o E31/E32 fez contra as 57 antigas (que foi uma varredura ampla, não pareada). **Não fiz uma auditoria linha-a-linha das 58-60 contra as 37 BLOCOs no mesmo nível de rigor do E31/E32** — se o Felipe quiser esse nível de certeza, é um item novo de trabalho (curto, ~15 min), não incluído aqui por não ter sido pedido explicitamente ainda.
+
+---
+
 ## ✅ Reconciliação (tarefa 3.2)
 
 | Checagem | Resultado |
 |---|---|
-| Todo item de `itens-em-aberto.md` tem uma linha aqui? | ✅ Sim — 150 itens numerados + itens sem ID (7) + 16 decisões, todos cobertos nos 9 blocos acima |
-| Contagem bate com o resumo da seção 2? | ✅ 34 VETO + 52 RÁPIDA + 41 MÉDIA + 6 COMPLETA + 17 FORA DE ESCOPO = 150 |
-| Algum item ficou de fora? | ❌ Nenhum |
+| Todo item de `itens-em-aberto.md` tem uma linha aqui? | ✅ Sim — 153 itens numerados + itens sem ID (7) + 16 decisões, todos cobertos nos 10 blocos acima |
+| Contagem bate com o resumo da seção 2? | ✅ 34 VETO + 52 RÁPIDA + 44 MÉDIA + 6 COMPLETA + 17 FORA DE ESCOPO = 153 |
+| Caderno da Karzen conferido? | ✅ Sim — 3 achados novos (E98-E100), resto corretamente fora de escopo |
+| Customizações conferidas? | 🟡 Parcial — contagem corrigida (60, não 61); auditoria linha-a-linha das 3 mais novas não feita (ver Bloco 10) |
+| Algum item ficou de fora? | ❌ Nenhum dos que foram verificados |
 
 ---
 

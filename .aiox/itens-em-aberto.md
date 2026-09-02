@@ -469,3 +469,22 @@ Lista leve e incremental de coisas discutidas em conversa mas ainda não formali
 **Nota sobre B7 (não listado como pendência):** a regra "toda proposta de solução passa pelos 4 — Pedro, Alan, Finch e Atlas, nunca só Atlas" **foi efetivamente adotada** — é o fluxo oficial do trio que virou a espinha dorsal do Solucionador (seção 2 do `SOLUCIONADOR-DESENHO.md`). Não órfã, só nunca teve o número B7 formalmente ligado a ela.
 
 Arquivo de origem: `.aiox/mapeamento-guardiao-27-29-08.md` (partes correspondentes a cada item).
+
+---
+
+## Reconciliação com o caderno da Karzen (`packages/karzen/PROJETO-STATUS.md`) — E98-E100
+
+> O Felipe perguntou se o `PLANO-FINAL.md` (FASE 3) já cobria o caderno da Karzen e as customizações. Resposta: não — o caderno é um arquivo inteiramente separado do `itens-em-aberto.md`, nunca lido nesta sessão até este ponto. Lido por completo agora (seção "PENDÊNCIAS ATUAIS", 3 níveis de prioridade). A maior parte das pendências de lá é específica do pipeline Karzen/Mercado Livre (mapeamento de SKUs, Campanhas de Ads, decisões de negócio do Felipe) — **corretamente fora do escopo do Solucionador**, e já tracked no lugar certo (o próprio caderno). Só 3 achados eram genuinamente novos e relevantes pro Solucionador.
+
+- [10/08/2026, achado no caderno Karzen, registrado aqui em 02/09/2026] aiox-master — **E98 — Ferramenta de geração automática do bloco "🔄 Fluxo em andamento" nunca construída.** Ideia original do Felipe (10/08/2026, caderno Karzen): uma ferramenta que lê git log + caderno + resumo do agente anterior e monta o bloco "fluxo em andamento" (BLOCO 0-T, T2) sozinha, em vez do agente precisar "lembrar o formato inteiro de cabeça". Nunca implementada. Sem dono técnico definido — provavelmente 👑 @aiox-master (é modificação de framework).
+
+- [10/08/2026, achado no caderno Karzen, registrado aqui em 02/09/2026] aiox-master — **E99 — Generalizar o padrão de hook da BLOCO 0-K pras BLOCOs de formato puro (1, 1-A, 0-T, 0-Y, 3).** Diagnóstico original do Felipe/caderno Karzen (10/08/2026): essas BLOCOs são regras de **formato de texto**, sem reforço técnico nenhum — mesmo tipo de coisa que o `check-handoff-audit.js` já sabe detectar (padrão de texto ausente numa resposta). É diferente do retrofit já registrado (BLOCO 0-C/0-N/0-O/0-L, que são regras de **julgamento**, não de formato) — duas frentes distintas, achadas separadamente, nunca conectadas até agora.
+
+- [10/08/2026, achado no caderno Karzen, registrado aqui em 02/09/2026] aiox-master — **E100 — Hook técnico de detecção de idioma inglês nunca construído.** O caderno Karzen já pedia isso em 10/08/2026, depois de um incidente idêntico ao de hoje (agente respondeu em inglês). A **BLOCO 0-AF** (Customização 60, criada hoje) resolveu só a metade do pedido — a regra em texto. A parte "reforçada por hook técnico" (mesmo padrão do `check-handoff-audit.js`) continua sem existir. **Precedente:** este é o 3º hook nesta situação (junto com `check-agent-identity.js`/E33 e `check-handoff-audit.js` original) — regra escrita, mecanismo técnico prometido, nunca construído.
+
+**Itens do caderno Karzen já cobertos, sem necessidade de novo registro:**
+- Item "revisar inconsistência `project-log.md` × `check-agent-scope.js`" (10/08/2026) — mesma causa raiz do **A3** (29/08/2026), já no plano. A3 é a versão mais recente e mais específica do mesmo achado.
+- Item "investigar/criar regra anti-invenção com força suficiente" (03-06/07/2026) — hoje coberto (embora ainda não **implementado**) por **BLOCO 0-L** (existente desde 27/03/2026, mas escopo restrito a "declarar problema"), mais **E22, E36, E54, E62** (achados desta sessão, cobertura ampliada pra invenção de dado/conclusão em geral). Sem essa cobertura, o pedido de 03-06/07 continuaria genuinamente aberto — só fica resolvido quando E22/E36/E54/E62 forem implementados (já roteados no `PLANO-FINAL.md`).
+- Todos os demais itens do caderno (mapeamento de SKUs/Campanhas de Ads, decisões de negócio do Felipe, backup do Chrome, limpeza de screenshots) — **específicos do pipeline Karzen**, corretamente fora do escopo do Solucionador, permanecem no caderno como já estavam.
+
+Arquivo de origem: `packages/karzen/PROJETO-STATUS.md`, seção PENDÊNCIAS ATUAIS.
