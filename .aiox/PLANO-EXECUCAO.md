@@ -85,11 +85,15 @@ A FASE 5 **não depende** da FASE 4 pra rodar — nada no trabalho de resolver a
 | # | Ação | Como | Status |
 |---|---|---|---|
 | 2.1 | ~~Script extrai o esqueleto das 27.742 linhas (já feito 3×)~~ → **REFEITO DO ZERO**: as 3 extrações antigas (`extrair.js`/`2`/`3`, no scratchpad) emendavam uma na outra sem prova de encaixe — descartadas | `.aiox/mapeamento/extrair-esqueleto-sessao.js` — lê o `.jsonl` inteiro desde a linha 1 | ✅ **29.354 linhas, 0 não contabilizadas — cobertura 100% provada** |
-| 2.2 | @analyst mapeia o conteúdo do esqueleto | `.aiox/mapeamento/esqueleto.md` (1.832 KB, 4.020 entradas cronológicas) | 🔶 Em andamento — @analyst sendo chamado agora |
-| 2.3 | Incluir as **sessões compactadas** | Pedido explícito do Felipe; não está na BLOCO 3 | ✅ **11 de 11 compactações capturadas com resumo completo** — feito junto com 2.1 |
-| 2.4 | Consolidar em partes numeradas | Substitui o documento de 33 KB desatualizado | ⏳ |
+| 2.2 | @analyst mapeia o conteúdo do esqueleto | `.aiox/mapeamento/esqueleto.md` (1.832 KB) — sem corte (Felipe: *"não é quase tudo, EU QUERO TUDO"*), resumos completos regenerados (329.180 chars, 11/11) | ✅ **Concluído** — 11 compactações + 127 away summaries + rabo não compactado, os 3 lidos por completo |
+| 2.3 | Incluir as **sessões compactadas** | Pedido explícito do Felipe; não está na BLOCO 3 | ✅ **11 de 11 compactações capturadas com resumo completo** |
+| 2.4 | Consolidar em partes numeradas | Substituído por achados diretos (E92-E97) — não precisou de partes numeradas, o cruzamento contra o `mapeamento-guardiao-27-29-08.md` já achou os itens órfãos | ✅ **Concluído** |
 
-> ⚠️ O `.jsonl` cresce em tempo real — a extração de 2.1 é "até o momento em que rodou" (29.354 linhas, 02/09). Se a sessão continuar depois da FASE 2, rodar de novo antes da FASE 3 pra pegar o resto.
+> ⚠️ O `.jsonl` cresce em tempo real — a extração de 2.1/2.2 é "até o momento em que rodou" (02/09, ~15h). Se a sessão continuar bastante depois da FASE 3, considerar rodar de novo antes da FASE 5.
+
+## ✅ FASE 2 — CONCLUÍDA (02/09/2026)
+
+**Resultado:** as 11 compactações (329 KB), os 127 away summaries (37 KB) e o rabo não compactado (109 KB, 252 mensagens) foram lidos por completo, sem corte. Achado principal: o documento `.aiox/mapeamento-guardiao-27-29-08.md` (16 partes, 29/08/2026) tinha sua própria tabela de auto-checagem (✅ registrado / ❌ "só aqui") — **8 itens continuavam órfãos** (nunca chegaram ao `itens-em-aberto.md`), registrados agora como **E92-E97**, com destaque pro **E92** (bug de dado real, possivelmente ainda errado na `Analise Oficial.xlsx`: SKU PAS23-BIV) e **E94** (mecanismo técnico que fecharia o E29/BLOCO 2-B de vez, proposto e aprovado em 29/08, nunca implementado).
 
 ---
 
