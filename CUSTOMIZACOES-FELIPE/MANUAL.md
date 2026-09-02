@@ -1796,4 +1796,40 @@ diferentes, não vão se atrapalhar" · trocar no meio de um lote.
 
 ---
 
-*Última atualização: 2026-08-31 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 58 — BLOCO 1 PASSO 0 — Ler o ponteiro de retomada antes do caderno
+
+**Data de aprovação:** 2026-09-02
+**Problema resolvido:** o framework tinha o caderno (`PROJETO-STATUS.md`) e a lista de pendências (`.aiox/itens-em-aberto.md`), mas **nenhum arquivo dizia por onde começar**. O caderno registra o que foi feito; a lista registra o que está aberto — nenhum dos dois responde "qual é o próximo passo concreto e quais decisões estão esperando o Felipe". Numa sessão de 20 dias, com 2 frentes de trabalho paralelas e 136 itens em aberto, o agente da sessão seguinte abriria sem saber que este terminal existiu. O Felipe pediu explicitamente um "documento de retomada" e perguntou: *"Se eu te chamar amanhã então, a primeira coisa que vc vai fazer é `.aiox/RETOMAR-AQUI.md`? Isso você ou qualquer outro agente?"* — a resposta tinha que ser "sim, e qualquer agente".
+**O que faz:** cria o arquivo `.aiox/RETOMAR-AQUI.md` (ponteiro entre sessões: estado de cada frente, fases do plano, decisões esperando o Felipe, regras vivas, arquivos-chave) e torna a leitura dele o **PASSO 0** da ativação de qualquer agente — antes do caderno, antes de tudo. Se o arquivo não existir, o agente avisa imediatamente em vez de seguir como se nada tivesse acontecido.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 1, antes do PASSO 1 · arquivo novo `.aiox/RETOMAR-AQUI.md`
+**Regra:**
+```
+PASSO 0: Leia `.aiox/RETOMAR-AQUI.md` PRIMEIRO — antes do caderno, antes de qualquer outra coisa.
+         → Ordem obrigatória: ① .aiox/RETOMAR-AQUI.md → ② .aiox/itens-em-aberto.md
+           → ③ caderno do projeto ativo
+         → Se não existir → avisar o Felipe ("o ponteiro de retomada sumiu") e NÃO seguir
+         → Vale para TODOS os agentes, incluindo o @analyst (que não está isento deste passo)
+```
+
+---
+
+## CUSTOMIZAÇÃO 59 — BLOCO 3 PASSO 3-C — Atualizar o ponteiro antes de fechar a sessão
+
+**Data de aprovação:** 2026-09-02
+**Problema resolvido:** a BLOCO 3 ("vou parar") já era o bloco mais completo do framework — auditoria integral do `.jsonl`, cruzamento com `git status`/`git diff`, atualização do caderno, fechamento do Chrome do Modo Navegador, commit e push. Mas **nenhum dos seus passos deixava escrito por onde começar na sessão seguinte** (achado E83). Sem esse passo, a CUSTOMIZAÇÃO 58 nasceria e apodreceria: o ponteiro seria lido todo dia e nunca atualizado — e um ponteiro velho é pior que nenhum, porque o agente da sessão seguinte confia nele.
+**O que faz:** acrescenta o PASSO 3-C à BLOCO 3, obrigando a atualização do `.aiox/RETOMAR-AQUI.md` com o estado real do fim da sessão antes do commit, e inclui o arquivo no `git add` do PASSO 4.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 3, entre o PASSO 3-B e o PASSO 4 (e o `git add` do PASSO 4)
+**Regra:**
+```
+PASSO 3-C: ATUALIZAR O PONTEIRO DE RETOMADA (obrigatório)
+  → Atualizar `.aiox/RETOMAR-AQUI.md`: onde cada frente parou · próximo passo concreto
+    · decisões esperando o Felipe · o que mudou nas fases do plano
+  → Se não existir → criá-lo, seguindo a estrutura da BLOCO 1 PASSO 0
+  → Nunca fechar a sessão deixando o ponteiro desatualizado
+
+PASSO 4 (git add): incluir .aiox/RETOMAR-AQUI.md e .aiox/itens-em-aberto.md
+```
+
+---
+
+*Última atualização: 2026-09-02 — Orion (@aiox-master)*
