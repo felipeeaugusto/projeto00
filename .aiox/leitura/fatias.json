@@ -1,0 +1,967 @@
+{
+  "geradoEm": "2026-09-02T10:58:21.095Z",
+  "totalArquivos": 1605,
+  "totalLinhas": 586668,
+  "numFatias": 33,
+  "targetLinhasPorFatia": 18000,
+  "maxGrupoLinhas": 12000,
+  "integro": true,
+  "fatias": [
+    {
+      "id": "01",
+      "arquivos": 1,
+      "linhas": 19677,
+      "grupos": [
+        {
+          "label": ".aiox-core/data (parte 1/3)",
+          "arquivos": 1,
+          "linhas": 19677
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "arquivos": 57,
+      "linhas": 17715,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/tasks (parte 2/8)",
+          "arquivos": 28,
+          "linhas": 12003
+        },
+        {
+          "label": ".aiox-core/product/templates/engine",
+          "arquivos": 13,
+          "linhas": 2958
+        },
+        {
+          "label": ".aiox-core/infrastructure/templates",
+          "arquivos": 15,
+          "linhas": 2710
+        },
+        {
+          "label": ".aiox-core/infrastructure/contracts",
+          "arquivos": 1,
+          "linhas": 44
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "arquivos": 61,
+      "linhas": 17685,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/tasks (parte 3/8)",
+          "arquivos": 28,
+          "linhas": 12002
+        },
+        {
+          "label": ".aiox-core/core/code-intel",
+          "arquivos": 14,
+          "linhas": 3088
+        },
+        {
+          "label": ".aiox-core/data (parte 2/3)",
+          "arquivos": 8,
+          "linhas": 2144
+        },
+        {
+          "label": ".aiox-core/monitor",
+          "arquivos": 10,
+          "linhas": 345
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/upgrade-squad",
+          "arquivos": 1,
+          "linhas": 106
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "arquivos": 62,
+      "linhas": 17729,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/tasks (parte 5/8)",
+          "arquivos": 28,
+          "linhas": 12002
+        },
+        {
+          "label": ".aiox-core/product/checklists",
+          "arquivos": 16,
+          "linhas": 3005
+        },
+        {
+          "label": ".aiox-core/core/config",
+          "arquivos": 12,
+          "linhas": 2438
+        },
+        {
+          "label": ".aiox-core/development/agent-teams",
+          "arquivos": 5,
+          "linhas": 211
+        },
+        {
+          "label": ".aiox-core/infrastructure/scripts/git-hooks",
+          "arquivos": 1,
+          "linhas": 73
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "arquivos": 43,
+      "linhas": 17716,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/tasks (parte 4/8)",
+          "arquivos": 27,
+          "linhas": 11986
+        },
+        {
+          "label": "squads/squad-creator-pro/config",
+          "arquivos": 7,
+          "linhas": 3149
+        },
+        {
+          "label": "squads/squad-creator-pro/checklists",
+          "arquivos": 7,
+          "linhas": 2114
+        },
+        {
+          "label": "squads/squad-creator-pro/assessments",
+          "arquivos": 1,
+          "linhas": 325
+        },
+        {
+          "label": ".aiox-core/development",
+          "arquivos": 1,
+          "linhas": 142
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "arquivos": 62,
+      "linhas": 17747,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/tasks (parte 6/8)",
+          "arquivos": 27,
+          "linhas": 11973
+        },
+        {
+          "label": ".aiox-core/product/data",
+          "arquivos": 16,
+          "linhas": 3410
+        },
+        {
+          "label": ".aiox-core/hooks",
+          "arquivos": 13,
+          "linhas": 1529
+        },
+        {
+          "label": ".aiox-core/product/templates/ide-rules",
+          "arquivos": 6,
+          "linhas": 835
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "arquivos": 37,
+      "linhas": 17685,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/tasks (parte 8/8)",
+          "arquivos": 27,
+          "linhas": 11973
+        },
+        {
+          "label": "squads/squad-creator-pro/agents",
+          "arquivos": 3,
+          "linhas": 3253
+        },
+        {
+          "label": ".aiox-core/core/docs",
+          "arquivos": 5,
+          "linhas": 1996
+        },
+        {
+          "label": ".aiox-core/presets",
+          "arquivos": 1,
+          "linhas": 358
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/an-extract-dna",
+          "arquivos": 1,
+          "linhas": 105
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "arquivos": 38,
+      "linhas": 17702,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/tasks (parte 1/8)",
+          "arquivos": 27,
+          "linhas": 11972
+        },
+        {
+          "label": "squads/squad-creator/agents",
+          "arquivos": 3,
+          "linhas": 3561
+        },
+        {
+          "label": ".aiox-core/development/data",
+          "arquivos": 3,
+          "linhas": 1522
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/an-fidelity-score",
+          "arquivos": 3,
+          "linhas": 622
+        },
+        {
+          "label": ".aiox-core/local",
+          "arquivos": 2,
+          "linhas": 25
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "arquivos": 52,
+      "linhas": 17690,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/tasks (parte 7/8)",
+          "arquivos": 27,
+          "linhas": 11971
+        },
+        {
+          "label": "squads/squad-creator/minds",
+          "arquivos": 17,
+          "linhas": 3614
+        },
+        {
+          "label": "squads/squad-creator",
+          "arquivos": 5,
+          "linhas": 1496
+        },
+        {
+          "label": ".aiox-core/core/external-executors",
+          "arquivos": 2,
+          "linhas": 598
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/cross-provider",
+          "arquivos": 1,
+          "linhas": 11
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "arquivos": 83,
+      "linhas": 17741,
+      "grupos": [
+        {
+          "label": ".aiox-core/scripts",
+          "arquivos": 55,
+          "linhas": 11714
+        },
+        {
+          "label": "squads/squad-creator-pro/minds",
+          "arquivos": 17,
+          "linhas": 3614
+        },
+        {
+          "label": ".aiox-core/infrastructure/scripts/codex-skills-sync",
+          "arquivos": 4,
+          "linhas": 1596
+        },
+        {
+          "label": ".aiox-core/utils",
+          "arquivos": 7,
+          "linhas": 817
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "arquivos": 37,
+      "linhas": 17711,
+      "grupos": [
+        {
+          "label": "squads/squad-creator-pro/workflows",
+          "arquivos": 18,
+          "linhas": 11513
+        },
+        {
+          "label": ".aiox-core/core/quality-gates",
+          "arquivos": 10,
+          "linhas": 3664
+        },
+        {
+          "label": ".aiox-core/schemas",
+          "arquivos": 6,
+          "linhas": 2064
+        },
+        {
+          "label": ".aiox-core/infrastructure",
+          "arquivos": 2,
+          "linhas": 325
+        },
+        {
+          "label": "squads/squad-creator-pro",
+          "arquivos": 1,
+          "linhas": 145
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "arquivos": 59,
+      "linhas": 17748,
+      "grupos": [
+        {
+          "label": "squads/squad-creator/scripts",
+          "arquivos": 30,
+          "linhas": 11111
+        },
+        {
+          "label": ".aiox-core/infrastructure/integrations",
+          "arquivos": 18,
+          "linhas": 3680
+        },
+        {
+          "label": ".aiox-core/infrastructure/scripts/ide-sync",
+          "arquivos": 11,
+          "linhas": 2957
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "arquivos": 62,
+      "linhas": 17719,
+      "grupos": [
+        {
+          "label": ".aiox-core/infrastructure/scripts (parte 5/5)",
+          "arquivos": 18,
+          "linhas": 10638
+        },
+        {
+          "label": ".aiox-core/development/templates",
+          "arquivos": 34,
+          "linhas": 4406
+        },
+        {
+          "label": ".aiox-core/data (parte 3/3)",
+          "arquivos": 7,
+          "linhas": 2213
+        },
+        {
+          "label": "squads/squad-creator-pro/skills",
+          "arquivos": 1,
+          "linhas": 290
+        },
+        {
+          "label": ".aiox-core/core/migration",
+          "arquivos": 2,
+          "linhas": 172
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "arquivos": 34,
+      "linhas": 17687,
+      "grupos": [
+        {
+          "label": ".aiox-core/infrastructure/scripts (parte 3/5)",
+          "arquivos": 17,
+          "linhas": 10596
+        },
+        {
+          "label": ".aiox-core/data/tech-presets",
+          "arquivos": 8,
+          "linhas": 4438
+        },
+        {
+          "label": ".aiox-core/infrastructure/scripts/documentation-integrity",
+          "arquivos": 7,
+          "linhas": 2283
+        },
+        {
+          "label": "squads/squad-creator/skills",
+          "arquivos": 1,
+          "linhas": 288
+        },
+        {
+          "label": ".aiox-core/base-rules",
+          "arquivos": 1,
+          "linhas": 82
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "arquivos": 53,
+      "linhas": 17761,
+      "grupos": [
+        {
+          "label": ".aiox-core/infrastructure/scripts (parte 2/5)",
+          "arquivos": 17,
+          "linhas": 10595
+        },
+        {
+          "label": ".aiox-core/infrastructure/tools",
+          "arquivos": 15,
+          "linhas": 4707
+        },
+        {
+          "label": ".aiox-core/core/doctor",
+          "arquivos": 20,
+          "linhas": 1604
+        },
+        {
+          "label": ".aiox-core/core/ideation",
+          "arquivos": 1,
+          "linhas": 855
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "arquivos": 46,
+      "linhas": 17764,
+      "grupos": [
+        {
+          "label": ".aiox-core/infrastructure/scripts (parte 1/5)",
+          "arquivos": 17,
+          "linhas": 10583
+        },
+        {
+          "label": ".aiox-core/core/ids",
+          "arquivos": 15,
+          "linhas": 4718
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/validate-squad",
+          "arquivos": 8,
+          "linhas": 1669
+        },
+        {
+          "label": "squads/squad-creator-pro/benchmarks",
+          "arquivos": 6,
+          "linhas": 794
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "arquivos": 38,
+      "linhas": 17701,
+      "grupos": [
+        {
+          "label": ".aiox-core/infrastructure/scripts (parte 4/5)",
+          "arquivos": 17,
+          "linhas": 10577
+        },
+        {
+          "label": "squads/squad-creator/checklists",
+          "arquivos": 14,
+          "linhas": 5123
+        },
+        {
+          "label": ".aiox-core/core/memory",
+          "arquivos": 2,
+          "linhas": 1437
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/pv-axioma-assessment",
+          "arquivos": 4,
+          "linhas": 464
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/smoke-test-model-routing",
+          "arquivos": 1,
+          "linhas": 100
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "arquivos": 67,
+      "linhas": 17734,
+      "grupos": [
+        {
+          "label": ".aiox-core/cli",
+          "arquivos": 42,
+          "linhas": 10044
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/an-assess-sources",
+          "arquivos": 17,
+          "linhas": 5224
+        },
+        {
+          "label": ".aiox-core/infrastructure/tests",
+          "arquivos": 4,
+          "linhas": 1905
+        },
+        {
+          "label": ".aiox-core/core",
+          "arquivos": 3,
+          "linhas": 371
+        },
+        {
+          "label": ".aiox-core/manifests",
+          "arquivos": 1,
+          "linhas": 190
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "arquivos": 69,
+      "linhas": 17785,
+      "grupos": [
+        {
+          "label": ".aiox-core/product/templates (parte 1/2)",
+          "arquivos": 38,
+          "linhas": 9701
+        },
+        {
+          "label": "squads/squad-creator-pro/scripts/tests",
+          "arquivos": 19,
+          "linhas": 5253
+        },
+        {
+          "label": ".aiox-core/core/graph-dashboard",
+          "arquivos": 12,
+          "linhas": 2831
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "arquivos": 70,
+      "linhas": 17718,
+      "grupos": [
+        {
+          "label": ".aiox-core/product/templates (parte 2/2)",
+          "arquivos": 36,
+          "linhas": 9693
+        },
+        {
+          "label": ".aiox-core/development/agents",
+          "arquivos": 22,
+          "linhas": 5600
+        },
+        {
+          "label": ".aiox-core/core/elicitation",
+          "arquivos": 5,
+          "linhas": 1704
+        },
+        {
+          "label": ".aiox-core/development/tasks/blocks",
+          "arquivos": 5,
+          "linhas": 645
+        },
+        {
+          "label": ".aiox-core/development/external-executors",
+          "arquivos": 2,
+          "linhas": 76
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "arquivos": 43,
+      "linhas": 17685,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/scripts (parte 1/3)",
+          "arquivos": 20,
+          "linhas": 9384
+        },
+        {
+          "label": ".aiox-core/development/workflows",
+          "arquivos": 15,
+          "linhas": 5623
+        },
+        {
+          "label": "squads/squad-creator/config",
+          "arquivos": 6,
+          "linhas": 2422
+        },
+        {
+          "label": ".aiox-core/product/templates/statusline",
+          "arquivos": 2,
+          "linhas": 256
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "arquivos": 40,
+      "linhas": 17687,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/scripts (parte 2/3)",
+          "arquivos": 20,
+          "linhas": 9362
+        },
+        {
+          "label": "squads/squad-creator/docs (parte 1/2)",
+          "arquivos": 10,
+          "linhas": 6343
+        },
+        {
+          "label": ".aiox-core/core/orchestration/executors",
+          "arquivos": 6,
+          "linhas": 1404
+        },
+        {
+          "label": ".aiox-core/infrastructure/schemas",
+          "arquivos": 3,
+          "linhas": 473
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/collect-sources",
+          "arquivos": 1,
+          "linhas": 105
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "arquivos": 35,
+      "linhas": 17715,
+      "grupos": [
+        {
+          "label": ".aiox-core/core/orchestration (parte 2/2)",
+          "arquivos": 17,
+          "linhas": 9317
+        },
+        {
+          "label": "squads/squad-creator/docs (parte 2/2)",
+          "arquivos": 11,
+          "linhas": 6476
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/pv-modernization-score",
+          "arquivos": 4,
+          "linhas": 1197
+        },
+        {
+          "label": ".aiox-core/core/session",
+          "arquivos": 2,
+          "linhas": 669
+        },
+        {
+          "label": ".aiox-core/product",
+          "arquivos": 1,
+          "linhas": 56
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "arquivos": 46,
+      "linhas": 17721,
+      "grupos": [
+        {
+          "label": ".aiox-core/development/scripts (parte 3/3)",
+          "arquivos": 19,
+          "linhas": 9310
+        },
+        {
+          "label": "squads/squad-creator-pro/scripts",
+          "arquivos": 21,
+          "linhas": 6572
+        },
+        {
+          "label": ".aiox-core/core/permissions",
+          "arquivos": 4,
+          "linhas": 1096
+        },
+        {
+          "label": "squads/squad-creator-pro/scripts/cross-provider",
+          "arquivos": 2,
+          "linhas": 743
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "arquivos": 48,
+      "linhas": 17765,
+      "grupos": [
+        {
+          "label": "squads/squad-creator/tasks (parte 1/2)",
+          "arquivos": 21,
+          "linhas": 9289
+        },
+        {
+          "label": "squads/squad-creator-pro/tasks (parte 2/2)",
+          "arquivos": 17,
+          "linhas": 6617
+        },
+        {
+          "label": ".aiox-core/core/utils",
+          "arquivos": 3,
+          "linhas": 1048
+        },
+        {
+          "label": ".aiox-core/core/errors",
+          "arquivos": 7,
+          "linhas": 811
+        }
+      ]
+    },
+    {
+      "id": "26",
+      "arquivos": 46,
+      "linhas": 17689,
+      "grupos": [
+        {
+          "label": "squads/squad-creator/tasks (parte 2/2)",
+          "arquivos": 21,
+          "linhas": 9288
+        },
+        {
+          "label": "squads/squad-creator-pro/tasks (parte 1/2)",
+          "arquivos": 17,
+          "linhas": 6656
+        },
+        {
+          "label": ".aiox-core/development/checklists",
+          "arquivos": 5,
+          "linhas": 1034
+        },
+        {
+          "label": ".aiox-core/core/resilience",
+          "arquivos": 3,
+          "linhas": 711
+        }
+      ]
+    },
+    {
+      "id": "27",
+      "arquivos": 36,
+      "linhas": 17755,
+      "grupos": [
+        {
+          "label": ".aiox-core/core/orchestration (parte 1/2)",
+          "arquivos": 16,
+          "linhas": 9212
+        },
+        {
+          "label": "squads/squad-creator/data (parte 2/2)",
+          "arquivos": 15,
+          "linhas": 6736
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/qa-after-creation",
+          "arquivos": 3,
+          "linhas": 992
+        },
+        {
+          "label": ".aiox-core/core/manifest",
+          "arquivos": 2,
+          "linhas": 815
+        }
+      ]
+    },
+    {
+      "id": "28",
+      "arquivos": 36,
+      "linhas": 17700,
+      "grupos": [
+        {
+          "label": ".aiox-core/core/execution",
+          "arquivos": 11,
+          "linhas": 8992
+        },
+        {
+          "label": "squads/squad-creator/data (parte 1/2)",
+          "arquivos": 16,
+          "linhas": 6765
+        },
+        {
+          "label": ".aiox-core/core/mcp",
+          "arquivos": 5,
+          "linhas": 1344
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/wf-clone-mind",
+          "arquivos": 3,
+          "linhas": 495
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/create-task",
+          "arquivos": 1,
+          "linhas": 104
+        }
+      ]
+    },
+    {
+      "id": "29",
+      "arquivos": 30,
+      "linhas": 17750,
+      "grupos": [
+        {
+          "label": ".aiox-core",
+          "arquivos": 13,
+          "linhas": 8974
+        },
+        {
+          "label": ".aiox-core/development/scripts/squad",
+          "arquivos": 11,
+          "linhas": 7138
+        },
+        {
+          "label": ".aiox-core/elicitation",
+          "arquivos": 3,
+          "linhas": 865
+        },
+        {
+          "label": ".aiox-core/core/ui",
+          "arquivos": 3,
+          "linhas": 773
+        }
+      ]
+    },
+    {
+      "id": "30",
+      "arquivos": 67,
+      "linhas": 17700,
+      "grupos": [
+        {
+          "label": "squads/squad-creator/templates",
+          "arquivos": 20,
+          "linhas": 8522
+        },
+        {
+          "label": ".aiox-core/core/synapse",
+          "arquivos": 39,
+          "linhas": 7178
+        },
+        {
+          "label": ".aiox-core/quality",
+          "arquivos": 4,
+          "linhas": 1428
+        },
+        {
+          "label": ".aiox-core/core/events",
+          "arquivos": 3,
+          "linhas": 470
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/an-design-clone",
+          "arquivos": 1,
+          "linhas": 102
+        }
+      ]
+    },
+    {
+      "id": "31",
+      "arquivos": 36,
+      "linhas": 17681,
+      "grupos": [
+        {
+          "label": "squads/squad-creator/workflows",
+          "arquivos": 9,
+          "linhas": 8470
+        },
+        {
+          "label": ".aiox-core/docs",
+          "arquivos": 11,
+          "linhas": 7224
+        },
+        {
+          "label": ".aiox-core/infrastructure/scripts/llm-routing",
+          "arquivos": 12,
+          "linhas": 1453
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases",
+          "arquivos": 3,
+          "linhas": 428
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/pv-audit",
+          "arquivos": 1,
+          "linhas": 106
+        }
+      ]
+    },
+    {
+      "id": "32",
+      "arquivos": 65,
+      "linhas": 17689,
+      "grupos": [
+        {
+          "label": ".aiox-core/core/health-check",
+          "arquivos": 50,
+          "linhas": 8267
+        },
+        {
+          "label": ".aiox-core/core/registry",
+          "arquivos": 6,
+          "linhas": 7969
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/an-validate-clone",
+          "arquivos": 3,
+          "linhas": 858
+        },
+        {
+          "label": ".aiox-core/development/scripts/modo-navegador",
+          "arquivos": 6,
+          "linhas": 595
+        }
+      ]
+    },
+    {
+      "id": "33",
+      "arquivos": 46,
+      "linhas": 17716,
+      "grupos": [
+        {
+          "label": "squads/squad-creator-pro/data",
+          "arquivos": 22,
+          "linhas": 8151
+        },
+        {
+          "label": ".aiox-core/workflow-intelligence",
+          "arquivos": 19,
+          "linhas": 7985
+        },
+        {
+          "label": "squads/squad-creator-pro/test-cases/an-clone-review",
+          "arquivos": 3,
+          "linhas": 861
+        },
+        {
+          "label": ".aiox-core/core/pro",
+          "arquivos": 1,
+          "linhas": 640
+        },
+        {
+          "label": ".aiox-core/product/templates/gemini",
+          "arquivos": 1,
+          "linhas": 79
+        }
+      ]
+    }
+  ]
+}
