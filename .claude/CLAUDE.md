@@ -1712,6 +1712,16 @@ LIMIAR — quando a tabela é obrigatória:
 
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
+PASSO 0: 🧭 **Leia `.aiox/RETOMAR-AQUI.md` PRIMEIRO — antes do caderno, antes de qualquer outra coisa.**
+         → É o ponteiro entre sessões: diz onde as frentes pararam, qual é o próximo passo
+           concreto, e quais decisões estão esperando o Felipe.
+         → Ordem obrigatória: ① `.aiox/RETOMAR-AQUI.md` → ② `.aiox/itens-em-aberto.md`
+           → ③ caderno do projeto ativo.
+         → Se o arquivo não existir → avisar o Felipe imediatamente ("o ponteiro de retomada
+           sumiu") e NÃO seguir como se nada tivesse acontecido.
+         → **Vale para TODOS os agentes, incluindo o @analyst** (que segue a BLOCO 1-A no
+           resto, mas não está isento deste passo).
+
 PASSO 1: Leia `packages/landing-page-dr-julia/PROJETO-STATUS.md` imediatamente.
 PASSO 2: Se o agente ativo for o @analyst → aplicar BLOCO 1-A (abaixo) em vez deste bloco.
 PASSO 3: Para todos os outros agentes, exibir SEMPRE este bloco após o greeting:
@@ -1944,6 +1954,19 @@ PASSO 3-B: FECHAR O CHROME DO MODO NAVEGADOR, SE USADO (obrigatório, 08-09/08/2
   frases da BLOCO 3), nunca "momento de pausa" — usar o GUIA DE DECISÃO (antes da
   BLOCO 0-F) se houver qualquer dúvida sobre qual regra está em jogo.
 
+PASSO 3-C: 🧭 ATUALIZAR O PONTEIRO DE RETOMADA (obrigatório, 02/09/2026):
+  → Atualizar `.aiox/RETOMAR-AQUI.md` com o estado real do fim desta sessão:
+    onde cada frente parou · qual é o próximo passo concreto · quais decisões
+    continuam esperando o Felipe · o que mudou nas fases do plano
+  → Se o arquivo não existir → criá-lo, seguindo a estrutura da BLOCO 1 PASSO 0
+  → **Nunca fechar a sessão deixando o ponteiro desatualizado** — um ponteiro velho
+    é pior que nenhum, porque o agente da sessão seguinte confia nele
+
+  **Por que este passo existe (E83):** a BLOCO 3 fazia auditoria integral, cruzava com o
+  git, atualizava o caderno e commitava — mas **nenhum passo deixava escrito por onde
+  começar na sessão seguinte**. O caderno registra o que foi feito; o ponteiro registra
+  o que fazer. São coisas diferentes, e faltava a segunda.
+
 PASSO 4: Execute o `add`/`commit` OBRIGATORIAMENTE (sem pedir permissão — é mandatório),
          depois CHAME O @DEVOPS PRA FAZER O PUSH — nunca rode `git push` diretamente
          (correção de 08-09/08/2026: só o @devops pode dar push, ver agent-authority.md;
@@ -1952,8 +1975,8 @@ PASSO 4: Execute o `add`/`commit` OBRIGATORIAMENTE (sem pedir permissão — é 
 
   SE projeto ativo é KARZEN (pasta regular — não é submódulo):
   ```
-  git add packages/karzen/PROJETO-STATUS.md packages/karzen/HISTORICO-SESSOES.md
-  git commit -m "chore: caderno karzen atualizado — sessão YYYY-MM-DD"
+  git add packages/karzen/PROJETO-STATUS.md packages/karzen/HISTORICO-SESSOES.md .aiox/RETOMAR-AQUI.md .aiox/itens-em-aberto.md
+  git commit -m "chore: caderno karzen + ponteiro de retomada atualizados — sessão YYYY-MM-DD"
   ```
 
   SE projeto ativo é DR-JULIA (submódulo git):
