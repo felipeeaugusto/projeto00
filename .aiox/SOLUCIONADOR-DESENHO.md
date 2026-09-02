@@ -247,15 +247,19 @@ Campos que já existem no schema e são exatamente o que o desenho pedia:
 
 > *"State persists between Claude Code sessions via YAML file."*
 
-### Outros mecanismos que já existem e devem ser reusados
+### Outros mecanismos que já existem — **checados contra o `entity-registry.yaml` de verdade, 02/09/2026 (E89)**
 
-| Mecanismo | Arquivo | Substitui, no desenho |
-|---|---|---|
-| **Agent Immortality Protocol** (E76) | `core/resilience/agent-immortality.js` | autópsia da falha **sem reidratar o contexto que falhou** + fila de reencarnação com diretivas de prevenção. Mais forte que a cadeia de artefatos para recuperação |
-| **Entity Registry** (E72, E78) | `.aiox/entity-registry.yaml` | 821 entidades com `usedBy` / `dependencies` = a checagem cruzada do **D3**, e `adaptability.score` (0.0–1.0) = a medida de risco por artefato do portão 9, com checksum, em <1ms |
-| **`bob_orchestration`** (E70) | @pm | `wave-execute` e `spawn-terminal` — o paralelismo real. **O orquestrador é o @pm, não o @dev** |
-| **Framework TOK** (E71) | `tool-registry.yaml` + 5 scripts | `tokenCost` por ferramenta → o orçamento de ciclo (E23) pode ser **token real**, não palpite de interações |
-| **Etapas 9, 1.1 e 8.1 do @po** (E22) | `validate-next-story.md` | Anti-Hallucination Verification · Executor Assignment Validation (**D14**) · No Duplicate Functionality (liga na BLOCO 0-AA). **As 3 existem, estão escritas, e nunca foram usadas** |
+> ⚠️ **4 de 7 são código morto.** A tabela abaixo era uma lista de "reaproveitar de graça" — não é mais. Cada linha agora tem o veredito real, não a promessa da seção original.
+
+| Mecanismo | Arquivo | Veredito (E89) | Substituiria, no desenho |
+|---|---|---|---|
+| **Agent Immortality Protocol** (E76) | `core/resilience/agent-immortality.js` | ❌ **Órfão** — cadeia morre em 2 passos: `agent-immortality` → `resilience-index` → `core/index.js` → `usedBy: []` | autópsia da falha sem reidratar contexto + fila de reencarnação — **precisa escrever o 1º caller do zero** |
+| **Entity Registry** (E72, E78) | `.aiox/entity-registry.yaml` | ✅ **Real** — `lifecycle: production`, `usedBy: [doctor-checks-index]` | 821 entidades com `usedBy`/`dependencies` = checagem cruzada do **D3** — pode ser usado como está |
+| **`bob_orchestration`** (E70) | @pm | 🟡 **Parcial** — `bob-orchestrator.js` e `spawn-terminal` são reais (produção, via @pm); `wave-execute` continua órfão/experimental (01-5) | o paralelismo real via spawn-terminal funciona; **"rodar em ondas" não** |
+| **Framework TOK** (E71) | `tool-registry.yaml` + 5 scripts | ❌ **Órfão** | `tokenCost` por ferramenta — **precisa escrever o 1º caller do zero** |
+| **Etapas 9, 1.1 e 8.1 do @po** (E22) | `validate-next-story.md` | ✅ **Real** — `usedBy: [po-close-story, dev, po]` | Anti-Hallucination · Executor Assignment · No Duplicate Functionality — já rodam quando o @po valida uma story |
+
+**Impacto na seção 13 (Ordem de implementação):** a Fase E ("Ligar aos mecanismos que já existem") está subestimada — pra 4 dos 7 mecanismos acima, "ligar" significa escrever a primeira integração do zero, não reaproveitar algo pronto.
 
 ---
 

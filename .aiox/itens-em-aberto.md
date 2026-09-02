@@ -403,3 +403,21 @@ Lista leve e incremental de coisas discutidas em conversa mas ainda não formali
 ## Sessão 02/09/2026 — FASE 1 pausada por custo de token (E87)
 
 - [02/09/2026] dev — **E87 — 🔴 FASE 1 (leitura via sub-agentes) consome token de forma insustentável — PAUSADA.** O teste da fatia 01 (1 arquivo, `entity-registry.yaml`, 19.677 linhas) gastou **434.912 tokens** sozinho. Ao relançar as fatias 02-33 em paralelo, **19 de 20 lançadas falharam por limite de sessão** — e o limite bateu 2 vezes na mesma manhã (11h20 e depois 13h10), mesmo com o Felipe tendo acabado de logar de novo. Extrapolando o custo da fatia 01 pro volume total (586.668 linhas), a FASE 1 completa consumiria da ordem de **10-13 milhões de tokens só de leitura**, sem contar as tentativas que falharam no meio e já tinham gasto parte do orçamento antes de cair. **Achado do próprio Felipe:** rodar em background não reduz o gasto de token — só o tempo de parede; cada sub-agente paga o custo total de ler texto bruto pra dentro do contexto, em paralelo ou não. Ele já trocou de conta 2 vezes por estourar limite e está na 3ª (última que assina). **PAUSADO — nenhum sub-agente novo de leitura deve ser lançado até isso ser investigado.** Candidato natural pra investigar: 🔍 @analyst (Análise de dados e relatórios / Discovery — escopo dele, não é bug de código nem decisão de arquitetura pronta). Se a conclusão exigir redesenhar a FASE 1, a implementação da mudança é do 👑 @aiox-master (modificação de framework). Arquivo: `.aiox/PLANO-EXECUCAO.md` (FASE 1, passo 1.3)
+
+---
+
+## Sessão 02/09/2026 — checagem dos 7 mecanismos da seção 11 (E89)
+
+- [02/09/2026] analyst — **E89 — 🔴 4 de 7 mecanismos que o desenho cita como "já implementado, é só reaproveitar" (seção 11) são código morto.** Checagem direta no `entity-registry.yaml`, feita **antes** da leitura grande dos 712 KB de candidatos (ordem trocada pelo `*elicit` de 8 pontos — ver ponto 4/7/8, "o barato e valioso devia vir primeiro").
+
+  | # | Mecanismo | Veredito |
+  |---|---|---|
+  | 1 | `workflow-patterns.yaml` | ❌ Órfão (já confirmado no teste da fatia 01, E68/01-2) |
+  | 2 | `workflow-state-schema.yaml` | ❌ Órfão (idem, E68/01-2) |
+  | 3 | **Agent Immortality Protocol** (`agent-immortality.js`, E76) | ❌ **Órfão — achado novo.** Cadeia morre em 2 passos: `agent-immortality` → `resilience-index` → `core/index.js` → **`usedBy: []`**. O mesmo padrão do `fast-path-gate` → `orchestration-index` → nada (01-7): "usado por algo" nem sempre quer dizer "usado de verdade" |
+  | 4 | **Entity Registry** (o arquivo `.aiox-core/data/entity-registry.yaml` em si) | ✅ **Real** — `lifecycle: production`, `usedBy: [doctor-checks-index]` |
+  | 5 | `bob_orchestration` (E70, @pm) | 🟡 **Parcial** — `bob-orchestrator.js` real (usado pelo @pm) e `terminal-spawner.js`/spawn-terminal real (via `greenfield-handler`, que é dependência de `bob-orchestrator`); mas `wave-executor.js`/wave-execute continua órfão/experimental (já confirmado ontem, 01-5) |
+  | 6 | Framework TOK (`tool-registry.yaml`, E71) | ❌ Órfão (já confirmado no teste da fatia 01, E68/01-3) |
+  | 7 | Etapas 9/1.1/8.1 do @po (`validate-next-story.md`, E22) | ✅ **Real** — `usedBy: [po-close-story, dev, po]`, é chamado de verdade quando o @po roda a validação |
+
+  **Por que isso muda o rumo:** a seção 13 do `SOLUCIONADOR-DESENHO.md` ("Fase E — Ligar aos mecanismos que já existem") tratava os 7 como reaproveitamento praticamente gratuito. Na prática, **4 dos 7 exigem escrever a primeira ligação do zero**, não só "religar algo pronto" — o custo da Fase E está subestimado. Arquivos: `.aiox-core/data/entity-registry.yaml`, `.aiox/SOLUCIONADOR-DESENHO.md` (seção 11 e 13)
