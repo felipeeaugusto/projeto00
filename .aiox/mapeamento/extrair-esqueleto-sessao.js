@@ -39,8 +39,10 @@ const SUBTIPOS_SYSTEM_IGNORADOS = new Set(['turn_duration', 'scheduled_task_fire
 
 const CAP_USER = 1500;
 const CAP_ASSISTANT = 500;
-const CAP_COMPACT_SUMMARY = 4000; // o resumo real da compactação — o mais importante, corta menos
-const CAP_AWAY_SUMMARY = 1500;
+// SEM CORTE nos resumos (Felipe, 02/09/2026): "Não é QUASE TUDO, EU QUERO TUDO!" —
+// resumo de compactação e away_summary nunca são cortados, custe o tamanho que custar.
+const CAP_COMPACT_SUMMARY = Infinity;
+const CAP_AWAY_SUMMARY = Infinity;
 
 function textoDeContentBlocks(content) {
   if (typeof content === 'string') return content;
