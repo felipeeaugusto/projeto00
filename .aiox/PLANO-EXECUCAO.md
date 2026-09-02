@@ -28,7 +28,7 @@
 |---|---|---|---|---|
 | 1.1 | **Script de extração estrutural** dos 1.626 arquivos | Determinístico, sem LLM → `.aiox/leitura/indice.md` | ~1 min | ✅ **1.605/1.626 indexados, 21 excluídos com motivo (binários/marcadores), 586.668 linhas reconciliadas 100% com disco** |
 | 1.2 | Dividir em **N fatias** por pasta, sem sobreposição | Script gera o plano de fatias | ~1 min | ✅ **33 fatias, 17.681–19.677 linhas cada, integridade verificada (1605/1605 arquivos, 0 duplicado, 0 faltando)** |
-| 1.3 | 🤖 **Sub-agentes em paralelo** — cada um recebe: sua fatia + o desenho | 🔑 **Cada um ESCREVE em `.aiox/leitura/{fatia}.md`.** Nenhum devolve pro contexto de quem chamou | ~40–60 min | ⏳ |
+| 1.3 | 🤖 **Sub-agentes em paralelo** — cada um recebe: sua fatia + o desenho | 🔑 **Cada um ESCREVE em `.aiox/leitura/{fatia}.md`.** Nenhum devolve pro contexto de quem chamou | ~40–60 min | 🔴 **PAUSADO (E87) — fatia 01 (teste, 1 arquivo) gastou 434.912 tokens; 19/20 fatias relançadas falharam por limite de sessão, 2× na mesma manhã. Custo estimado do total: 10-13 milhões de tokens. NÃO relançar sem antes investigar.** |
 | 1.4 | **Script consolida** os deltas — dedup + conflitos | Determinístico → `.aiox/leitura/delta-consolidado.md` | ~1 min | ⏳ |
 | 1.5 | @analyst lê **só o delta consolidado** | Pequeno por construção | ~15 min | ⏳ |
 
