@@ -84,12 +84,12 @@ A FASE 5 **não depende** da FASE 4 pra rodar — nada no trabalho de resolver a
 
 | # | Ação | Como | Status |
 |---|---|---|---|
-| 2.1 | Script extrai o esqueleto das **27.742 linhas** | Já feito 3× — ~30s | ⏳ |
-| 2.2 | @analyst mapeia o conteúdo filtrado | Escreve em `.aiox/mapeamento/{fatia}.md` — método igual ao `buscar-padroes.js`, adaptado pro `.jsonl` da sessão | ⏳ |
-| 2.3 | Incluir as **sessões compactadas** | Pedido explícito do Felipe; não está na BLOCO 3 | ⏳ |
+| 2.1 | ~~Script extrai o esqueleto das 27.742 linhas (já feito 3×)~~ → **REFEITO DO ZERO**: as 3 extrações antigas (`extrair.js`/`2`/`3`, no scratchpad) emendavam uma na outra sem prova de encaixe — descartadas | `.aiox/mapeamento/extrair-esqueleto-sessao.js` — lê o `.jsonl` inteiro desde a linha 1 | ✅ **29.354 linhas, 0 não contabilizadas — cobertura 100% provada** |
+| 2.2 | @analyst mapeia o conteúdo do esqueleto | `.aiox/mapeamento/esqueleto.md` (1.832 KB, 4.020 entradas cronológicas) | 🔶 Em andamento — @analyst sendo chamado agora |
+| 2.3 | Incluir as **sessões compactadas** | Pedido explícito do Felipe; não está na BLOCO 3 | ✅ **11 de 11 compactações capturadas com resumo completo** — feito junto com 2.1 |
 | 2.4 | Consolidar em partes numeradas | Substitui o documento de 33 KB desatualizado | ⏳ |
 
-> ⚠️ O `.jsonl` cresceu: **27.974 linhas** na última varredura (02/09, ~10h40).
+> ⚠️ O `.jsonl` cresce em tempo real — a extração de 2.1 é "até o momento em que rodou" (29.354 linhas, 02/09). Se a sessão continuar depois da FASE 2, rodar de novo antes da FASE 3 pra pegar o resto.
 
 ---
 
