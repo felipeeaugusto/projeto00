@@ -49,33 +49,26 @@
     {
       "name": "Template de Handoff (handoff-insumos-tmpl.yaml)",
       "type": "service",
-      "verified": false,
+      "verified": true,
       "source": "codebase",
       "existing": {
-        "installed": false,
-        "usageLocations": []
+        "installed": true,
+        "usageLocations": ["squads/squad-creator/templates/handoff-insumos-tmpl.yaml"]
       },
       "documentation": {
-        "relevantSections": ["hybridops-patterns.md:1278 CITA o caminho squads/squad-creator/templates/handoff-insumos-tmpl.yaml, mas o arquivo não existe"]
+        "relevantSections": ["hybridops-patterns.md:1278 cita o caminho corretamente — o arquivo existe, com schema mais completo que o resumo da doc"]
       },
       "compatibility": {
-        "preferred": false,
-        "conflicts": ["Referência morta na documentação — arquivo precisa ser CRIADO, não reaproveitado (ver E107)"]
+        "preferred": true,
+        "conflicts": []
       }
     }
   ],
 
-  "unverifiedClaims": [
-    {
-      "claim": "E64 disse que 'não precisa ser inventado — precisa ser escrito no formato que já existe' para todos os 7 mecanismos listados",
-      "reason": "1 dos 4 mecanismos checados (handoff-insumos-tmpl.yaml) não existe como arquivo — a afirmação era parcialmente otimista",
-      "action": "needs_validation"
-    }
-  ],
+  "unverifiedClaims": [],
 
   "recommendations": [
-    { "type": "prefer", "subject": "Tier 0, 5-Layer QG Taxonomy, Executor Patterns", "rationale": "Confirmados reais e usáveis — adotar diretamente no PRD (FR-4)" },
-    { "type": "consider", "subject": "handoff-insumos-tmpl.yaml", "rationale": "Precisa ser CRIADO a partir da descrição em hybridops-patterns.md — não é reuso puro, é trabalho novo pequeno" },
+    { "type": "prefer", "subject": "Tier 0, 5-Layer QG Taxonomy, Executor Patterns, Template de Handoff", "rationale": "Confirmados reais e usáveis — adotar diretamente no PRD (FR-4). Correção 03/09/2026: o Template de Handoff também está confirmado — o E107 original estava errado, ver retração no caderno" },
     { "type": "consider", "subject": "Tier System em squad-creator-pro", "rationale": "Decidir se usa a versão do squad-creator antigo ou se o conceito precisa ser portado pro squad-creator-pro (E108)" }
   ]
 }

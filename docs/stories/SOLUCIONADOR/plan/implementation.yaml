@@ -24,20 +24,28 @@ decisions:
 
 phases:
   - id: phase-1
-    name: "Setup (isolado, baixo risco)"
-    description: "Criar o Template de Handoff que a documentacao ja descreve mas nao existe (E107)"
+    name: "Setup (isolado, baixo risco) — CANCELADA, E107 RETRATADO"
+    description: "Originalmente: criar o Template de Handoff que a documentacao ja descrevia. E107 estava ERRADO - o arquivo ja existia."
     subtasks:
       - id: "1.1"
-        description: "Criar handoff-insumos-tmpl.yaml a partir da descricao ja documentada em hybridops-patterns.md:1276-1310"
+        description: "[CANCELADA] Criar handoff-insumos-tmpl.yaml — nao necessario, arquivo ja existia"
         service: infra
         files:
           - "squads/squad-creator/templates/handoff-insumos-tmpl.yaml"
         verification:
           type: manual
-          instructions: "Confirmar que o arquivo existe no caminho ja citado por hybridops-patterns.md, com o formato INSUMOS_READY descrito"
-        status: completed
-        completedAt: "2026-09-03T00:00:00.000Z"
-        notes: "Baixo risco, sem dependencia de nenhuma outra subtask. Verificado manualmente: arquivo criado no caminho exato citado (hybridops-patterns.md:1278), schema INSUMOS_READY + veto_handoff extraidos sem invencao."
+          instructions: "N/A — nada a verificar, arquivo original restaurado"
+        status: not_applicable
+        notes: |
+          INCIDENTE (03/09/2026): o @dev sobrescreveu este arquivo (que ja existia,
+          com schema mais completo) baseado no E107, que estava errado. Causa raiz:
+          a busca Glob da Fase 3 (Research) rodou sem `path` explicito, buscando a
+          partir do diretorio de trabalho do shell (que tinha driftado pra
+          packages/karzen apos chamadas de Bash), nao da raiz do projeto -
+          resultado "No files found" falso. O @dev percebeu o erro, restaurou o
+          conteudo original via git (commit c896e47), e corrigiu research.json e
+          spec.md. Ver retracao completa em .aiox/itens-em-aberto.md.
+          Esta subtask nao precisa de nenhuma acao - o arquivo ja estava correto.
 
   - id: phase-2
     name: "Core (isolado, alto risco)"
