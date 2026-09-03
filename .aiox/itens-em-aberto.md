@@ -592,3 +592,9 @@ Arquivo de origem: `packages/karzen/PROJETO-STATUS.md`, seção PENDÊNCIAS ATUA
 ## Spec Pipeline — Fase 4 (Write Spec) concluída (03/09/2026)
 
 - [03/09/2026] pm — **Fase 4 (Write Spec) concluída — `spec.md` gerado.** Portão constitucional "No Invention" respeitado — toda frase rastreia pra FR/NFR/CON ou achado de pesquisa, nada inventado. Documento completo: overview, requisitos, abordagem técnica, 4 dependências internas, 4 arquivos a criar/modificar (1 novo — `handoff-insumos-tmpl.yaml`, E107 · 3 modificados — `CLAUDE.md` com risco **alto** por ser cross-cutting, `SOLUCIONADOR-DESENHO.md`, `workflow-chains.yaml`), 4 testes de aceite Given-When-Then, 4 riscos mapeados, 1 pergunta aberta não-bloqueante (E108), checklist de 7 itens. Arquivo: `docs/stories/SOLUCIONADOR/spec/spec.md`. **Próximo passo do pipeline:** Fase 5 (Critique) via `@qa`.
+
+---
+
+## Spec Pipeline — Fase 5 (Critique) concluída — NEEDS_REVISION (03/09/2026)
+
+- [03/09/2026] qa — **Fase 5 (Critique) concluída — veredito NEEDS_REVISION (média 4.10/5).** 5 dimensões avaliadas: accuracy 4, completeness 3, consistency 5, feasibility 4, alignment 5. 3 issues: **CRIT-1** (🔴 HIGH — FR-1 sem cenário de teste próprio, auto-corrigível) · **CRIT-2** (🟡 MEDIUM — NFR-2/BLOCO 0-AE sem tratamento próprio além da tabela, auto-corrigível) · **CRIT-3** (🟡 MEDIUM — escopo ainda não quebrado em stories menores, não auto-corrigível, decisão de planejamento). Não é BLOCKED — nenhum issue é impeditivo, mesmo padrão do exemplo oficial da task (`spec-critique.md`). Arquivo: `docs/stories/SOLUCIONADOR/spec/critique.json`. **Próximo passo do pipeline (regra fixa, NEEDS_REVISION → volta pro spec-write):** `@pm` revisa o `spec.md` resolvendo CRIT-1 e CRIT-2.
