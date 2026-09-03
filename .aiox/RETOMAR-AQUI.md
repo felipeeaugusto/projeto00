@@ -20,7 +20,8 @@
 | ✅ **Spec Pipeline Fase 4 (Write Spec) concluída** | `docs/stories/SOLUCIONADOR/spec/spec.md` — documento completo, portão "No Invention" respeitado, 1 arquivo novo + 3 modificados mapeados, 4 testes de aceite |
 | 🔄 **Spec Pipeline Fase 5 (Critique) concluída — NEEDS_REVISION** | `docs/stories/SOLUCIONADOR/spec/critique.json` — média 4.10/5, 1 issue HIGH (CRIT-1) + 2 MEDIUM (CRIT-2, CRIT-3). Não é bloqueante |
 | ✅ **`spec.md` revisado (v2)** | CRIT-1 e CRIT-2 resolvidos · CRIT-3 formalizado como `OQ-3` (bloqueante só pra Fase 6, atribuído ao @architect) |
-| ➡️ **Próximo passo concreto** | **Volta pro @qa** re-avaliar o `spec.md` v2 → se APPROVED, Fase 6 Plan/Epics (@architect, decide OQ-3 e E108 nessa hora) |
+| ✅ **Spec Pipeline Fase 5 — APPROVED (re-crítica)** | `docs/stories/SOLUCIONADOR/spec/critique.json` (v2) — média 4.85/5, zero issues abertos |
+| ➡️ **Próximo passo concreto** | **Spec Pipeline Fase 6 (Plan/Epics)** via **@architect** — decide `OQ-3` (quebrar em stories menores?) e `E108` (Tier System) nessa etapa |
 | 🔴 **A única coisa que trava a planilha** | Camada 0 (comando `status`) — **FASE 4, roda DEPOIS da FASE 5, e só se ainda fizer sentido (DEC-16)** |
 
 ---

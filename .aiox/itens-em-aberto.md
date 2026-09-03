@@ -604,3 +604,9 @@ Arquivo de origem: `packages/karzen/PROJETO-STATUS.md`, seção PENDÊNCIAS ATUA
 ## Spec Pipeline — spec.md revisado (v2) — resolve CRIT-1 e CRIT-2 (03/09/2026)
 
 - [03/09/2026] pm — **`spec.md` revisado pra versão 2, resolvendo CRIT-1 e CRIT-2 do critique.json.** CRIT-1 (HIGH): cenário Given-When-Then dedicado ao FR-1 adicionado. CRIT-2 (MEDIUM): nota sobre NFR-2 (BLOCO 0-AE) adicionada na Abordagem Técnica + cenário de teste dedicado. CRIT-3 (MEDIUM, não auto-corrigível): formalizado como `OQ-3` na tabela de Perguntas Abertas — bloqueante pra Fase 6, atribuído ao @architect, não bloqueia esta revisão. Arquivo: `docs/stories/SOLUCIONADOR/spec/spec.md`. **Próximo passo do pipeline (regra fixa, revisão sempre volta pra crítica):** `@qa` re-avalia o spec.md v2.
+
+---
+
+## Spec Pipeline — Fase 5 re-crítica — APPROVED (03/09/2026)
+
+- [03/09/2026] qa — **Re-crítica do spec.md v2 concluída — veredito APPROVED (média 4.85/5, era 4.10).** CRIT-1 e CRIT-2 confirmados resolvidos (cenários dedicados a FR-1 e NFR-2). CRIT-3 permanece como `OQ-3` — formalizado, com dono e fase de bloqueio definidos, não conta mais como issue aberto. Zero issues HIGH ou MEDIUM sem tratamento. Arquivo: `docs/stories/SOLUCIONADOR/spec/critique.json` (specVersion 2). **Próximo passo do pipeline (regra fixa, APPROVED → plan):** `@architect` fecha a Fase 6 (Plan/Epics), decidindo `OQ-3` e `E108` nessa etapa.

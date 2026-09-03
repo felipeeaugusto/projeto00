@@ -2,56 +2,28 @@
   "storyId": "SOLUCIONADOR",
   "critiquedAt": "2026-09-03T00:00:00.000Z",
   "critiquedBy": "@qa",
-  "specVersion": 1,
+  "specVersion": 2,
 
-  "verdict": "NEEDS_REVISION",
-  "verdictReason": "1 issue HIGH (falta cenário de teste para FR-1) e 2 MEDIUM (NFR-2 sem tratamento próprio, escopo ainda não quebrado em stories menores). Nenhum é bloqueante — mesmo padrão do exemplo oficial da task (teste faltando = revisão, não bloqueio).",
+  "verdict": "APPROVED",
+  "verdictReason": "CRIT-1 e CRIT-2 resolvidos no spec.md v2 (cenários de teste dedicados a FR-1 e NFR-2). CRIT-3 formalizado como OQ-3 (bloqueante só pra Fase 6, não pra esta fase) — tratamento aceitável, não é mais issue aberto sem dono.",
 
   "scores": {
-    "accuracy": 4,
-    "completeness": 3,
+    "accuracy": 5,
+    "completeness": 5,
     "consistency": 5,
     "feasibility": 4,
     "alignment": 5,
-    "average": 4.10
+    "average": 4.85
   },
 
-  "issues": [
-    {
-      "id": "CRIT-1",
-      "severity": "HIGH",
-      "category": "completeness",
-      "description": "FR-1 (reconhecer o problema e seguir a sequência até solução validada) não tem cenário de teste próprio — só aparece implícito nos testes de FR-2/FR-3/FR-4",
-      "location": "spec.md#6-testing-strategy",
-      "suggestion": "Adicionar cenário Given-When-Then dedicado a FR-1: dado um problema qualquer, quando o Solucionador é ativado, então segue a sequência fixa de portões até uma solução validada",
-      "autoFixable": true
-    },
-    {
-      "id": "CRIT-2",
-      "severity": "MEDIUM",
-      "category": "accuracy",
-      "description": "NFR-2 (cada resposta organizada em tabela/emoji/semáforo, BLOCO 0-AE) aparece na tabela de requisitos mas não tem tratamento próprio depois — nem teste, nem nota de arquitetura",
-      "location": "spec.md#3-technical-approach",
-      "suggestion": "Adicionar nota em Technical Approach confirmando que cada portão segue BLOCO 0-AE, e considerar 1 critério de aceite ligado a NFR-2",
-      "autoFixable": true
-    },
-    {
-      "id": "CRIT-3",
-      "severity": "MEDIUM",
-      "category": "feasibility",
-      "description": "O escopo ainda não foi quebrado em stories menores, apesar do complexity.json já ter sinalizado essa recomendação (flag COMPLEX)",
-      "location": "spec.md#9-implementation-checklist",
-      "suggestion": "Antes da Fase 6 (Plan), avaliar explicitamente se o Solucionador deve virar 1 Epic com múltiplas Stories (ex: gatilho separado do reaproveitamento do E64) em vez de 1 story única",
-      "autoFixable": false
-    }
-  ],
+  "issues": [],
 
   "summary": {
-    "highIssues": 1,
-    "mediumIssues": 2,
+    "highIssues": 0,
+    "mediumIssues": 0,
     "lowIssues": 0,
-    "autoFixable": 2
+    "autoFixable": 0
   },
 
-  "nextAction": "Retornar para @pm (*write-spec) com este critique.json — resolver CRIT-1 e CRIT-2 no spec.md, registrar CRIT-3 como decisão a avaliar antes da Fase 6."
+  "nextAction": "Prosseguir para Fase 6 (Plan) via @architect. OQ-3 e E108 devem ser decididos nessa fase, antes de gerar os Epics/Stories."
 }
