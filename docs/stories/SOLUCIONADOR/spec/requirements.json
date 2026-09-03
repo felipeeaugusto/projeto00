@@ -1,0 +1,194 @@
+{
+  "storyId": "SOLUCIONADOR",
+  "gatheredAt": "2026-09-03T00:00:00.000Z",
+  "source": "user",
+  "gatheredBy": "@pm",
+  "elicitationVersion": "2.0",
+
+  "functional": [
+    {
+      "id": "FR-1",
+      "description": "Reconhecer um problema (de qualquer tipo) e seguir uma sequência fixa de portões até uma solução validada",
+      "priority": "P0",
+      "rationale": "SOLUCIONADOR-DESENHO.md — objetivo central do Solucionador",
+      "acceptance": ["AC-1"]
+    },
+    {
+      "id": "FR-2",
+      "description": "Ter um gatilho de frase (/Solucionador) que ative a sequência fixa sem precisar redecidir manualmente qual agente chamar a cada passo",
+      "priority": "P0",
+      "rationale": "E105 — resposta já dada, nunca implementada",
+      "acceptance": ["AC-2"]
+    },
+    {
+      "id": "FR-3",
+      "description": "Cada portão continua sendo troca de persona visível na mesma conversa — nunca sub-agente real",
+      "priority": "P0",
+      "rationale": "DEC-9, BLOCO 0-AC — incidente do agente fantasma em 19/08/2026",
+      "acceptance": ["AC-3"]
+    },
+    {
+      "id": "FR-4",
+      "description": "Reaproveitar mecanismos que já existem no framework em vez de reinventar (Template de Handoff, Tier System, Executor Patterns, 5-Layer QG Taxonomy)",
+      "priority": "P1",
+      "rationale": "E64 — 7 mecanismos reinventados achados no desenho antigo",
+      "acceptance": ["AC-4"]
+    }
+  ],
+
+  "nonFunctional": [
+    {
+      "id": "NFR-1",
+      "category": "reliability",
+      "description": "Não pode repetir o estouro de token do E87 durante qualquer leitura/investigação do Solucionador",
+      "metric": "Teto de 3 lotes adicionais, enforced via .aiox/leitura/teto-leitura.yaml"
+    },
+    {
+      "id": "NFR-2",
+      "category": "usability",
+      "description": "Cada resposta de agente dentro do fluxo do Solucionador precisa vir organizada (tabela/emoji/semáforo)",
+      "metric": "Conformidade com BLOCO 0-AE"
+    }
+  ],
+
+  "constraints": [
+    {
+      "id": "CON-1",
+      "type": "technical",
+      "description": "Escopo grande (10 agentes, 12+ portões) já bateu o veto do SC_SCP_001 do próprio framework — por isso este PRD existe antes de qualquer implementação direta",
+      "impact": "Bloqueia implementação direta em conversa (FASE 5 antiga); exige Spec Pipeline completo"
+    },
+    {
+      "id": "CON-2",
+      "type": "business",
+      "description": "Não pode competir por @dev/Chrome com a validação da Planilha Karzen ao mesmo tempo",
+      "impact": "BLOCO 0-U REGRA 5 — nunca duas frentes no mesmo executor + recurso"
+    }
+  ],
+
+  "assumptions": [
+    {
+      "id": "ASM-1",
+      "description": "Os achados E61-E89 já cobrem os buracos mais críticos do desenho do Solucionador",
+      "risk_if_wrong": "Pode faltar achado importante nas partes ainda não lidas (Frente A / lote 2)",
+      "validation_needed": true
+    },
+    {
+      "id": "ASM-2",
+      "description": "O mapeamento completo da sessão (Frente B) não muda o escopo deste PRD, só documenta o histórico",
+      "risk_if_wrong": "Se mudar, este PRD precisa de revisão via change-checklist.md",
+      "validation_needed": true
+    }
+  ],
+
+  "domainModel": [
+    {
+      "id": "DM-1",
+      "entity": "Portao",
+      "attributes": ["agente_responsavel", "criterio_de_entrada", "criterio_de_saida"],
+      "relationships": [{ "type": "belongs_to", "target": "Sequencia" }]
+    },
+    {
+      "id": "DM-2",
+      "entity": "Achado",
+      "attributes": ["numero_E", "descricao", "gravidade", "arquivo_fonte"],
+      "relationships": [{ "type": "has_one", "target": "Decisao" }]
+    },
+    {
+      "id": "DM-3",
+      "entity": "Decisao",
+      "attributes": ["numero_DEC", "opcao_escolhida", "motivo", "quem_decidiu"],
+      "relationships": [{ "type": "has_many", "target": "Achado" }]
+    },
+    {
+      "id": "DM-4",
+      "entity": "LoteDeLeitura",
+      "attributes": ["linhas_lidas", "achados_novos", "rendimento_pct"],
+      "relationships": [{ "type": "belongs_to", "target": "FrenteDeLeitura" }]
+    }
+  ],
+
+  "interactions": [
+    {
+      "id": "INT-1",
+      "trigger": "Usuário digita /Solucionador",
+      "flow": ["Sequência fixa de portões inicia", "Cada portão troca de persona visível", "Usuário pode interromper a qualquer momento"],
+      "states": {
+        "loading": "não aplicável — cada portão responde de forma síncrona, visível",
+        "error": "Se um portão travar (ex: veto), mostra o motivo e para — não avança escondido",
+        "empty": "Se /Solucionador for chamado sem problema definido, pergunta qual é o problema antes de continuar"
+      }
+    }
+  ],
+
+  "edgeCases": [
+    {
+      "id": "EC-1",
+      "scenario": "Leitura sem teto estoura token (E87 — já aconteceu, 3 contas de Felipe queimadas)",
+      "handling": "Bloqueado por .aiox/leitura/teto-leitura.yaml (FR-1, NFR-1)",
+      "severity": "critical"
+    },
+    {
+      "id": "EC-2",
+      "scenario": "Escopo grande demais pro próprio framework aceitar implementação direta (E61 — já aconteceu)",
+      "handling": "Vira PRD formal via Spec Pipeline antes de implementar (este documento)",
+      "severity": "critical"
+    },
+    {
+      "id": "EC-3",
+      "scenario": "Sub-agente fingindo ser outro agente, sem visibilidade nem controle do usuário (incidente 19/08/2026)",
+      "handling": "Proibido por design — FR-3, DEC-9, BLOCO 0-AC",
+      "severity": "critical"
+    },
+    {
+      "id": "EC-4",
+      "scenario": "Compactação da conversa no meio de uma leitura longa perde detalhe fino",
+      "handling": "Checkpoint obrigatório em arquivo (não em memória de conversa) a cada lote",
+      "severity": "medium"
+    }
+  ],
+
+  "terminology": [
+    {
+      "term": "Portão",
+      "definition": "Etapa do Solucionador com 1 agente responsável, critério de entrada e de saída",
+      "synonyms": [],
+      "avoid": ["gate (usar só em contexto de código, não confundir com Portão do Solucionador)"]
+    },
+    {
+      "term": "Achado",
+      "definition": "Um problema ou insight descoberto durante investigação, numerado E1, E2, E3...",
+      "synonyms": [],
+      "avoid": ["Decisão (achado é o problema; decisão é a escolha feita em resposta a ele)"]
+    },
+    {
+      "term": "Lote",
+      "definition": "Um pedaço de leitura direta do framework, ~11-15 mil linhas, dentro do teto do Pedro",
+      "synonyms": [],
+      "avoid": ["Fatia (divisão técnica antiga, de antes do teto existir — não usar mais)"]
+    },
+    {
+      "term": "Teto",
+      "definition": "O limite de quanto se pode ler numa investigação, com regra de parada por rendimento",
+      "synonyms": [],
+      "avoid": ["Limite de tokens da conta (conceito relacionado, mas não é a mesma coisa)"]
+    }
+  ],
+
+  "openQuestions": [
+    {
+      "id": "OQ-1",
+      "question": "O PRD deve esperar a Frente A (lote 2) e Frente B (mapeamento) terminarem, ou seguir com o que já existe e revisar depois?",
+      "blocking": false,
+      "assignedTo": "@pm",
+      "resolution": "RESOLVIDA — seguir agora, com checkpoint de revisão depois das Frentes A/B (change-checklist.md). Decisão do Felipe, 03/09/2026."
+    },
+    {
+      "id": "OQ-2",
+      "question": "Existe algum caso de uso do Solucionador que o Felipe já tem em mente e não apareceu nos achados?",
+      "blocking": false,
+      "assignedTo": "@pm",
+      "resolution": "Felipe respondeu: nenhum em mente ainda. Não bloqueia."
+    }
+  ]
+}
