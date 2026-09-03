@@ -13,8 +13,8 @@
 | ✅ **FASE 0, 1, 2 e 3 concluídas** | `.aiox/PLANO-EXECUCAO.md` e `.aiox/PLANO-FINAL.md` fechados. 153 itens classificados nas 4 trilhas do Solucionador |
 | ✅ **E66 decidido (DEC-17)** | Opção A — Solucionador roda numa conversa só. Não bloqueia mais nada |
 | ✅ **Investigação do trio oficial concluída (E101-E104)** | Trio não tem "conselho" oficial pra copiar; 2 ferramentas genéricas úteis achadas (E102, E103); 1 correção feita (E104 — mecanismo que o desenho citava como pronto é código morto) |
-| ➡️ **Próximo passo concreto** | **FASE 5** — implementar os itens do `PLANO-FINAL.md`, começando pelos **52 itens 🟢 RÁPIDA** (zero ambiguidade), priorizando **D5** (cadeia de artefatos — o buraco mais grave) dentro desse lote |
-| 👤 **Decisão que só o Felipe toma, ainda pendente** | **E61** (o framework vetaria o Solucionador por escopo grande — `SC_SCP_001`) |
+| ✅ **E61 decidido (DEC-19)** | Felipe escolheu o Caminho A — seguir o veto do próprio framework (`SC_SCP_001`). A **FASE 5 (implementar direto, sem PRD) está suspensa** |
+| ➡️ **Próximo passo concreto** | **Spec Pipeline formal** (`workflow-execution.md`) — Fase 1 Gather via **@pm** (escrever o PRD do Solucionador), depois Fase 2 Assess (@architect) → Fase 3 Research (@analyst, reaproveitando E61-E89) → Fase 4 Write Spec (@pm) → Fase 5 Critique (@qa) → Fase 6 Plan/Epics (@architect) |
 | 🔴 **A única coisa que trava a planilha** | Camada 0 (comando `status`) — **FASE 4, roda DEPOIS da FASE 5, e só se ainda fizer sentido (DEC-16)** |
 
 ---
@@ -77,9 +77,9 @@ Para volumes pequenos (até ~15.000 linhas), leitura DIRETA pelo próprio agente
 
 | # | Decisão | Status |
 |---|---|---|
-| **E61** | O `SC_SCP_001` do framework vetaria o Solucionador por escopo grande (`agents_needed >= 8`) — exigiria PRD/Epics antes | ⏳ **ainda pendente** |
 | **E81** | Circuit breaker: o código bloqueia, a documentação diz que nunca bloqueia | ⏳ decidir antes de depender dele |
 | ~~E66~~ | ~~Contexto novo por agente vs mesma conversa~~ | ✅ **DECIDIDO — DEC-17, opção A** |
+| ~~E61~~ | ~~O `SC_SCP_001` do framework vetaria o Solucionador por escopo grande — exigiria PRD/Epics antes~~ | ✅ **DECIDIDO — DEC-19, Caminho A (seguir o veto do framework, formalizar com PRD antes de continuar)** |
 
 ---
 
