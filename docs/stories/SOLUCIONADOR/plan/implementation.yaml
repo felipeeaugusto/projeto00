@@ -1,7 +1,7 @@
 storyId: "SOLUCIONADOR"
 createdAt: "2026-09-03T00:00:00.000Z"
 createdBy: "@architect"
-status: pending
+status: implemented_pending_live_test
 complexity: COMPLEX
 estimatedEffort: "3+ dias"
 
@@ -104,5 +104,18 @@ phases:
         verification:
           type: manual
           instructions: "Rodar /Solucionador numa conversa real e confirmar os 5 cenarios do spec.md secao 6"
-        status: pending
+        status: partial
+        completedAt: "2026-09-03T00:00:00.000Z"
         dependencies: ["1.1", "2.1", "3.1", "3.2"]
+        notes: |
+          HONESTO: verificacao parcial, nao total. 2 cenarios tem evidencia empirica
+          forte desta propria sessao (nao so documentacao):
+          - Troca de persona sempre visivel (FR-3): confirmado ~10x nesta sessao
+            (Orion->Atlas->Finch->Pedro->Morgan->Aria->Quinn->Dex, todas visiveis)
+          - Formatacao obrigatoria (NFR-2): seguido consistentemente a sessao inteira
+          Os outros 4 cenarios (FR-1, FR-2, portao trava por veto, FR-4) tem só
+          verificacao ESTRUTURAL - a BLOCO 0-AH documenta o comportamento certo,
+          mas o gatilho "/Solucionador" como frase literal, ativando do zero,
+          NUNCA foi testado de verdade nesta sessao (estamos no meio dela, o
+          CLAUDE.md so e recarregado fresco numa sessao nova).
+          PROXIMO PASSO REAL: Felipe testar "/Solucionador" numa conversa nova.
