@@ -1,0 +1,60 @@
+# Teto de leitura direta do framework (AIOX + squad-creator + squad-creator-pro)
+# Desenhado por: Thiago Finch (viabilidade/critério) + Pedro Valério (processo/veto conditions)
+# Decidido por: Felipe — DEC-18, 03/09/2026
+# Referência: .aiox/itens-em-aberto.md → E106, DEC-18
+#
+# PROPÓSITO: impedir fisicamente a repetição do E87 (FASE 1 estourou 10-13 milhões
+# de tokens tentando ler as 586.668 linhas inteiras via sub-agentes em paralelo,
+# queimou 3 contas do Felipe). Este arquivo é a fonte da verdade do teto — não a
+# memória da conversa, não uma regra só em texto.
+
+workflow: leitura-framework-com-teto
+fluxo_unidirecional: true  # uma vez que o teto bate, não reabre sozinho — precisa de novo *viability-check
+
+teto:
+  max_lotes_adicionais: 3
+  tamanho_alvo_por_lote_linhas: 15000  # dentro do intervalo já validado (DEC-13): ~11-15 mil linhas direto, sem sub-agente
+  escopo_permitido: "arquivos de governança (.md/.yaml de regras, frameworks, heurísticas) — NÃO .aiox-core/core/ (código), scripts, test-cases, benchmarks"
+  criterio_parada_rendimento: "rendimento_pct do lote anterior < 20%"
+
+baseline_lote_1:
+  data: "01-02/09/2026"
+  linhas_lidas: 11000
+  achados_novos: 17
+  achados_refs: "E66-E84"
+  rendimento_pct: 100  # referência — define o que é 100% de rendimento pros lotes seguintes
+  fonte: ".aiox/itens-em-aberto.md linha 317-325"
+
+lotes:
+  - lote_numero: 1
+    status: "consumido (baseline, já contabilizado antes deste teto existir)"
+    linhas_lidas: 11000
+    achados_novos: 17
+    rendimento_pct: 100
+
+# Próximo lote (2) só pode ser aberto se:
+#   (a) lote_numero <= max_lotes_adicionais, E
+#   (b) o checkpoint do lote anterior estiver preenchido (linhas_lidas + achados_novos + rendimento_pct), E
+#   (c) rendimento_pct do lote anterior >= 20
+# Se qualquer condição falhar → VETO. Retorno obrigatório à Planilha (packages/karzen).
+# Reabrir depois do teto batido exige nova decisão do Felipe (novo *viability-check do
+# Thiago Finch com evidência nova) — não é continuação automática da leitura antiga.
+
+veto_conditions:
+  - trigger: "lote_numero > 3 (max_lotes_adicionais)"
+    action: "VETO — bloqueia início de novo lote, força retorno à Planilha"
+  - trigger: "rendimento_pct do lote anterior < 20"
+    action: "VETO — bloqueia início de novo lote, força retorno à Planilha"
+  - trigger: "novo lote inicia sem checkpoint do lote anterior preenchido"
+    action: "VETO — não pode avançar sem prestar contas do lote que já rodou"
+  - trigger: "tentativa de ler fora do escopo_permitido (código/scripts/test-cases) dentro do teto"
+    action: "VETO — esses lotes só valem para arquivos de governança de maior densidade"
+  - trigger: "alguém tenta reabrir leitura depois do teto batido (por contagem ou por rendimento)"
+    action: "VETO — precisa de novo *viability-check do Thiago Finch, não reabre sozinho"
+
+guardrails:
+  loop_prevention: "max_lotes_adicionais: 3"
+  idempotency: "checkpoint por lote não duplica lote já contado (lote_numero é chave única)"
+  audit_trail: "este arquivo .yaml, versionado no git"
+  manual_escape: "Felipe pode vetar/interromper mesmo dentro do teto, a qualquer momento"
+  retry_logic: "não se aplica — decisão binária (continua ou não) por lote"

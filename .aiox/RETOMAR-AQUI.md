@@ -95,6 +95,7 @@ Para volumes pequenos (até ~15.000 linhas), leitura DIRETA pelo próprio agente
 | 🛑 **"vou parar"** | BLOCO 3 inteira, sem pular passo |
 | 📌 **Achado que muda o rumo** | PARA o fluxo na hora e registra (E29 / DEC-5) |
 | 🇧🇷 **Português sempre** | BLOCO 0-AF — nem uma frase em inglês, sem exceção (novo hoje) |
+| 🧯 **Teto de leitura direta do framework** | Máximo 3 lotes adicionais, só governança (.md/.yaml), para se rendimento < 20% do lote 1 — bloqueio físico em `.aiox/leitura/teto-leitura.yaml` (DEC-18, novo 03/09/2026) |
 
 ---
 
