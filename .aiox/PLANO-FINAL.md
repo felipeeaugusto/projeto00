@@ -43,12 +43,22 @@
 
 | Trilha | Quantos itens | O que significa na prática |
 |---|---|---|
-| 🔴 VETO / já resolvido, arquivar | 35 | Remover de `itens-em-aberto.md`, mover pra `itens-resolvidos-arquivo.md` (+1: E66) |
-| 🟢 RÁPIDA | 52 | Implementação direta, @dev + @qa, sem passar pelo trio |
-| 🟡 MÉDIA | 44 | Trio decide o *como* antes de virar story (+3: E98, E99, E100) |
+| 🔴 VETO / já resolvido, arquivar | 37 | Remover de `itens-em-aberto.md`, mover pra `itens-resolvidos-arquivo.md` (+1: E66, +2: E101 informativo/E104 já corrigido no arquivo) |
+| 🟢 RÁPIDA | 53 | Implementação direta, @dev + @qa, sem passar pelo trio (+1: E103) |
+| 🟡 MÉDIA | 46 | Trio decide o *como* antes de virar story (+3: E98, E99, E100; +2: E102, E105) |
 | 🔵 COMPLETA | 5 | Estrutural ou decisão só do Felipe (só **E61** resta) |
 | ⚪ FORA DE ESCOPO | 17 | Pertence à FASE 6 (planilha Karzen) ou já foi separado explicitamente |
-| **Total rastreado** | **153** | 35+52+44+5+17 |
+| **Total rastreado** | **158** | 37+53+46+5+17 |
+
+### Bloco 11 — E101 a E105 (investigação do trio + auditoria de fechamento)
+
+| Item | Destino | Motivo |
+|---|---|---|
+| E101 | 🔴 VETO/arquivar | Achado informativo (trio é domínio diferente) — vira contexto de E102-E105, não ação própria |
+| E102 | 🟡 MÉDIA | Incorporar Meta Decision Flow como checklist num portão (ex: portão 5, autocrítica do @dev) |
+| E103 | 🟢 RÁPIDA | Rodar o Context Death Test contra os 4 documentos do Solucionador — 2-5 min cada, critério pronto |
+| E104 | 🔴 VETO/arquivar | Já corrigido — `SOLUCIONADOR-DESENHO.md` seção do portão 4.5 editada nesta sessão |
+| E105 | 🟡 MÉDIA | Desenhar e implementar o gatilho `/Solucionador` (ativa o processo, não um agente) |
 
 ---
 
