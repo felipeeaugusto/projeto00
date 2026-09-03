@@ -1,0 +1,81 @@
+{
+  "storyId": "SOLUCIONADOR",
+  "researchedAt": "2026-09-03T00:00:00.000Z",
+  "researchedBy": "@analyst",
+  "complexity": "COMPLEX",
+
+  "researchNotes": "A task spec-research-dependencies.md foi desenhada para bibliotecas externas (Context7/EXA). O FR-4 do Solucionador não precisa de nenhuma dependência externa — precisa verificar mecanismos INTERNOS do framework que o E64 apontou como já existentes. Adaptado: verificação direta de arquivos em vez de lookup de biblioteca, dentro do escopo de governança do teto de leitura (DEC-18).",
+
+  "dependencies": [
+    {
+      "name": "Tier 0 (Foundation & Diagnosis)",
+      "type": "service",
+      "verified": true,
+      "source": "codebase",
+      "existing": {
+        "installed": true,
+        "usageLocations": ["squads/squad-creator/data/tier-system-framework.md"]
+      },
+      "documentation": {
+        "relevantSections": ["Tier 0: Foundation & Diagnosis", "Orchestrator routes to Tier 0 (ALWAYS)"]
+      },
+      "compatibility": {
+        "preferred": true,
+        "conflicts": ["Só existe em squad-creator/ (antigo) — não foi encontrado em squad-creator-pro/ (ver E108)"]
+      }
+    },
+    {
+      "name": "5-Layer QG Taxonomy",
+      "type": "service",
+      "verified": true,
+      "source": "codebase",
+      "existing": {
+        "installed": true,
+        "usageLocations": ["squads/squad-creator-pro/data/hybridops-patterns.md:774"]
+      },
+      "compatibility": { "preferred": true, "conflicts": [] }
+    },
+    {
+      "name": "Executor Patterns (Human/Agent/Hybrid/Worker)",
+      "type": "service",
+      "verified": true,
+      "source": "codebase",
+      "existing": {
+        "installed": true,
+        "usageLocations": ["squads/squad-creator-pro/data/hybridops-patterns.md:1328", "squads/squad-creator-pro/checklists/executor-matrix-checklist.md"]
+      },
+      "compatibility": { "preferred": true, "conflicts": [] }
+    },
+    {
+      "name": "Template de Handoff (handoff-insumos-tmpl.yaml)",
+      "type": "service",
+      "verified": false,
+      "source": "codebase",
+      "existing": {
+        "installed": false,
+        "usageLocations": []
+      },
+      "documentation": {
+        "relevantSections": ["hybridops-patterns.md:1278 CITA o caminho squads/squad-creator/templates/handoff-insumos-tmpl.yaml, mas o arquivo não existe"]
+      },
+      "compatibility": {
+        "preferred": false,
+        "conflicts": ["Referência morta na documentação — arquivo precisa ser CRIADO, não reaproveitado (ver E107)"]
+      }
+    }
+  ],
+
+  "unverifiedClaims": [
+    {
+      "claim": "E64 disse que 'não precisa ser inventado — precisa ser escrito no formato que já existe' para todos os 7 mecanismos listados",
+      "reason": "1 dos 4 mecanismos checados (handoff-insumos-tmpl.yaml) não existe como arquivo — a afirmação era parcialmente otimista",
+      "action": "needs_validation"
+    }
+  ],
+
+  "recommendations": [
+    { "type": "prefer", "subject": "Tier 0, 5-Layer QG Taxonomy, Executor Patterns", "rationale": "Confirmados reais e usáveis — adotar diretamente no PRD (FR-4)" },
+    { "type": "consider", "subject": "handoff-insumos-tmpl.yaml", "rationale": "Precisa ser CRIADO a partir da descrição em hybridops-patterns.md — não é reuso puro, é trabalho novo pequeno" },
+    { "type": "consider", "subject": "Tier System em squad-creator-pro", "rationale": "Decidir se usa a versão do squad-creator antigo ou se o conceito precisa ser portado pro squad-creator-pro (E108)" }
+  ]
+}

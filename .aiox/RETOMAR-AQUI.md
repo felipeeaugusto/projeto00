@@ -16,7 +16,8 @@
 | ✅ **E61 decidido (DEC-19)** | Felipe escolheu o Caminho A — seguir o veto do próprio framework (`SC_SCP_001`). A **FASE 5 (implementar direto, sem PRD) está suspensa** |
 | ✅ **Spec Pipeline Fase 1 (Gather) concluída** | `docs/stories/SOLUCIONADOR/spec/requirements.json` — feito pelo @pm, 2 perguntas de elicitação resolvidas (OQ-1: seguir sem esperar Frentes A/B, revisar depois) |
 | ✅ **Spec Pipeline Fase 2 (Assess) concluída** | `docs/stories/SOLUCIONADOR/spec/complexity.json` — resultado **COMPLEX (16/25)**, valida o E61 por método independente. Pipeline completo ativado (2 rodadas de crítica) |
-| ➡️ **Próximo passo concreto** | **Spec Pipeline Fase 3 (Research)** via **@analyst**, reaproveitando E61-E89 → depois Fase 4 Write Spec (@pm) → Fase 5 Critique (@qa) → Fase 6 Plan/Epics (@architect) |
+| ✅ **Spec Pipeline Fase 3 (Research) concluída** | `docs/stories/SOLUCIONADOR/spec/research.json` — 3 de 4 mecanismos do E64 confirmados reais. 2 achados novos: **E107** (Template de Handoff não existe, precisa ser criado) · **E108** (Tier System só existe no squad-creator antigo, não no pro) |
+| ➡️ **Próximo passo concreto** | **Spec Pipeline Fase 4 (Write Spec)** via **@pm** → Fase 5 Critique (@qa) → Fase 6 Plan/Epics (@architect) |
 | 🔴 **A única coisa que trava a planilha** | Camada 0 (comando `status`) — **FASE 4, roda DEPOIS da FASE 5, e só se ainda fizer sentido (DEC-16)** |
 
 ---
