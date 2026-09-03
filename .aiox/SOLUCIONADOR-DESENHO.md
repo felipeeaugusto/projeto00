@@ -29,6 +29,25 @@ O padrão comum não é falta de regra — é que **a regra depende do agente pe
 
 ---
 
+## 2.5 Ativação — como o fluxo começa (fecha o E105)
+
+**Gatilho:** o Felipe escreve a frase **"/Solucionador"** em qualquer mensagem, pra qualquer agente, em qualquer momento — mesmo padrão universal do "Modo Navegador" e "Momento de Pausa".
+
+**Regra completa, implementada em `.claude/CLAUDE.md` → BLOCO 0-AH** (esta seção só resume — a BLOCO é a fonte da verdade do comportamento, este arquivo é a fonte da verdade do desenho):
+
+```
+Felipe escreve "/Solucionador"
+  → Portão 0 classifica o problema primeiro, sempre (seção 3, determinístico)
+  → segue a trilha correspondente (seção 4)
+  → cada portão da trilha é ativado de verdade, troca de persona visível (E26)
+  → se não classificar → estado 3, para e chama o Felipe (seção 7)
+  → nada volta silenciosamente (seção 9.5)
+```
+
+Não precisa mais decidir manualmente qual agente chamar a cada passo — a frase-gatilho ativa a sequência fixa sozinha. Isso resolve o E105 (achado na auditoria do "vou parar" de 02/09/2026): a resposta pra "precisa de gatilho de frase?" sempre foi sim, só nunca tinha virado regra ativa.
+
+---
+
 ## 3. Portão 0 — o classificador
 
 Antes de qualquer coisa, o item entrante é classificado. **Não é julgamento — é aritmética determinística.**
@@ -279,7 +298,7 @@ Os dois disputam **o mesmo @dev e o mesmo Chrome do Modo Navegador**. Rodar junt
 | # | Pendência | Gravidade |
 |---|---|---|
 | **E66** | **O método AIOX exige contexto NOVO por agente** (*"ALWAYS start new chat between SM, Dev, and QA work"*), e o Solucionador roda 9-12 agentes na mesma conversa. **Os sintomas que o framework prevê são exatamente os desta sessão**: persona confundida 3×, leitura parcial, 11 mensagens órfãs. Não é coincidência | ✅ **DECIDIDO (DEC-17, 02/09/2026): opção A — manter tudo numa conversa só.** Risco aceito conscientemente; mitigado pelos mecanismos já aprovados (E27 cota de discordância, E28 detector de convergência, E33/E100 hook de identidade — ainda a implementar) |
-| **E61** | O próprio `SC_SCP_001` do framework **vetaria o Solucionador**: `agents_needed >= 8 → VETO`, `workflows_mapped >= 10 → VETO` → exige PRD com Epics/Stories antes | 🔴 **bloqueante em princípio** |
+| **E61** | O próprio `SC_SCP_001` do framework **vetaria o Solucionador**: `agents_needed >= 8 → VETO`, `workflows_mapped >= 10 → VETO` → exige PRD com Epics/Stories antes | ✅ **DECIDIDO (DEC-19, 03/09/2026): Caminho A — seguiu o veto do framework.** Spec Pipeline completo já rodou (`docs/stories/SOLUCIONADOR/`) — requirements → complexity (COMPLEX) → research → spec (APPROVED 4.85/5) → implementation.yaml. Esta própria seção de ativação (E105) e a BLOCO 0-AH nasceram desse PRD |
 | **E81** | Circuit breaker: código bloqueia, documentação diz que nunca bloqueia | 🟡 decidir antes de depender dele |
 | **E69** | Drift `Approved` × `Ready` em 3 documentos oficiais | 🟡 quebra automação que cheque status por nome |
 | **D1** | Qualidade de julgamento em domínio novo — **limitado, não fechado**. Mitigação: conclusão em domínio novo nasce marcada `não validado` e não pode virar regra até um evento real confirmar | 🟡 limite conhecido |

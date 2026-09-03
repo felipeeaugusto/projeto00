@@ -75,8 +75,10 @@ phases:
         verification:
           type: manual
           instructions: "Confirmar que a secao de ativacao referencia a BLOCO criada na subtask 2.1"
-        status: pending
+        status: completed
+        completedAt: "2026-09-03T00:00:00.000Z"
         dependencies: ["2.1"]
+        notes: "Secao 2.5 adicionada (fecha E105), referencia BLOCO 0-AH sem duplicar. Tambem corrigido: linha do E61 na secao 12 estava desatualizada (dizia bloqueante), atualizada para refletir DEC-19."
       - id: "3.2"
         description: "Registrar a sequencia fixa de portoes do Solucionador em workflow-chains.yaml"
         service: infra
@@ -85,8 +87,10 @@ phases:
         verification:
           type: manual
           instructions: "Confirmar que a sequencia aparece no formato ja usado pelos outros workflow-chains existentes"
-        status: pending
+        status: completed
+        completedAt: "2026-09-03T00:00:00.000Z"
         dependencies: ["2.1"]
+        notes: "Registrado so o PONTO DE ENTRADA (Portao 0), honesto sobre o que ainda nao esta especificado - as 4 trilhas completas (secao 4 do desenho) nao viraram chain step-by-step pra nao inventar estrutura nao validada. Formato segue exatamente o padrao dos workflows existentes (sdc, qa-loop, spec-pipeline, brownfield)."
 
   - id: phase-4
     name: "Testes"

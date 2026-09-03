@@ -154,3 +154,23 @@ workflows:
         task: brownfield-create-epic.md
         output: Epic + stories ready for development
         condition: QA gate APPROVED
+
+  # 5. Solucionador — FLUXO FIXO DE RESOLUÇÃO DE PROBLEMAS (gatilho: "/Solucionador")
+  - id: solucionador
+    name: Solucionador
+    description: |
+      Fluxo fixo de portões para resolver qualquer problema, ativado pela frase
+      "/Solucionador" (BLOCO 0-AH em .claude/CLAUDE.md). Desenho completo em
+      .aiox/SOLUCIONADOR-DESENHO.md — este chain representa só o PONTO DE ENTRADA
+      (Portão 0), não a árvore completa das 4 trilhas. As trilhas específicas
+      (seção 4 do desenho) ainda não estão totalmente especificadas a ponto de
+      virar chain step-by-step sem inventar estrutura não validada — ficam
+      registradas como trabalho futuro (E31/E32 do desenho, seção 12).
+    chain:
+      - step: 0
+        agent: "sistema (fast-path-gate.js + task-complexity-classifier.js)"
+        command: null
+        task: null
+        output: "confidence, riskLevel, reasons[], evidence{}, actions[]"
+        condition: "Gatilho /Solucionador recebido — determinístico, sem LLM, nunca pulado (seção 3 do desenho)"
+        note: "Não é ativação de persona — é classificação por código. Se não classificar, vai pro estado 3 (seção 7 do desenho), não pra um próximo step deste chain."
