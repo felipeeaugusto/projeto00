@@ -35,8 +35,9 @@ phases:
         verification:
           type: manual
           instructions: "Confirmar que o arquivo existe no caminho ja citado por hybridops-patterns.md, com o formato INSUMOS_READY descrito"
-        status: pending
-        notes: "Baixo risco, sem dependencia de nenhuma outra subtask"
+        status: completed
+        completedAt: "2026-09-03T00:00:00.000Z"
+        notes: "Baixo risco, sem dependencia de nenhuma outra subtask. Verificado manualmente: arquivo criado no caminho exato citado (hybridops-patterns.md:1278), schema INSUMOS_READY + veto_handoff extraidos sem invencao."
 
   - id: phase-2
     name: "Core (isolado, alto risco)"
