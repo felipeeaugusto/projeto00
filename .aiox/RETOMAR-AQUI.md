@@ -15,7 +15,8 @@
 | ✅ **Investigação do trio oficial concluída (E101-E104)** | Trio não tem "conselho" oficial pra copiar; 2 ferramentas genéricas úteis achadas (E102, E103); 1 correção feita (E104 — mecanismo que o desenho citava como pronto é código morto) |
 | ✅ **E61 decidido (DEC-19)** | Felipe escolheu o Caminho A — seguir o veto do próprio framework (`SC_SCP_001`). A **FASE 5 (implementar direto, sem PRD) está suspensa** |
 | ✅ **Spec Pipeline Fase 1 (Gather) concluída** | `docs/stories/SOLUCIONADOR/spec/requirements.json` — feito pelo @pm, 2 perguntas de elicitação resolvidas (OQ-1: seguir sem esperar Frentes A/B, revisar depois) |
-| ➡️ **Próximo passo concreto** | **Spec Pipeline Fase 2 (Assess complexity)** via **@architect** (`*analyze-impact`), depois Fase 3 Research (@analyst) → Fase 4 Write Spec (@pm) → Fase 5 Critique (@qa) → Fase 6 Plan/Epics (@architect) |
+| ✅ **Spec Pipeline Fase 2 (Assess) concluída** | `docs/stories/SOLUCIONADOR/spec/complexity.json` — resultado **COMPLEX (16/25)**, valida o E61 por método independente. Pipeline completo ativado (2 rodadas de crítica) |
+| ➡️ **Próximo passo concreto** | **Spec Pipeline Fase 3 (Research)** via **@analyst**, reaproveitando E61-E89 → depois Fase 4 Write Spec (@pm) → Fase 5 Critique (@qa) → Fase 6 Plan/Epics (@architect) |
 | 🔴 **A única coisa que trava a planilha** | Camada 0 (comando `status`) — **FASE 4, roda DEPOIS da FASE 5, e só se ainda fizer sentido (DEC-16)** |
 
 ---

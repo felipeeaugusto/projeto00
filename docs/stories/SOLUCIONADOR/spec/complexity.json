@@ -1,0 +1,44 @@
+{
+  "storyId": "SOLUCIONADOR",
+  "assessedAt": "2026-09-03T00:00:00.000Z",
+  "assessedBy": "@architect",
+
+  "result": "COMPLEX",
+  "overridden": false,
+
+  "dimensions": {
+    "scope": {
+      "score": 4,
+      "notes": "Cross-cutting — mexe no CLAUDE.md (regra que vale pra todos os agentes), toca potencialmente os ~10 agentes envolvidos, mais SOLUCIONADOR-DESENHO.md e workflow-chains.yaml"
+    },
+    "integration": {
+      "score": 2,
+      "notes": "Zero API externa, mas precisa se conectar com mecanismos internos existentes (Template de Handoff, workflow-state-schema)"
+    },
+    "infrastructure": {
+      "score": 2,
+      "notes": "Configuração simples — o gatilho de frase (FR-2) é leve, sem banco de dados nem servidor novo"
+    },
+    "knowledge": {
+      "score": 3,
+      "notes": "Mecanismos que o FR-4 quer reaproveitar (Tier System, Executor Patterns, 5-Layer QG Taxonomy) ainda não foram mapeados por completo — documentação existe, mas precisa de leitura/pesquisa real"
+    },
+    "risk": {
+      "score": 5,
+      "notes": "Crítico — governa como todo problema futuro do projeto será resolvido. Já causou dano real antes (E87, 3 contas queimadas) quando tentado sem processo formal"
+    }
+  },
+
+  "totalScore": 16,
+
+  "pipelinePhases": ["gather", "assess", "research", "spec", "critique_1", "revise", "critique_2", "plan"],
+
+  "flags": [
+    "Requer revisão arquitetural",
+    "Considerar quebrar em stories menores (ex: gatilho /Solucionador separado do reaproveitamento de mecanismos do E64)",
+    "Spike pode ser necessário antes da spec final — a leitura do lote 2 (Frente A) pode servir esse papel",
+    "Validação cruzada: resultado COMPLEX bate com o achado E61 (SC_SCP_001), calculado por método independente"
+  ],
+
+  "estimatedEffort": "3+ dias"
+}
