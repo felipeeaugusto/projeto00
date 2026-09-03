@@ -598,3 +598,9 @@ Arquivo de origem: `packages/karzen/PROJETO-STATUS.md`, seção PENDÊNCIAS ATUA
 ## Spec Pipeline — Fase 5 (Critique) concluída — NEEDS_REVISION (03/09/2026)
 
 - [03/09/2026] qa — **Fase 5 (Critique) concluída — veredito NEEDS_REVISION (média 4.10/5).** 5 dimensões avaliadas: accuracy 4, completeness 3, consistency 5, feasibility 4, alignment 5. 3 issues: **CRIT-1** (🔴 HIGH — FR-1 sem cenário de teste próprio, auto-corrigível) · **CRIT-2** (🟡 MEDIUM — NFR-2/BLOCO 0-AE sem tratamento próprio além da tabela, auto-corrigível) · **CRIT-3** (🟡 MEDIUM — escopo ainda não quebrado em stories menores, não auto-corrigível, decisão de planejamento). Não é BLOCKED — nenhum issue é impeditivo, mesmo padrão do exemplo oficial da task (`spec-critique.md`). Arquivo: `docs/stories/SOLUCIONADOR/spec/critique.json`. **Próximo passo do pipeline (regra fixa, NEEDS_REVISION → volta pro spec-write):** `@pm` revisa o `spec.md` resolvendo CRIT-1 e CRIT-2.
+
+---
+
+## Spec Pipeline — spec.md revisado (v2) — resolve CRIT-1 e CRIT-2 (03/09/2026)
+
+- [03/09/2026] pm — **`spec.md` revisado pra versão 2, resolvendo CRIT-1 e CRIT-2 do critique.json.** CRIT-1 (HIGH): cenário Given-When-Then dedicado ao FR-1 adicionado. CRIT-2 (MEDIUM): nota sobre NFR-2 (BLOCO 0-AE) adicionada na Abordagem Técnica + cenário de teste dedicado. CRIT-3 (MEDIUM, não auto-corrigível): formalizado como `OQ-3` na tabela de Perguntas Abertas — bloqueante pra Fase 6, atribuído ao @architect, não bloqueia esta revisão. Arquivo: `docs/stories/SOLUCIONADOR/spec/spec.md`. **Próximo passo do pipeline (regra fixa, revisão sempre volta pra crítica):** `@qa` re-avalia o spec.md v2.
