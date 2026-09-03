@@ -100,7 +100,7 @@ O modelo veio do **@po**: ele não *diz* que validou — ele **muda o status da 
 
 ### Portão 4.5 — o handshake semântico
 
-**Já existe implementado:** `.aiox-core/core/synapse/context/semantic-handshake-engine.js` (E77).
+**⚠️ Correção (E104, 02/09/2026): NÃO existe implementado, ao contrário do que este documento dizia.** O código (`.aiox-core/core/synapse/context/semantic-handshake-engine.js`, E77) existe no disco, mas está **órfão** no `entity-registry.yaml` (`usedBy: []`, `lifecycle: orphan`) — nunca foi checado contra o registro antes de ser citado aqui. É o 8º mecanismo na mesma situação dos 4 que o E89 já achou mortos. Precisa ser construído/religado do zero, não só "reaproveitado".
 
 > *"Turns planning constraints into executable checks that can run before implementation. It is **deterministic by default and does not call an LLM**."*
 
