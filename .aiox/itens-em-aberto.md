@@ -586,3 +586,9 @@ Arquivo de origem: `packages/karzen/PROJETO-STATUS.md`, seção PENDÊNCIAS ATUA
 - [03/09/2026] analyst — **E108 — 🟡 `tier-system-framework.md` existe em `squads/squad-creator/data/` (o squad antigo) mas NÃO em `squads/squad-creator-pro/data/` (o squad novo, com Alan/Pedro/Finch).** Se o Solucionador vai se basear no trio novo (squad-creator-pro), fica em aberto: usa a versão do squad-creator antigo mesmo, ou esse conceito nunca foi portado pro pro? Decisão pequena, não bloqueia a Fase 4, mas precisa ser resolvida antes da implementação final.
 
   Arquivo: `docs/stories/SOLUCIONADOR/spec/research.json`. **Próximo passo do pipeline:** Fase 4 (Write Spec) via `@pm`.
+
+---
+
+## Spec Pipeline — Fase 4 (Write Spec) concluída (03/09/2026)
+
+- [03/09/2026] pm — **Fase 4 (Write Spec) concluída — `spec.md` gerado.** Portão constitucional "No Invention" respeitado — toda frase rastreia pra FR/NFR/CON ou achado de pesquisa, nada inventado. Documento completo: overview, requisitos, abordagem técnica, 4 dependências internas, 4 arquivos a criar/modificar (1 novo — `handoff-insumos-tmpl.yaml`, E107 · 3 modificados — `CLAUDE.md` com risco **alto** por ser cross-cutting, `SOLUCIONADOR-DESENHO.md`, `workflow-chains.yaml`), 4 testes de aceite Given-When-Then, 4 riscos mapeados, 1 pergunta aberta não-bloqueante (E108), checklist de 7 itens. Arquivo: `docs/stories/SOLUCIONADOR/spec/spec.md`. **Próximo passo do pipeline:** Fase 5 (Critique) via `@qa`.

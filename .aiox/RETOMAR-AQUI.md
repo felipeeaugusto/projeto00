@@ -17,7 +17,8 @@
 | ✅ **Spec Pipeline Fase 1 (Gather) concluída** | `docs/stories/SOLUCIONADOR/spec/requirements.json` — feito pelo @pm, 2 perguntas de elicitação resolvidas (OQ-1: seguir sem esperar Frentes A/B, revisar depois) |
 | ✅ **Spec Pipeline Fase 2 (Assess) concluída** | `docs/stories/SOLUCIONADOR/spec/complexity.json` — resultado **COMPLEX (16/25)**, valida o E61 por método independente. Pipeline completo ativado (2 rodadas de crítica) |
 | ✅ **Spec Pipeline Fase 3 (Research) concluída** | `docs/stories/SOLUCIONADOR/spec/research.json` — 3 de 4 mecanismos do E64 confirmados reais. 2 achados novos: **E107** (Template de Handoff não existe, precisa ser criado) · **E108** (Tier System só existe no squad-creator antigo, não no pro) |
-| ➡️ **Próximo passo concreto** | **Spec Pipeline Fase 4 (Write Spec)** via **@pm** → Fase 5 Critique (@qa) → Fase 6 Plan/Epics (@architect) |
+| ✅ **Spec Pipeline Fase 4 (Write Spec) concluída** | `docs/stories/SOLUCIONADOR/spec/spec.md` — documento completo, portão "No Invention" respeitado, 1 arquivo novo + 3 modificados mapeados, 4 testes de aceite |
+| ➡️ **Próximo passo concreto** | **Spec Pipeline Fase 5 (Critique)** via **@qa** → Fase 6 Plan/Epics (@architect) |
 | 🔴 **A única coisa que trava a planilha** | Camada 0 (comando `status`) — **FASE 4, roda DEPOIS da FASE 5, e só se ainda fizer sentido (DEC-16)** |
 
 ---
