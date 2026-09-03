@@ -1772,6 +1772,43 @@ PASSO 4: NUNCA tratar "No files found" de uma busca sem `path` como prova
 
 ---
 
+### BLOCO 0-AH — "/SOLUCIONADOR" (gatilho universal do fluxo fixo de resolução de problemas) (inegociável)
+
+**Gatilho:** Felipe escreve a frase **"/Solucionador"** em qualquer mensagem, pra qualquer agente, em qualquer momento — mesmo padrão universal do "Modo Navegador" (BLOCO 0-X) e "Momento de Pausa" (BLOCO 0-Y): não é comando técnico de CLI, é frase reconhecida por qualquer agente ativo na hora.
+
+**REGRA ABSOLUTA:** "/Solucionador" significa ativar o fluxo fixo de portões documentado integralmente em `.aiox/SOLUCIONADOR-DESENHO.md`. Esse arquivo é a fonte da verdade técnica — não reescrever nem parafrasear o desenho aqui, só referenciar (mesmo padrão da BLOCO 0-X).
+
+```
+AO RECEBER "/SOLUCIONADOR":
+
+PASSO 1: Ler .aiox/SOLUCIONADOR-DESENHO.md por completo
+PASSO 2: Portão 0 classifica o problema primeiro, sempre — determinístico,
+         sem LLM (fast-path-gate.js + task-complexity-classifier.js, seção 3
+         do desenho). Nunca pular direto pra um portão específico.
+PASSO 3: Segue a trilha correspondente à classificação (seção 4 do desenho)
+PASSO 4: Cada portão da trilha é ativado DE VERDADE — troca de persona
+         visível (BLOCO 0-AC), nunca um agente escrevendo a fala de outro
+         (E26, "o Solucionador é FLUXO, nunca AGENTE" — seção 2 do desenho)
+PASSO 5: SE o classificador (Portão 0) não conseguir classificar o problema
+         → estado 3 (seção 7 do desenho) — para e chama o Felipe
+PASSO 6: Nada volta silenciosamente — qualquer travamento no meio do fluxo
+         é mostrado ao Felipe, nunca escondido (seção 9.5 do desenho)
+```
+
+**PROIBIDO:**
+- Um agente escrever a resposta de outra persona do fluxo sem ativação real (E26, BLOCO 0-AC)
+- Pular o Portão 0 (classificador) e ir direto pra um portão específico
+- Continuar o fluxo escondido, sem avisar o Felipe, quando um portão travar
+- Reescrever o desenho do fluxo aqui em vez de referenciar `.aiox/SOLUCIONADOR-DESENHO.md`
+
+**Por que esta regra existe:** o gatilho foi desenhado e discutido em profundidade (`.aiox/SOLUCIONADOR-DESENHO.md`, 13 seções), mas nunca tinha sido efetivamente implementado — o Felipe perguntou diretamente se o Solucionador continuava dependendo dele chamar cada agente conscientemente, ou se precisava de um gatilho de frase (E105, achado da auditoria do "vou parar" de 02/09/2026). A resposta já existia, só nunca tinha virado regra ativa neste arquivo. Esta BLOCO fecha esse buraco — implementada via Spec Pipeline formal (PRD completo em `docs/stories/SOLUCIONADOR/`), depois do E61 confirmar que o escopo do Solucionador era grande demais pra implementar direto (DEC-19, 03/09/2026).
+
+**Pendências conhecidas, ainda não resolvidas por esta BLOCO (ver `.aiox/SOLUCIONADOR-DESENHO.md` seção 12):** E81 (circuit breaker), E69 (drift de status), D1/D11 (limites conhecidos), E31/E32/E30/E73/E74 — nenhuma delas bloqueia o gatilho funcionar, mas continuam em aberto.
+
+**Esta regra se aplica a TODOS os agentes e squads do AIOX — atuais, futuros, e vindos de atualizações oficiais do repositório `SynkraAI/aiox-core` — sem exceção, mesmo padrão universal das BLOCOs 0-X e 0-Y.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 0: 🧭 **Leia `.aiox/RETOMAR-AQUI.md` PRIMEIRO — antes do caderno, antes de qualquer outra coisa.**

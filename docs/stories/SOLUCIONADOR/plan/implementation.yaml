@@ -59,8 +59,9 @@ phases:
         verification:
           type: manual
           instructions: "Confirmar que a nova BLOCO documenta: sequencia fixa de portoes, cada portao como troca de persona visivel (FR-3, nunca sub-agente real), criterio de entrada/saida por portao"
-        status: pending
-        notes: "ALTO RISCO - regra vale pra todos os agentes do projeto. Revisar com cuidado antes de commitar."
+        status: completed
+        completedAt: "2026-09-03T00:00:00.000Z"
+        notes: "ALTO RISCO - regra vale pra todos os agentes do projeto. BLOCO 0-AH criada, referenciando SOLUCIONADOR-DESENHO.md em vez de duplicar (mesmo padrao da BLOCO 0-X). Verificado manualmente: documenta Portao 0 (classificador), trilhas, troca de persona visivel (E26/BLOCO 0-AC), estado 3, nada volta silenciosamente. Pendencias conhecidas (E81, E69, etc) listadas sem inventar solucao."
 
   - id: phase-3
     name: "Integracao"
