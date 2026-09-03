@@ -4,6 +4,33 @@
 
 ---
 
+### SESSÃO — 10/08/2026
+
+**O QUE FOI FEITO:**
+- Validado o método de mapeamento SKU x Mercado Ads (Passo A/B/C) — busca direta por "MLB"+número na Anúncios Patrocinados confirmada confiável, com 3 estados possíveis (Ativa/Pausada/Sem Campanha) — documentado em `.aiox-core/development/tasks/mapeamento-skus-ads-catalogo-mercadolivre.md` (novo arquivo)
+- Processados 40 produtos no total (2 lotes de 20, linhas 94-121 e 122-144), achando 11 "Sem Campanha" (produtos ativos fora de Ads) — ainda não escritos no Google Sheets, falta autorização do Felipe
+- Corrigido bug real: a regra de "próxima linha a processar" pulava as ~90 linhas que o Felipe já tinha marcado de azul manualmente, deixando elas fora do método validado — regra corrigida pra nunca pular azul, só cores novas por-SKU. **Ainda em aberto:** um erro de execução fez o 2º lote continuar da linha 122 em vez de recomeçar da linha 2 como combinado — as linhas 2-91 ainda não foram reprocessadas (88 de 144 linhas totais ainda pendentes)
+- Testado de verdade (com Felipe presente) o procedimento de criar aba nova no Google Sheets — botão certo é `aria-label="Adicionar página"` (achado via accessibility tree), ciclo criar→renomear→apagar validado, abas do Felipe nunca tocadas
+- Investigado e corrigido um incidente real de foco roubado: `minimizeChrome()` minimizava qualquer janela do Chrome (inclusive pessoal do Felipe, com WhatsApp aberto) por falta de filtro — corrigido pra filtrar só a automação via `CommandLine` (técnica CIM+PID). BLOCO 0-V (automação via Edge) descontinuada por ter o mesmo problema, mais grave (fechava em vez de minimizar) — toda automação de browser agora é exclusiva do Chrome (BLOCO 0-X)
+- Identificado e corrigido bug estrutural na BLOCO 0-K (auditoria antes de handoff): dependia só de memória, sem gatilho externo — trocada por checagem incremental (`.aiox/itens-em-aberto.md`) + hook técnico (`check-handoff-audit.js`, evento Stop) + backstop periódico na BLOCO 3. Nova BLOCO 0-Z exige spec escrita + procedimento testado antes de qualquer escrita em sistema externo compartilhado
+- Limpeza no caderno: removida a frente da agência do primo (projeto encerrado), removido o caso dos 939 estoque/9 casos especiais (a pedido do Felipe), removida uma pendência desatualizada sobre fix de foco que já tinha sido implementado em 07/08 e nunca marcado como concluído
+- Testado `launchPersistentContext()` do Playwright como alternativa ao Modo Navegador (perfil descartável, nunca tocou em nada real) — não recomendado migrar, não resolve nenhum problema real do método atual
+- Registrada pendência de prioridade máxima pro @aiox-master: boa parte das ~30 regras do `CLAUDE.md` depende só de memória do agente, sem reforço técnico — mapeado via `*elicit` que ~20-25 delas têm algum tipo de checagem mecânica possível (não só as 5 originalmente identificadas), mais um mecanismo de "recalcular do dado real, nunca confiar em memória" pra decisões operacionais (tipo qual linha processar). Estimativa honesta: mais de um dia de trabalho focado, não horas — explicitamente NÃO fazer isso no fim de uma sessão cansativa
+
+**O QUE O FELIPE PEDIU:**
+- Continuar o mapeamento de SKUs a partir de onde parou, aplicando o método validado
+- Investigar por que o `minimizeChrome()` roubou o foco do Chrome pessoal dele durante uma automação, e corrigir isso "de forma que nunca mais aconteça"
+- Avaliar se o Edge deveria continuar sendo usado pra automação, dado o mesmo tipo de risco — decidiu eliminar o uso do Edge por completo, migrar tudo pro Chrome
+- Remover do caderno a pendência dos 939 estoque/9 casos especiais, e toda a frente da agência do primo (projeto encerrado)
+- Testar `launchPersistentContext` como alternativa ao Modo Navegador (pediu explicitamente o teste, não só avaliação teórica)
+- Uma investigação profunda (`*elicit`) sobre por que as regras novas do `CLAUDE.md` não estão sendo seguidas de forma confiável, e se existe uma solução permanente — várias rodadas de pergunta e resposta até concordar que não existe solução 100% perfeita, automatizada ou não, mas que dá pra reduzir bastante o problema com hooks + recalcular do dado real + checkpoint humano
+- Nunca mais ser respondido em inglês — incidente real hoje motivou registrar isso como regra permanente e prioritária
+- "Vou parar" — sessão longa e cansativa, desde sexta-feira sem desligar o PC
+
+**PAROU EM:** Mapeamento de SKUs — 40 de ~736 produtos processados (56 com o método validado, 88 ainda pendentes, a maioria linhas 2-91 que precisam ser reprocessadas desde o início). Escrita real nas 2 páginas novas do Google Sheets ainda não autorizada. Pendência de prioridade máxima registrada pro @aiox-master (confiabilidade das regras do CLAUDE.md) — não iniciada, fica pra próxima sessão fresca | Agente ativo: dev
+
+---
+
 ### SESSÃO — 01/07/2026
 
 **O QUE FOI FEITO:**
