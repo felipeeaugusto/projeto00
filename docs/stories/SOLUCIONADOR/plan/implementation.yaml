@@ -1,0 +1,94 @@
+storyId: "SOLUCIONADOR"
+createdAt: "2026-09-03T00:00:00.000Z"
+createdBy: "@architect"
+status: pending
+complexity: COMPLEX
+estimatedEffort: "3+ dias"
+
+notes: |
+  Task original (plan-create-implementation.md) foi desenhada pra service_types
+  frontend/backend/database/infra de projeto de software tipico. O Solucionador
+  e governanca de framework (markdown/yaml) - adaptado usando "infra" como
+  categoria mais proxima para todas as subtasks, verification tipo "manual"
+  (nao ha comando/API/browser pra testar regra de framework).
+
+decisions:
+  OQ3:
+    question: "Quebrar o Solucionador em stories menores antes de planejar?"
+    resolution: "Sim, via isolamento de fases (nao arquivos de story separados) - fase 1 (baixo risco, Template de Handoff) isolada da fase 2 (alto risco, CLAUDE.md)"
+    decidedBy: "@architect"
+  E108:
+    question: "Usar Tier System do squad-creator antigo, ou portar pro squad-creator-pro?"
+    resolution: "Usar a versao do squad-creator antigo por enquanto. Portar pro squad-creator-pro fica fora de escopo desta implementacao, sem pedido explicito do Felipe."
+    decidedBy: "@architect"
+
+phases:
+  - id: phase-1
+    name: "Setup (isolado, baixo risco)"
+    description: "Criar o Template de Handoff que a documentacao ja descreve mas nao existe (E107)"
+    subtasks:
+      - id: "1.1"
+        description: "Criar handoff-insumos-tmpl.yaml a partir da descricao ja documentada em hybridops-patterns.md:1276-1310"
+        service: infra
+        files:
+          - "squads/squad-creator/templates/handoff-insumos-tmpl.yaml"
+        verification:
+          type: manual
+          instructions: "Confirmar que o arquivo existe no caminho ja citado por hybridops-patterns.md, com o formato INSUMOS_READY descrito"
+        status: pending
+        notes: "Baixo risco, sem dependencia de nenhuma outra subtask"
+
+  - id: phase-2
+    name: "Core (isolado, alto risco)"
+    description: "Escrever a BLOCO do gatilho /Solucionador no CLAUDE.md"
+    subtasks:
+      - id: "2.1"
+        description: "Adicionar nova BLOCO ao CLAUDE.md reconhecendo a frase /Solucionador como gatilho universal, mesmo padrao do Modo Navegador e momento de pausa (FR-2)"
+        service: infra
+        files:
+          - ".claude/CLAUDE.md"
+        verification:
+          type: manual
+          instructions: "Confirmar que a nova BLOCO documenta: sequencia fixa de portoes, cada portao como troca de persona visivel (FR-3, nunca sub-agente real), criterio de entrada/saida por portao"
+        status: pending
+        notes: "ALTO RISCO - regra vale pra todos os agentes do projeto. Revisar com cuidado antes de commitar."
+
+  - id: phase-3
+    name: "Integracao"
+    description: "Fechar a documentacao de ativacao do Solucionador e registrar a sequencia formalmente"
+    subtasks:
+      - id: "3.1"
+        description: "Fechar a secao de ativacao do SOLUCIONADOR-DESENHO.md, ainda em aberto desde o E105"
+        service: infra
+        files:
+          - ".aiox/SOLUCIONADOR-DESENHO.md"
+        verification:
+          type: manual
+          instructions: "Confirmar que a secao de ativacao referencia a BLOCO criada na subtask 2.1"
+        status: pending
+        dependencies: ["2.1"]
+      - id: "3.2"
+        description: "Registrar a sequencia fixa de portoes do Solucionador em workflow-chains.yaml"
+        service: infra
+        files:
+          - ".aiox-core/data/workflow-chains.yaml"
+        verification:
+          type: manual
+          instructions: "Confirmar que a sequencia aparece no formato ja usado pelos outros workflow-chains existentes"
+        status: pending
+        dependencies: ["2.1"]
+
+  - id: phase-4
+    name: "Testes"
+    description: "Verificar os 5 cenarios Given-When-Then definidos no spec.md"
+    subtasks:
+      - id: "4.1"
+        description: "Executar manualmente os 5 cenarios de aceite do spec.md (FR-1, FR-2, FR-3, FR-4, NFR-2) numa conversa real"
+        service: infra
+        files:
+          - "docs/stories/SOLUCIONADOR/spec/spec.md"
+        verification:
+          type: manual
+          instructions: "Rodar /Solucionador numa conversa real e confirmar os 5 cenarios do spec.md secao 6"
+        status: pending
+        dependencies: ["1.1", "2.1", "3.1", "3.2"]

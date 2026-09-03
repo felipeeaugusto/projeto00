@@ -610,3 +610,11 @@ Arquivo de origem: `packages/karzen/PROJETO-STATUS.md`, seção PENDÊNCIAS ATUA
 ## Spec Pipeline — Fase 5 re-crítica — APPROVED (03/09/2026)
 
 - [03/09/2026] qa — **Re-crítica do spec.md v2 concluída — veredito APPROVED (média 4.85/5, era 4.10).** CRIT-1 e CRIT-2 confirmados resolvidos (cenários dedicados a FR-1 e NFR-2). CRIT-3 permanece como `OQ-3` — formalizado, com dono e fase de bloqueio definidos, não conta mais como issue aberto. Zero issues HIGH ou MEDIUM sem tratamento. Arquivo: `docs/stories/SOLUCIONADOR/spec/critique.json` (specVersion 2). **Próximo passo do pipeline (regra fixa, APPROVED → plan):** `@architect` fecha a Fase 6 (Plan/Epics), decidindo `OQ-3` e `E108` nessa etapa.
+
+---
+
+## Spec Pipeline — Fase 6 (Plan) concluída — SPEC PIPELINE COMPLETO (03/09/2026)
+
+- [03/09/2026] architect — **Fase 6 (Plan) concluída — `implementation.yaml` gerado, fecha o Spec Pipeline inteiro do Solucionador.** `OQ-3` resolvido: quebrar por isolamento de fases (não stories separadas) — fase 1 (baixo risco, Template de Handoff) isolada da fase 2 (alto risco, `CLAUDE.md`). `E108` resolvido: usar o Tier System do `squad-creator` antigo por enquanto, portar pro `squad-creator-pro` fica fora de escopo, sem pedido explícito do Felipe. Plano: 4 fases, 5 subtasks, todas com verificação manual (governança de framework, não código testável por comando). Felipe aprovou a recomendação direta do @architect (não escolheu entre as 4 opções formais — pediu recomendação e seguiu). Arquivo: `docs/stories/SOLUCIONADOR/plan/implementation.yaml`.
+
+  **✅ SPEC PIPELINE COMPLETO:** `requirements.json` (Fase 1) → `complexity.json` (Fase 2, COMPLEX 16/25) → `research.json` (Fase 3, E107/E108) → `spec.md` v2 (Fase 4, revisado) → `critique.json` v2 (Fase 5, APPROVED 4.85/5) → `implementation.yaml` (Fase 6). O Solucionador tem PRD formal completo, pronto pra virar trabalho real (implementação) quando o Felipe decidir. **Isso fecha o E61/DEC-19** — a decisão de seguir o Caminho A (formalizar em vez de implementar direto) foi executada até o fim.

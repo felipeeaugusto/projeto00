@@ -13,7 +13,7 @@
 | ✅ **FASE 0, 1, 2 e 3 concluídas** | `.aiox/PLANO-EXECUCAO.md` e `.aiox/PLANO-FINAL.md` fechados. 153 itens classificados nas 4 trilhas do Solucionador |
 | ✅ **E66 decidido (DEC-17)** | Opção A — Solucionador roda numa conversa só. Não bloqueia mais nada |
 | ✅ **Investigação do trio oficial concluída (E101-E104)** | Trio não tem "conselho" oficial pra copiar; 2 ferramentas genéricas úteis achadas (E102, E103); 1 correção feita (E104 — mecanismo que o desenho citava como pronto é código morto) |
-| ✅ **E61 decidido (DEC-19)** | Felipe escolheu o Caminho A — seguir o veto do próprio framework (`SC_SCP_001`). A **FASE 5 (implementar direto, sem PRD) está suspensa** |
+| ✅ **E61 decidido (DEC-19) e EXECUTADO até o fim** | Felipe escolheu o Caminho A — seguir o veto do framework (`SC_SCP_001`). Spec Pipeline completo (6 fases) já rodou — `docs/stories/SOLUCIONADOR/` tem PRD formal pronto |
 | ✅ **Spec Pipeline Fase 1 (Gather) concluída** | `docs/stories/SOLUCIONADOR/spec/requirements.json` — feito pelo @pm, 2 perguntas de elicitação resolvidas (OQ-1: seguir sem esperar Frentes A/B, revisar depois) |
 | ✅ **Spec Pipeline Fase 2 (Assess) concluída** | `docs/stories/SOLUCIONADOR/spec/complexity.json` — resultado **COMPLEX (16/25)**, valida o E61 por método independente. Pipeline completo ativado (2 rodadas de crítica) |
 | ✅ **Spec Pipeline Fase 3 (Research) concluída** | `docs/stories/SOLUCIONADOR/spec/research.json` — 3 de 4 mecanismos do E64 confirmados reais. 2 achados novos: **E107** (Template de Handoff não existe, precisa ser criado) · **E108** (Tier System só existe no squad-creator antigo, não no pro) |
@@ -21,7 +21,8 @@
 | 🔄 **Spec Pipeline Fase 5 (Critique) concluída — NEEDS_REVISION** | `docs/stories/SOLUCIONADOR/spec/critique.json` — média 4.10/5, 1 issue HIGH (CRIT-1) + 2 MEDIUM (CRIT-2, CRIT-3). Não é bloqueante |
 | ✅ **`spec.md` revisado (v2)** | CRIT-1 e CRIT-2 resolvidos · CRIT-3 formalizado como `OQ-3` (bloqueante só pra Fase 6, atribuído ao @architect) |
 | ✅ **Spec Pipeline Fase 5 — APPROVED (re-crítica)** | `docs/stories/SOLUCIONADOR/spec/critique.json` (v2) — média 4.85/5, zero issues abertos |
-| ➡️ **Próximo passo concreto** | **Spec Pipeline Fase 6 (Plan/Epics)** via **@architect** — decide `OQ-3` (quebrar em stories menores?) e `E108` (Tier System) nessa etapa |
+| ✅ **SPEC PIPELINE COMPLETO** | `docs/stories/SOLUCIONADOR/plan/implementation.yaml` — 4 fases, 5 subtasks. `OQ-3` e `E108` resolvidos. **E61/DEC-19 executado até o fim** |
+| ➡️ **Próximo passo concreto** | Solucionador tem PRD completo, pronto pra virar trabalho real quando o Felipe quiser. Sem próximo passo forçado — ele decide se implementa agora, depois, ou volta pra Planilha/Frentes A-B primeiro |
 | 🔴 **A única coisa que trava a planilha** | Camada 0 (comando `status`) — **FASE 4, roda DEPOIS da FASE 5, e só se ainda fizer sentido (DEC-16)** |
 
 ---
