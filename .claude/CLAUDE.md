@@ -1741,6 +1741,37 @@ PASSO 3: Isso NÃO se aplica a: nomes de arquivo, comandos de código, nomes té
 
 ---
 
+### BLOCO 0-AG — PATH EXPLÍCITO OBRIGATÓRIO EM BUSCA QUE CONFIRMA AUSÊNCIA DE ARQUIVO (inegociável)
+
+**Gatilho:** Qualquer agente prestes a concluir "este arquivo/padrão NÃO existe" com base no resultado vazio de uma busca (`Glob` ou ferramenta equivalente sensível a diretório de trabalho).
+
+**REGRA ABSOLUTA:** Toda busca cujo objetivo é confirmar **ausência** de um arquivo — não apenas localizar um já sabido existente — DEVE usar `path` explícito e absoluto (a raiz do projeto, ou o caminho específico relevante). Busca sem `path` roda a partir do diretório de trabalho corrente (cwd) do shell, que pode estar em qualquer lugar — inclusive um subdiretório errado, sem relação com o que está sendo procurado.
+
+```
+ANTES DE CONCLUIR "ARQUIVO X NÃO EXISTE":
+
+PASSO 1: A busca que gerou esse resultado usou `path` explícito e absoluto?
+PASSO 2: SE NÃO usou → refazer a busca com `path` explícito antes de reportar
+         qualquer conclusão de ausência
+PASSO 3: SE o resultado "não encontrado" persistir COM `path` explícito →
+         aí sim é seguro reportar como ausência real
+PASSO 4: NUNCA tratar "No files found" de uma busca sem `path` como prova
+         de que o arquivo não existe — é ambíguo entre "não existe" e
+         "procurou no lugar errado"
+```
+
+**PROIBIDO:**
+- Reportar "arquivo X não existe" baseado em `Glob` (ou equivalente) sem `path` explícito
+- Presumir que o cwd do shell está na raiz do projeto sem verificar
+- Sobrescrever ou criar um arquivo assumindo que ele não existe, sem essa confirmação com `path` explícito
+- Basear qualquer achado (tipo "E-número") em ausência de arquivo sem essa verificação
+
+**O ERRO QUE GEROU ESTA REGRA (03/09/2026):** durante a Fase 3 (Research) do Spec Pipeline do Solucionador, o `@analyst` rodou `Glob(pattern: "**/handoff-insumos-tmpl.yaml")` **sem `path` explícito** pra verificar se um arquivo citado em `hybridops-patterns.md` existia. Retornou "No files found". O diretório de trabalho do shell tinha "driftado" pra `packages/karzen` depois de chamadas `Bash` anteriores (o próprio `Bash` reseta o cwd persistido pra `packages/karzen` após cada execução, mesmo quando o comando interno faz `cd` pra outro lugar) — como `squads/` não existe dentro de `packages/karzen`, o resultado vazio era **falso negativo**, não ausência real. Isso virou o achado E107 ("o arquivo não existe, precisa ser criado"), registrado formalmente no `requirements.json`/`research.json`/`spec.md` do Solucionador. Na hora de implementar (subtask 1.1, gerada só por causa do E107 errado), o `@dev` **sobrescreveu um arquivo real que já existia**, com um schema mais simples que o original de 112 linhas — perda de conteúdo real. Só não foi permanente porque o `@dev` percebeu o erro sozinho, antes de seguir pras próximas subtasks, e restaurou o conteúdo original via `git show <commit-anterior>:<arquivo>`. A causa raiz só foi confirmada depois, testando o mesmo `Glob` sem `path` (reproduziu "No files found") e com `path` explícito (achou o arquivo imediatamente). Registrado como `E109` em `.aiox/itens-em-aberto.md`.
+
+**Esta regra se aplica a TODOS os agentes atuais e futuros que usarem `Glob` ou ferramenta equivalente pra confirmar ausência de arquivo — sem exceção.**
+
+---
+
 ### BLOCO 1 — AO SER ATIVADO (obrigatório antes de qualquer resposta)
 
 PASSO 0: 🧭 **Leia `.aiox/RETOMAR-AQUI.md` PRIMEIRO — antes do caderno, antes de qualquer outra coisa.**

@@ -1853,4 +1853,30 @@ sub-agente ou fork disparado por qualquer agente.
 
 ---
 
-*Última atualização: 2026-09-02 — Orion (@aiox-master)*
+## CUSTOMIZAÇÃO 61 — BLOCO 0-AG — Path explícito obrigatório em busca que confirma ausência de arquivo
+
+**Data de aprovação:** 2026-09-03
+**Problema resolvido:** `Glob` sem `path` explícito busca a partir do diretório de trabalho do shell (cwd), não da raiz do projeto — e esse cwd pode "driftar" pra qualquer lugar depois de chamadas `Bash` (o `Bash` reseta o cwd persistido após cada execução, mesmo quando o comando interno faz `cd`). Isso gerou um achado falso (E107, Fase 3 do Spec Pipeline do Solucionador): `Glob` sem `path` procurou `handoff-insumos-tmpl.yaml` a partir de `packages/karzen` (onde o cwd tinha driftado), não achou, e o `@analyst` concluiu "arquivo não existe" — quando na verdade existia, na raiz do projeto, com um schema real de 112 linhas. Na implementação, o `@dev` sobrescreveu esse arquivo real por engano, baseado no achado errado. Só não foi dano permanente porque o `@dev` percebeu sozinho e restaurou via `git` antes de continuar. Retratado como `E109`.
+**O que faz:** cria a BLOCO 0-AG no `CLAUDE.md` — toda busca cujo objetivo é confirmar AUSÊNCIA de um arquivo precisa de `path` explícito e absoluto antes de qualquer conclusão de "não existe". "Não encontrado" sem `path` explícito é tratado como ambíguo (pode ser "procurei no lugar errado"), nunca como prova de ausência real.
+**Onde implementar:** `.claude/CLAUDE.md` — BLOCO 0-AG, entre a BLOCO 0-AF e a BLOCO 1
+**Regra:**
+```
+Antes de concluir "arquivo X não existe" a partir de um Glob (ou ferramenta
+equivalente sensível a diretório de trabalho) que retornou vazio:
+
+1. A busca usou `path` explícito e absoluto? Se não → refazer com `path`
+   explícito antes de reportar qualquer conclusão de ausência.
+2. Se o resultado "não encontrado" persistir COM `path` explícito → aí sim
+   é seguro reportar como ausência real.
+3. Nunca sobrescrever ou criar um arquivo assumindo que ele não existe sem
+   essa confirmação.
+4. Nunca basear um achado formal (E-número) em ausência de arquivo sem essa
+   verificação.
+
+Aplica-se a TODOS os agentes atuais e futuros que usarem Glob ou ferramenta
+equivalente pra confirmar ausência de arquivo — sem exceção.
+```
+
+---
+
+*Última atualização: 2026-09-03 — Orion (@aiox-master)*
