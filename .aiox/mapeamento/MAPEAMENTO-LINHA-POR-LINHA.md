@@ -83,4 +83,18 @@
 
 ---
 
+## ACHADO 7
+
+**Pedaço coberto:** linhas 2932-3331 do `esqueleto-parte1` — 14/08, 13:21 até 14:55.
+
+**O que foi encontrado:** às 14:08 do dia 14/08, o Felipe reclamou duramente de correções pontuais de timing: *"Cara eu já te disse aguarda á pagina carregar por inteira, no processo todo (não em partes específicas do process)! Quantas vezes vou precisar repetir isso para você?"* — isso gerou uma auditoria completa do arquivo (não só os pontos com bug já visto) e commit `94be7db` aplicando espera de carregamento real em todo o pipeline.
+
+**Investigação:** já conferido na investigação do Achado 1 — `mapeamento-skus-ads-catalogo-mercadolivre.md`, linha 9: **"REGRA GERAL OBRIGATÓRIA (14/08/2026, reforçada 14/08/2026 — aplicar no PROCESSO INTEIRO, nunca em pontos isolados)"** — mesma data, mesma dinâmica (correção pontual → reclamação → regra geral reforçada no mesmo dia).
+
+**VALIDAÇÃO:** ✅ **BATE.** A regra nasceu exatamente como a conversa mostra — reclamação direta do Felipe gerou uma regra geral permanente, não um remendo, documentada com a data certa e a ressalva "reforçada" no mesmo dia.
+
+**AGENTE RESPONSÁVEL:** Nenhum — documentado corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
