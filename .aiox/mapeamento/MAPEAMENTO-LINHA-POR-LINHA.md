@@ -197,4 +197,20 @@
 
 ---
 
+## ACHADO 15
+
+**Pedaço coberto:** linhas 6524-6893 do `esqueleto-parte1` — 16/08, 13:15 até 14:35 (até a 3ª compactação da sessão).
+
+**O que foi encontrado:** o "modo cauteloso" (pipeline para a execução inteira em qualquer anomalia quando rodado com nome de campanha específico) e a regra de gerenciamento de abas (deixar só 3 abas ao final: Anúncios, campanha filtrada, publicidade), pedida pelo Felipe em 14/08.
+
+**Investigação:** conferido `pipeline-pausados-campanha-completo.js`, linhas 1199-1215. Comentário: *"Gerenciamento de abas pedido pelo Felipe (14/08/2026): ao final do modo cauteloso, deixar SOMENTE 3 abas abertas"* — mesma data, mesma regra exata.
+
+**VALIDAÇÃO:** ✅ **BATE.**
+
+**Achado colateral (relevante pro ponto do Felipe sobre "os documentos divergem"):** nesse mesmo trecho (16/08, 13:20), o agente não tinha nenhum registro da conversa sobre as colunas da página "Teste 1" — nem no caderno, nem na memória entre sessões — e só recuperou a informação buscando diretamente no `.jsonl` bruto da própria sessão. É literalmente a mesma técnica usada nesta investigação inteira, aplicada ali pontualmente uma vez.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido/documentado corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
