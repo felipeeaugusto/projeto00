@@ -31,6 +31,32 @@ A FASE 5 **não depende** da FASE 4 pra rodar — nada no trabalho de resolver a
 
 ---
 
+## ⚠️ ATUALIZAÇÃO — DEC-19 (03/09/2026) mudou a rota da FASE 5 no meio do caminho
+
+> **Por que esta seção existe:** este arquivo tinha ficado parado em 02/09, com a FASE 5 marcada ⏳ (não rodada) — mas no dia seguinte uma decisão real do Felipe mudou como o único item 🔵 COMPLETA (**E61**) seria resolvido, e isso nunca tinha sido registrado aqui. A "Regra de manutenção" do topo deste arquivo diz que isso não pode acontecer — corrigido agora, 04/09/2026, pelo 👑 @aiox-master.
+
+**O que aconteceu, em ordem:**
+
+| # | Evento | Data | Resultado |
+|---|---|---|---|
+| 1 | Felipe escolheu **Caminho A** pro E61: em vez de já sair implementando a FASE 5 direto, seguir o próprio veto do framework (`SC_SCP_001`: ≥8 agentes/≥10 workflows → VETO) e formalizar o Solucionador via **Spec Pipeline completo** | 03/09/2026 (DEC-19) | Abriu um **sub-fluxo** dentro da FASE 5, só pro E61 — as outras 152 partes do `PLANO-FINAL.md` continuam esperando a FASE 5 "de verdade" |
+| 2 | Spec Pipeline rodado por inteiro: Gather (@pm) → Assess (@architect, classificou **COMPLEX**) → Research (@analyst) → Write Spec (@pm) → Critique (@qa) → Plan (@architect) | 03/09/2026 | `docs/stories/SOLUCIONADOR/spec/` + `docs/stories/SOLUCIONADOR/plan/implementation.yaml` — Critique final: **APROVADO, 4,85/5** |
+| 3 | 🕳️ Incidente real no meio do pipeline: achado **E107** ("arquivo X não existe") era **falso** — vinha de uma busca sem `path` explícito, que buscou na pasta errada. Um arquivo real foi sobrescrito por engano com base nesse achado | 03/09/2026 | Revertido (`git show` do commit anterior); achado retratado como **E109**; virou regra permanente **BLOCO 0-AG** (busca de ausência de arquivo exige `path` explícito) |
+| 4 | `implementation.yaml` executado — 5 subtasks | 03/09/2026 | 1.1 não aplicável (era o incidente do E107) · 2.1 concluída (**BLOCO 0-AH**, o gatilho `/Solucionador`) · 3.1 concluída (seção 2.5 do desenho + correção do E61) · 3.2 concluída (entrada no `workflow-chains.yaml`) · 4.1 parcial (2 de 5 cenários testados de verdade) |
+| 5 | Item 1/1.1 do pedido original de 13/08 (mapear a sessão inteira em blocos) — que tinha ficado de fora do escopo direto da FASE 5 — foi retomado e **concluído** | 04/09/2026 | `.aiox/mapeamento/MAPEAMENTO-COMPLETO-13-08-A-04-09.md`, enviado ao Felipe |
+
+**O que isso muda no status real das fases abaixo:**
+
+| Fase | Status antigo (02/09) | Status real agora (04/09) |
+|---|---|---|
+| 🎯 5 (rodar as partes) | ⏳ não iniciada | 🟡 **Iniciada só pelo E61** (via sub-fluxo Spec Pipeline, ✅ em grande parte concluído — falta só o teste ao vivo completo do gatilho, 4.1). **As outras 151 partes de `PLANO-FINAL.md` continuam ⏳, não tocadas** |
+| 🔧 4 (Camada 0 / `status`) | ⏳ aguardando a 5 | ⏳ **Segue aguardando** — a FASE 5 "de verdade" (as 151 partes restantes) ainda não rodou, então a reavaliação do passo 4.0 não pode acontecer ainda |
+| 📊 6 (planilha) | ⏳ bloqueada | ⏳ **Segue bloqueada**, mesma regra (DEC-16: só volta depois de tudo resolvido) |
+
+🔑 **Não é retrocesso — é uma frente nova, mais rigorosa, aberta dentro da FASE 5.** O Caminho A (seguir o próprio veto do framework em vez de ignorá-lo) foi decisão consciente do Felipe, documentada na DEC-19. O trabalho de spec pipeline não substitui a FASE 5 original — ele é a forma como **um** dos 153 itens (o mais estrutural, E61) foi resolvido.
+
+---
+
 ## 🔒 FASE 0 — Garantir o que já existe *(~10 min)*
 
 **Sem isso, tudo que vem depois trabalha em cima de coisa que pode sumir.**
@@ -124,6 +150,7 @@ A FASE 5 **não depende** da FASE 4 pra rodar — nada no trabalho de resolver a
 
 | # | Ação | Quem | Status |
 |---|---|---|---|
+| **5.0** | *(não planejada)* **E61** resolvido via sub-fluxo Spec Pipeline (Caminho A, DEC-19, ver seção "ATUALIZAÇÃO — DEC-19" acima) | 👑 💻 🏛️ 📋 ✅ | 🟡 **Em grande parte concluído** — falta só o teste ao vivo completo do gatilho `/Solucionador` (subtask 4.1, 2/5 cenários) |
 | 5.1 | **28 partes sem conteúdo** → sub-agentes escrevem em arquivo | 🤖 paralelo | ⏳ |
 | 5.2 | Decisões do Felipe **em lotes**, não uma a uma | 👤 Felipe | ⏳ |
 | 5.3 | Implementar os **17 buracos** + as **12 correções** nas BLOCOs (E31 + E32) | 👑 💻 | ⏳ |
