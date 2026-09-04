@@ -183,6 +183,8 @@
 
 **AGENTE RESPONSÁVEL:** Nenhum — memória criada corretamente na origem e reforçada a cada recaída real.
 
+**Adendo (linhas 10081-10480, 17/08 12:43 até 15:12):** a recaída de 17/08 que a memória já citava por cima ("Recaída confirmada (17/08/2026)... MLB #5069271006 (SKU MCT-25MM-BIV) estava salvo como 'Inativa'/Pausado/'sem estoque'... o Felipe insistiu ('CONFIRMA!!!!')") bate palavra por palavra com o texto real da conversa: às 15:10, Felipe escreveu "Confirma!!!! VOCÊ VAI VER QUE ESSA PORCARIA NÃO ACABOU ESTOQUE! Nossa que ódio, algo que estava certo, fica errado". Confirmação mais forte da mesma origem já registrada.
+
 ---
 
 ## ACHADO 14
