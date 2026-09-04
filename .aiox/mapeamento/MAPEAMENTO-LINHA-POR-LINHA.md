@@ -55,4 +55,18 @@
 
 ---
 
+## ACHADO 5
+
+**Pedaço coberto:** linhas 2135-2534 do `esqueleto-parte1` — 13/08, 18:10 até 20:09.
+
+**O que foi encontrado:** às 20:05-20:06 do dia 13/08, o Felipe pediu pro @dev que, ao encontrar um SKU com 3+ MLBs de catálogo confirmados, **parasse o pipeline inteiro e avisasse** antes de continuar — tratando como cenário nunca validado.
+
+**Investigação:** conferido `packages/karzen/.aiox-runtime/pipeline-pausados-campanha-completo.js`, linhas 1134-1146. O código documenta a história completa em comentário: a trava original (13/08) parava tudo (`process.exit(1)`); em 16/08, o Felipe validou ao vivo um caso real (SKU `CHTMINI-BIV`, 2 Clássico + 1 Premium) confirmando que os 3 status batiam certinho — não era bug, era cenário válido — e a trava foi rebaixada de parada total pra aviso informativo, sem bloquear o resto do processamento.
+
+**VALIDAÇÃO:** ✅ **BATE, com evolução saudável.** Pedido implementado exatamente como pedido em 13/08, e corrigido depois com base em validação real do próprio Felipe (16/08) — o processo funcionou como deveria: pedido → implementado → testado contra a realidade → ajustado.
+
+**AGENTE RESPONSÁVEL:** Nenhum — histórico correto e completo, documentado no próprio código.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
