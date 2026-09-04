@@ -183,4 +183,18 @@
 
 ---
 
+## ACHADO 14
+
+**Pedaço coberto:** linhas 6125-6524 do `esqueleto-parte1` — 16/08, 12:11 até 13:15.
+
+**O que foi encontrado:** o bug do `CHTMINI-BIV`/MLB `5247671694` (16/08, 12:27-12:29) — a função `extrairOpcaoUnicaSemRotulo` só reconhecia o status **depois** do preço, mas o texto real tinha "PERDENDO" **antes** da condição. Corrigido com a mesma lógica de "status antes" que `extrairOpcoesConcorrencia` já usava.
+
+**Investigação:** conferido `pipeline-pausados-campanha-completo.js`, função `extrairOpcaoUnicaSemRotulo` (linha 372-391). Linhas 383-385: `antesTexto` extrai o texto antes do match e verifica status via `statusAntesMatch` — exatamente a correção descrita. A mesma função recebeu outra correção depois (17/08, valor "Médio" no nível de visitas).
+
+**VALIDAÇÃO:** ✅ **BATE.** Correção presente e mantida, com evolução posterior real.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido e mantido corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
