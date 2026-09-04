@@ -229,4 +229,18 @@
 
 ---
 
+## ACHADO 17 — a origem da BLOCO 0-AA
+
+**Pedaço coberto:** linhas 7690-8087 do `esqueleto-parte1` — 16/08, 17:00 até 18:28.
+
+**O que foi encontrado:** o bug inteiro do CHTMINI-BIV nunca foi sobre "Sincronizado" — foi porque um script de diagnóstico usava um campo de busca genérico errado (existem 2 campos na tela: o "Central de vendedores" no topo, que só abre balãozinho de sugestão, e o campo real "Buscar por título, código ou SKU" dentro da página). O `@dev` reverteu toda a correção "Sincronizado" (código morto) e reforçou 3 documentos + criou 2 BLOCOs novas no `CLAUDE.md`.
+
+**Investigação:** essa regra já estava carregada no próprio contexto do agente que fez esta leitura (é a **BLOCO 0-AA** do `CLAUDE.md`, seguida ativamente durante toda esta sessão de investigação): *"O erro que gerou esta regra (16/08/2026): ... o @dev escreveu vários scripts de diagnóstico ad-hoc, reimplementando a lógica de busca do zero em vez de importar `SELETOR_BUSCA` do próprio pipeline ... usou um seletor genérico que bateu no campo de busca ERRADO..."* — mesmo incidente, mesma data, mesma causa.
+
+**VALIDAÇÃO:** ✅ **BATE, de forma exemplar.** Não é só um bug corrigido no código — virou regra permanente do framework inteiro (BLOCO 0-AA), aplicada a todos os agentes desde então. É o caso mais forte encontrado nesta investigação de "conversa → documento real" funcionando perfeitamente.
+
+**AGENTE RESPONSÁVEL:** Nenhum — já é regra ativa, seguida corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
