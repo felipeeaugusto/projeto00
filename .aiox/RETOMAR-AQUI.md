@@ -22,8 +22,10 @@
 | ✅ **`spec.md` revisado (v2)** | CRIT-1 e CRIT-2 resolvidos · CRIT-3 formalizado como `OQ-3` (bloqueante só pra Fase 6, atribuído ao @architect) |
 | ✅ **Spec Pipeline Fase 5 — APPROVED (re-crítica)** | `docs/stories/SOLUCIONADOR/spec/critique.json` (v2) — média 4.85/5, zero issues abertos |
 | ✅ **SPEC PIPELINE COMPLETO** | `docs/stories/SOLUCIONADOR/plan/implementation.yaml` — 4 fases, 5 subtasks. `OQ-3` e `E108` resolvidos. **E61/DEC-19 executado até o fim** |
-| 🔴 **E107 RETRATADO (E109)** | Achado errado (Glob sem `path` explícito = falso negativo) causou sobrescrita real de arquivo. Já corrigido em cascata (arquivo restaurado + research.json + spec.md v3 + implementation.yaml). Recomendação de regra nova pendente de decisão do Felipe |
-| ➡️ **Próximo passo concreto** | Implementação em andamento (subtask 1.1 = not_applicable, 2.1-4.1 pendentes) — @dev estava executando quando pausou pra reportar o E107. Retomar em `@dev`, subtask 2.1 |
+| ✅ **E107 RETRATADO E CORRIGIDO (E109)** | Achado errado causou sobrescrita real de arquivo, já restaurado. **BLOCO 0-AG criada** (path explícito obrigatório em busca de ausência) — Customização 61 |
+| ✅ **Solucionador implementado (E105 fechado)** | `implementation.yaml` — 5 subtasks resolvidas. **BLOCO 0-AH criada** (gatilho `/Solucionador`). Teste real de ponta a ponta ainda pendente (Felipe testar numa conversa nova) |
+| 🔴 **Item 1/1.1 do pedido original (13/08) — NUNCA EXECUTADO** | Mapear a sessão inteira desde 13/08 em blocos (padrão do mapeamento de 42 partes do caso BG-03). A sessão inteira foi pra Frente C (E61/DEC-19/Spec Pipeline) — válido, mas não é isso. **0% feito, sem bloqueio técnico** |
+| ➡️ **Próximo passo concreto** | Decisão do Felipe: testar `/Solucionador` numa conversa nova, OU fazer agora o mapeamento da sessão (item 1/1.1) que ficou pra trás |
 | 🔴 **A única coisa que trava a planilha** | Camada 0 (comando `status`) — **FASE 4, roda DEPOIS da FASE 5, e só se ainda fizer sentido (DEC-16)** |
 
 ---
