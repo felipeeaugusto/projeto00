@@ -97,4 +97,18 @@
 
 ---
 
+## ACHADO 8
+
+**Pedaço coberto:** linhas 3331-3730 do `esqueleto-parte1` — 14/08, 14:55 até 16:25.
+
+**O que foi encontrado:** o conceito "ID Family" (agrupamento colapsado do Mercado Livre, número de 16 dígitos sem SKU visível) nasceu nesse trecho — 14/08, 15:17-16:21, caso real: SKU `PROSB-3000`, 2 grupos, 6 MLBs escondidos, exigindo expandir a setinha antes de extrair. 2 problemas novos ficaram em aberto ao final (preço não batendo pra `#5267746592`; "não achou Alterar" pra 2 MLBs).
+
+**Investigação:** já conferido na investigação do Achado 1 — `mapeamento-skus-ads-catalogo-mercadolivre.md`, linha 47: *"Caso real validado: SKU `PROSB-3000`, 2 grupos 'ID Family', 6 MLBs reais escondidos dentro deles."* Mesma data, mesmo SKU, mesmo número de grupos e MLBs. Linhas 49-51 do mesmo arquivo também registram as 2 questões em aberto como "ainda sem solução confirmada, não tratar como resolvidas".
+
+**VALIDAÇÃO:** ✅ **BATE.** Documentado fielmente, incluindo a ressalva honesta sobre as 2 pendências reais que a conversa também mostrou — nada escondido.
+
+**AGENTE RESPONSÁVEL:** Nenhum — documentado corretamente, pendências reais preservadas como pendências (não fingidas como resolvidas).
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
