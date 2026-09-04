@@ -69,4 +69,18 @@
 
 ---
 
+## ACHADO 6
+
+**Pedaço coberto:** linhas 2534-2932 do `esqueleto-parte1` — 13/08, 20:10 até 14/08, 13:02.
+
+**O que foi encontrado:** bug real de regex (14/08, 12:25) — o extrator de status usava `/i` (case-insensitive), fazendo a frase comum "Você está **ganhando** com outra opção de venda" (minúscula, não é badge oficial) ser lida como o badge GANHANDO de verdade. Corrigido no código, com pedido explícito do Felipe pra refazer os 3 SKUs (`MCT-25MM-BIV`, `MCT-19MM-BIV`, `MCT-32MM-BIV`) do zero após a correção.
+
+**Investigação:** conferido `packages/karzen/.aiox-runtime/pipeline-pausados-campanha-completo.js`, as 3 ocorrências do regex de status (linhas 384, 413, 714): `/\b(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b/` — sem a flag `/i`, só maiúsculas.
+
+**VALIDAÇÃO:** ✅ **BATE.** O conserto persiste até hoje no código — case-sensitive, frases comuns em minúscula não são mais confundidas com o badge oficial.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido e mantido corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
