@@ -139,4 +139,18 @@
 
 ---
 
+## ACHADO 11
+
+**Pedaço coberto:** linhas 4529-4928 do `esqueleto-parte1` — 14/08, 19:29 até 22:02 (continuação/aprofundamento do mesmo bug do Achado 10).
+
+**O que foi encontrado:** item 1 do checklist do @analyst (14/08, 21:25) — excluir "Outras opções de venda" / "Clássico e Frete grátis" / "Premium e Frete grátis" da elegibilidade de casamento de preço, porque essas frases não são status real mas podiam ser confundidas com uma opção válida.
+
+**Investigação:** conferido `pipeline-pausados-campanha-completo.js`, linha 339 — `FRASES_NAO_STATUS` inclui `/^(Clássico|Premium)\s+e\s+(?:Frete\s+grátis|Envio por conta do comprador)$/i`. Linha 330, comentário cita o mesmo caso real que causou o bug.
+
+**VALIDAÇÃO:** ✅ **BATE.** A correção evoluiu ainda mais depois (comentário cita 16/08/2026, lista ampliada com mais frases) — mecanismo mantido e ampliado com o tempo, não um remendo único.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido e mantido, mesma saga do Achado 10.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
