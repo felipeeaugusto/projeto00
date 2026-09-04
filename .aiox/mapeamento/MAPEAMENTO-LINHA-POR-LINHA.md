@@ -241,6 +241,8 @@
 
 **AGENTE RESPONSÁVEL:** Nenhum — já é regra ativa, seguida corretamente.
 
+**Adendo (linhas 8087-8486, 16/08 18:28 até 19:03):** criação do hook técnico `check-selector-reuse.js` que reforça a BLOCO 0-AA. 3 rodadas de reforço reais: v1 (bloqueia seletor por atributo genérico) → Atlas achou buraco (não pega seletor por classe CSS) → v2 (cobre classe) → Atlas achou outro buraco (`getByPlaceholder()` não é pego) → v3 (mudança estrutural: de "detectar padrão ruim" pra "detectar ausência de reuso"). Confere com o rodapé real da BLOCO 0-AA hoje: *"Reforçada por hook técnico (16/08/2026, v3)... v1 e v2 detectavam padrões de seletor ruim específicos... v3 inverteu a lógica pra detectar AUSÊNCIA de reuso"*. BATE.
+
 ---
 
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
