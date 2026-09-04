@@ -167,6 +167,8 @@
 
 **Adendo (linhas 5327-5726, 14/08 23:29 até 15/08 00:44):** confirmação em produção — o reprocessamento real da campanha "[ML] [BAIXA PERFORMANCE]" rodou com a correção aplicada. O produto que antes dava o SKU errado (Mixer Philco → `MCT-25MM-BIV`) agora veio como "SKU não encontrado (não verificável)" — a correção prefere não capturar nada a capturar errado. Nenhum achado novo, só prova de que o Achado 12 funciona de verdade fora do ambiente de teste.
 
+**Adendo 2 (linhas 7292-7690, 16/08 15:09 até 17:00):** investigação longa e dolorosa do bug do MLB `5247646674` (CHTMINI-BIV) — 3 hipóteses erradas em sequência (delimitação de bloco, "irmão sincronizado" vazando dado, correção "forçar via Alterar") até a causa real aparecer: a busca por SKU não estava realmente filtrando — o `Enter` no campo de busca às vezes não disparava a navegação de verdade, deixando a página no inventário inteiro ("3.016 anúncios") em vez do resultado filtrado. Confirmado com 3 screenshots reais do Felipe. Mesma família de causa raiz do Achado 12 — a correção real (reforçar `validarBuscaSkuCarregada` + retry) é a mesma já documentada, não uma nova.
+
 ---
 
 ## ACHADO 13
