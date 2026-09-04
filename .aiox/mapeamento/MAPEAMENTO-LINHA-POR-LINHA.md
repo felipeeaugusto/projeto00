@@ -165,6 +165,8 @@
 
 **AGENTE RESPONSÁVEL:** Nenhum — corrigido e reforçado corretamente.
 
+**Adendo (linhas 5327-5726, 14/08 23:29 até 15/08 00:44):** confirmação em produção — o reprocessamento real da campanha "[ML] [BAIXA PERFORMANCE]" rodou com a correção aplicada. O produto que antes dava o SKU errado (Mixer Philco → `MCT-25MM-BIV`) agora veio como "SKU não encontrado (não verificável)" — a correção prefere não capturar nada a capturar errado. Nenhum achado novo, só prova de que o Achado 12 funciona de verdade fora do ambiente de teste.
+
 ---
 
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
