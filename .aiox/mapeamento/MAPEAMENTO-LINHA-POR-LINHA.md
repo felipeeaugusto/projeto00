@@ -213,4 +213,18 @@
 
 ---
 
+## ACHADO 16
+
+**Pedaço coberto:** linhas 6893-7292 do `esqueleto-parte1` — 16/08, 14:35 até 15:09.
+
+**O que foi encontrado:** o "modo cauteloso" funcionou como projetado — parou sozinho ao ver 3 MLBs de catálogo confirmados no SKU `CHTMINI-BIV` (cenário nunca visto). Investigação (Atlas via `*elicit`) achou a causa raiz: card com só 1 MLB sem um 2º marcador de preço pra fechar o bloco corria sem limite até o fim da região, capturando dado do produto vizinho — MLB `#5247646674` pegou "GANHANDO" de outro produto em vez do próprio "RESTRITO PARA GANHAR".
+
+**Investigação:** conferido `pipeline-pausados-campanha-completo.js`, linhas 634-658. Comentário cita exatamente o mesmo caso: *"Correção real (16/08/2026, achado pelo Atlas via `*elicit`)... Caso real confirmado: MLB #5247646674 (SKU CHTMINI-BIV...)"*. A correção usa "Selecionar anúncio\n{título}\n{título repetido}" como limite adicional, sem usar `#numero` como marcador (respeitando a regra de 13/08).
+
+**VALIDAÇÃO:** ✅ **BATE.** Correção presente, citando o caso exato, respeitando a regra anterior.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
