@@ -275,4 +275,18 @@
 
 ---
 
+## ACHADO 20 — o bug real de "Alterar navega na mesma aba"
+
+**Pedaço coberto:** linhas 10480-11279 do `esqueleto-parte1` — 17/08, 15:12 até 17:13.
+
+**O que foi encontrado:** dois problemas emendados no mesmo trecho — (1) 15:53-16:36: Felipe pegou 2 erros reais ao vivo (`DG-01-127V` depósito errado; `PAF11B-220V` GANHANDO quando era COMPARTILHANDO) — causa: o pipeline só cruzava com "Alterar" quando a listagem não achava status nenhum. Atlas (`*elicit`) recomendou 3 correções. (2) 16:46: Felipe perguntou diretamente se o Dex estava seguindo a regra de "abrir Alterar em aba nova, fechar depois" (regra desde 14/08, ver Achado 15). Dex confessou que não — o código navegava na mesma aba, achando (suposição nunca confirmada) que não dava pra abrir em nova aba. Felipe mandou parar tudo e chamar o `@analyst`. Atlas investigou ao vivo e descobriu que a suposição estava errada: "Alterar" é um `<a href>` real, Ctrl+Click abriu aba nova de verdade, e navegar direto pela URL construída era ainda melhor.
+
+**Investigação:** conferido `pipeline-pausados-campanha-completo.js`. Linhas 217-225: comentário documenta a história completa — *"a versao anterior desta funcao (abrirAlterarPorIndice, removida) clicava no menu... `<a href="https://www.mercadolivre.com.br/syi/core/modify?itemId=MLB{numero}">`"*. Função nova `abrirAlterarPorMlb` (linha 239) usa a URL direta, aba separada, sempre fechada depois (linha 894). Linha 751: `mlbsSemStatus = todosMlbs.filter(mlb => mlbs[mlb])` — todo MLB passa pelo Alterar agora (item 1 do passo a passo). Linhas 781/833: `statusCatalogo = null` em erro no Alterar (item 2). Linha 885: `statusProduto === 'Pausado' ? 'Inativo' : opcaoBatida.status` — item 3, estendendo a regra do Achado 19 pro trecho que faltava. Teste isolado real (17:09) confirmou 13 abas antes → 13 depois (sem vazamento), regressão do Taiff 6-7x mais rápida.
+
+**VALIDAÇÃO:** ✅ **BATE, nos 4 pontos.** As 3 correções do passo a passo do Atlas E a troca do mecanismo de abertura (aba nova via URL direta) persistem no código real, com o histórico completo documentado em comentário — incluindo o motivo técnico da suposição antiga estar errada.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido e mantido corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
