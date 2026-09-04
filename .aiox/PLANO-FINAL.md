@@ -37,18 +37,30 @@
 
 ---
 
+## ✅ E61 — RESOLVIDO (DEC-19, 03/09/2026): Caminho A
+
+**O conflito, sem filtro:** o próprio `SC_SCP_001` do framework AIOX vetaria o Solucionador por escopo grande (`agents_needed >= 8 → VETO`, `workflows_mapped >= 10 → VETO`) — exigindo PRD formal com Epics/Stories antes de qualquer implementação direta.
+
+**➡️ DECIDIDO: Caminho A — seguir o próprio veto do framework**, em vez de ignorá-lo. O Spec Pipeline completo (6 fases) rodou de ponta a ponta em `docs/stories/SOLUCIONADOR/`: Gather (@pm) → Assess (@architect, classificou **COMPLEX**) → Research (@analyst) → Write Spec (@pm) → Critique (@qa, **APROVADO 4,85/5**) → Plan (@architect, `implementation.yaml`). Desse PRD nasceram a **BLOCO 0-AH** (gatilho `/Solucionador`) e a seção 2.5 do `SOLUCIONADOR-DESENHO.md`. **Nada bloqueia mais o E61 — resta só o teste ao vivo completo do gatilho (subtask 4.1, parcial: 2 de 5 cenários verificados).**
+
+**Efeito colateral honesto:** no meio do pipeline houve um incidente real (achado **E107** falso, de uma busca sem `path` explícito, que causou a sobrescrita indevida de um arquivo real) — revertido, retratado como **E109**, e virou a regra permanente **BLOCO 0-AG**. Detalhe completo em `.aiox/PLANO-EXECUCAO.md`, seção "ATUALIZAÇÃO — DEC-19".
+
+---
+
 ## 📊 Resumo por trilha (153 itens + 16 decisões do Felipe)
 
-> **Atualizado em 02/09/2026, após a reconciliação com o caderno da Karzen (Bloco 10) e a decisão do E66 (DEC-17).** A versão anterior deste plano (150 itens) cobria só o `itens-em-aberto.md` — ficaram de fora o caderno `packages/karzen/PROJETO-STATUS.md` e a consistência das 3 customizações mais novas. Os dois cobertos. E66 decidido (opção A) — sai da coluna COMPLETA, entra em VETO/arquivar (decisão tomada, nada a construir).
+> **Atualizado em 04/09/2026, após a resolução do E61 (DEC-19).** A versão anterior (02/09) tinha o E61 como o único item 🔵 COMPLETA restante — agora ele sai da coluna COMPLETA e entra em VETO/arquivar, mesmo tratamento dado ao E66 quando a DEC-17 o resolveu.
 
 | Trilha | Quantos itens | O que significa na prática |
 |---|---|---|
-| 🔴 VETO / já resolvido, arquivar | 37 | Remover de `itens-em-aberto.md`, mover pra `itens-resolvidos-arquivo.md` (+1: E66, +2: E101 informativo/E104 já corrigido no arquivo) |
+| 🔴 VETO / já resolvido, arquivar | 38 | Remover de `itens-em-aberto.md`, mover pra `itens-resolvidos-arquivo.md` (+1: E66, +2: E101 informativo/E104 já corrigido no arquivo, **+1: E61 — DEC-19**) |
 | 🟢 RÁPIDA | 53 | Implementação direta, @dev + @qa, sem passar pelo trio (+1: E103) |
 | 🟡 MÉDIA | 46 | Trio decide o *como* antes de virar story (+3: E98, E99, E100; +2: E102, E105) |
-| 🔵 COMPLETA | 5 | Estrutural ou decisão só do Felipe (só **E61** resta) |
+| 🔵 COMPLETA | 4 | Estrutural ou decisão só do Felipe (E39, E44, E87, E92 — nenhuma pendência nova; **E61 resolvido, saiu desta coluna**) |
 | ⚪ FORA DE ESCOPO | 17 | Pertence à FASE 6 (planilha Karzen) ou já foi separado explicitamente |
-| **Total rastreado** | **158** | 37+53+46+5+17 |
+| **Total rastreado** | **158** | 38+53+46+4+17 |
+
+> 🟡 **Inconsistência antiga, ainda não corrigida (transparência, não escondida):** a seção "Reconciliação" no fim deste arquivo soma 153 itens (34+52+44+6+17), um número diferente dos 158 desta tabela. Essa diferença já existia antes desta atualização — não é algo que apareceu agora. Corrigir exigiria reconferir item por item, o que não foi pedido ainda.
 
 ### Bloco 11 — E101 a E105 (investigação do trio + auditoria de fechamento)
 
@@ -172,7 +184,7 @@ Todas as 16 decisões **não são itens a triar** — são decisões já tomadas
 | E54 | 🔴 VETO/arquivar | Princípio (PV004), não uma tarefa — orienta as outras decisões, não gera ação própria |
 | E57, E58, E59 | 🟢 RÁPIDA | Formatação/regras claras do formulário de apresentação ao Felipe |
 | E60 | 🔴 VETO/arquivar | Constatação sobre método, vira lição aplicada (é por isso que a FASE 1/2 desta sessão foi feita por varredura, não por pergunta dirigida) |
-| E61 | 🔵 COMPLETA | Decisão só do Felipe — o framework vetaria o Solucionador por escopo grande (>=8 agentes) |
+| E61 | ✅ RESOLVIDO (DEC-19) | Ver seção dedicada acima — Caminho A, Spec Pipeline completo, saiu de COMPLETA e entrou em VETO/arquivar |
 | E62, E63 | 🟡 MÉDIA | Aplicar frameworks de qualidade já existentes aos 9 portões — trabalho real de adaptação |
 | E64 | 🟢 RÁPIDA | Lista de "adotar, não reinventar" — 7 mecanismos já mapeados, só religar |
 | E65 | 🔴 VETO/arquivar | Checkpoint de leitura, substituído pelo checkpoint mais novo (dentro do E84/FASE 1) |
