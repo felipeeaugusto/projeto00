@@ -169,4 +169,18 @@
 
 ---
 
+## ACHADO 13
+
+**Pedaço coberto:** linhas 5726-6125 do `esqueleto-parte1` — 15/08, 00:48 até 16/08, 12:11 (inclui um "momento de pausa" real de ~11h).
+
+**O que foi encontrado:** às 11:57 do dia 16/08, o Felipe confrontou diretamente o padrão de reportar conclusões (SKU errado, "?" não classificado, "4 catálogos") **antes** de checar o dado real, só corrigindo depois de questionado. O agente reconheceu o erro e escreveu memória nova nesse exato momento.
+
+**Investigação:** conferido o arquivo de memória `feedback_verificar_antes_de_reportar.md` (sistema de memória entre sessões). Bate exatamente: mesma data de origem (16/08/2026), mesmos 3 exemplos concretos citados na conversa, e a mesma citação verbatim do Felipe: *"por que, você não faz isso da primeira vez? Fica me mandando dado irreal ou errado!"*
+
+**VALIDAÇÃO:** ✅ **BATE, e virou princípio duradouro.** O arquivo mostra 4 recaídas documentadas depois (17/08, 22/08, 23/08), cada uma reforçando a regra com uma variante nova — a memória foi mantida viva e aprofundada, não ficou estática.
+
+**AGENTE RESPONSÁVEL:** Nenhum — memória criada corretamente na origem e reforçada a cada recaída real.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
