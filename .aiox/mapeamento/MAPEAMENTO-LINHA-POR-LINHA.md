@@ -41,4 +41,18 @@
 
 ---
 
+## ACHADO 4
+
+**Pedaço coberto:** linhas 1736-2135 do `esqueleto-parte1` — 13/08, 16:21 até 18:10 (atravessa a 1ª compactação da sessão).
+
+**O que foi encontrado:** dois achados técnicos ligados — (1) o bug do seletor `ancestor::div[...].first()` que pegava a linha errada do card, fazendo o script abrir o "Alterar" do MLB errado (13/08, 17:27); (2) a regra de validar o preço mostrado em "Concorrência no Mercado Livre" contra o preço na aba Anúncios, pra descobrir o status real (GANHANDO/PERDENDO) de um MLB sem badge explícito na listagem — caso real: SKU `WW2-220V`, MLB `#4653317905`.
+
+**Investigação:** conferido `.aiox-core/development/tasks/mapeamento-skus-ads-catalogo-mercadolivre.md`. Linha 78 documenta o bug do `ancestor::` com a mesma explicação técnica (ordem de documento, `.first()` pegando o card inteiro em vez da linha). Linha 75 documenta a regra de casamento de preço citando o mesmo caso exato (SKU `WW2-220V`, MLB `#4653317905`, R$900/R$726,56).
+
+**VALIDAÇÃO:** ✅ **BATE, com bônus.** Documentação fiel ao caso real, e o processo continuou evoluindo depois (correções de 17-18/08 e 24/08/2026 sobre o badge "PREÇO ALTO" não ser catálogo de verdade) — mostra que o documento de processo foi mantido vivo, não ficou estático.
+
+**AGENTE RESPONSÁVEL:** Nenhum — documentação fiel e atualizada.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
