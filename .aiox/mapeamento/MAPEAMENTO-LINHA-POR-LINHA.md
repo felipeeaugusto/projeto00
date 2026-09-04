@@ -27,4 +27,18 @@
 
 ---
 
+## ACHADO 3
+
+**Pedaço coberto:** linhas 1317-1736 do `esqueleto-parte1` — 13/08, 15:01 até 16:21.
+
+**O que foi encontrado:** a regra definitiva **"cada MLB é analisado isoladamente — nunca herdar dado de um MLB 'Sincronizado com' outro"**, estabelecida pelo Felipe às 16:19 do dia 13/08, depois de várias correções do agente que tentava (errado) fazer um MLB "herdar" dado do outro quando apareciam sincronizados.
+
+**Investigação:** conferido o arquivo real de processo `.aiox-core/development/tasks/mapeamento-skus-ads-catalogo-mercadolivre.md`, linha 57 — regra "correspondência cabeçalho→bloco" documentada com a data certa (13/08/2026) e citando pelo nome o mesmo incidente lido na conversa: *"foi exatamente isso que gerou o erro original da Sanduicheira Kian Panini"*.
+
+**VALIDAÇÃO:** ✅ **BATE.** A regra estabelecida na conversa está documentada fielmente no processo real, mesma data, mesma causa raiz. Nenhuma divergência.
+
+**AGENTE RESPONSÁVEL:** Nenhum — já documentado corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
