@@ -259,4 +259,18 @@
 
 ---
 
+## ACHADO 19
+
+**Pedaço coberto:** linhas 9682-10081 do `esqueleto-parte1` — 17/08, 09:03 até 12:43.
+
+**O que foi encontrado:** às 12:35 do dia 17/08, o Felipe corrigiu duramente um mal-entendido — a coluna "Status Catálogo" não deveria mostrar o texto literal do badge (GANHANDO/PERDENDO/PREÇO ALTO), deveria mostrar Ativo/Inativo baseado no status real do produto (Pausado = Inativo).
+
+**Investigação:** esse padrão exato (`statusProduto === 'Pausado' ? 'Inativo' : ...`) já tinha aparecido 3 vezes nas linhas do pipeline conferidas anteriormente (linhas 781, 818, 885 do `pipeline-pausados-campanha-completo.js`), sem a origem ter sido conectada até este ponto da leitura.
+
+**VALIDAÇÃO:** ✅ **BATE.** A correção de 17/08 não ficou isolada — virou regra aplicada sistematicamente em todo o pipeline, não só no ponto onde a reclamação aconteceu.
+
+**AGENTE RESPONSÁVEL:** Nenhum — regra aplicada corretamente e de forma consistente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
