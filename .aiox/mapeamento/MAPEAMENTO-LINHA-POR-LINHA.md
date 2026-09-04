@@ -289,4 +289,18 @@
 
 ---
 
+## ACHADO 21 — 3 correções emendadas na regressão pós-Achado 20
+
+**Pedaço coberto:** linhas 11279-11560 do `esqueleto-parte1` — 17/08, 17:13 até 18:33 (até a 5ª compactação da sessão).
+
+**O que foi encontrado:** três episódios na mesma regressão do mecanismo novo (Achado 20): (1) 17:13-17:42 — `MCT-25MM-BIV` apareceu de novo como Inativo; desta vez o agente cruzou com 2 métodos independentes antes de aceitar — confirmado mudança real (estoque esgotou de fato). Prova viva da lição do Achado 13 sendo aplicada corretamente. (2) 18:06-18:14 — regressão completa (18 SKUs, 17,7min vs 2h+ antes) achou 2 bugs reais de extração: `extrairBadgeConcorrenciaColapsada` pegava a frase introdutória genérica em vez do badge de verdade (corrigido exigindo texto todo em caixa alta); e o regex de "Opção sem rótulo" só reconhecia "e Frete grátis", faltando a variação "e Envio por conta do comprador" (causava perda de dado real). (3) 18:14-18:28 — instabilidade real detectada no MLB `PAF15B-220V` (5 leituras seguidas, 3 respostas diferentes) — concluído corretamente como concorrência genuinamente instável em tempo real, não bug.
+
+**Investigação:** conferido `pipeline-pausados-campanha-completo.js`. Linha 339: `FRASES_NAO_STATUS` inclui `/^(Clássico|Premium)\s+e\s+(?:Frete\s+grátis|Envio por conta do comprador)$/i`. Linhas 367-369: comentário documenta a causa exata — *"tambem usa 'e Envio por conta do comprador' pro mesmo formato... nunca batia"*. Linha 460: `if (!/^[A-ZÀ-Ú\s]+$/.test(badge))` rejeita frase genérica não-caixa-alta.
+
+**VALIDAÇÃO:** ✅ **BATE, nos 2 bugs técnicos.** As 2 correções de extração persistem no código real, com comentários citando a causa exata. Os episódios 1 e 3 não geram divergência de código — são exemplos de disciplina de verificação funcionando bem.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido e mantido corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
