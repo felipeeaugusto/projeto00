@@ -111,4 +111,18 @@
 
 ---
 
+## ACHADO 9
+
+**Pedaço coberto:** linhas 3730-4130 do `esqueleto-parte1` — 14/08, 16:25 até 17:31 (atravessa a 2ª compactação da sessão).
+
+**O que foi encontrado:** bug de desalinhamento de índice dos botões "Ações secundárias" — cada cabeçalho de grupo "ID Family" também tem seu próprio botão, deslocando o índice de todos os MLBs depois do 1º grupo. Corrigido via função `construirOrdemBotoes()` (commit `1275b11`), verificada contra o SKU `PROSB-3000` (6/6 MLBs corretos) e reconfirmada sem quebrar `MCT-32MM-BIV` (4/4 batendo com o gabarito).
+
+**Investigação:** conferido `packages/karzen/.aiox-runtime/pipeline-pausados-campanha-completo.js` — a função `construirOrdemBotoes` existe hoje, linha 560 (definição) e linha 579 (uso real: `const ordemMlbsGlobal = construirOrdemBotoes(linhas, cards);`).
+
+**VALIDAÇÃO:** ✅ **BATE.** A correção persiste no código real, exatamente como descrita na conversa.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido e mantido.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
