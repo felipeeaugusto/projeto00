@@ -125,4 +125,18 @@
 
 ---
 
+## ACHADO 10
+
+**Pedaço coberto:** linhas 4130-4529 do `esqueleto-parte1` — 14/08, 17:32 até 19:28.
+
+**O que foi encontrado:** às 19:26 do dia 14/08, o Felipe pegou um erro real ao vivo — o MLB `6714259004` (Premium) foi classificado GANHANDO quando deveria ser PERDENDO. Causa: o código casava o preço da "Opção" em Concorrência só pelo valor numérico, sem confirmar que a condição (Clássico/Premium) também batia.
+
+**Investigação:** conferido `packages/karzen/.aiox-runtime/pipeline-pausados-campanha-completo.js`, linhas 857-886. O código hoje exige que a condição também bata (`!o.condicaoDaOpcao || o.condicaoDaOpcao === mlbs[mlb].condicao`) — correção mais robusta que a causa raiz original, com comentário citando 2 casos reais adicionais que motivaram o reforço (`JBLQ-360`, `PCX26000`, de sessão posterior). Autocheck novo: avisa se mais de 1 opção tem o mesmo preço e status real.
+
+**VALIDAÇÃO:** ✅ **BATE, com evolução real.** O bug específico foi corrigido e a correção foi generalizada (preço + condição, não só preço) depois de mais casos reais aparecerem.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido e reforçado corretamente, histórico rastreável no próprio código.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
