@@ -24,8 +24,8 @@
 | ✅ **SPEC PIPELINE COMPLETO** | `docs/stories/SOLUCIONADOR/plan/implementation.yaml` — 4 fases, 5 subtasks. `OQ-3` e `E108` resolvidos. **E61/DEC-19 executado até o fim** |
 | ✅ **E107 RETRATADO E CORRIGIDO (E109)** | Achado errado causou sobrescrita real de arquivo, já restaurado. **BLOCO 0-AG criada** (path explícito obrigatório em busca de ausência) — Customização 61 |
 | ✅ **Solucionador implementado (E105 fechado)** | `implementation.yaml` — 5 subtasks resolvidas. **BLOCO 0-AH criada** (gatilho `/Solucionador`). Teste real de ponta a ponta ainda pendente (Felipe testar numa conversa nova) |
-| 🔴 **Item 1/1.1 do pedido original (13/08) — NUNCA EXECUTADO** | Mapear a sessão inteira desde 13/08 em blocos (padrão do mapeamento de 42 partes do caso BG-03). A sessão inteira foi pra Frente C (E61/DEC-19/Spec Pipeline) — válido, mas não é isso. **0% feito, sem bloqueio técnico** |
-| ➡️ **Próximo passo concreto** | Decisão do Felipe: testar `/Solucionador` numa conversa nova, OU fazer agora o mapeamento da sessão (item 1/1.1) que ficou pra trás |
+| ✅ **Item 1/1.1 do pedido original (13/08) — CONCLUÍDO (04/09)** | Mapeamento completo 13/08→04/09, 7 blocos, 71 partes, mesmo padrão do exemplo (42 partes BG-03). Confirmado: aquele mapeamento original nunca tinha sido salvo — agora está. Arquivo: `.aiox/mapeamento/MAPEAMENTO-COMPLETO-13-08-A-04-09.md` |
+| ➡️ **Próximo passo concreto** | Todos os 6 itens do pedido original de 13/08 estão endereçados agora (ver retrospecto no `itens-em-aberto.md`). Decisão do Felipe: testar `/Solucionador` numa conversa nova, atacar a Frente A (lote 2), ou voltar pra Planilha Karzen |
 | 🔴 **A única coisa que trava a planilha** | Camada 0 (comando `status`) — **FASE 4, roda DEPOIS da FASE 5, e só se ainda fizer sentido (DEC-16)** |
 
 ---
