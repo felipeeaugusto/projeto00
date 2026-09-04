@@ -245,4 +245,18 @@
 
 ---
 
+## ACHADO 18
+
+**Pedaço coberto:** linhas 8486-8884 do `esqueleto-parte1` — 16/08, 19:03 até 17/08, 02:28 (inclui um "momento de pausa" longo).
+
+**O que foi encontrado:** nessa madrugada (17/08, ~02:04-02:22), o Felipe reportou 2 MLBs de catálogo que não entraram na planilha (`4935613452`, `4935565074`, SKU `PROSB-3000`). Erro 1 (múltiplos MLBs de catálogo na mesma condição descartados) corrigido na hora. Erro 2 — o badge "PREÇO ALTO" sem "COMPETINDO" também sendo catálogo de verdade — ficou pendente pro `@analyst` investigar.
+
+**Investigação:** já conferido durante a investigação do Achado 1 — `mapeamento-skus-ads-catalogo-mercadolivre.md` tem uma seção "CORREÇÃO CRÍTICA (24/08/2026) — 'PREÇO ALTO'/'PREÇO COMPETITIVO' NÃO são catálogo, ao contrário do que a correção de 16-18/08/2026 acima estabeleceu" — a conclusão que nasceu aqui (17/08) foi usada por 8 dias, até ser corrigida formalmente em 24/08, depois de mais casos reais.
+
+**VALIDAÇÃO:** ✅ **BATE — o melhor exemplo encontrado até agora de "os documentos não divergem escondido, eles se corrigem com rastro".** A regra errada não ficou perdida — foi usada, gerou mais dado, e foi corrigida formalmente 8 dias depois, com o motivo documentado.
+
+**AGENTE RESPONSÁVEL:** Nenhum — já corrigido e documentado.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
