@@ -153,4 +153,18 @@
 
 ---
 
+## ACHADO 12
+
+**Pedaço coberto:** linhas 4928-5327 do `esqueleto-parte1` — 14/08, 22:03 até 23:28.
+
+**O que foi encontrado:** durante a varredura real da campanha "[ML] [BAIXA PERFORMANCE]" (14/08, 22:37-23:22), 2 produtos diferentes (Aspirador, Mixer) retornaram o mesmo SKU errado `MCT-25MM-BIV` — a busca reversa por MLB não confirmava que o resultado correspondia ao MLB buscado (busca "travada" no resultado anterior). O Felipe mandou parar e investigar, sem contornar sozinho.
+
+**Investigação:** conferido `pipeline-pausados-campanha-completo.js`. Comentário linha 263-264: *"SKU errado silenciosamente. Correção: `validarBuscaSkuCarregada` agora exige que o MLB buscado apareça no texto"*. Função `acharSkuDoMlb` (linha 293-298) tem retry: refaz a busca do zero uma vez se o MLB não aparecer no resultado. Mesma proteção replicada pra busca por SKU (linha 495-496).
+
+**VALIDAÇÃO:** ✅ **BATE, com reforço.** Correção generalizada pros 2 caminhos de busca (MLB e SKU), com retry automático e comentário explicando a causa raiz exata.
+
+**AGENTE RESPONSÁVEL:** Nenhum — corrigido e reforçado corretamente.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*
