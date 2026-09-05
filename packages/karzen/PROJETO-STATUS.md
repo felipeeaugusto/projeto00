@@ -41,6 +41,34 @@
 
 > Sessões mais antigas em `HISTORICO-SESSOES.md`.
 
+### SESSÃO — 03/09 a 05/09/2026
+
+**O QUE FOI FEITO:**
+- **Frente Karzen (Planilha) — ZERO progresso nesta sessão.** Sessão inteira foi framework/governança (Solucionador + re-investigação), por alternância obrigatória (BLOCO 0-U REGRA 5, DEC-16) — a linha 151/736 continua exatamente onde estava
+- Decidido o **E61 (DEC-19)**: Felipe escolheu o Caminho A — seguir o veto do próprio framework (`SC_SCP_001`, projeto grande demais pra implementar direto) e formalizar o Solucionador via Spec Pipeline completo, em vez de implementar direto (que era o plano da sessão anterior, 30/08-02/09)
+- **Spec Pipeline do Solucionador rodado do início ao fim (6 fases):** Gather (@pm, `requirements.json`) → Assess (@architect, `complexity.json`, COMPLEX 16/25) → Research (@analyst, `research.json`, achou E107/E108) → Write Spec (@pm, `spec.md`) → Critique (@qa, NEEDS_REVISION 4.10 → revisão v2 → re-crítica APPROVED 4.85) → Plan (@architect, `implementation.yaml`, 5 subtasks). PRD formal completo em `docs/stories/SOLUCIONADOR/`
+- **Incidente real E107/E109:** um achado de pesquisa (Fase 3) concluiu que `handoff-insumos-tmpl.yaml` "não existia" — na verdade um `Glob` sem `path` explícito buscou a partir de um diretório de trabalho errado (drift do cwd após chamadas `Bash`). O @dev, seguindo esse achado, **sobrescreveu um arquivo real** (112 linhas de schema) com uma versão simplificada — revertido a tempo, antes de prosseguir pras próximas subtasks (`git show` do commit anterior). Gerou a **BLOCO 0-AG** no `CLAUDE.md` (`path` explícito obrigatório antes de concluir que um arquivo não existe) e a Customização 61
+- Implementadas as 5 subtasks do plano: gatilho `/Solucionador` documentado (**BLOCO 0-AH**), seção de ativação fechada no `SOLUCIONADOR-DESENHO.md`, Portão 0 registrado em `workflow-chains.yaml`. Teste real de ponta a ponta (Felipe digitar `/Solucionador` numa conversa nova) continua pendente
+- `SOLUCIONADOR-DESENHO.md` + `PLANO-FINAL.md` mostrados a Felipe com conteúdo real (2 tentativas de formatação rejeitadas — ASCII art quebrado no chat, depois markdown limpo mas raso demais) e consolidados em `.aiox/DESENHO-E-PLANO-CONSOLIDADO-04-09.md`
+- **Descoberta importante:** o `MAPEAMENTO-COMPLETO-13-08-A-04-09.md` (fechado na sessão anterior como "item 1/1.1 concluído") tinha sido montado em cima dos 12 resumos de compactação da sessão, não lendo a conversa linha por linha de verdade — confirmado pelo próprio `checkpoint-leitura.md`. Felipe pediu re-investigação genuína
+- **Re-investigação linha por linha iniciada e em andamento** (`.aiox/mapeamento/MAPEAMENTO-LINHA-POR-LINHA.md`): metodologia pedaço-por-pedaço (Atlas investiga contra arquivos reais → Felipe confirma → Orion só persiste, nunca investiga) validada e repetida ~21 vezes sem quebrar. Progresso: ~37% do `esqueleto-parte1` (13/08 → 17/08 18:46), 0% do `esqueleto-parte2` (03-04/09). 21 achados + 4 adendos registrados, 20 com altíssima fidelidade ("bate"), 1 divergência real aberta (Achado 2 — E92 não compartilha causa raiz com bug de 13/08 como hipotetizado, atribuído ao @dev)
+- Auditoria profunda de fechamento (BLOCO 3, a pedido do Felipe): achado e corrigido um buraco real — `RETOMAR-AQUI.md` e `.aiox/itens-em-aberto.md` tinham parado de ser atualizados desde o meio da sessão (commit `47d3eff`), nunca chegando a registrar a consolidação do desenho/plano nem a re-investigação linha por linha inteira. Corrigido nesta auditoria
+- Corrigido também nesta sessão: trocas de persona agora sempre passam por invocação explícita do `Skill` tool (não só `.claude/.current-agent` por baixo dos panos) — pedido do Felipe depois de notar a omissão
+
+**O QUE O FELIPE PEDIU:**
+- Resolver a Frente C (E61) antes de tudo — escolheu o Caminho A (seguir o veto do framework)
+- Confirmação em cada fase do Spec Pipeline antes de prosseguir pra próxima (BLOCO 0-D, sem encadeamento automático)
+- Ver o conteúdo real do desenho e do plano final, "não só você dizendo que existem" — rejeitou 2 formatos antes de aprovar o 3º
+- "Nunca vai ser seguida, como tenho 3 contas agora, se acabar o limite dessa, eu uso as outras 2... Não rode nada em background! Pode ler linha por linha... Quero essa investigação sua consciente mantendo 100% da fidelidade e não quero que você rode tudo de uma vez não, vai parando e me atualizando" — pedido central que definiu a re-investigação linha por linha
+- "Nunca deve ser feito o próximo pedaço, deve fazer e depois investigar" — formato obrigatório por pedaço: achado (ou nenhum), investigação, validação, agente responsável, sempre confirmado antes do próximo
+- Corrigiu duramente uma violação de fronteira: "Você está fazendo o trabalho do analyst por que? Sendo que vc só registra!?" — Orion tinha escrito uma seção de investigação própria em vez de só persistir o que o Atlas já tinha apurado
+- "continua no mesmo ritmo, pedaço por pedaço" — confirmou manter o ritmo apesar do volume grande restante
+- "vou parar" + pediu auditoria profunda de fim de sessão: cruzar git com tudo que foi feito, ler o JSONL linha por linha, analisar as sessões compactadas desde o início do terminal
+
+**PAROU EM:** Re-investigação linha por linha na linha **11.909** de `esqueleto-parte1-89427cf3.md` (de ~32.322) — próximo pedaço começa exatamente aí. Um adendo ao Achado 14 (bug "Médio" em Nível de visitas) foi investigado e apresentado mas não confirmado antes do "vou parar" — perguntar ao Felipe ao retomar se quer confirmar antes de seguir. 24 commits locais do `MAPEAMENTO-LINHA-POR-LINHA.md` ainda não foram pro GitHub (pedir @devops). Planilha Karzen inalterada, linha 151/736 | Agente ativo: aiox-master
+
+---
+
 ### SESSÃO — 30/08 a 02/09/2026
 
 **O QUE FOI FEITO:**
@@ -89,39 +117,6 @@
 - Atualização do caderno, corrigindo a descrição desatualizada do item de mapeamento de SKUs (Google Sheets → Excel local) e registrando o progresso real
 
 **PAROU EM:** 125 de 736 linhas da planilha "ANÚNCIOS EM POTENCIAL - KARZEN ELETRO" processadas e validadas manualmente pelo Felipe, tudo correto (faixas 2-50, 51-75, 76-100, 145-170). Faltam ~611 linhas, em blocos de 20-25 com validação do Felipe a cada bloco — próximo bloco a partir da linha 101. Todas as correções de hoje (regra COMPETINDO, BLOCO 0-AD, casamento por condição, timeout + retry automático na busca em Ads) já valem automaticamente pros próximos blocos — nenhuma ação extra necessária antes de continuar | Agente ativo: analyst
-
----
-
-### SESSÃO — 27-29/08/2026
-
-**O QUE FOI FEITO:**
-- Blocos 76-100 e 101-125 processados (25 linhas cada, 0 erros) e validados manualmente pelo Felipe — total subiu de 125 pra **150 de 736 linhas**
-- Bug real corrigido (achado pelo Felipe no SKU BG-03, MLB `5217415498`): a detecção de status do anúncio só reconhecia a palavra "Inativo" — o Mercado Livre também usa **"Pausado"** (com botão "Ativar anúncio"), e MLBs pausados eram salvos como "Ativo" silenciosamente, sem erro. Corrigido exigindo os 2 sinais juntos; checados 13 MLBs candidatos de uma varredura heurística, nenhum outro caso real além do BG-03
-- Bug estrutural corrigido (**Opção B**): a confirmação de catálogo checava TODOS os MLBs da família via Alterar, mesmo depois da regra de seleção (até 2, 1º Clássico + 1º Premium) já estar satisfeita. No BG-03 (15 MLBs), um MLB desnecessário (`5334248308`) travou o lote inteiro com anomalia de classificação. Corrigido separando candidatos por condição e checando intercalado, parando assim que a regra estiver satisfeita. Testado em 4 cenários de lógica pura + 3 casos reais ao vivo (BG-03: 2 de 15 checados; SCT-TI-220V: 4 de 7; P32CRB: 4 de 4) — sem regressão
-- Linha 108 (BG-03) resolvida por completo — sem erro, os 2 MLBs certos
-- **Reconciliação completa Planilha × JSON** (a pedido do Felipe, que exigiu prova real e não palavra): 109 SKUs conferidos campo a campo (MLBs, título, depósito, FULL, status do produto, status em Ads) — **108 batem 100%**; a única divergência (BG-03, depósito 1521 vs 1490) é mudança real de estoque entre a escrita da planilha e o reprocessamento, não bug de sincronização
-- **⛔ ACHADO CRÍTICO — as 3 camadas de proteção do framework estão MORTAS** (investigação profunda via `*elicit`, com teste empírico, não suposição): (1) **Injetar** (`synapse`, hook `UserPromptSubmit`) — depende de uma pasta `.synapse/` que **não existe em lugar nenhum** do repositório; o código sai em silêncio; (2) **Barrar** — 3 dos 4 hooks usam `process.exit(1)`, que pelo README deles próprios é "erro não-bloqueante"; só o `check-handoff-audit.js` usa `exit(2)`; além disso, **nenhum hook carrega quando o Claude Code é aberto de dentro de `packages/karzen`** (essa pasta não tem `settings.json` nem `hooks/`); (3) **Registrar** — nunca existiu. **Prova empírica:** 86 ofertas de handoff nesta sessão, 74 sem a linha de auditoria exigida pela BLOCO 0-K, **zero bloqueios**; o transcript real foi truncado nesses momentos e o hook bloqueou 5 de 5 quando testado isoladamente — ou seja, funciona, mas nunca rodou
-- Consequência grave descoberta junto: o `CLAUDE.md` afirma em **3 lugares** "⚠️ Reforçada por hook técnico" — afirmação falsa hoje, que cria confiança falsa em você e em todo agente
-- Achados menores da mesma investigação: existem **2 arquivos `.current-agent`** (o da raiz é o que vale e o que os hooks leem; o de `packages/karzen` é lixo órfão, parado em "aiox-master" desde 08/07); e o hook de escopo só verifica **QUEM** edita, nunca **QUAL arquivo** — então o @dev poderia editar o `CLAUDE.md` (domínio do @aiox-master) sem ser barrado
-- Desenho de solução fechado via `*elicit` com os frameworks do **Pedro Valério** (Process Absolutist), **Alan Nicolas** (Pareto ao Cubo / Curadoria > Volume) e **Thiago Finch** (aversão à perda / Funil > Produto): **4 camadas** — Camada 0 (comando de status na rotina de abertura do Felipe, única âncora fora do sistema), Camada 1 (Registrar), Camada 2 (Injetar curado — **é o que obriga**, não depende do agente lembrar), Camada 3 (Barrar). Mais 4 travas inegociáveis: prova por evento real (nunca texto escrito pelo agente), tabela separada do código, batimento cardíaco obrigatório (silêncio vira alarme), e falha assimétrica (bug do guardião deixa passar, violação real barra)
-- 4 memórias permanentes salvas: não pedir confiança ao Felipe em auditoria/proposta; não agir após recomendação sem aprovação; checar documentação antes de propor solução (pra não reabrir bug já corrigido com prova); converter UTC pra local antes de comparar horários
-
-**O QUE O FELIPE PEDIU:**
-- Explicação detalhada de como a análise dos MLBs do BG-03 foi feita — o que revelou o bug do "Pausado"
-- Investigar ao vivo cada bug encontrado, com solução proposta via `*elicit` antes de qualquer código, sempre testada antes de declarar resolvido
-- Prova real de que a Planilha está sincronizada com o JSON — "não tem segurança nenhuma nisso, são palavras" — exigiu conferência campo a campo, não afirmação
-- Generalizar a lógica de reforço técnico pra TODAS as ~30 regras do CLAUDE.md, pra todos os agentes atuais e futuros, em qualquer projeto do repositório
-- Investigação profunda no `*elicit` testando cenários mapeados, não mapeados, em aberto, em dúvida, e consequências que ninguém pensou
-- **Decisão (28/08): SOMENTE @aiox-master, @dev e @devops podem editar arquivos** — resolve a contradição aberta desde 10/08 entre o `project-log.md` e o hook de escopo
-- **Decisão: "sessão fresca" deixa de ser exigência** — o problema dos vigias é grave e não pode esperar o terminal ser fechado
-- Exigiu solução que feche o buraco **100%**, não "a maior parte" — o que mudou o desenho de "agente escreve a prova" pra "máquina verifica, agente não tem como fingir"
-- Levantou o buraco que os 4 frameworks não tinham mapeado: **quem vigia o vigia?** — como saber que a proteção está viva antes de começar a trabalhar
-- Chamar Alan Nicolas, Pedro Valério e Thiago Finch (squad-creator-pro) pra desenhar a solução junto
-- Mapeamento completo em tabela: o que foi conversado, o que foi decidido, o que ficou em aberto, e como as decisões impactam os itens em aberto
-- Auditoria profunda de fim de sessão: JSONL lido linha por linha, sessões compactadas analisadas, git cruzado com tudo que foi feito
-- Não fechar o Chrome do Modo Navegador no encerramento (exceção explícita ao PASSO 3-B do BLOCO 3, só desta vez)
-
-**PAROU EM:** **150 de 736 linhas** processadas e validadas manualmente pelo Felipe (faixas 2-50, 51-75, 76-100, 101-125, 145-170), tudo correto. A validação da Planilha está **parada** — não por bug, mas porque a descoberta das 3 camadas mortas tirou a confiança no que estava sendo validado. **Nenhuma implementação do guardião foi feita** — só investigação e desenho. A decisão da "fase 0" está com o Felipe: (a) onde instalar o guardião, dado que cada pasta de projeto hoje nasce sem proteção; (b) se começa agora. O plano tem 11 fases, e a fase 4 mostra que a validação da Planilha pode ser retomada cedo, em paralelo ao resto — não precisa esperar as 11 | Agente ativo: dev
 
 ---
 

@@ -256,3 +256,36 @@
 **PAROU EM:** Recomendação do @analyst fechada e aprovada por Felipe, mas **nada foi implementado ainda** — nem o conserto do foco, nem a tarefa original de mapear as 7 campanhas na planilha (só as URLs de dashboard foram obtidas). Duas frentes pendentes pra próxima sessão, ordem a definir com Felipe | Agente ativo: analyst
 
 ---
+
+### SESSÃO — 27-29/08/2026
+
+**O QUE FOI FEITO:**
+- Blocos 76-100 e 101-125 processados (25 linhas cada, 0 erros) e validados manualmente pelo Felipe — total subiu de 125 pra **150 de 736 linhas**
+- Bug real corrigido (achado pelo Felipe no SKU BG-03, MLB `5217415498`): a detecção de status do anúncio só reconhecia a palavra "Inativo" — o Mercado Livre também usa **"Pausado"** (com botão "Ativar anúncio"), e MLBs pausados eram salvos como "Ativo" silenciosamente, sem erro. Corrigido exigindo os 2 sinais juntos; checados 13 MLBs candidatos de uma varredura heurística, nenhum outro caso real além do BG-03
+- Bug estrutural corrigido (**Opção B**): a confirmação de catálogo checava TODOS os MLBs da família via Alterar, mesmo depois da regra de seleção (até 2, 1º Clássico + 1º Premium) já estar satisfeita. No BG-03 (15 MLBs), um MLB desnecessário (`5334248308`) travou o lote inteiro com anomalia de classificação. Corrigido separando candidatos por condição e checando intercalado, parando assim que a regra estiver satisfeita. Testado em 4 cenários de lógica pura + 3 casos reais ao vivo (BG-03: 2 de 15 checados; SCT-TI-220V: 4 de 7; P32CRB: 4 de 4) — sem regressão
+- Linha 108 (BG-03) resolvida por completo — sem erro, os 2 MLBs certos
+- **Reconciliação completa Planilha × JSON** (a pedido do Felipe, que exigiu prova real e não palavra): 109 SKUs conferidos campo a campo (MLBs, título, depósito, FULL, status do produto, status em Ads) — **108 batem 100%**; a única divergência (BG-03, depósito 1521 vs 1490) é mudança real de estoque entre a escrita da planilha e o reprocessamento, não bug de sincronização
+- **⛔ ACHADO CRÍTICO — as 3 camadas de proteção do framework estão MORTAS** (investigação profunda via `*elicit`, com teste empírico, não suposição): (1) **Injetar** (`synapse`, hook `UserPromptSubmit`) — depende de uma pasta `.synapse/` que **não existe em lugar nenhum** do repositório; o código sai em silêncio; (2) **Barrar** — 3 dos 4 hooks usam `process.exit(1)`, que pelo README deles próprios é "erro não-bloqueante"; só o `check-handoff-audit.js` usa `exit(2)`; além disso, **nenhum hook carrega quando o Claude Code é aberto de dentro de `packages/karzen`** (essa pasta não tem `settings.json` nem `hooks/`); (3) **Registrar** — nunca existiu. **Prova empírica:** 86 ofertas de handoff nesta sessão, 74 sem a linha de auditoria exigida pela BLOCO 0-K, **zero bloqueios**; o transcript real foi truncado nesses momentos e o hook bloqueou 5 de 5 quando testado isoladamente — ou seja, funciona, mas nunca rodou
+- Consequência grave descoberta junto: o `CLAUDE.md` afirma em **3 lugares** "⚠️ Reforçada por hook técnico" — afirmação falsa hoje, que cria confiança falsa em você e em todo agente
+- Achados menores da mesma investigação: existem **2 arquivos `.current-agent`** (o da raiz é o que vale e o que os hooks leem; o de `packages/karzen` é lixo órfão, parado em "aiox-master" desde 08/07); e o hook de escopo só verifica **QUEM** edita, nunca **QUAL arquivo** — então o @dev poderia editar o `CLAUDE.md` (domínio do @aiox-master) sem ser barrado
+- Desenho de solução fechado via `*elicit` com os frameworks do **Pedro Valério** (Process Absolutist), **Alan Nicolas** (Pareto ao Cubo / Curadoria > Volume) e **Thiago Finch** (aversão à perda / Funil > Produto): **4 camadas** — Camada 0 (comando de status na rotina de abertura do Felipe, única âncora fora do sistema), Camada 1 (Registrar), Camada 2 (Injetar curado — **é o que obriga**, não depende do agente lembrar), Camada 3 (Barrar). Mais 4 travas inegociáveis: prova por evento real (nunca texto escrito pelo agente), tabela separada do código, batimento cardíaco obrigatório (silêncio vira alarme), e falha assimétrica (bug do guardião deixa passar, violação real barra)
+- 4 memórias permanentes salvas: não pedir confiança ao Felipe em auditoria/proposta; não agir após recomendação sem aprovação; checar documentação antes de propor solução (pra não reabrir bug já corrigido com prova); converter UTC pra local antes de comparar horários
+
+**O QUE O FELIPE PEDIU:**
+- Explicação detalhada de como a análise dos MLBs do BG-03 foi feita — o que revelou o bug do "Pausado"
+- Investigar ao vivo cada bug encontrado, com solução proposta via `*elicit` antes de qualquer código, sempre testada antes de declarar resolvido
+- Prova real de que a Planilha está sincronizada com o JSON — "não tem segurança nenhuma nisso, são palavras" — exigiu conferência campo a campo, não afirmação
+- Generalizar a lógica de reforço técnico pra TODAS as ~30 regras do CLAUDE.md, pra todos os agentes atuais e futuros, em qualquer projeto do repositório
+- Investigação profunda no `*elicit` testando cenários mapeados, não mapeados, em aberto, em dúvida, e consequências que ninguém pensou
+- **Decisão (28/08): SOMENTE @aiox-master, @dev e @devops podem editar arquivos** — resolve a contradição aberta desde 10/08 entre o `project-log.md` e o hook de escopo
+- **Decisão: "sessão fresca" deixa de ser exigência** — o problema dos vigias é grave e não pode esperar o terminal ser fechado
+- Exigiu solução que feche o buraco **100%**, não "a maior parte" — o que mudou o desenho de "agente escreve a prova" pra "máquina verifica, agente não tem como fingir"
+- Levantou o buraco que os 4 frameworks não tinham mapeado: **quem vigia o vigia?** — como saber que a proteção está viva antes de começar a trabalhar
+- Chamar Alan Nicolas, Pedro Valério e Thiago Finch (squad-creator-pro) pra desenhar a solução junto
+- Mapeamento completo em tabela: o que foi conversado, o que foi decidido, o que ficou em aberto, e como as decisões impactam os itens em aberto
+- Auditoria profunda de fim de sessão: JSONL lido linha por linha, sessões compactadas analisadas, git cruzado com tudo que foi feito
+- Não fechar o Chrome do Modo Navegador no encerramento (exceção explícita ao PASSO 3-B do BLOCO 3, só desta vez)
+
+**PAROU EM:** **150 de 736 linhas** processadas e validadas manualmente pelo Felipe (faixas 2-50, 51-75, 76-100, 101-125, 145-170), tudo correto. A validação da Planilha está **parada** — não por bug, mas porque a descoberta das 3 camadas mortas tirou a confiança no que estava sendo validado. **Nenhuma implementação do guardião foi feita** — só investigação e desenho. A decisão da "fase 0" está com o Felipe: (a) onde instalar o guardião, dado que cada pasta de projeto hoje nasce sem proteção; (b) se começa agora. O plano tem 11 fases, e a fase 4 mostra que a validação da Planilha pode ser retomada cedo, em paralelo ao resto — não precisa esperar as 11 | Agente ativo: dev
+
+---

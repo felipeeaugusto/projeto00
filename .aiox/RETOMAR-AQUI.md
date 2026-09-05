@@ -1,7 +1,7 @@
 # 🧭 RETOMAR AQUI
 
 > **Leia este arquivo ANTES de qualquer outra coisa.** Ele é o ponteiro entre sessões — diz onde tudo parou e o que fazer a seguir.
-> **Atualizado em:** 02/09/2026 · **Por:** 👑 @aiox-master (Orion), no fechamento da sessão (BLOCO 3)
+> **Atualizado em:** 05/09/2026 · **Por:** 👑 @aiox-master (Orion), no fechamento da sessão (BLOCO 3, auditoria profunda pedida pelo Felipe)
 > **Ordem de leitura ao abrir uma sessão:** ① este arquivo → ② `.aiox/itens-em-aberto.md` → ③ o caderno do projeto ativo (`packages/karzen/PROJETO-STATUS.md`).
 
 ---
@@ -10,27 +10,19 @@
 
 | | |
 |---|---|
-| ✅ **FASE 0, 1, 2 e 3 concluídas** | `.aiox/PLANO-EXECUCAO.md` e `.aiox/PLANO-FINAL.md` fechados. 153 itens classificados nas 4 trilhas do Solucionador |
-| ✅ **E66 decidido (DEC-17)** | Opção A — Solucionador roda numa conversa só. Não bloqueia mais nada |
-| ✅ **Investigação do trio oficial concluída (E101-E104)** | Trio não tem "conselho" oficial pra copiar; 2 ferramentas genéricas úteis achadas (E102, E103); 1 correção feita (E104 — mecanismo que o desenho citava como pronto é código morto) |
-| ✅ **E61 decidido (DEC-19) e EXECUTADO até o fim** | Felipe escolheu o Caminho A — seguir o veto do framework (`SC_SCP_001`). Spec Pipeline completo (6 fases) já rodou — `docs/stories/SOLUCIONADOR/` tem PRD formal pronto |
-| ✅ **Spec Pipeline Fase 1 (Gather) concluída** | `docs/stories/SOLUCIONADOR/spec/requirements.json` — feito pelo @pm, 2 perguntas de elicitação resolvidas (OQ-1: seguir sem esperar Frentes A/B, revisar depois) |
-| ✅ **Spec Pipeline Fase 2 (Assess) concluída** | `docs/stories/SOLUCIONADOR/spec/complexity.json` — resultado **COMPLEX (16/25)**, valida o E61 por método independente. Pipeline completo ativado (2 rodadas de crítica) |
-| ✅ **Spec Pipeline Fase 3 (Research) concluída** | `docs/stories/SOLUCIONADOR/spec/research.json` — 3 de 4 mecanismos do E64 confirmados reais. 2 achados novos: **E107** (Template de Handoff não existe, precisa ser criado) · **E108** (Tier System só existe no squad-creator antigo, não no pro) |
-| ✅ **Spec Pipeline Fase 4 (Write Spec) concluída** | `docs/stories/SOLUCIONADOR/spec/spec.md` — documento completo, portão "No Invention" respeitado, 1 arquivo novo + 3 modificados mapeados, 4 testes de aceite |
-| 🔄 **Spec Pipeline Fase 5 (Critique) concluída — NEEDS_REVISION** | `docs/stories/SOLUCIONADOR/spec/critique.json` — média 4.10/5, 1 issue HIGH (CRIT-1) + 2 MEDIUM (CRIT-2, CRIT-3). Não é bloqueante |
-| ✅ **`spec.md` revisado (v2)** | CRIT-1 e CRIT-2 resolvidos · CRIT-3 formalizado como `OQ-3` (bloqueante só pra Fase 6, atribuído ao @architect) |
-| ✅ **Spec Pipeline Fase 5 — APPROVED (re-crítica)** | `docs/stories/SOLUCIONADOR/spec/critique.json` (v2) — média 4.85/5, zero issues abertos |
-| ✅ **SPEC PIPELINE COMPLETO** | `docs/stories/SOLUCIONADOR/plan/implementation.yaml` — 4 fases, 5 subtasks. `OQ-3` e `E108` resolvidos. **E61/DEC-19 executado até o fim** |
-| ✅ **E107 RETRATADO E CORRIGIDO (E109)** | Achado errado causou sobrescrita real de arquivo, já restaurado. **BLOCO 0-AG criada** (path explícito obrigatório em busca de ausência) — Customização 61 |
-| ✅ **Solucionador implementado (E105 fechado)** | `implementation.yaml` — 5 subtasks resolvidas. **BLOCO 0-AH criada** (gatilho `/Solucionador`). Teste real de ponta a ponta ainda pendente (Felipe testar numa conversa nova) |
-| ✅ **Item 1/1.1 do pedido original (13/08) — CONCLUÍDO (04/09)** | Mapeamento completo 13/08→04/09, 7 blocos, 71 partes, mesmo padrão do exemplo (42 partes BG-03). Confirmado: aquele mapeamento original nunca tinha sido salvo — agora está. Arquivo: `.aiox/mapeamento/MAPEAMENTO-COMPLETO-13-08-A-04-09.md` |
-| ➡️ **Próximo passo concreto** | Todos os 6 itens do pedido original de 13/08 estão endereçados agora (ver retrospecto no `itens-em-aberto.md`). Decisão do Felipe: testar `/Solucionador` numa conversa nova, atacar a Frente A (lote 2), ou voltar pra Planilha Karzen |
-| 🔴 **A única coisa que trava a planilha** | Camada 0 (comando `status`) — **FASE 4, roda DEPOIS da FASE 5, e só se ainda fizer sentido (DEC-16)** |
+| ✅ **Solucionador — Spec Pipeline completo, implementado, desenho+plano consolidados** | Ver seção 8 abaixo — tudo isso já estava fechado antes desta sessão de auditoria (03-04/09) |
+| 🔄 **RE-INVESTIGAÇÃO LINHA POR LINHA EM ANDAMENTO — é a frente ativa agora** | `.aiox/mapeamento/MAPEAMENTO-LINHA-POR-LINHA.md` — 21 achados + 4 adendos, **~37% do `esqueleto-parte1` coberto** (até linha ~11.909 de ~32.322), 0% do `esqueleto-parte2` (~1.600 linhas). Ver seção 9 |
+| ➡️ **Próximo passo concreto** | Continuar a leitura linha por linha a partir da linha **11.909** de `esqueleto-parte1-89427cf3.md`, mesmo ritmo/metodologia (pedaço → Atlas investiga → Felipe confirma → Orion persiste → próximo pedaço) |
+| ⏳ **Pendente de confirmação (não persistido)** | Adendo ao Achado 14 (bug "Médio" em Nível de visitas) — investigado, apresentado, sessão encerrada antes da confirmação. Perguntar ao Felipe ao retomar |
+| 🔴 **Divergência real aberta, atribuída ao @dev** | Achado 2 — E92 (`PAS23-BIV`, `statusCatalogo: null`) não compartilha causa raiz com o bug de 13/08 como hipotetizado; nunca foi investigado de verdade. Precisa o @dev checar |
+| 🚀 **Push pendente** | 24 commits locais do `MAPEAMENTO-LINHA-POR-LINHA.md` (todo o trabalho de hoje) ainda não foram pro GitHub — pedir ao @devops quando o Felipe quiser |
+| 🔴 **A única coisa que trava a planilha Karzen** | `Analise Oficial.xlsx`, linha 151/736 — segue pausada, sem tocar (BLOCO 0-U REGRA 5, nunca 2 frentes ao mesmo tempo) |
 
 ---
 
 ## 1. Estado das duas frentes
+
+> ⚠️ **SUPERADO PELA DEC-19 (03/09/2026):** as seções 1 e 2 abaixo descrevem o plano de 153 itens em 4 trilhas (implementação direta, FASE 5). O Felipe escolheu o **Caminho A** — seguir o veto do framework e formalizar via Spec Pipeline em vez de implementar direto. Isso mudou tudo: o Solucionador foi inteiro especificado e implementado por outro caminho (ver seção 8). Mantido aqui só como registro histórico de como se chegou à decisão — **não é mais o próximo passo**.
 
 > ⚠️ **BLOCO 0-U REGRA 5:** as duas disputam o mesmo @dev e o mesmo Chrome. **Alternância, nunca as duas ao mesmo tempo.**
 
@@ -136,6 +128,36 @@ Felipe pediu pra confirmar se o Solucionador foi validado contra o trio oficial 
 - Conflito real, não hipotético: a regra do Finch ("nunca hesitar") contradiz o **estado 3** do Solucionador — ainda sem decisão de como resolver
 
 **Conclusão:** continuar com o desenho do Solucionador como está, sem reescrever em cima de um padrão oficial (porque ele não existe pronto) — só religar as peças reais que existem (já mapeado no `PLANO-FINAL.md`).
+
+---
+
+## 8. O que realmente aconteceu com o Solucionador (03-04/09/2026) — supera as seções 1-2
+
+| Etapa | Resultado |
+|---|---|
+| **DEC-19 (03/09)** | Felipe escolheu Caminho A — seguir o veto `SC_SCP_001` do framework, formalizar via Spec Pipeline em vez de implementar direto |
+| **Spec Pipeline (6 fases, 03/09)** | Gather (@pm) → Assess COMPLEX 16/25 (@architect) → Research, achou E107/E108 (@analyst) → Write Spec (@pm) → Critique NEEDS_REVISION 4.10 → revisão v2 → re-crítica APPROVED 4.85 (@qa) → Plan, 5 subtasks (@architect). PRD formal completo em `docs/stories/SOLUCIONADOR/` |
+| **E107/E109 (03/09)** | Achado de pesquisa errado (arquivo "não existe") causou sobrescrita real de `handoff-insumos-tmpl.yaml` — revertida, causa raiz era `Glob` sem `path` explícito (cwd tinha driftado). Gerou a **BLOCO 0-AG** (`CLAUDE.md`) — `path` explícito obrigatório antes de concluir ausência de arquivo |
+| **Implementação (03-04/09)** | 5 subtasks do `implementation.yaml` resolvidas — gatilho `/Solucionador` documentado (**BLOCO 0-AH**), seção de ativação fechada no desenho, Portão 0 registrado em `workflow-chains.yaml`. **Teste real de ponta a ponta (Felipe digitar `/Solucionador` numa conversa nova) ainda não foi feito** |
+| **Desenho + Plano consolidados (04/09)** | `.aiox/DESENHO-E-PLANO-CONSOLIDADO-04-09.md` — mostra os 2 arquivos reais (`SOLUCIONADOR-DESENHO.md`, `PLANO-FINAL.md`) num único documento visual, aprovado pelo Felipe. Commit `951af78`, já no GitHub |
+| **Item 1/1.1 do pedido de 13/08 (04/09)** | `MAPEAMENTO-COMPLETO-13-08-A-04-09.md` — mapeamento em blocos/partes, mas **depois descoberto como construído em cima dos resumos de compactação, não linha por linha de verdade** (ver seção 9) |
+
+---
+
+## 9. Re-investigação linha por linha — a frente ATIVA agora (04-05/09/2026)
+
+**Por que existe:** o `checkpoint-leitura.md` (criado durante o mapeamento acima) revelou, no próprio texto, que o método usado foi ler os 12 resumos de compactação como "coluna vertebral" em vez de ler a sessão mensagem por mensagem. O Felipe pediu uma re-investigação genuína, sem rodar nada em background, parando a cada pedaço.
+
+| | |
+|---|---|
+| Arquivo | `.aiox/mapeamento/MAPEAMENTO-LINHA-POR-LINHA.md` — 24 commits locais (`babe957`..`44c8a38`), **nenhum pushado ainda** |
+| Metodologia | Ler pedaço do `esqueleto-parte1-89427cf3.md` → `@analyst` (Atlas) investiga contra arquivos reais, apresenta achado no formato Pedaço/Achado/Investigação/Validação/Agente Responsável → Felipe confirma → `@aiox-master` (Orion) **só persiste** (nunca investiga — regra reforçada após violação real) → commit → volta pro Atlas |
+| Progresso | **~37% do `esqueleto-parte1`** (até linha ~11.909 de ~32.322, 13/08 → 17/08 18:46) · **0% do `esqueleto-parte2`** (~1.600 linhas, 03-04/09) |
+| Achados registrados | 21 achados + adendos aos Achados 12 (x2), 13, 17 — 20 "BATEM" com alta fidelidade |
+| 🔴 Divergência real aberta | **Achado 2** — E92 (`PAS23-BIV`, `statusCatalogo: null`) não compartilha causa raiz com o bug de 13/08 (janela de 2200 caracteres) como hipotetizado. Nunca investigado de verdade. **Atribuído ao @dev** |
+| ⏳ Pendente de confirmação | Adendo ao Achado 14 (bug "Médio" em Nível de visitas) — investigado e apresentado, sessão fechou antes da confirmação do Felipe |
+| ➡️ Retomar em | Linha **11.909** de `esqueleto-parte1-89427cf3.md`, mesmo ritmo pedaço-por-pedaço |
+| Regra nova desta sessão | Troca de persona sempre via `Skill` tool explícito (não só `.current-agent` por baixo dos panos) — o próprio `Bash`+`Skill` já é o mecanismo de confirmação do BLOCO 0-D, sem precisar de pergunta de texto redundante quando o próximo agente já é óbvio pelo contexto |
 
 ---
 
