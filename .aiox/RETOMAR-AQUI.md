@@ -1,8 +1,28 @@
 # 🧭 RETOMAR AQUI
 
 > **Leia este arquivo ANTES de qualquer outra coisa.** Ele é o ponteiro entre sessões — diz onde tudo parou e o que fazer a seguir.
-> **Atualizado em:** 05/09/2026 · **Por:** 👑 @aiox-master (Orion), no fechamento da sessão (BLOCO 3, auditoria profunda pedida pelo Felipe)
-> **Ordem de leitura ao abrir uma sessão:** ① este arquivo → ② `.aiox/itens-em-aberto.md` → ③ o caderno do projeto ativo (`packages/karzen/PROJETO-STATUS.md`).
+> **Atualizado em:** 07/09/2026 · **Por:** 👑 @aiox-master (Orion), em sessão na pasta `global`
+> **Ordem de leitura ao abrir uma sessão:** ① este arquivo → ② **`.aiox/PLANO-MESTRE.md`** → ③ `.aiox/itens-em-aberto.md` → ④ o caderno do projeto ativo (`packages/karzen/PROJETO-STATUS.md`).
+
+---
+
+## 🗺️ LEIA O PLANO MESTRE — ele governa tudo a partir de 07/09/2026
+
+**`.aiox/PLANO-MESTRE.md`** é o plano em 6 fases que substitui a FASE 5 do `PLANO-EXECUCAO.md` e as seções 1-2 deste arquivo como *próximo passo*.
+
+O que ele contém, e que você precisa saber antes de agir:
+
+| | |
+|---|---|
+| **DEC-20** | O `/Solucionador` foi **APOSENTADO** — não será construído |
+| **DEC-21** | As 2 ideias boas dele (E27, E28) viram **hook** |
+| **DEC-22** | A Camada 0 sobe de prioridade, com **escopo revisto** (3 dos 5 itens morreram junto com o Solucionador) |
+| **DEC-23** | **Plano B** — a planilha só volta na FASE 6 |
+| **DEC-24** | Mapeamento completo **antes** da reorganização estrutural |
+| **Regra das 2 pastas** | Latch e Turing só existem na pasta `global`. Pensar/especificar é lá; executar/testar é aqui |
+| **🚦 Ponto de retorno** | Quando o mapeamento terminar, o `@analyst` avisa o Felipe → ele atravessa para a `global` |
+
+> ⚠️ **Não chame Latch nem Turing daqui.** Eles não existem nesta pasta. Ver a seção "regra das duas pastas" no PLANO-MESTRE.
 
 ---
 
@@ -12,7 +32,9 @@
 |---|---|
 | ✅ **Solucionador — Spec Pipeline completo, implementado, desenho+plano consolidados** | Ver seção 8 abaixo — tudo isso já estava fechado antes desta sessão de auditoria (03-04/09) |
 | 🔄 **RE-INVESTIGAÇÃO LINHA POR LINHA EM ANDAMENTO — é a frente ativa agora** | `.aiox/mapeamento/MAPEAMENTO-LINHA-POR-LINHA.md` — 21 achados + 4 adendos, **~37% do `esqueleto-parte1` coberto** (até linha ~11.909 de ~32.322), 0% do `esqueleto-parte2` (~1.600 linhas). Ver seção 9 |
-| ➡️ **Próximo passo concreto** | Continuar a leitura linha por linha a partir da linha **11.909** de `esqueleto-parte1-89427cf3.md`, mesmo ritmo/metodologia (pedaço → Atlas investiga → Felipe confirma → Orion persiste → próximo pedaço) |
+| 🗺️ **O plano que governa tudo (07/09/2026)** | `.aiox/PLANO-MESTRE.md` — 6 fases, DEC-20 a DEC-24, regra das 2 pastas, ponto de retorno. **Leia antes de agir** |
+| ➡️ **Próximo passo concreto** | **FASE 0 do PLANO-MESTRE, em ordem obrigatória:** ⓵ `@devops` commita o `PLANO-MESTRE.md` + `RETOMAR-AQUI.md` e faz push (o plano está fora do Git — risco de perda) → ⓶ `@dev` investiga o Achado 2 (`PAS23-BIV`) **no Modo Navegador, com o mínimo de abas e fechando em `finally`** → ⓷ `@analyst` reapresenta o adendo ao Achado 14 para o Felipe confirmar. **Só então** começa a **FASE 1** — leitura linha por linha a partir da linha **11.909** de `esqueleto-parte1-89427cf3.md` |
+| 🔄 **Fases reordenadas em 07/09/2026** | O mapeamento virou **FASE 1** e a Camada 0 virou **FASE 2**. Motivo: a Camada 0 existia para destravar a planilha (DEC-14), mas pela DEC-23 (Plano B) a planilha só volta na FASE 6 — ela perdeu a urgência |
 | ⏳ **Pendente de confirmação (não persistido)** | Adendo ao Achado 14 (bug "Médio" em Nível de visitas) — investigado, apresentado, sessão encerrada antes da confirmação. Perguntar ao Felipe ao retomar |
 | 🔴 **Divergência real aberta, atribuída ao @dev** | Achado 2 — E92 (`PAS23-BIV`, `statusCatalogo: null`) não compartilha causa raiz com o bug de 13/08 como hipotetizado; nunca foi investigado de verdade. Precisa o @dev checar |
 | 🚀 **Push pendente** | 24 commits locais do `MAPEAMENTO-LINHA-POR-LINHA.md` (todo o trabalho de hoje) ainda não foram pro GitHub — pedir ao @devops quando o Felipe quiser |

@@ -199,6 +199,8 @@
 
 **AGENTE RESPONSÁVEL:** Nenhum — corrigido e mantido corretamente.
 
+**Adendo (linhas 11599-11682, 17/08 18:42 até 18:54):** o "3º valor" citado acima — a função `extrairOpcaoUnicaSemRotulo` só reconhecia "Nível de visitas: Mínimo/Máximo"; o MLB investigado (PAF15B-220V / `#6722040752`) tinha o valor real "Médio", nunca visto até então, e a regex inteira falhava em casar, caindo num fallback destrutivo de clicar-pra-expandir que destruía o texto de comparação já capturado corretamente. Corrigido na mesma sessão, junto com `abrirAlterarPorMlb` (aba nova, fechamento garantido em `finally`) e a regra Pausado→Inativo aplicada nos 2 caminhos de extração. Confere com `pipeline-pausados-campanha-completo.js`, linhas 374-380 (comentário + regex real aceitando `Mínimo|Médio|Máximo`) e com o commit `23ef65d` (17/08/2026 15:54, autor Felipe Augusto): *"fix: corrige acesso via Alterar em nova aba, badge Nivel=Medio e Pausado->Inativo"* — mesmo bug, mesma data, mesma correção. BATE, com prova em 2 fontes independentes (código real + mensagem do commit).
+
 ---
 
 ## ACHADO 15
