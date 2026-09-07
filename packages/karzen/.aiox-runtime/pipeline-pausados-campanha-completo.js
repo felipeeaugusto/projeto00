@@ -377,17 +377,47 @@ function extrairOpcaoUnicaSemRotulo(blocoConc) {
   // inteira por "Experiência de compra" e destroi o texto da comparacao que ja estava
   // certo). Confirmado ao vivo: badge estava la, estavel, em 3 leituras seguidas
   // (COMPARTILHANDO) -- o problema era so nao reconhecer "Médio".
-  const m = blocoConc.match(/(Clássico|Premium)\s+e\s+(?:Frete\s+grátis|Envio por conta do comprador)\s*\n?\s*(?:Nível de visitas:\s*\n?\s*(?:Mínimo|Médio|Máximo)\s*\n?\s*)?R\$\s*\n?\s*([\d.,]+)\s*\n?\s*([^\n]{0,40})/);
+  //
+  // Correcao real (07/09/2026, achado ao vivo -- MLB #6667309696/PAS23-BIV, formato NOVO
+  // do Mercado Livre, confirmado pelo Felipe como atualizacao real da tela (nao anomalia
+  // pontual) -- ao ganhar, a tela agora mostra um card "GANHADOR POR PREÇO" com 2 mudancas
+  // que quebravam o regex antigo: (1) "frete gratis" pode vir em minusculo ("e frete
+  // gratis", nao so "e Frete gratis") -- regex nao tinha flag case-insensitive; (2) uma
+  // linha nova de quantidade ("844 unidades") aparece ENTRE a condicao e o preco, que o
+  // regex antigo nao previa (so previa a linha opcional de "Nivel de visitas"). Ambos
+  // sozinhos ja quebravam o match inteiro, retornando [] mesmo com o badge GANHANDO
+  // visivel logo no topo da secao. Corrigido: flag /i (cobre "frete"/"Frete" e qualquer
+  // variacao de caixa futura) + grupo opcional novo pra linha "N unidades" no mesmo
+  // padrao ja usado pro "Nivel de visitas". NAO inclui o formato de PERDER catalogo
+  // (nome do seller concorrente + estoque dele + nosso estoque, descrito pelo Felipe mas
+  // ainda nao visto ao vivo nesta sessao) -- fica para quando um MLB real nesse estado
+  // aparecer (BLOCO 0-AD: nao adivinhar regex pra texto nunca confirmado ao vivo).
+  const m = blocoConc.match(/(Clássico|Premium)\s+e\s+(?:Frete\s+grátis|Envio por conta do comprador)\s*\n?\s*(?:Nível de visitas:\s*\n?\s*(?:Mínimo|Médio|Máximo)\s*\n?\s*)?(?:[\d.,]+\s*unidades?\s*\n?\s*)?R\$\s*\n?\s*([\d.,]+)\s*\n?\s*([^\n]{0,40})/i);
   if (!m) return [];
 
   const antesTexto = blocoConc.slice(Math.max(0, m.index - 60), m.index);
   const statusAntesMatch = antesTexto.match(/\b(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b\s*$/);
   const statusAntes = statusAntesMatch ? statusAntesMatch[1] : null;
 
-  const statusDepoisBruto = m[3].trim();
-  const statusDepois = pareceStatusValido(statusDepoisBruto) ? statusDepoisBruto : null;
+  // Correcao real (07/09/2026, mesmo caso do MLB #6667309696): no formato novo do card
+  // "GANHADOR POR PREÇO", nem statusAntes (janela de 60 chars antes do preco -- so pega
+  // "GANHADOR POR PREÇO", que nao bate a lista de status validos) nem statusDepois
+  // capturam o status real -- ele fica bem mais longe, logo no topo da propria secao
+  // "Concorrência no Mercado Livre", antes de toda a descricao textual. Seguro usar aqui
+  // porque esta funcao trata do caso de opcao UNICA (sem "Opção N") -- 1 card, 1 badge no
+  // topo, sem ambiguidade de qual opcao ele descreve.
+  const statusTopoMatch = blocoConc.match(/^Concorrência no Mercado Livre\s*\n+\s*(GANHANDO|PERDENDO|COMPARTILHANDO|RESTRITO PARA GANHAR)\b/);
+  const statusTopo = statusTopoMatch ? statusTopoMatch[1] : null;
 
-  return [{ preco: m[2], status: statusAntes || statusDepois || null, condicaoDaOpcao: m[1] }];
+  const statusDepoisBruto = m[3].trim();
+  // Correcao real (07/09/2026): no formato novo, o texto logo apos o preco pode ser so a
+  // condicao repetida ("Clássico"/"Premium", igual a m[1]) -- isso NAO e um status, e
+  // aceitar sem checar gerava um valor errado (status: "Clássico") em vez de null.
+  const statusDepois = (statusDepoisBruto && statusDepoisBruto !== m[1] && pareceStatusValido(statusDepoisBruto))
+    ? statusDepoisBruto
+    : null;
+
+  return [{ preco: m[2], status: statusAntes || statusTopo || statusDepois || null, condicaoDaOpcao: m[1] }];
 }
 
 function extrairOpcoesConcorrencia(blocoConc) {
