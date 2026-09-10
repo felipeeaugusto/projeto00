@@ -305,4 +305,108 @@
 
 ---
 
+## ACHADO 22
+
+**Pedaço coberto:** linhas 11909-12408 do `esqueleto-parte1` — 17/08, 18:47 até 22:23 (continuação direta da mesma sessão do bug "Médio", passo a passo pro @dev, verificação de 1 MLB, limpeza de página, e processamento da 1ª nova campanha).
+
+**O que foi encontrado:** 3 eventos verificáveis na sequência: (1) Felipe passou um passo a passo consolidado pro @dev — trocar `abrirAlterarPorIndice` por `abrirAlterarPorMlb` (URL direta, aba nova, fecha antes de retornar) e sempre visitar o Alterar pra todo MLB, não só os sem status; (2) verificação ao vivo do MLB `6679980126` (PAF11B-220V) — único `statusCatalogo` que mudou na regressão do dia — confirmado **PERDENDO** estável em 2 leituras, commit `cbe5671`; (3) 1ª campanha nova processada (`[ML] [AVA] [PERFORMANCE]`, 30 produtos) — achado um duplicado real no meio do processo (JBL Boombox aparecia 2x com títulos diferentes, o Mercado Livre trocou o título entre a varredura antiga e a de hoje) — limpo e reprocessado.
+
+**Investigação:** `git show cbe5671` bate palavra por palavra com a conversa: *"docs: registra verificacao ao vivo confirmada do MLB PAF11B-220V/6679980126 ... confirmado PERDENDO estavel em 2 leituras"*. `pausados-campanha-resultado.json` tem a chave `[ML] [AVA] [PERFORMANCE]` com exatamente 30 produtos, e só 1 entrada de "JBL Boombox" (não 2) — confirma que a deduplicação foi aplicada de verdade, não só narrada.
+
+**VALIDAÇÃO:** ✅ **BATE**, com prova em 2 fontes independentes (commit + estado real do JSON).
+
+**Item à parte, não verificável por arquivo do repositório:** a remoção dos 6 SKUs avulsos da página "Teste 1" e o deslocamento da campanha pra cima (linhas 12150-12188) é uma operação no Google Sheets do Felipe (planilha externa) — não tem como confirmar contra um arquivo do repo. O backup citado (`Pausados em Campanha - Karzen - BACKUP-antes-remover-avulsos-20260817-163448.xlsx`) fica em `C:\Downloads`, fora do controle de versão — mesma limitação já registrada em pedaços anteriores para operações de planilha.
+
+**AGENTE RESPONSÁVEL:** Nenhum — tudo verificado corresponde ao que foi feito.
+
+---
+
+## ACHADO 23
+
+**Pedaço coberto:** linhas 12408-12857 do `esqueleto-parte1` — 17/08, 22:27 até 18/08, 00:19 (fechamento da campanha AVA PERFORMANCE, 2 bugs reais pegos por Felipe na validação manual, e definição do passo a passo dev→devops).
+
+**O que foi encontrado:** Felipe pegou 2 erros reais na validação manual da nova página "ML AVA PERFORMANCE": (1) **WAF-127V** (MLB `4690623743`) entrou como catálogo sem ser — é MLB "pai", sem seção de Concorrência de verdade; (2) **BAS1295P-127V** (MLB `6739045854`) tinha badge "PREÇO ALTO" mantido como categoria própria, quando na verdade — confirmado ao vivo (R$134 concorrente vs R$190,83 nosso) — é **PERDENDO disfarçado**. Também um 3º bug técnico achado durante o processamento: o drawer de variações de 2 produtos veio com 0 MLBs porque o título curto do produto ("Smart Tv 32 Philco... P32crb") não trunca na tabela, e o `lastIndexOf` pegava a última linha em vez do cabeçalho do drawer.
+
+**Investigação:** `git show 73665e8` ("fix: corrige ancoragem do drawer de variacoes e normaliza PRECO ALTO->PERDENDO") bate palavra por palavra — mesmo caso (P32crb, 0 MLBs), mesmo MLB (`6739045854`/BAS1295P-127V), mesmos preços (R$134 vs R$190,83), e cita explicitamente "WAF-127V MLB fantasma removido, BAS1295P-127V normalizado". `git show 0cc6f88` ("feat: adiciona dupla-leitura obrigatoria pro caminho formatoColapsado") bate com o item 3 do passo a passo pro @dev — 100% de correlação (2 de 2 erros reais vieram do mesmo caminho `formatoColapsado`).
+
+**VALIDAÇÃO:** ✅ **BATE, nos 3 pontos**, com prova em 2 commits reais que citam os mesmos casos, MLBs e valores da conversa.
+
+**Nota de evolução honesta (não é divergência):** a normalização "PREÇO ALTO → PERDENDO" e a dupla-leitura, construídas nesta noite (17/08), foram superadas 7 dias depois: a correção de 24/08 (já vista no Achado 18) tira do caminho `formatoColapsado` a autoridade de decidir catálogo sozinho — hoje ele só gera pendência pro Felipe decidir, nunca decide automático. Mesmo padrão "os documentos não divergem escondido, se corrigem com rastro" já visto antes — o que aconteceu em 17/08 está certo e bate; só não é mais como o código funciona hoje.
+
+**AGENTE RESPONSÁVEL:** Nenhum — tudo corrigido, documentado, e a evolução posterior também está rastreável.
+
+---
+
+## ACHADO 24
+
+**Pedaço coberto:** linhas 12857-13306 do `esqueleto-parte1` — 18/08, 00:19 até 01:08 (push final, dupla auditoria independente das 2 campanhas já processadas, e início da 3ª campanha `[ML] [CONTROLE ACOS]`).
+
+**O que foi encontrado:** (1) Push de 69 commits (`73665e8` + `0cc6f88` inclusos), com verificação byte-a-byte de que `HEAD` local e `origin/master` ficaram idênticos; (2) auditoria dupla e independente — @dev conferiu JSON×Planilha célula a célula (achou 2 falsos positivos do próprio script, corrigidos na hora) e @analyst repetiu com script próprio, matching por SKU — ambos confirmaram **AVA PERFORMANCE** (30 produtos, 38 SKUs, 140 MLBs) e **BAIXA PERFORMANCE** (13 produtos, 18 SKUs, 72 MLBs) com **0 divergências em Status Catálogo**, só diferenças esperadas de Depósito/FULL/Qualidade; (3) 3ª campanha `[ML] [CONTROLE ACOS]` processada — 1 produto — e a mesma armadilha "já processado" (dado antigo sem `viaAlterar`) se repetiu uma 3ª vez no mesmo dia, detectada e reprocessada do zero.
+
+**Investigação:** `git branch -r --contains 73665e8` e `...0cc6f88` confirmam os 2 commits em `origin/master` — bate com "push executado, HEAD idêntico". `pausados-campanha-resultado.json` hoje tem exatamente **30 produtos** em `[ML] [AVA] [PERFORMANCE]`, **13** em `[ML] [BAIXA PERFORMANCE]` e **1** em `[ML] [CONTROLE ACOS]` — os 3 números da conversa batem exatamente contra o estado real do arquivo.
+
+**VALIDAÇÃO:** ✅ **BATE**, com prova em git (`branch --contains`) e no JSON real (contagem exata de produtos por campanha).
+
+**AGENTE RESPONSÁVEL:** Nenhum — tudo verificado corresponde ao que foi feito.
+
+---
+
+## ACHADO 25
+
+**Pedaço coberto:** linhas 13306-13755 do `esqueleto-parte1` — 18/08, 01:09 até 11:52 (fechamento da campanha CONTROLE ACOS + aprovação do Carlos, 2 ciclos de "momento de pausa"/"voltei", e investigação arqueológica de 2 planilhas antigas + comparação dos 3 documentos de processo).
+
+**O que foi encontrado:** (1) Campanha `[ML] [CONTROLE ACOS]` fechada (commit `d7b3a15`), Carlos aprovou a Planilha; (2) 2 ciclos de "momento de pausa"/"voltei" funcionando corretamente; (3) Felipe, preocupado que o dev tivesse fechado 2 planilhas antigas (`Analise Oficial.xlsx`, `ANÚNCIOS EM POTENCIAL...`) sem salvar, pediu investigação arqueológica — Atlas achou que os arquivos foram salvos por último em 13/08 (antes da maratona de hoje), achou uma pasta de backup suspeita, e confirmou **nada foi perdido**; (4) comparação dos 3 documentos que regem essas 2 planilhas antigas contra o método validado hoje — achou que ambos (`analise-acos-catalogo-mercadolivre.md` e `mapeamento-skus-ads-catalogo-mercadolivre.md`) tratavam "PREÇO ALTO" como exclusão, contradizendo a correção de hoje (PREÇO ALTO→PERDENDO); (5) achado técnico à parte: bug de acentos corrompidos ao chamar `powershell.exe` de dentro do Bash.
+
+**Investigação:** `git show d7b3a15` bate: mensagem cita exatamente "processa campanha [ML] [CONTROLE ACOS]... badge PRECO ALTO->PERDENDO, dupla-leitura no formatoColapsado". A pasta `C:\Downloads\backup-antes-recuperacao-2026-08-13` existe de verdade. O arquivo `ANÚNCIOS EM POTENCIAL - KARZEN ELETRO (1) (1).xlsx` tem data de modificação **13/08/2026 07:52:26** — bate exatamente com o "07:52" citado na conversa. `mapeamento-skus-ads-catalogo-mercadolivre.md` linha 21 tem a regra exata sobre nunca chamar `powershell.exe` de dentro do Bash por causa da corrupção de acentos — mesma explicação, mesmo exemplo ("ANÚNCIOS EM POTENCIAL..."). Ambos os documentos (`analise-acos-catalogo-mercadolivre.md` linha 64 e `mapeamento-skus-ads-catalogo-mercadolivre.md` linha 84) têm a seção "⚠️ Correção (17-18/08/2026) — PREÇO ALTO NÃO é aviso genérico", citando o mesmo MLB `#6739045854`/`BAS1295P-127V` e os mesmos preços (R$134 vs R$190,83).
+
+**VALIDAÇÃO:** ✅ **BATE, nos 5 pontos**, com prova em commit, sistema de arquivos (pasta backup + timestamp exato) e 2 documentos de processo reais.
+
+**Nota de evolução (já rastreada nos Achados 18 e 23):** os 2 documentos aqui auditados foram, por sua vez, corrigidos de novo em 24/08 — a mesma reversão do "PREÇO ALTO→PERDENDO" pro "PREÇO ALTO = não catálogo, exceto se COMPETINDO" já documentada anteriormente. Consistente em 3 lugares diferentes (código + 2 docs).
+
+**AGENTE RESPONSÁVEL:** Nenhum — tudo investigado e corrigido corretamente, com rastro completo.
+
+---
+
+## ACHADO 26
+
+**Pedaço coberto:** linhas 13755-14200 do `esqueleto-parte1` — 18/08, 11:54 até 18:09 (compactação #6, aplicação dos 4 furos de documentação encontrados no Achado 25, e descoberta da estrutura real de `Analise Oficial.xlsx`).
+
+**O que foi encontrado:** (1) Dex corrigiu os 4 furos nos docs (mecanismo de "Alterar", regra "sempre confirmar via Alterar", PREÇO ALTO, bug de acentos) em 3 commits, incluindo uma autocorreção real: ao ser perguntado "não esqueceu de nada?", conferiu de novo e achou que tinha esquecido metade de um item (citar os 2 casos reais também no doc 1), corrigiu na hora com commit separado; (2) na explicação do documento pro Felipe, descobriu-se que `Analise Oficial.xlsx` já tinha 4 abas reais (`Plan1`, `Plan2`, `Prioridade - Fora de Ads`, `Mapeamento Completo da Planilha`) — o Passo D do documento nunca mencionava isso, só falava em Google Sheets — furo de documentação real, corrigido; (3) descoberto que `ANÚNCIOS EM POTENCIAL...xlsx` tem 737 linhas reais, não as 144 que a sessão anterior tinha processado — quase 600 produtos nunca tocados.
+
+**Investigação:** `git show a383fc0` ("corrige 4 furos"), `8106850` ("adiciona citacao dos casos reais FP100-220V/PAF11B-220V") e `a78bef0` ("corrige Passo D — destino real é o Analise Oficial.xlsx") existem, com mensagens batendo exatamente com a sequência da conversa (inclusive a autocorreção do item esquecido). Abertura de `Analise Oficial.xlsx` (só leitura) confirmou as 4 abas existem com os nomes exatos citados: `Plan1`, `Plan2`, `Prioridade - Fora de Ads`, `Mapeamento Completo da Planilha`. Contagem de linhas hoje é maior (68 e 220, vs 43 e 123 em 18/08) — consistente com trabalho legítimo continuado nas semanas seguintes, não uma contradição.
+
+**VALIDAÇÃO:** ✅ **BATE**, com prova em 3 commits reais e na estrutura real do arquivo (nomes de aba idênticos, crescimento de linhas coerente com o tempo passado).
+
+**AGENTE RESPONSÁVEL:** Nenhum — tudo corrigido, com a autocorreção real sendo um exemplo positivo de disciplina, não um erro escondido.
+
+---
+
+## ACHADO 27
+
+**Pedaço coberto:** linhas 14200-14649 do `esqueleto-parte1` — 18/08, 18:11 até 23:44 (plano de reprocessamento das 737 linhas confirmado, e piloto das linhas 145-170 rodado 3 vezes até sair limpo).
+
+**O que foi encontrado:** Plano fechado com Felipe (reaproveitar MLB conhecido, checkpoint a cada 20-25 linhas, regenerar as 2 abas do zero). No piloto (linhas 145-170), Dex achou e corrigiu 4 bugs reais em sequência: (1) `exceljs` nunca tinha sido instalado como dependência real do projeto — só em scratchpads temporários; (2) busca na aba de Ads aceitava texto desatualizado de uma busca anterior antes da nova carregar; (3) o filtro que escolhe a aba de Ads era largo demais e pegou uma aba velha de dashboard de campanha (19 abas acumuladas no Chrome daquela madrugada); (4) o SKU `CKESSTC-ITA5Q` (linha 158) — já citado no documento como caso de "Restrito para ganhar" — não teve catálogo confirmado porque o Mercado Livre mostrou a frase narrativa ("Você não pode ganhar porque tem experiência de compra ruim") em vez do badge maiúsculo, nunca reconhecida pelo extrator.
+
+**Investigação:** 4 commits reais, cada um batendo com o bug descrito na ordem exata da conversa: `6708ca1` ("adiciona exceljs como dependencia real"), `01c912e` ("busca em Ads aceitava texto desatualizado da pagina reusada"), `7bfa7a8` ("filtro de aba de Ads pegava dashboard de campanha velho"), `7182b8a` ("reconhece frase narrativa de RESTRITO PARA GANHAR no formato colapsado"). `analise-oficial-completo.json`, `linha-158`, SKU `CKESSTC-ITA5Q`: `catalogoConfirmado` tem exatamente os 2 MLBs esperados (`4277217107` Clássico, `4277230155` Premium), `statusCatalogo: "RESTRITO PARA GANHAR"` — bate exatamente com o que a correção deveria produzir. Esse mesmo caso já tinha aparecido, de forma indireta, no `mapeamento-skus-ads-catalogo-mercadolivre.md` (Achado 25/26): "achado no piloto do reprocessamento completo, 18/08/2026" — a frase do documento aponta pra este exato pedaço da conversa.
+
+**VALIDAÇÃO:** ✅ **BATE, nos 4 bugs**, com prova em 4 commits reais em sequência cronológica correta e no estado real do JSON — e como bônus, fecha o círculo com uma referência cruzada de um achado anterior (o documento citava este piloto sem o analyst ainda ter chegado nele).
+
+**AGENTE RESPONSÁVEL:** Nenhum — todos os 4 bugs corrigidos, documentados e verificados no dado real.
+
+---
+
+## ACHADO 28
+
+**Pedaço coberto:** linhas 14649-15098 do `esqueleto-parte1` — 18/08, 23:44 até 19/08, 00:50 (fechamento do piloto, descoberta de uma 2ª violação real da BLOCO 0-AA, e escalada ao Orion).
+
+**O que foi encontrado:** (1) Veredito final do piloto confirmado de novo: 22/26 linhas limpas, 4 bugs reais corrigidos (mesmo conteúdo do Achado 27); (2) Felipe notou 22 abas abertas no Chrome do Modo Navegador e cobrou explicação — Dex investigou e achou causa raiz real: seu script novo (`reprocessar-analise-oficial-completo.js`, commit `3122683`) reimplementou o seletor de aba de Anúncios do zero em vez de reaproveitar o `pipeline-lote-25-91.js` — a versão nova exigia `#` na URL (`vendedores.mercadolivre.com.br/anuncios#`), a antiga não exigia nada, e nenhuma das duas cobria os 2 casos ao mesmo tempo — violação real da BLOCO 0-AA, admitida pelo próprio Dex; (3) Atlas confirmou de forma independente (comparando os 2 arquivos linha por linha, não pela palavra do Dex) e achou 2 itens extras que o Dex não tinha listado; (4) achado colateral sério: o script de reprocessamento nunca escrevia de fato no `Analise Oficial.xlsx` — só coletava pro JSON, apesar do comentário dizer "regenerando as 2 abas"; (5) Felipe escalou a violação da BLOCO 0-AA pro @aiox-master, pedindo correção estrutural, não só reforço de texto.
+
+**Investigação:** `git show 3122683` existe: "feat: script de reprocessamento completo Analise Oficial (2-737)". `pipeline-lote-25-91.js` linha 108 tem exatamente `p.url().includes('vendedores.mercadolivre.com.br/anuncios')` — sem exigir `#`, confirmando a versão "solta" citada. O `reprocessar-analise-oficial-completo.js` de hoje tem, no cabeçalho, a citação explícita de reuso do BLOCO 0-AA (`acharSkuDoMlb`, `analisarSku`, `normalizarNumeroOuTraco`) — e o comentário da linha 298 ("Escrita real no Analise Oficial.xlsx (item 1 do plano, 18/08/2026)") confirma que a escrita real foi um item de plano adicionado depois — batendo exatamente com o furo que o Atlas achou ("nunca escreve de fato... isso muda o passo a passo"). `wb.xlsx.writeFile(ARQUIVO_ANALISE_OFICIAL)` existe hoje na linha 502, confirmando que o furo foi fechado.
+
+**VALIDAÇÃO:** ✅ **BATE, nos pontos centrais** — commit real, código real batendo com a comparação técnica citada, e o comentário do código confirmando (com a própria data) que o furo da escrita era real e foi corrigido depois.
+
+**AGENTE RESPONSÁVEL:** Nenhum pendente nesta janela — a violação da BLOCO 0-AA foi admitida e escalada corretamente; a correção estrutural (módulo compartilhado) é o próximo passo que o Orion estava iniciando quando este pedaço termina.
+
+---
+
 *Documento vivo — novos achados são adicionados aqui conforme a leitura linha por linha (`esqueleto-parte1-89427cf3.md` + `esqueleto-parte2-a5d3b08c.md`) avança. Gerado em 04/09/2026 por @analyst (Atlas), persistido por @aiox-master (Orion).*

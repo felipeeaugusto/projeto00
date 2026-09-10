@@ -289,3 +289,28 @@
 **PAROU EM:** **150 de 736 linhas** processadas e validadas manualmente pelo Felipe (faixas 2-50, 51-75, 76-100, 101-125, 145-170), tudo correto. A validação da Planilha está **parada** — não por bug, mas porque a descoberta das 3 camadas mortas tirou a confiança no que estava sendo validado. **Nenhuma implementação do guardião foi feita** — só investigação e desenho. A decisão da "fase 0" está com o Felipe: (a) onde instalar o guardião, dado que cada pasta de projeto hoje nasce sem proteção; (b) se começa agora. O plano tem 11 fases, e a fase 4 mostra que a validação da Planilha pode ser retomada cedo, em paralelo ao resto — não precisa esperar as 11 | Agente ativo: dev
 
 ---
+
+### SESSÃO — 25-26/08/2026
+
+**O QUE FOI FEITO:**
+- Regra de detecção de catálogo redefinida (Fase 0+1): badge "COMPETINDO" agora é obrigatório junto com a seção "Concorrência no Mercado Livre" pra confirmar catálogo — a regra de 16/08 ("seção existir sozinha = catálogo") estava errada, achada pelo Felipe no SKU P32CRB e confirmada em PROSB-3000/WAF-127V (badges "PREÇO ALTO"/"PREÇO COMPETITIVO" sem COMPETINDO não são catálogo). 4 formatos validados como catálogo real, incluindo o formato narrativo "Restrito para ganhar" (reconectado depois de um gap real de cobertura, achado pela própria trava de segurança do sistema)
+- BLOCO 0-AD criado e formalizado no `CLAUDE.md` (framework inteiro, não só Karzen) — princípio novo: pipeline de lote que encontra um padrão de CLASSIFICAÇÃO nunca mapeado (não é erro técnico) para o lote inteiro e espera validação humana, nunca adivinha. Também registrado como Customização 51 no `CUSTOMIZACOES-FELIPE/MANUAL.md`
+- Robustez do pipeline de reprocessamento: corrigido um `catch` que apagava dado bom de linhas já processadas em caso de exceção transitória; detecção e recuperação automática de travamento da barra de ferramentas do Mercado Livre (`.ml-ads-toolbar`); freio de segurança (para o lote após 2 exceções seguidas do mesmo tipo)
+- 2 bugs reais de casamento de MLB corrigidos: (1) quando 2 MLBs de condições diferentes (Clássico/Premium) compartilham o mesmo preço, o sistema não sabia qual opção pertencia a qual — corrigido extraindo e comparando também a condição, não só o preço; (2) busca de Título/Status em Ads falhava por orçamento de tempo insuficiente em páginas mais lentas (medido ao vivo: até 11 segundos, contra um teto de 8) — corrigido aumentando o orçamento só nessa função específica, mais um retry automático pra flutuações residuais que nem isso cobria (achado ao vivo, investigado via 5 Whys)
+- Reverificadas as 75 linhas já processadas (58 SKUs únicos) com todas as correções acima — 0 anomalias de classificação não resolvidas, todos os erros remanescentes são do tipo técnico conhecido (retry-safe)
+- Felipe validou manualmente, linha por linha, a planilha `Analise Oficial.xlsx` (as 75 linhas processadas) — confirmou "está tudo correto agora", incluindo os 2 SKUs que tinham ficado com "-" no Título de Catálogo/Status em Ads (BAS1295P-127V, GTW20INOX-127V)
+- Achado e corrigido um erro de processo real: um relatório apresentou números de linha do JSON interno (que se referem à planilha FONTE) como se fossem linhas da planilha "Analise Oficial.xlsx" de destino — Felipe pegou o erro comparando com a planilha real aberta; corrigido, e a partir de agora qualquer relato de linha específica é sempre traduzido pra linha real da planilha de destino, nunca reportado pelo número interno do JSON
+- Caderno do projeto corrigido — estava desatualizado desde 10/08/2026, descrevendo o Passo D como escrita em páginas do Google Sheets; o método pivotou pra um arquivo Excel local (`Analise Oficial.xlsx`) nesse meio tempo, sem essa mudança nunca ter sido registrada aqui
+
+**O QUE O FELIPE PEDIU:**
+- Investigar por que os MLBs de catálogo do SKU P32CRB estavam errados, e por que — levou à descoberta de que a regra de 16/08 estava errada por inteiro
+- Reverificação completa das 75 linhas já processadas com a regra corrigida, "sem ficar nada pra trás"
+- Nova regra permanente: qualquer padrão de classificação nunca mapeado deve parar o lote inteiro, nunca ser adivinhado — formalizada como BLOCO 0-AD
+- Investigação ao vivo (não suposição) de cada bug encontrado durante a validação manual dele, com solução proposta via `*elicit` antes de qualquer código, sempre testada antes de declarar resolvido
+- Correção do erro de relato (linha do JSON reportada como linha da planilha real) — exigiu confirmação e investigação da causa antes de prosseguir
+- Investigação da causa raiz da falha transitória na linha 31 (GTW20INOX-127V) mesmo após o primeiro fix de timeout — não aceitar "foi flutuação" sem explicação real
+- Atualização do caderno, corrigindo a descrição desatualizada do item de mapeamento de SKUs (Google Sheets → Excel local) e registrando o progresso real
+
+**PAROU EM:** 125 de 736 linhas da planilha "ANÚNCIOS EM POTENCIAL - KARZEN ELETRO" processadas e validadas manualmente pelo Felipe, tudo correto (faixas 2-50, 51-75, 76-100, 145-170). Faltam ~611 linhas, em blocos de 20-25 com validação do Felipe a cada bloco — próximo bloco a partir da linha 101. Todas as correções desta sessão (regra COMPETINDO, BLOCO 0-AD, casamento por condição, timeout + retry automático na busca em Ads) já valem automaticamente pros próximos blocos — nenhuma ação extra necessária antes de continuar | Agente ativo: analyst
+
+---

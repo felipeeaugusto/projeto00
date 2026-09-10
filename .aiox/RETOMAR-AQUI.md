@@ -1,7 +1,7 @@
 # 🧭 RETOMAR AQUI
 
 > **Leia este arquivo ANTES de qualquer outra coisa.** Ele é o ponteiro entre sessões — diz onde tudo parou e o que fazer a seguir.
-> **Atualizado em:** 07/09/2026 · **Por:** 👑 @aiox-master (Orion), em sessão na pasta `global`
+> **Atualizado em:** 09/09/2026 · **Por:** 🔍 @analyst (Atlas), em sessão na pasta `karzen` (fechamento de sessão, "vou parar")
 > **Ordem de leitura ao abrir uma sessão:** ① este arquivo → ② **`.aiox/PLANO-MESTRE.md`** → ③ `.aiox/itens-em-aberto.md` → ④ o caderno do projeto ativo (`packages/karzen/PROJETO-STATUS.md`).
 
 ---
@@ -30,14 +30,13 @@ O que ele contém, e que você precisa saber antes de agir:
 
 | | |
 |---|---|
-| ✅ **Solucionador — Spec Pipeline completo, implementado, desenho+plano consolidados** | Ver seção 8 abaixo — tudo isso já estava fechado antes desta sessão de auditoria (03-04/09) |
-| 🔄 **RE-INVESTIGAÇÃO LINHA POR LINHA EM ANDAMENTO — é a frente ativa agora** | `.aiox/mapeamento/MAPEAMENTO-LINHA-POR-LINHA.md` — 21 achados + 4 adendos, **~37% do `esqueleto-parte1` coberto** (até linha ~11.909 de ~32.322), 0% do `esqueleto-parte2` (~1.600 linhas). Ver seção 9 |
-| 🗺️ **O plano que governa tudo (07/09/2026)** | `.aiox/PLANO-MESTRE.md` — 6 fases, DEC-20 a DEC-24, regra das 2 pastas, ponto de retorno. **Leia antes de agir** |
-| ➡️ **Próximo passo concreto** | **FASE 0 do PLANO-MESTRE, em ordem obrigatória:** ⓵ `@devops` commita o `PLANO-MESTRE.md` + `RETOMAR-AQUI.md` e faz push (o plano está fora do Git — risco de perda) → ⓶ `@dev` investiga o Achado 2 (`PAS23-BIV`) **no Modo Navegador, com o mínimo de abas e fechando em `finally`** → ⓷ `@analyst` reapresenta o adendo ao Achado 14 para o Felipe confirmar. **Só então** começa a **FASE 1** — leitura linha por linha a partir da linha **11.909** de `esqueleto-parte1-89427cf3.md` |
-| 🔄 **Fases reordenadas em 07/09/2026** | O mapeamento virou **FASE 1** e a Camada 0 virou **FASE 2**. Motivo: a Camada 0 existia para destravar a planilha (DEC-14), mas pela DEC-23 (Plano B) a planilha só volta na FASE 6 — ela perdeu a urgência |
-| ⏳ **Pendente de confirmação (não persistido)** | Adendo ao Achado 14 (bug "Médio" em Nível de visitas) — investigado, apresentado, sessão encerrada antes da confirmação. Perguntar ao Felipe ao retomar |
-| 🔴 **Divergência real aberta, atribuída ao @dev** | Achado 2 — E92 (`PAS23-BIV`, `statusCatalogo: null`) não compartilha causa raiz com o bug de 13/08 como hipotetizado; nunca foi investigado de verdade. Precisa o @dev checar |
-| 🚀 **Push pendente** | 24 commits locais do `MAPEAMENTO-LINHA-POR-LINHA.md` (todo o trabalho de hoje) ainda não foram pro GitHub — pedir ao @devops quando o Felipe quiser |
+| ✅ **FASE 0 do PLANO-MESTRE — concluída (07-09/09/2026)** | 0.1 push feito (`ed4ccba`) · 0.2 Achado 2 investigado e resolvido (não era divergência, era atualização real do Mercado Livre — ver linha abaixo) · 0.3 adendo ao Achado 14 confirmado e persistido |
+| 🔧 **Achado 2 (E92) — RESOLVIDO, não é mais divergência aberta** | Não compartilhava causa raiz com o bug de 13/08 mesmo — era o Mercado Livre tendo atualizado a tela "Alterar" (card novo "GANHADOR POR PREÇO" quando ganhando). Corrigido em `extrairOpcaoUnicaSemRotulo` (`pipeline-pausados-campanha-completo.js`), testado ao vivo, commitado e pushado (`b0e40bf`). Formato de PERDER catálogo (nome do concorrente + estoques) ainda não visto ao vivo — registrado em `itens-em-aberto.md` pra quando aparecer |
+| 🔄 **RE-INVESTIGAÇÃO LINHA POR LINHA EM ANDAMENTO — é a frente ativa agora** | `.aiox/mapeamento/MAPEAMENTO-LINHA-POR-LINHA.md` — **29 achados** + adendos, **~48% do `esqueleto-parte1` coberto** (até linha ~15.547 de ~32.322), 0% do `esqueleto-parte2` (~1.600 linhas). Ver seção 9 |
+| 🗺️ **O plano que governa tudo (07/09/2026)** | `.aiox/PLANO-MESTRE.md` — 6 fases, DEC-20 a DEC-24, regra das 2 pastas, ponto de retorno. **Leia antes de agir** — continua sem mudança nesta sessão |
+| ➡️ **Próximo passo concreto** | Continuar a **FASE 2** (re-investigação linha por linha) a partir da linha **15.547** de `esqueleto-parte1-89427cf3.md` — mas primeiro perguntar ao Felipe se ele quer confirmar o **Achado 29** (ver seção 9), que ficou apresentado e sem resposta quando a sessão foi encerrada |
+| ⏳ **Pendente de confirmação (não persistido)** | **Achado 29** (correção estrutural da BLOCO 0-AA, reuso parcial de arquivo) — investigado e apresentado, sessão encerrada ("vou parar") antes da confirmação do Felipe. Perguntar ao retomar |
+| 🚀 **Push pendente** | Achados 22-29 do `MAPEAMENTO-LINHA-POR-LINHA.md` — commitados nesta auditoria de fechamento (verificar hash exato no `git log`), @devops precisa dar `push` quando o Felipe chamar |
 | 🔴 **A única coisa que trava a planilha Karzen** | `Analise Oficial.xlsx`, linha 151/736 — segue pausada, sem tocar (BLOCO 0-U REGRA 5, nunca 2 frentes ao mesmo tempo) |
 
 ---
@@ -133,7 +132,7 @@ Para volumes pequenos (até ~15.000 linhas), leitura DIRETA pelo próprio agente
 | `.aiox/PLANO-EXECUCAO.md` | As 6 fases, com sub-passos e status |
 | `.aiox/PLANO-FINAL.md` | Os 153 itens classificados nas 4 trilhas — **o mapa da FASE 5** |
 | `.aiox/itens-resolvidos-arquivo.md` | O que já foi fechado |
-| `packages/karzen/PROJETO-STATUS.md` | Caderno do projeto ativo — atualizado hoje com a sessão inteira |
+| `packages/karzen/PROJETO-STATUS.md` | Caderno do projeto ativo — atualizado em 09/09/2026 com a sessão inteira |
 | `.claude/CLAUDE.md` | As BLOCOs (inclui a 0-AF, nova hoje) |
 | `CUSTOMIZACOES-FELIPE/MANUAL.md` | 60 customizações |
 
@@ -172,14 +171,13 @@ Felipe pediu pra confirmar se o Solucionador foi validado contra o trio oficial 
 
 | | |
 |---|---|
-| Arquivo | `.aiox/mapeamento/MAPEAMENTO-LINHA-POR-LINHA.md` — 24 commits locais (`babe957`..`44c8a38`), **nenhum pushado ainda** |
-| Metodologia | Ler pedaço do `esqueleto-parte1-89427cf3.md` → `@analyst` (Atlas) investiga contra arquivos reais, apresenta achado no formato Pedaço/Achado/Investigação/Validação/Agente Responsável → Felipe confirma → `@aiox-master` (Orion) **só persiste** (nunca investiga — regra reforçada após violação real) → commit → volta pro Atlas |
-| Progresso | **~37% do `esqueleto-parte1`** (até linha ~11.909 de ~32.322, 13/08 → 17/08 18:46) · **0% do `esqueleto-parte2`** (~1.600 linhas, 03-04/09) |
-| Achados registrados | 21 achados + adendos aos Achados 12 (x2), 13, 17 — 20 "BATEM" com alta fidelidade |
-| 🔴 Divergência real aberta | **Achado 2** — E92 (`PAS23-BIV`, `statusCatalogo: null`) não compartilha causa raiz com o bug de 13/08 (janela de 2200 caracteres) como hipotetizado. Nunca investigado de verdade. **Atribuído ao @dev** |
-| ⏳ Pendente de confirmação | Adendo ao Achado 14 (bug "Médio" em Nível de visitas) — investigado e apresentado, sessão fechou antes da confirmação do Felipe |
-| ➡️ Retomar em | Linha **11.909** de `esqueleto-parte1-89427cf3.md`, mesmo ritmo pedaço-por-pedaço |
-| Regra nova desta sessão | Troca de persona sempre via `Skill` tool explícito (não só `.current-agent` por baixo dos panos) — o próprio `Bash`+`Skill` já é o mecanismo de confirmação do BLOCO 0-D, sem precisar de pergunta de texto redundante quando o próximo agente já é óbvio pelo contexto |
+| Arquivo | `.aiox/mapeamento/MAPEAMENTO-LINHA-POR-LINHA.md` — Achados 1-21 já estavam pushados; **Achados 22-29 commitados na auditoria de fechamento de 09/09/2026** (ver `git log`), @devops precisa dar `push` |
+| Metodologia | Ler pedaço do `esqueleto-parte1-89427cf3.md` → `@analyst` (Atlas) investiga contra arquivos reais, apresenta achado no formato Pedaço/Achado/Investigação/Validação/Agente Responsável → Felipe confirma → `@aiox-master` (Orion) **só persiste** (nunca investiga — regra reforçada após violação real) → commit → volta pro Atlas. **Validada 29 vezes seguidas sem quebrar** |
+| Progresso | **~48% do `esqueleto-parte1`** (até linha ~15.547 de ~32.322, cobre 13/08 → 19/08 02:30) · **0% do `esqueleto-parte2`** (~1.600 linhas, 03-04/09) |
+| Achados registrados | 29 achados (Achados 22-29 novos em 09/09/2026) + adendos — altíssima fidelidade, praticamente todos "BATEM" contra evidência real (commits, JSON, código, e até o próprio `CLAUDE.md` no Achado 29) |
+| ⏳ Pendente de confirmação | **Achado 29** (correção estrutural da BLOCO 0-AA / reuso parcial) — investigado e apresentado, sessão encerrada ("vou parar") antes da confirmação do Felipe |
+| ➡️ Retomar em | Linha **15.547** de `esqueleto-parte1-89427cf3.md`, mesmo ritmo pedaço-por-pedaço — perguntar primeiro se confirma o Achado 29 pendente |
+| Regra válida desde 04-05/09/2026 | Troca de persona sempre via `Skill` tool explícito (não só `.current-agent` por baixo dos panos) — o próprio `Bash`+`Skill` já é o mecanismo de confirmação do BLOCO 0-D, sem precisar de pergunta de texto redundante quando o próximo agente já é óbvio pelo contexto |
 
 ---
 
